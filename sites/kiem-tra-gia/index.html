@@ -505,7 +505,7 @@ function renderCalcTab() {
 
   // Other tonnage (visible by default, hidden when Jumbo)
   h += '<div class="calc-row" id="calcOtherTonnageRow">';
-  h += '<label>Số container (quy cách khác)</label>';
+  h += '<label>Số tấn (quy cách khác)</label>';
   h += '<select id="calcOtherTonnage" onchange="calcPrice()">';
   for (var i = 1; i <= 28; i++) {
     h += '<option value="' + i + '">' + i + ' container</option>';
@@ -529,18 +529,23 @@ function filterCalcProducts() {
   var me = document.getElementById("calcMachine"), se = document.getElementById("calcStandard"), pe = document.getElementById("calcProduct");
   if (!me || !se || !pe) return;
   var m = me.value, standards = {};
+  var prevStd = se.value;
   DATA_PRODUCTS.forEach(function(p) { if (!m || p.machine === m) standards[p.standard] = true; });
   var sk = Object.keys(standards).sort();
   se.innerHTML = '<option value="">— Chọn tiêu chuẩn —</option>';
   for (var i = 0; i < sk.length; i++) se.innerHTML += '<option value="' + sk[i].replace(/"/g, '&quot;') + '">' + sk[i] + '</option>';
+  // Restore previous selection if still valid
+  se.value = prevStd && sk.indexOf(prevStd) >= 0 ? prevStd : "";
   filterCalcProducts_products();
 }
 function filterCalcProducts_products() {
   var me = document.getElementById("calcMachine"), se = document.getElementById("calcStandard"), pe = document.getElementById("calcProduct");
   if (!me || !se || !pe) return;
   var m = me.value, s = se.value;
+  var prevProd = pe.value;
   pe.innerHTML = '<option value="">— Chọn sản phẩm —</option>';
   DATA_PRODUCTS.forEach(function(p) { if ((!m || p.machine === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
+  pe.value = prevProd;
 }
 function onCalcProductChange() { calcPrice(); }
 // ====== FILTER HELPERS ======
@@ -879,6 +884,7 @@ function render() {
     container.innerHTML = renderOthersTab();
   } else if (activeTab === "calc") {
     container.innerHTML = renderCalcTab();
+    setTimeout(function(){ filterCalcProducts(); filterBagSpec(); }, 0);
   } else if (activeTab === "manage") {
     container.innerHTML = "";
   } else {
