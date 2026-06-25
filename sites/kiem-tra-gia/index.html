@@ -620,10 +620,12 @@ function calcCommission() {
   var bagPrice = 0, bcode = bsel ? bsel.value : "", isJumbo = bagSpecSel && bagSpecSel.value === "Jumbo", bagTons = 1;
   if (isJumbo && tnsel && tnsel.value && parseFloat(tnsel.value) > 0) bagTons = parseFloat(tnsel.value);
   var otherTons = 1;
-  if (!isJumbo && otnsel && otnsel.value && parseFloat(otnsel.value) > 0) otherTons = parseFloat(otnsel.value);
+  if (otnsel && otnsel.value && parseFloat(otnsel.value) > 0) otherTons = parseFloat(otnsel.value);
+  // When Jumbo selected, other spec also divides by bag tonnage
+  if (isJumbo && bagTons > 0) otherTons = bagTons;
   if (bcode) { for (var i = 0; i < DATA_BAGS.length; i++) { if (DATA_BAGS[i].code === bcode) { bagPrice = DATA_BAGS[i].price; break; } } if (isJumbo && bagTons > 0) bagPrice = bagPrice / bagTons; }
   var otherPrice = 0, ocode = osel ? osel.value : "";
-  if (ocode) { for (var i = 0; i < DATA_OTHERS.length; i++) { if (DATA_OTHERS[i].code === ocode) { otherPrice = DATA_OTHERS[i].price; break; } } if (!isJumbo && otherTons > 0) otherPrice = otherPrice / otherTons; }
+  if (ocode) { for (var i = 0; i < DATA_OTHERS.length; i++) { if (DATA_OTHERS[i].code === ocode) { otherPrice = DATA_OTHERS[i].price; break; } } if (otherTons > 0) otherPrice = otherPrice / otherTons; }
   var totalCost = exwMin + bagPrice + otherPrice;
   var diff = Math.max(0, sellPrice - totalCost);
   var commissionVar = diff * 0.3;
@@ -648,11 +650,13 @@ function calcPrice() {
   var isJumbo = bagSpecSel && bagSpecSel.value === "Jumbo";
   if (isJumbo && tnsel && tnsel.value && parseFloat(tnsel.value) > 0) bagTons = parseFloat(tnsel.value);
   var ocode = osel ? osel.value : "", otherTons = 1;
-  if (!isJumbo && otnsel && otnsel.value && parseFloat(otnsel.value) > 0) otherTons = parseFloat(otnsel.value);
+  if (otnsel && otnsel.value && parseFloat(otnsel.value) > 0) otherTons = parseFloat(otnsel.value);
+  // When Jumbo selected, other spec also divides by bag tonnage
+  if (isJumbo && bagTons > 0) otherTons = bagTons;
   var bagCode = "";
   if (bcode) { for (var i = 0; i < DATA_BAGS.length; i++) { if (DATA_BAGS[i].code === bcode) { bagPrice = DATA_BAGS[i].price; bagCode = DATA_BAGS[i].code; break; } } if (isJumbo && bagTons > 0) bagPrice = bagPrice / bagTons; }
   var otherPrice = 0, otherCode = "";
-  if (ocode) { for (var i = 0; i < DATA_OTHERS.length; i++) { if (DATA_OTHERS[i].code === ocode) { otherPrice = DATA_OTHERS[i].price; otherCode = DATA_OTHERS[i].code; break; } } if (!isJumbo && otherTons > 0) otherPrice = otherPrice / otherTons; }
+  if (ocode) { for (var i = 0; i < DATA_OTHERS.length; i++) { if (DATA_OTHERS[i].code === ocode) { otherPrice = DATA_OTHERS[i].price; otherCode = DATA_OTHERS[i].code; break; } } if (otherTons > 0) otherPrice = otherPrice / otherTons; }
   var total = exwMin + bagPrice + otherPrice;
   var cc = isUsd ? "USD" : "VND";
   var h = '<div class="calc-result-summary">';
