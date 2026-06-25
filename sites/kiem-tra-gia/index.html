@@ -48,54 +48,43 @@ tbody tr:hover td{background:#eff6ff}
 .badge-A2-{background:#fef9c3;color:#a16207}
 .badge-A3{background:#fce7f3;color:#be185d}
 .tag-profit{display:inline-block;padding:2px 8px;border-radius:20px;background:var(--green-light);color:#166534;font-size:11px;font-weight:700}
-.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:24px;background:#f8fafc}
-.calc-left,.calc-right{background:var(--card);border-radius:var(--radius);padding:20px 24px;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
-.calc-section{background:#fafbfc;border:1px solid #eef2f6;border-radius:10px;padding:14px 16px;margin-bottom:14px}
-.calc-section-header{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #eef2f6}
-.calc-section-icon{font-size:16px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:#e8edf5;border-radius:8px}
-.calc-row-group{display:flex;gap:10px}
-.calc-row-half{flex:1;margin-bottom:0}
-.calc-row-half label{display:block;font-size:11px;font-weight:700;margin-bottom:4px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.03em}
-.calc-row-half select,.calc-row-half input{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:var(--card);outline:none;transition:all .2s;font-family:var(--font);color:var(--text)}
-.calc-row{margin-bottom:8px}
-.calc-row label{display:block;font-size:11px;font-weight:700;margin-bottom:4px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.03em}
-.calc-row select,.calc-row input{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:var(--card);outline:none;transition:all .2s;font-family:var(--font);color:var(--text)}
-.calc-row{margin-bottom:16px}
-.calc-row label{display:block;font-size:12px;font-weight:700;margin-bottom:5px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.03em}
-.calc-row select,.calc-row input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;background:var(--card);outline:none;transition:all .2s;font-family:var(--font);color:var(--text)}
-.calc-price-mode-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px}
-.calc-price-mode-bar .mode-group{display:flex;gap:4px}
-.calc-price-mode-bar .mode-btn{padding:7px 18px;border:1.5px solid var(--border);background:#fff;font-size:13px;font-weight:600;cursor:pointer;border-radius:8px;font-family:var(--font);color:var(--text-secondary)}
-.calc-price-mode-bar .mode-btn.active{background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;border-color:var(--primary)}
-.calc-result{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1.5px solid #bbf7d0;border-radius:var(--radius);padding:20px;margin-top:0}
-.calc-result h4{font-size:14px;color:var(--green);margin-bottom:14px;font-weight:700}
-.calc-result .line{display:flex;justify-content:space-between;padding:8px 0;font-size:14px;border-bottom:1px dashed #d1fae5}
-.calc-result .line:last-child{font-weight:800;font-size:17px;color:var(--green);border-bottom:none;padding-top:12px}
-.calc-empty{padding:40px 20px;text-align:center;color:var(--muted)}
-.calc-empty-icon{font-size:42px;margin-bottom:10px}
-.calc-empty-text{font-size:14px;color:var(--muted)}
-.calc-right-header{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:800;color:var(--primary);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--primary)}
-.calc-right-icon{font-size:20px}
-.calc-result-summary{display:flex;flex-direction:column;gap:10px;padding:0 2px}
-.calc-result-item{display:flex;justify-content:space-between;align-items:center}
-.calc-label{font-size:13px;color:var(--muted)}
-.calc-value{font-size:14px;font-weight:600;color:var(--text)}
-.calc-value.price-exw{color:#e67e22}
-.calc-value.price-bag{color:#3498db}
-.calc-value.price-other{color:#9b59b6}
-.calc-value.price-total{color:var(--primary);font-size:16px}
-.calc-divider{height:1px;background:var(--border);margin:4px 0}
-.calc-commission-wrap{margin-top:16px;background:#f8f9fa;border-radius:10px;padding:14px}
-.calc-sellprice-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.calc-sellprice-row span{font-size:14px;font-weight:600;color:var(--primary)}
-.calc-sellprice-row input{width:160px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:600;text-align:right;background:#fff}
-.calc-sellprice-row input:focus{outline:2px solid var(--primary);border-color:transparent}
-.calc-comm-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px}
+.calc-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:20px;padding:20px;background:#f8fafc}
+.calc-left,.calc-right{background:var(--card);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
+.calc-left{max-height:600px;overflow-y:auto}
+.calc-form-group{margin-bottom:12px}
+.calc-form-group:last-child{margin-bottom:0}
+.calc-form-label{font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:4px;letter-spacing:.02em}
+.calc-form-label .icon{margin-right:5px}
+.calc-row-inline{display:flex;gap:10px}
+.calc-row-inline > *{flex:1}
+.calc-select{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;background:var(--card);outline:none;transition:all .15s;font-family:var(--font);color:var(--text);cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='%2394a3b8'%3E%3Cpath d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:30px}
+.calc-select:focus{border-color:var(--primary);box-shadow:0 0 0 2px var(--primary-glow)}
+.calc-right-header{font-size:16px;font-weight:800;color:var(--primary);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--primary);display:flex;align-items:center;gap:8px}
+.calc-result{background:linear-gradient(135deg,#f9fafb,#f3f4f6);border-radius:10px;padding:16px;min-height:120px}
+.calc-result .calc-empty{text-align:center;padding:36px 16px;color:var(--muted)}
+.calc-empty-icon{font-size:36px;margin-bottom:8px;opacity:.6}
+.calc-empty-text{font-size:13px}
+.calc-result-summary{display:flex;flex-direction:column;gap:6px}
+.calc-result-item{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px dashed #e5e7eb}
+.calc-result-item:last-child{border-bottom:none}
+.calc-rl{font-size:12px;color:var(--muted)}
+.calc-rv{font-size:13px;font-weight:600;color:var(--text)}
+.calc-rv.exw{color:#d97706}
+.calc-rv.bag{color:#2563eb}
+.calc-rv.other{color:#7c3aed}
+.calc-rv.total{color:#059669;font-size:15px}
+.calc-divider{border-top:1px solid var(--border);margin:6px 0}
+.calc-commission-wrap{margin-top:12px;background:#f9fafb;border-radius:8px;padding:12px}
+.calc-sell-input{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.calc-sell-input span{font-size:13px;font-weight:700;color:var(--primary);white-space:nowrap}
+.calc-sell-input input{flex:1;padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-weight:600;text-align:right;background:#fff;outline:none;font-family:var(--font);min-width:0;width:auto}
+.calc-sell-input input:focus{border-color:var(--primary);box-shadow:0 0 0 2px var(--primary-glow)}
+.calc-comm-row{display:flex;justify-content:space-between;padding:4px 0;font-size:12px}
 .calc-comm-row span{color:var(--muted)}
 .calc-comm-row strong{font-weight:600}
-.calc-comm-row.calc-total{padding:10px 0!important;border-top:2px solid var(--primary)!important;margin-top:6px!important}
-.calc-comm-row.calc-total span{font-weight:600;color:var(--text)}
-.calc-comm-row.calc-total strong{color:var(--primary);font-size:16px}
+.calc-comm-row.calc-total{font-size:14px;padding:8px 0!important;border-top:2px solid var(--primary)!important;margin-top:4px!important}
+.calc-comm-row.calc-total span{font-weight:700;color:var(--text)}
+.calc-comm-row.calc-total strong{color:var(--primary);font-size:15px}
 .manage-panel{display:none}
 .manage-panel.open{display:block}
 .manage-login{max-width:400px;margin:40px auto;background:var(--card);border-radius:var(--radius-lg);padding:32px;text-align:center;box-shadow:var(--shadow-md);border:1px solid var(--border)}
@@ -694,20 +683,17 @@ function calcPrice() {
   var total = exwMin + bagPrice + otherPrice;
   var cc = isUsd ? "USD" : "VND";
   var h = '<div class="calc-result-summary">';
-  h += '<div class="calc-result-item"><span class="calc-label">📦 Sản phẩm</span><strong class="calc-value">' + prod.code + '</strong></div>';
-  h += '<div class="calc-result-item"><span class="calc-label">⚙️ Máy / Tiêu chuẩn</span><strong class="calc-value">' + prod.machine + ' · ' + prod.standard + '</strong></div>';
-  h += '<div class="calc-result-item"><span class="calc-label">📐 Kích thước</span><strong class="calc-value">' + prod.size + '</strong></div>';
-  h += '<div class="calc-result-item"><span class="calc-label">💰 EXW (tối thiểu)</span><strong class="calc-value price-exw">' + Math.round(exwMin).toLocaleString() + ' ' + cc + '</strong></div>';
-  var bd = ""; if (bcode) { bd = bagCode; if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-label">🛍️ Bao bì (' + bd + ')</span><strong class="calc-value price-bag">' + Math.round(bagPrice).toLocaleString() + ' ' + cc + '</strong></div>'; }
-  if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-label">📦 Quy cách khác (' + od + ')</span><strong class="calc-value price-other">' + Math.round(otherPrice).toLocaleString() + ' ' + cc + '</strong></div>'; }
+  h += '<div class="calc-result-item"><span class="calc-rl">📦 Sản phẩm</span><span class="calc-rv">' + prod.code + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">⚙️ Máy / Tiêu chuẩn</span><span class="calc-rv">' + prod.machine + ' · ' + prod.standard + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">📐 Kích thước</span><span class="calc-rv">' + prod.size + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">💰 EXW tối thiểu</span><span class="calc-rv exw">' + Math.round(exwMin).toLocaleString() + ' ' + cc + '</span></div>';
+  var bd = ""; if (bcode) { bd = bagCode; if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">🛍️ Bao bì (' + bd + ')</span><span class="calc-rv bag">' + Math.round(bagPrice).toLocaleString() + ' ' + cc + '</span></div>'; }
+  if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">📦 Quy cách khác (' + od + ')</span><span class="calc-rv other">' + Math.round(otherPrice).toLocaleString() + ' ' + cc + '</span></div>'; }
   h += '<div class="calc-divider"></div>';
-  h += '<div class="calc-result-item calc-total"><span class="calc-label">🏷️ Tổng giá thành (EXW)</span><strong class="calc-value price-total">' + (Math.round(total) || 0).toLocaleString() + ' ' + cc + '</strong></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">🏷️ Tổng giá thành</span><span class="calc-rv total">' + (Math.round(total) || 0).toLocaleString() + ' ' + cc + '</span></div>';
   h += '</div>';
   h += '<div class="calc-commission-wrap">';
-  h += '<div class="calc-sellprice-row">';
-  h += '<span>💰 Giá bán</span>';
-  h += '<input type="number" id="calcSellPrice" placeholder="Nhập giá bán..." oninput="calcCommission()">';
-  h += '</div>';
+  h += '<div class="calc-sell-input"><span>💰 Giá bán</span><input type="number" id="calcSellPrice" placeholder="Nhập giá bán..." oninput="calcCommission()"></div>';
   h += '<div id="calcCommissionResult"></div>';
   h += '</div>';
   res.innerHTML = h;
