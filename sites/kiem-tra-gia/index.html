@@ -32,13 +32,14 @@ header .badge{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);padding
 .price-mode-bar .ext-input{padding:6px 12px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;font-weight:600;width:100px;outline:none;font-family:var(--font);color:var(--text);text-align:right}
 .price-mode-bar .ext-label{font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap}
 .freight-warning{background:#fef3cd;border:1px solid #fbbf24;color:#92400e;padding:12px 16px;border-radius:10px;margin-bottom:16px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:8px}
-.table-wrap{background:var(--card);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border)}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
-th{padding:10px 12px;font-weight:700;font-size:12px;border-bottom:1px solid var(--border);white-space:nowrap;text-align:left}
+.table-wrap{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04),0 0 0 1px rgba(0,0,0,.04);margin-bottom:16px}
+.table-wrap.pricelist{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:800px}
+th{padding:10px 14px;font-weight:700;font-size:12px;border-bottom:1px solid #e2e8f0;white-space:nowrap;text-align:left}
 thead{position:sticky;top:0;z-index:2}
-thead tr:first-child th{background:linear-gradient(135deg,#f8fafc,#f1f5f9);font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
-thead tr:nth-child(2) th{background:#f8fafc;font-size:12px;color:var(--text)}
-td{padding:10px 12px;border-bottom:1px solid #f1f5f9;white-space:nowrap}
+thead tr:first-child th{background:linear-gradient(135deg,#f1f5f9,#e2e8f0);font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#64748b;padding:8px 14px}
+thead tr:nth-child(2) th{background:#f8fafc;font-size:12px;color:#0f172a;padding:10px 14px;border-bottom:2px solid #e2e8f0}
+td{padding:9px 14px;border-bottom:1px solid #f1f5f9;white-space:nowrap;font-size:13px}
 tbody tr:nth-child(even) td{background:#fafbfc}
 tbody tr:hover td{background:#eff6ff}
 .text-right{text-align:right}
@@ -48,6 +49,11 @@ tbody tr:hover td{background:#eff6ff}
 .badge-A2-{background:#fef9c3;color:#a16207}
 .badge-A3{background:#fce7f3;color:#be185d}
 .tag-profit{display:inline-block;padding:2px 8px;border-radius:20px;background:var(--green-light);color:#166534;font-size:11px;font-weight:700}
+.summary-bar{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.summary-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.summary-card .lbl{font-size:12px;color:#64748b;font-weight:500;white-space:nowrap}
+.summary-card .val{font-size:18px;font-weight:800;color:#0f172a}
+.info-row{font-size:10px;font-weight:400;color:#94a3b8}
 .calc-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:24px;padding:24px;background:#f8fafc}
 .calc-left,.calc-right{background:#fff;border-radius:14px;padding:22px 24px;box-shadow:0 1px 4px rgba(0,0,0,.04),0 0 0 1px rgba(0,0,0,.04)}
 .calc-left{max-height:620px;overflow-y:auto}
@@ -455,7 +461,7 @@ function renderPriceTab() {
   h += '</div>';
 
   // Table
-  h += '<div class="table-wrap"><table><thead>';
+  h += '<div class="table-wrap pricelist"><table><thead>';
   h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2">Gi\u00e1 bao g\u1ed3m bao b\u00ec</th>';
   if (!showFobCif) h += '<th colspan="2">Gi\u00e1 b\u00e1n (EXW)</th>';
   h += '</tr>';
@@ -472,6 +478,12 @@ function renderPriceTab() {
     h += '<td>' + p.size + '</td>';
     h += '<td><span class="badge-spec badge-' + p.standard.replace(/-/g, '').replace(/\+/g, '') + '">' + p.standard + '</span></td>';
     h += '<td>' + p.machine + '</td>';
+    // Max loading
+    var ml = DATA_MAX_LOADING[p.code];
+    var maxLoad = "";
+    if (ml && ml.max25 !== null && ml.max25 !== undefined) maxLoad = ml.max25 + " tấn";
+    else if (ml && ml.maxJumbo !== null && ml.maxJumbo !== undefined) maxLoad = ml.maxJumbo + " tấn";
+    h += '<td class="text-center" style="font-weight:600;color:#64748b;text-align:center">' + maxLoad + '</td>';
     if (isFob) {
       h += '<td class="text-right">' + formatCurrency(getFOB25PriceVND(p, lccType), false) + '</td>';
       h += '<td class="text-right">' + formatCurrency(getFOBJumboPriceVND(p, lccType), false) + '</td>';
