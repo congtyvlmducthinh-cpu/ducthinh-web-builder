@@ -49,8 +49,17 @@ tbody tr:hover td{background:#eff6ff}
 .badge-A3{background:#fce7f3;color:#be185d}
 .tag-profit{display:inline-block;padding:2px 8px;border-radius:20px;background:var(--green-light);color:#166534;font-size:11px;font-weight:700}
 .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:24px;background:#f8fafc}
-.calc-left,.calc-right{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
-.calc-left h3,.calc-right h3{font-size:15px;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--primary);color:var(--primary);font-weight:700}
+.calc-left,.calc-right{background:var(--card);border-radius:var(--radius);padding:20px 24px;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
+.calc-section{background:#fafbfc;border:1px solid #eef2f6;border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.calc-section-header{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #eef2f6}
+.calc-section-icon{font-size:16px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:#e8edf5;border-radius:8px}
+.calc-row-group{display:flex;gap:10px}
+.calc-row-half{flex:1;margin-bottom:0}
+.calc-row-half label{display:block;font-size:11px;font-weight:700;margin-bottom:4px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.03em}
+.calc-row-half select,.calc-row-half input{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:var(--card);outline:none;transition:all .2s;font-family:var(--font);color:var(--text)}
+.calc-row{margin-bottom:8px}
+.calc-row label{display:block;font-size:11px;font-weight:700;margin-bottom:4px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.03em}
+.calc-row select,.calc-row input{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:var(--card);outline:none;transition:all .2s;font-family:var(--font);color:var(--text)}
 .calc-row{margin-bottom:16px}
 .calc-row label{display:block;font-size:12px;font-weight:700;margin-bottom:5px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.03em}
 .calc-row select,.calc-row input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;background:var(--card);outline:none;transition:all .2s;font-family:var(--font);color:var(--text)}
@@ -62,7 +71,11 @@ tbody tr:hover td{background:#eff6ff}
 .calc-result h4{font-size:14px;color:var(--green);margin-bottom:14px;font-weight:700}
 .calc-result .line{display:flex;justify-content:space-between;padding:8px 0;font-size:14px;border-bottom:1px dashed #d1fae5}
 .calc-result .line:last-child{font-weight:800;font-size:17px;color:var(--green);border-bottom:none;padding-top:12px}
-.calc-empty{padding:40px 20px;text-align:center;color:var(--muted);font-size:14px}
+.calc-empty{padding:40px 20px;text-align:center;color:var(--muted)}
+.calc-empty-icon{font-size:42px;margin-bottom:10px}
+.calc-empty-text{font-size:14px;color:var(--muted)}
+.calc-right-header{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:800;color:var(--primary);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--primary)}
+.calc-right-icon{font-size:20px}
 .calc-result-summary{display:flex;flex-direction:column;gap:10px;padding:0 2px}
 .calc-result-item{display:flex;justify-content:space-between;align-items:center}
 .calc-label{font-size:13px;color:var(--muted)}
@@ -479,71 +492,92 @@ function renderPriceTab() {
 // ====== RENDER CALC TAB ======
 function renderCalcTab() {
   var h = '<div class="calc-container">';
+
+  // ===== LEFT PANEL =====
   h += '<div class="calc-left">';
 
-  // Machine filter
+  // --- Section: Sản phẩm ---
+  h += '<div class="calc-section">';
+  h += '<div class="calc-section-header"><span class="calc-section-icon">📦</span><span>Chọn sản phẩm</span></div>';
+
+  // Machine + Standard side by side
   var machines = {};
   DATA_PRODUCTS.forEach(function(p) { machines[p.machine] = true; });
   var machineKeys = Object.keys(machines).sort();
-  h += '<div class="calc-row"><label>Máy</label>';
+  h += '<div class="calc-row-group">';
+  h += '<div class="calc-row-half"><label>🏭 Máy</label>';
   h += '<select id="calcMachine" onchange="filterCalcProducts()"><option value="">— Chọn máy —</option>';
   for (var i = 0; i < machineKeys.length; i++) {
     h += '<option value="' + machineKeys[i].replace(/"/g, '&quot;') + '">' + machineKeys[i] + '</option>';
   }
   h += '</select></div>';
-
-  // Standard filter (populated dynamically)
-  h += '<div class="calc-row"><label>Tiêu chuẩn</label>';
+  h += '<div class="calc-row-half"><label>📋 Tiêu chuẩn</label>';
   h += '<select id="calcStandard" onchange="filterCalcProducts()"><option value="">— Chọn tiêu chuẩn —</option></select></div>';
+  h += '</div>';
 
-  // Product select
-  h += '<div class="calc-row"><label>Sản phẩm</label>';
+  h += '<div class="calc-row"><label>🔖 Sản phẩm</label>';
   h += '<select id="calcProduct" onchange="onCalcProductChange()"><option value="">— Chọn sản phẩm —</option></select></div>';
+  h += '</div>'; // end calc-section
 
-  // Bag spec
-  h += '<div class="calc-row"><label>Quy cách bao</label>';
+  // --- Section: Bao bì ---
+  h += '<div class="calc-section">';
+  h += '<div class="calc-section-header"><span class="calc-section-icon">🛍️</span><span>Tùy chọn bao bì</span></div>';
+
+  // Bag spec + Bag select side by side
+  h += '<div class="calc-row-group">';
+  h += '<div class="calc-row-half"><label>📏 Quy cách bao</label>';
   h += '<select id="calcBagSpec" onchange="filterBagSpec()"><option value="25KG">25KG</option><option value="34KG">34KG</option><option value="50KG">50KG</option><option value="Jumbo">Jumbo</option></select></div>';
-
-  // Bag select
-  h += '<div class="calc-row"><label>Bao bì</label>';
-  h += '<select id="calcBag" onchange="calcPrice()"><option value="">— Không chọn bao bì —</option>';
+  h += '<div class="calc-row-half"><label>🛍️ Loại bao</label>';
+  h += '<select id="calcBag" onchange="calcPrice()"><option value="">— Không chọn —</option>';
   h += '</select></div>';
+  h += '</div>';
 
   // Jumbo tonnage (hidden by default)
   h += '<div class="calc-row" id="calcTonnageRow" style="display:none">';
-  h += '<label>Số tấn / bao Jumbo</label>';
+  h += '<label>⚖️ Số tấn / bao Jumbo</label>';
   h += '<select id="calcTonnage" onchange="calcPrice()">';
   var jumboTons = ["0.5","0.7","1","1.1","1.2","1.25","1.3","1.35","1.375","1.38","1.4","1.5"];
   for (var i = 0; i < jumboTons.length; i++) {
     h += '<option value="' + jumboTons[i] + '">' + jumboTons[i] + ' tấn</option>';
   }
   h += '</select></div>';
+  h += '</div>'; // end calc-section
 
-  // Other spec
-  h += '<div class="calc-row"><label>Quy cách khác</label>';
+  // --- Section: Quy cách khác ---
+  h += '<div class="calc-section">';
+  h += '<div class="calc-section-header"><span class="calc-section-icon">📦</span><span>Quy cách khác</span></div>';
+
+  h += '<div class="calc-row-group">';
+  h += '<div class="calc-row-half"><label>📋 Loại quy cách</label>';
   h += '<select id="calcOther" onchange="calcPrice()"><option value="">— Không chọn —</option>';
   for (var i = 0; i < DATA_OTHERS.length; i++) {
     h += '<option value="' + DATA_OTHERS[i].code + '">' + DATA_OTHERS[i].code + '</option>';
   }
   h += '</select></div>';
-
-  // Other tonnage (visible by default, hidden when Jumbo)
-  h += '<div class="calc-row" id="calcOtherTonnageRow">';
-  h += '<label>Số tấn (quy cách khác)</label>';
+  h += '<div class="calc-row-half" id="calcOtherTonnageRow">';
+  h += '<label>⚖️ Số tấn</label>';
   h += '<select id="calcOtherTonnage" onchange="calcPrice()">';
   var otherTons = ["0.5","0.7","1","1.1","1.2","1.25","1.3","1.35","1.375","1.38","1.4","1.5","1.53","1.6"];
   for (var i = 0; i < otherTons.length; i++) {
     h += '<option value="' + otherTons[i] + '">' + otherTons[i] + ' tấn</option>';
   }
   h += '</select></div>';
+  h += '</div>';
+  h += '</div>'; // end calc-section
 
   h += '</div>'; // end calc-left
 
-  // RIGHT panel
+  // ===== RIGHT PANEL =====
   h += '<div class="calc-right">';
-  h += '<h3>💰 Kết quả</h3>';
+  h += '<div class="calc-right-header">';
+  h += '<span class="calc-right-icon">💰</span>';
+  h += '<span>Kết quả tính giá</span>';
+  h += '</div>';
   h += '<div class="calc-result" id="calcResult">';
-  h += '<div class="calc-empty">👈 Vui lòng chọn sản phẩm và bao bì</div>';
+  h += '<div class="calc-empty">';
+  h += '<div class="calc-empty-icon">📊</div>';
+  h += '<div class="calc-empty-text">Chọn sản phẩm và bao bì để bắt đầu</div>';
+  h += '</div>';
   h += '</div>';
   h += '</div>';
 
