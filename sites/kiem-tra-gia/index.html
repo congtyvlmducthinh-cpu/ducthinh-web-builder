@@ -370,7 +370,7 @@ function switchTab(tab) {
   
   // Control bar visibility
   var cbar = document.getElementById("controlBar");
-  if (cbar) cbar.style.display = (tab === "pricelist" || tab === "bags" || tab === "others") ? "flex" : "none";
+  if (cbar) cbar.style.display = (tab === "pricelist") ? "flex" : "none";
   
   // Price mode bar only on pricelist
   var bar = document.getElementById("priceModeBar");
@@ -861,8 +861,7 @@ function render() {
   var container = document.getElementById("mainContainer");
   if (!container) return;
   
-  // Always bump filter list in pricelist tab
-  populateFilters();
+  if (activeTab === "pricelist") populateFilters();
   
   if (activeTab === "pricelist") {
     container.innerHTML = renderPriceTab();
@@ -915,12 +914,8 @@ function setLang(lang) {
 (function() {
   var c = document.getElementById("mainContainer");
   if (!c) return;
-  populateFilters();
   updateDataInfo();
   render();
 })();
-
-currentTab="pricelist";updateDataInfo();render()
-currentTab="pricelist";updateDataInfo();render()
 </script>
 </body></html>
