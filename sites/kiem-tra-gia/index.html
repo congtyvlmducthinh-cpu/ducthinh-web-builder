@@ -449,17 +449,38 @@ function renderPriceTab() {
     h += '<div class="freight-warning">\u26a0\ufe0f Ch\u1ebf \u0111\u1ed9 CIF y\u00eau c\u1ea7u nh\u1eadp c\u01b0\u1edbc bi\u1ec3n. Vui l\u00f2ng nh\u1eadp Freight USD \u1edf thanh c\u00f4ng c\u1ee5 b\u00ean tr\u00ean.</div>';
   }
 
-  // Summary
-  var uniqueCodes = {};
-  filtered.forEach(function(p) { uniqueCodes[p.code] = true; });
+  // Summary + th\u1ed1ng k\u00ea
+  var uniqueCodes = {}, uniqueSpecs = {}, uniqueMachines = {};
+  filtered.forEach(function(p) { uniqueCodes[p.code] = true; uniqueSpecs[p.standard] = true; uniqueMachines[p.machine] = true; });
+  var sum25=0, cnt25=0, max25=0;
+  var sumJ=0, cntJ=0, maxJ=0;
+  var sumExw=0, cntExw=0, maxExw=0;
+  filtered.forEach(function(p) {
+    var v25 = isFob ? getFOB25PriceVND(p, lccType) : (isCif ? getCIF25PriceVND(p, lccType, freightUSD) : p.pkg25_vnd);
+    if (v25 && v25 > 0) { sum25 += v25; cnt25++; if (v25 > max25) max25 = v25; }
+    var vJ = isFob ? getFOBJumboPriceVND(p, lccType) : (isCif ? getCIFJumboPriceVND(p, lccType, freightUSD) : p.jumbo_vnd);
+    if (vJ && vJ > 0) { sumJ += vJ; cntJ++; if (vJ > maxJ) maxJ = vJ; }
+    if (p.exw_vnd && p.exw_vnd > 0) { sumExw += p.exw_vnd; cntExw++; if (p.exw_vnd > maxExw) maxExw = p.exw_vnd; }
+  });
+  var fmt = function(v) { return (v || 0).toLocaleString('vi-VN'); };
   h += '<div class="summary-bar">';
   h += '<div class="summary-card"><div class="lbl">S\u1ea3n ph\u1ea9m</div><div class="val">' + Object.keys(uniqueCodes).length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Ti\u00eau chu\u1ea9n</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">M\u00e1y</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Ng\u00e0y</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
+  h += '</div>';
+  h += '<div class="summary-bar" style="margin-top:4px;gap:6px">';
+  h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">TB 25KG</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
+  h += '<div class="summary-card" style="padding:8px 12px;background:#fef2f2;border-color:#fecaca"><div class="lbl" style="font-size:10px">C.nh\u1ea5t 25KG</div><div class="val" style="font-size:15px">' + fmt(max25) + '</div></div>';
+  h += '<div class="summary-card" style="padding:8px 12px;background:#f0fdf4;border-color:#bbf7d0"><div class="lbl" style="font-size:10px">TB Jumbo</div><div class="val" style="font-size:15px">' + fmt(cntJ?Math.round(sumJ/cntJ):0) + '</div></div>';
+  h += '<div class="summary-card" style="padding:8px 12px;background:#fefce8;border-color:#fde68a"><div class="lbl" style="font-size:10px">C.nh\u1ea5t Jumbo</div><div class="val" style="font-size:15px">' + fmt(maxJ) + '</div></div>';
+  h += '<div class="summary-card" style="padding:8px 12px;background:#f5f3ff;border-color:#ddd6fe"><div class="lbl" style="font-size:10px">TB EXW</div><div class="val" style="font-size:15px">' + fmt(cntExw?Math.round(sumExw/cntExw):0) + '</div></div>';
+  h += '<div class="summary-card" style="padding:8px 12px;background:#fff1f2;border-color:#fecdd3"><div class="lbl" style="font-size:10px">C.nh\u1ea5t EXW</div><div class="val" style="font-size:15px">' + fmt(maxExw) + '</div></div>';
   h += '</div>';
 
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
-  h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2">Gi\u00e1 bao g\u1ed3m bao b\u00ec</th>';
+  h += '<tr><th colspan="5">Th\u00f4ng tin</th><th colspan="2">Gi\u00e1 bao g\u1ed3m bao b\u00ec</th>';
   if (!showFobCif) h += '<th colspan="2">Gi\u00e1 b\u00e1n (EXW)</th>';
   h += '</tr>';
   h += '<tr><th>M\u00e3</th><th>K\u00edch th\u01b0\u1edbc</th><th>Ti\u00eau chu\u1ea9n</th><th>M\u00e1y</th><th>25KG <span class="info-row">(VND)</span></th><th>Jumbo <span class="info-row">(VND)</span></th>';
@@ -499,28 +520,6 @@ function renderPriceTab() {
   }
   h += '</tbody></table></div>';
 
-  // Stats: giá trung bình + cao nhất
-  if (filtered.length > 0) {
-    var sum25=0, cnt25=0, max25=0;
-    var sumJ=0, cntJ=0, maxJ=0;
-    var sumExw=0, cntExw=0, maxExw=0;
-    filtered.forEach(function(p) {
-      var v25 = isFob ? getFOB25PriceVND(p, lccType) : (isCif ? getCIF25PriceVND(p, lccType, freightUSD) : p.pkg25_vnd);
-      if (v25 && v25 > 0) { sum25 += v25; cnt25++; if (v25 > max25) max25 = v25; }
-      var vJ = isFob ? getFOBJumboPriceVND(p, lccType) : (isCif ? getCIFJumboPriceVND(p, lccType, freightUSD) : p.jumbo_vnd);
-      if (vJ && vJ > 0) { sumJ += vJ; cntJ++; if (vJ > maxJ) maxJ = vJ; }
-      if (p.exw_vnd && p.exw_vnd > 0) { sumExw += p.exw_vnd; cntExw++; if (p.exw_vnd > maxExw) maxExw = p.exw_vnd; }
-    });
-    var fmt = function(v) { return (v || 0).toLocaleString('vi-VN'); };
-    h += '<div class="summary-bar" style="margin-top:12px;gap:8px">';
-    h += '<div class="summary-card" style="padding:10px 14px"><div class="lbl" style="font-size:11px">TB 25KG</div><div class="val" style="font-size:16px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
-    h += '<div class="summary-card" style="padding:10px 14px"><div class="lbl" style="font-size:11px">C.nhất 25KG</div><div class="val" style="font-size:16px">' + fmt(max25) + '</div></div>';
-    h += '<div class="summary-card" style="padding:10px 14px;border-color:#bfdbfe"><div class="lbl" style="font-size:11px">TB Jumbo</div><div class="val" style="font-size:16px">' + fmt(cntJ?Math.round(sumJ/cntJ):0) + '</div></div>';
-    h += '<div class="summary-card" style="padding:10px 14px;border-color:#bfdbfe"><div class="lbl" style="font-size:11px">C.nhất Jumbo</div><div class="val" style="font-size:16px">' + fmt(maxJ) + '</div></div>';
-    h += '<div class="summary-card" style="padding:10px 14px;border-color:#bbf7d0"><div class="lbl" style="font-size:11px">TB EXW</div><div class="val" style="font-size:16px">' + fmt(cntExw?Math.round(sumExw/cntExw):0) + '</div></div>';
-    h += '<div class="summary-card" style="padding:10px 14px;border-color:#bbf7d0"><div class="lbl" style="font-size:11px">C.nhất EXW</div><div class="val" style="font-size:16px">' + fmt(maxExw) + '</div></div>';
-    h += '</div>';
-  }
 
   return h;
 }
