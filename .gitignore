@@ -1,0 +1,24 @@
+# OpenClaw
+memory/
+openclaw-workspace-state.json
+HEARTBEAT.md
+
+# Generated / build artifacts
+samples/
+build.py
+beautify.py
+create_samples.py
+gen_html.py
+write_html.py
+build.js
+data.js
+build_index.py
+
+# Temp files
+_temp*/
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+~$*.xlsx
+~$*.xls
