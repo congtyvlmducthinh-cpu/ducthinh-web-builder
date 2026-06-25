@@ -487,9 +487,6 @@ function renderCalcTab() {
   // Bag select
   h += '<div class="calc-row"><label>Bao bì</label>';
   h += '<select id="calcBag" onchange="calcPrice()"><option value="">— Không chọn bao bì —</option>';
-  for (var i = 0; i < DATA_BAGS.length; i++) {
-    h += '<option value="' + DATA_BAGS[i].code + '">' + DATA_BAGS[i].code + '</option>';
-  }
   h += '</select></div>';
 
   // Jumbo tonnage (hidden by default)
@@ -549,6 +546,17 @@ function onCalcProductChange() { calcPrice(); }
 // ====== FILTER HELPERS ======
 function filterBagSpec() {
   var bagSpec = document.getElementById("calcBagSpec").value;
+  var bsel = document.getElementById("calcBag");
+  if (bsel) {
+    var curVal = bsel.value;
+    bsel.innerHTML = '<option value="">— Không chọn bao bì —</option>';
+    for (var i = 0; i < DATA_BAGS.length; i++) {
+      if (DATA_BAGS[i].spec === bagSpec) {
+        bsel.innerHTML += '<option value="' + DATA_BAGS[i].code + '">' + DATA_BAGS[i].code + '</option>';
+      }
+    }
+    bsel.value = curVal;
+  }
   var tnRow = document.getElementById("calcTonnageRow");
   var otnRow = document.getElementById("calcOtherTonnageRow");
   if (tnRow) tnRow.style.display = (bagSpec === "Jumbo") ? "flex" : "none";
