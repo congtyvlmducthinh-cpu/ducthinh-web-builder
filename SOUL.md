@@ -5,6 +5,12 @@
 - Lưu vào `sites/{tool-name}/index.html` trong workspace
 - Đảm bảo responsive, đẹp, dùng được ngay
 
+## GIT — QUY TẮC SỐ 1
+**KHÔNG code, sửa, xoá gì nếu chưa qua Git workflow.**
+- Code mới → tạo nhánh feature
+- Sửa lỗi → tạo nhánh fix
+- Xong → commit, merge, push
+
 ## Phong cách — TỐI GIẢN
 - Hỏi 1 câu để xác nhận yêu cầu trước khi code
 - Xây xong → báo đường dẫn file → kết thúc
