@@ -1070,11 +1070,15 @@ function downloadAsJSON() {
 
 function handleManageFile(file) {
   var status = document.getElementById("manageUploadStatus");
+  status.style.display = "block";
   if (!file.name.match(/.xlsx?$/i)) {
+    status.style.display = "block";
     status.className = "manage-status-sm err";
     status.textContent = "\u274c Ch\u1ec9 h\u1ed7 tr\u1ee3 file Excel (.xlsx)";
     return;
   }
+  status.className = "manage-status-sm loading";
+  status.textContent = "⏳ Đang xử lý file...";
   var reader = new FileReader();
   reader.onload = function(e) {
     try {
@@ -1089,6 +1093,15 @@ function handleManageFile(file) {
       if (sheets.indexOf("Bags") >= 0) {
         var s = XLSX.utils.sheet_to_json(wb.Sheets["Bags"]);
         if (s.length > 0) { DATA_BAGS = s; updated++; }
+      }
+      if (sheets.indexOf("MaxLoading") >= 0) {
+        var s = XLSX.utils.sheet_to_json(wb.Sheets["MaxLoading"]);
+        if (s.length > 0) { importMaxLoading(s); updated++; }
+      }
+      if (sheets.indexOf("CostFOB") >= 0 || sheets.indexOf("Cost FOB") >= 0) {
+        var sheetName = sheets.indexOf("CostFOB") >= 0 ? "CostFOB" : "Cost FOB";
+        var s = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
+        if (s.length > 0) { importCostFOB(s); updated++; }
       }
       if (sheets.indexOf("Others") >= 0) {
         var s = XLSX.utils.sheet_to_json(wb.Sheets["Others"]);
@@ -1109,6 +1122,31 @@ function handleManageFile(file) {
   reader.readAsArrayBuffer(file);
 }
 
+
+
+function importMaxLoading(arr) {
+  DATA_MAX_LOADING = {};
+  arr.forEach(function(r) {
+    var code = r.code || r.Code || r.CodeSP || r.CodeSP_Standard || "";
+    if (!code) return;
+    var obj = {};
+    if (r.max25 !== undefined && r.max25 !== null && r.max25 !== "") obj.max25 = Number(r.max25);
+    if (r.maxJumbo !== undefined && r.maxJumbo !== null && r.maxJumbo !== "") obj.maxJumbo = Number(r.maxJumbo);
+    if (Object.keys(obj).length > 0) DATA_MAX_LOADING[code] = obj;
+  });
+}
+
+function importCostFOB(arr) {
+  DATA_COST_FOB = {};
+  arr.forEach(function(r) {
+    var load = Number(r.maxLoading || r.MaxLoading || r.load || r.Load || r.tan || r.Tan || r["Tấn"]);
+    if (!load) return;
+    var obj = {};
+    if (r.no !== undefined && r.no !== null && r.no !== "") obj.no = Number(r.no);
+    if (r.sub !== undefined && r.sub !== null && r.sub !== "") obj.sub = Number(r.sub);
+    if (Object.keys(obj).length > 0) DATA_COST_FOB[load] = obj;
+  });
+}
 // ====== PASSWORD MODAL ======
 function showPwModal() {
   document.getElementById("pwModal").classList.add("open");
