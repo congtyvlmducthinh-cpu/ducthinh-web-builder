@@ -1293,19 +1293,19 @@ function handleManageFile(file) {
         return null;
       }
       
-      var prodSheet = hasSheet(["Products", "products", "Sản phẩm", "sản phẩm", "Product", "product"]);
+      var prodSheet = hasSheet(["Products", "products", "Sản phẩm", "sản phẩm", "Product", "product", "Template"]);
       if (prodSheet) {
         var s = XLSX.utils.sheet_to_json(wb.Sheets[prodSheet]);
         if (s.length > 0) { DATA_PRODUCTS = s; updated++; }
       }
       
-      var bagSheet = hasSheet(["Bags", "bags", "Bao bì", "bao bì", "Bao", "bao", "Bag"]);
+      var bagSheet = hasSheet(["Bags", "bags", "Bao bì", "bao bì", "Bao", "bao", "Bag", "Template"]);
       if (bagSheet) {
         var s = XLSX.utils.sheet_to_json(wb.Sheets[bagSheet]);
         if (s.length > 0) { DATA_BAGS = s; updated++; }
       }
       
-      var otherSheet = hasSheet(["Others", "others", "Quy cách khác", "Other", "other"]);
+      var otherSheet = hasSheet(["Others", "others", "Quy cách khác", "Other", "other", "Template"]);
       if (otherSheet) {
         var s = XLSX.utils.sheet_to_json(wb.Sheets[otherSheet]);
         if (s.length > 0) { DATA_OTHERS = s; updated++; }
