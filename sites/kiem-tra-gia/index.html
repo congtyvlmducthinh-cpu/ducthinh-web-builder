@@ -273,24 +273,18 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 <button class="btn-confirm" onclick="downloadFile(0)">📋 Giá bán</button>
 <button class="btn-confirm" onclick="downloadFile(1)">📦 Bao bì</button>
 <button class="btn-confirm" onclick="downloadFile(2)">📐 Quy cách khác</button>
+<button class="btn-cancel" onclick="downloadTemplate(0)">📄 Mẫu giá bán</button>
+<button class="btn-cancel" onclick="downloadTemplate(1)">📄 Mẫu bao bì</button>
+<button class="btn-cancel" onclick="downloadTemplate(2)">📄 Mẫu quy cách khác</button>
 </div>
 <div class="btn-row">
 <button class="btn-confirm" onclick="downloadAsExcel()">📊 Excel</button>
 <button class="btn-cancel" onclick="downloadAsJSON()">📋 JS</button>
-</div>
-</div>
-<div class="manage-actions"<div class="manage-actions">
-<h3>📄 Tải file mẫu</h3>
-<p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">Tải file Excel mẫu có sẵn tiêu đề để nhập dữ liệu</p>
-<div class="btn-row">
-<button class="btn-confirm" onclick="downloadTemplate(0)">📋 Mẫu giá bán</button>
-<button class="btn-confirm" onclick="downloadTemplate(1)">📦 Mẫu bao bì</button>
-<button class="btn-confirm" onclick="downloadTemplate(2)">📐 Mẫu quy cách khác</button>
-<button class="btn-cancel" onclick="downloadFullTemplate()">📊 Mẫu đầy đủ</button>
+<button class="btn-confirm" onclick="downloadFullTemplate()">📊 Mẫu đầy đủ</button>
 </div>
 </div>
 <div class="manage-actions">
-<h3>📤 Upload dữ liệu mới</h3>📤 Upload dữ liệu mới</h3>
+<h3>📤 Upload dữ liệu mới</h3>
 <p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">Upload file Excel (.xlsx)</p>
 <div class="upload-sm" id="manageDropZone" style="border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;background:#fafbfc"><div style="font-size:1.5rem;margin-bottom:6px">📂</div><div><strong>Kéo thả file vào đây</strong><br>hoặc bấm để chọn</div></div>
 <input type="file" id="manageFileInput" accept=".xlsx,.xls" style="display:none">
