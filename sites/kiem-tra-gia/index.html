@@ -367,6 +367,7 @@ function getCIFJumboPriceVND(prod, lccVariant, freight) {
 }
 function getCIF25PriceUSD(prod, lccVariant, freight) { return Math.round(getCIF25PriceVND(prod, lccVariant, freight) / 26000); }
 function getCIFJumboPriceUSD(prod, lccVariant, freight) { return Math.round(getCIFJumboPriceVND(prod, lccVariant, freight) / 26000); }
+t) / 26000); }
 
 // ====== PRICE MODE CONTROLS (Gi\u00e1 b\u00e1n tab) ======
 function setPriceMode(mode) {
@@ -507,11 +508,11 @@ function renderPriceTab() {
     else if (ml && ml.maxJumbo !== null && ml.maxJumbo !== undefined) maxLoad = ml.maxJumbo + " tấn";
     h += '<td class="text-center" style="font-weight:600;color:#64748b;text-align:center">' + maxLoad + '</td>';
     if (isFob) {
-      h += '<td class="text-right">' + formatCurrency(getFOB25PriceVND(p, lccType), false) + '</td>';
-      h += '<td class="text-right">' + formatCurrency(getFOBJumboPriceVND(p, lccType), false) + '</td>';
+      h += '<td class="text-right">' + (isUsd ? formatCurrency(getFOB25PriceUSD(p, lccType), true) : formatCurrency(getFOB25PriceVND(p, lccType), false)) + '</td>';
+      h += '<td class="text-right">' + (isUsd ? formatCurrency(getFOBJumboPriceUSD(p, lccType), true) : formatCurrency(getFOBJumboPriceVND(p, lccType), false)) + '</td>';
     } else if (isCif) {
-      h += '<td class="text-right">' + formatCurrency(getCIF25PriceVND(p, lccType, freightUSD), false) + '</td>';
-      h += '<td class="text-right">' + formatCurrency(getCIFJumboPriceVND(p, lccType, freightUSD), false) + '</td>';
+      h += '<td class="text-right">' + (isUsd ? formatCurrency(getCIF25PriceUSD(p, lccType, freightUSD), true) : formatCurrency(getCIF25PriceVND(p, lccType, freightUSD), false)) + '</td>';
+      h += '<td class="text-right">' + (isUsd ? formatCurrency(getCIFJumboPriceUSD(p, lccType, freightUSD), true) : formatCurrency(getCIFJumboPriceVND(p, lccType, freightUSD), false)) + '</td>';
     } else {
       h += '<td class="text-right">' + (p.pkg25_vnd ? (isUsd ? formatCurrency(p.pkg25_usd, true) : formatCurrency(p.pkg25_vnd, false)) : '\u2014') + '</td>';
       h += '<td class="text-right">' + (p.jumbo_vnd ? (isUsd ? formatCurrency(p.jumbo_usd, true) : formatCurrency(p.jumbo_vnd, false)) : '\u2014') + '</td>';
@@ -534,6 +535,17 @@ function renderCalcTab() {
 
   // ===== LEFT PANEL =====
   h += '<div class="calc-left">';
+
+  // Currency toggle for calc tab
+  h += '<div class="calc-section" style="margin-bottom:2px">';
+  h += '<div class="calc-section-header"><span class="calc-section-icon">💱</span><span>Tiền tệ</span></div>';
+  h += '<div class="calc-row">';
+  h += '<div class="calc-currency-bar">';
+  h += '<button class="mode-btn active" id="calcCcyVnd" onclick="setCalcCurrency('VND')">VND</button>';
+  h += '<button class="mode-btn" id="calcCcyUsd" onclick="setCalcCurrency('USD')">USD</button>';
+  h += '</div>';
+  h += '</div>';
+  h += '</div>';
 
   // --- Section: Sản phẩm ---
   h += '<div class="calc-section">';
@@ -716,6 +728,14 @@ function filterBagSpec() {
 }
 // ====== CALC FUNCTIONS ======
 // ====== CALC PRICE MODE HELPERS ======
+function setCalcCurrency(ccy) {
+  currency = ccy;
+  var vndBtn = document.getElementById("calcCcyVnd");
+  var usdBtn = document.getElementById("calcCcyUsd");
+  if (vndBtn) vndBtn.classList.toggle("active", ccy === "VND");
+  if (usdBtn) usdBtn.classList.toggle("active", ccy === "USD");
+  calcPrice();
+}
 function setCalcPriceMode(mode) {
   calcPriceMode = mode;
   var bar = document.getElementById("calcPriceModeBar");
@@ -1146,7 +1166,15 @@ function render() {
     container.innerHTML = renderOthersTab();
   } else if (activeTab === "calc") {
     container.innerHTML = renderCalcTab();
-    setTimeout(function(){ filterCalcProducts(); filterBagSpec(); }, 0);
+    setTimeout(function(){ filterCalcProducts(); filterBagSpec();
+    // Sync calc currency toggle with current global currency
+    var vndBtn = document.getElementById("calcCcyVnd");
+    var usdBtn = document.getElementById("calcCcyUsd");
+    if (vndBtn && usdBtn) {
+      vndBtn.classList.toggle("active", currency === "VND");
+      usdBtn.classList.toggle("active", currency === "USD");
+    }
+  }, 0);
   } else if (activeTab === "manage") {
     container.innerHTML = "";
   } else {
