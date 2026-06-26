@@ -849,15 +849,13 @@ function calcPrice() {
   maxLoad = selectedMaxLoad;
 
   // Use EXW base (not pkg), add bag + other + fob cost * 1.05 for FOB/CIF
-  if (isFobMode || isCifMode) {
+    if (isFobMode || isCifMode) {
     exwMin = isUsd ? prod.exw_usd : prod.exw_vnd;
     fobCostPerTon = getCostFobVND(maxLoad, calcLccType);
-    if (isUsd) exwMin = Math.round(exwMin / EXCHANGE_RATE);
-  } else {
+      } else {
     exwMin = isUsd ? prod.exw_usd : prod.exw_vnd;
   }
-
-  var bagPrice = 0, bagTons = 1, bcode = bsel ? bsel.value : "";
+var bagPrice = 0, bagTons = 1, bcode = bsel ? bsel.value : "";
   if (isJumbo && tnsel && tnsel.value && parseFloat(tnsel.value) > 0) bagTons = parseFloat(tnsel.value);
   var ocode = osel ? osel.value : "", otherTons = 1;
   if (otnsel && otnsel.value && parseFloat(otnsel.value) > 0) otherTons = parseFloat(otnsel.value);
@@ -868,11 +866,17 @@ function calcPrice() {
   var otherPrice = 0, otherCode = "";
   if (ocode) { for (var i = 0; i < DATA_OTHERS.length; i++) { if (DATA_OTHERS[i].code === ocode) { otherPrice = DATA_OTHERS[i].price; otherCode = DATA_OTHERS[i].code; break; } } if (otherTons > 0) otherPrice = otherPrice / otherTons; }
   // For FOB/CIF: (exw + bag + other + fobCost) * 1.05
-  var total = 0;
+    // Convert bag, other, fobCost to USD if needed
+  if (isUsd) {
+    bagPrice = Math.round(bagPrice / EXCHANGE_RATE);
+    otherPrice = Math.round(otherPrice / EXCHANGE_RATE);
+    fobCostPerTon = Math.round(fobCostPerTon / EXCHANGE_RATE);
+  }
+var total = 0;
   if (isFobMode || isCifMode) {
     total = (exwMin + bagPrice + otherPrice + fobCostPerTon) * 1.05;
     if (isCifMode && maxLoad > 0) {
-      total += (calcFreightUSD + 10) * EXCHANGE_RATE / maxLoad;
+      total += isUsd ? (calcFreightUSD + 10) / maxLoad : (calcFreightUSD + 10) * EXCHANGE_RATE / maxLoad;
     }
   } else {
     total = exwMin + bagPrice + otherPrice;
@@ -888,15 +892,15 @@ function calcPrice() {
   h += '<div class="calc-result-item"><span class="calc-rl">💰 ' + modeLabel + ' tối thiểu</span><span class="calc-rv exw">' + Math.round(exwMin).toLocaleString() + ' ' + cc + '</span></div>';
   if ((isFobMode || isCifMode) && maxLoad) {
     h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tấn</span></div>';
-    h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + Math.round(fobCostPerTon).toLocaleString() + ' VND</span></div>';
+    h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + Math.round(fobCostPerTon).toLocaleString() + ' ' + cc + '</span></div>';
   }
   if (isCifMode) {
     if (fobCostPerTon > 0) {
-      h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + Math.round(fobCostPerTon).toLocaleString() + ' VND</span></div>';
+      h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + Math.round(fobCostPerTon).toLocaleString() + ' + cc + '</span></div>';
     }
     if (maxLoad > 0) {
-      var cifFreightPerTon = (calcFreightUSD + 10) * EXCHANGE_RATE / maxLoad;
-      h += '<div class="calc-result-item"><span class="calc-rl">🚢 Freight / tấn</span><span class="calc-rv other">' + Math.round(cifFreightPerTon).toLocaleString() + ' VND</span></div>';
+      var cifFreightPerTon = isUsd ? (calcFreightUSD + 10) / maxLoad : (calcFreightUSD + 10) * EXCHANGE_RATE / maxLoad;
+      h += '<div class="calc-result-item"><span class="calc-rl">🚢 Freight / tấn</span><span class="calc-rv other">' + Math.round(cifFreightPerTon).toLocaleString() + ' ' + cc + '</span></div>';
     }
   }
   var bd = ""; if (bcode) { bd = bagCode; if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">🛍️ Bao bì (' + bd + ')</span><span class="calc-rv bag">' + Math.round(bagPrice).toLocaleString() + ' ' + cc + '</span></div>'; }
