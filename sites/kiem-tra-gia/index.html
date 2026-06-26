@@ -1072,9 +1072,8 @@ function handleManageFile(file) {
   var status = document.getElementById("manageUploadStatus");
   status.style.display = "block";
   if (!file.name.match(/.xlsx?$/i)) {
-    status.style.display = "block";
     status.className = "manage-status-sm err";
-    status.textContent = "\u274c Ch\u1ec9 h\u1ed7 tr\u1ee3 file Excel (.xlsx)";
+    status.textContent = "❌ Chỉ hỗ trợ file Excel (.xlsx)";
     return;
   }
   status.className = "manage-status-sm loading";
@@ -1086,45 +1085,59 @@ function handleManageFile(file) {
       var wb = XLSX.read(data, {type: "array"});
       var sheets = wb.SheetNames;
       var updated = 0;
-      if (sheets.indexOf("Products") >= 0) {
-        var s = XLSX.utils.sheet_to_json(wb.Sheets["Products"]);
+      
+      // Try multiple sheet name variants
+      function hasSheet(variants) {
+        for (var i = 0; i < variants.length; i++) {
+          if (sheets.indexOf(variants[i]) >= 0) return variants[i];
+        }
+        return null;
+      }
+      
+      var prodSheet = hasSheet(["Products", "products", "Sản phẩm", "sản phẩm", "Product", "product"]);
+      if (prodSheet) {
+        var s = XLSX.utils.sheet_to_json(wb.Sheets[prodSheet]);
         if (s.length > 0) { DATA_PRODUCTS = s; updated++; }
       }
-      if (sheets.indexOf("Bags") >= 0) {
-        var s = XLSX.utils.sheet_to_json(wb.Sheets["Bags"]);
+      
+      var bagSheet = hasSheet(["Bags", "bags", "Bao bì", "bao bì", "Bao", "bao", "Bag"]);
+      if (bagSheet) {
+        var s = XLSX.utils.sheet_to_json(wb.Sheets[bagSheet]);
         if (s.length > 0) { DATA_BAGS = s; updated++; }
       }
-      if (sheets.indexOf("MaxLoading") >= 0) {
-        var s = XLSX.utils.sheet_to_json(wb.Sheets["MaxLoading"]);
-        if (s.length > 0) { importMaxLoading(s); updated++; }
-      }
-      if (sheets.indexOf("CostFOB") >= 0 || sheets.indexOf("Cost FOB") >= 0) {
-        var sheetName = sheets.indexOf("CostFOB") >= 0 ? "CostFOB" : "Cost FOB";
-        var s = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
-        if (s.length > 0) { importCostFOB(s); updated++; }
-      }
-      if (sheets.indexOf("Others") >= 0) {
-        var s = XLSX.utils.sheet_to_json(wb.Sheets["Others"]);
+      
+      var otherSheet = hasSheet(["Others", "others", "Quy cách khác", "Other", "other"]);
+      if (otherSheet) {
+        var s = XLSX.utils.sheet_to_json(wb.Sheets[otherSheet]);
         if (s.length > 0) { DATA_OTHERS = s; updated++; }
       }
+      
+      var mlSheet = hasSheet(["MaxLoading", "maxloading", "Max Load", "max_load", "Tải trọng", "tải trọng"]);
+      if (mlSheet) {
+        var s = XLSX.utils.sheet_to_json(wb.Sheets[mlSheet]);
+        if (s.length > 0) { importMaxLoading(s); updated++; }
+      }
+      
+      var fobSheet = hasSheet(["CostFOB", "Cost FOB", "costfob", "cost fob", "FOB", "fob"]);
+      if (fobSheet) {
+        var s = XLSX.utils.sheet_to_json(wb.Sheets[fobSheet]);
+        if (s.length > 0) { importCostFOB(s); updated++; }
+      }
+      
       document.getElementById("mProdCnt").textContent = DATA_PRODUCTS.length;
       document.getElementById("mBagCnt").textContent = DATA_BAGS.length;
       document.getElementById("mOtherCnt").textContent = DATA_OTHERS.length;
       populateFilters();
       render();
       status.className = "manage-status-sm ok";
-      status.textContent = "\u2705 \u0110\u00e3 c\u1eadp nh\u1eadt " + updated + " b\u1ea3ng d\u1eef li\u1ec7u!";
+      status.textContent = "✅ Đã cập nhật " + updated + " bảng dữ liệu!";
     } catch(err) {
       status.className = "manage-status-sm err";
-      status.textContent = "\u274c L\u1ed7i: " + err.message;
+      status.textContent = "❌ Lỗi: " + err.message;
     }
   };
   reader.readAsArrayBuffer(file);
-}
-
-
-
-function importMaxLoading(arr) {
+}function importMaxLoading(arr) {
   DATA_MAX_LOADING = {};
   arr.forEach(function(r) {
     var code = r.code || r.Code || r.CodeSP || r.CodeSP_Standard || "";
