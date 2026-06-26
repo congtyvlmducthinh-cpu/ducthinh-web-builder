@@ -1484,22 +1484,24 @@ function selectFreightRoute() {
 
 // ====== QUOTATION POPUP ======
 function showQuotationPopup() {
-  document.getElementById("quotationPopup").classList.add("open");
   var data = getCalcPriceData();
-  if (data) {
-    updateQuotationPreview();
-    var now = new Date();
-    var dd = String(now.getDate()).padStart(2,"0");
-    var mm = String(now.getMonth()+1).padStart(2,"0");
-    var yy = now.getFullYear();
-    var hh = String(now.getHours()).padStart(2,"0");
-    var min = String(now.getMinutes()).padStart(2,"0");
-    var rand = String(Math.floor(1000+Math.random()*9000));
-    var code = dd+mm+yy+hh+min+rand;
-    var qn = parseInt(localStorage.getItem("dq_quote_num")||"0")+1;
-    localStorage.setItem("dq_quote_num",String(qn));
-    document.getElementById("qDateSpan").textContent = "Mã: "+code+" | Số: "+qn+" | "+dd+"/"+mm+"/"+yy;
+  if (!data) {
+    alert("Chọn sản phẩm và tính giá trước khi lên báo giá!");
+    return;
   }
+  document.getElementById("quotationPopup").classList.add("open");
+  updateQuotationPreview();
+  var now = new Date();
+  var dd = String(now.getDate()).padStart(2,"0");
+  var mm = String(now.getMonth()+1).padStart(2,"0");
+  var yy = now.getFullYear();
+  var hh = String(now.getHours()).padStart(2,"0");
+  var min = String(now.getMinutes()).padStart(2,"0");
+  var rand = String(Math.floor(1000+Math.random()*9000));
+  var code = dd+mm+yy+hh+min+rand;
+  var qn = parseInt(localStorage.getItem("dq_quote_num")||"0")+1;
+  localStorage.setItem("dq_quote_num",String(qn));
+  document.getElementById("qDateSpan").textContent = "Mã: "+code+" | Số: "+qn+" | "+dd+"/"+mm+"/"+yy;
   document.getElementById("qPreviewBody").scrollTop = 0;
 }
 function closeQuotationPopup() {
@@ -1546,6 +1548,7 @@ function getCalcPriceData() {
 }
 function updateQuotationPreview() {
   var data=getCalcPriceData();
+  if (!data) return;
   var content=document.getElementById("qPreviewContent");
   var customer=document.getElementById("qCustomer").value||"______________________";
   var contact=document.getElementById("qContact").value||"";
@@ -1701,7 +1704,7 @@ function fmtNum(n, isUsd) {
   if (isUsd) return n.toLocaleString('en-US', {minimumFractionDigits:1, maximumFractionDigits:2});
   return Math.round(n).toLocaleString();
 }
-</script>
+render();</script>
 
 <!-- Freight Lookup Popup -->
 <div class="freight-overlay" id="freightPopup">
