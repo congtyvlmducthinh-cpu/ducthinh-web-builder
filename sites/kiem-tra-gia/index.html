@@ -1323,6 +1323,7 @@ function handleManageFile(file) {
         if (s.length > 0) { importCostFOB(s); updated++; }
       }
       
+      applyMarket();
       document.getElementById("mProdCnt").textContent = DATA_PRODUCTS.length;
       document.getElementById("mBagCnt").textContent = DATA_BAGS.length;
       document.getElementById("mOtherCnt").textContent = DATA_OTHERS.length;
