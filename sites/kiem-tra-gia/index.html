@@ -1015,14 +1015,14 @@ function manageLogin() {
 }
 
 function downloadFile(type) {
-  var fn = "", data = [];
-  if (type === 0) { fn = "Gia_ban_toi_thieu.xlsx"; data = DATA_PRODUCTS; }
-  else if (type === 1) { fn = "Surcharge_bao_bi.xlsx"; data = DATA_BAGS; }
-  else if (type === 2) { fn = "Quy_cach_khac.xlsx"; data = DATA_OTHERS; }
+  var fn = "", data = [], sheetName = "";
+  if (type === 0) { fn = "Gia_ban_toi_thieu.xlsx"; data = DATA_PRODUCTS; sheetName = "Products"; }
+  else if (type === 1) { fn = "Surcharge_bao_bi.xlsx"; data = DATA_BAGS; sheetName = "Bags"; }
+  else if (type === 2) { fn = "Quy_cach_khac.xlsx"; data = DATA_OTHERS; sheetName = "Others"; }
   if (!data.length) return;
   var ws = XLSX.utils.json_to_sheet(data);
   var wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "Data");
+  XLSX.utils.book_append_sheet(wb, ws, sheetName);
   XLSX.writeFile(wb, fn);
 }
 
@@ -1033,6 +1033,28 @@ function downloadAsExcel() {
   XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(DATA_PRODUCTS), "Products");
   XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(DATA_BAGS), "Bags");
   XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(DATA_OTHERS), "Others");
+  // Export MaxLoading if data exists
+  if (DATA_MAX_LOADING && Object.keys(DATA_MAX_LOADING).length > 0) {
+    var mlArr = [];
+    Object.keys(DATA_MAX_LOADING).forEach(function(k) {
+      var o = {code: k};
+      if (DATA_MAX_LOADING[k].max25 !== undefined) o.max25 = DATA_MAX_LOADING[k].max25;
+      if (DATA_MAX_LOADING[k].maxJumbo !== undefined) o.maxJumbo = DATA_MAX_LOADING[k].maxJumbo;
+      mlArr.push(o);
+    });
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(mlArr), "MaxLoading");
+  }
+  // Export CostFOB if data exists
+  if (DATA_COST_FOB && Object.keys(DATA_COST_FOB).length > 0) {
+    var cfArr = [];
+    Object.keys(DATA_COST_FOB).forEach(function(k) {
+      var o = {maxLoading: Number(k)};
+      if (DATA_COST_FOB[k].no !== undefined) o.no = DATA_COST_FOB[k].no;
+      if (DATA_COST_FOB[k].sub !== undefined) o.sub = DATA_COST_FOB[k].sub;
+      cfArr.push(o);
+    });
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(cfArr), "CostFOB");
+  }
   XLSX.writeFile(wb, fn);
 }
 
