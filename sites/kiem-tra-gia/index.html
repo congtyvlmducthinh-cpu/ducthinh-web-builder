@@ -790,7 +790,19 @@ function calcCommission() {
   if (otnsel && otnsel.value && parseFloat(otnsel.value) > 0) otherTons = parseFloat(otnsel.value);
   // When Jumbo selected, other spec also divides by bag tonnage
   if (isJumbo && bagTons > 0) otherTons = bagTons;
-  if (bcode) { for (var i = 0; i < DATA_BAGS.length; i++) { if (DATA_BAGS[i].code === bcode) { bagPrice = DATA_BAGS[i].price; break; } } if (isJumbo && bagTons > 0) bagPrice = bagPrice / bagTons; }
+  if (bcode) {
+    for (var i = 0; i < DATA_BAGS.length; i++) { if (DATA_BAGS[i].code === bcode) { bagPrice = DATA_BAGS[i].price; break; } } if (isJumbo && bagTons > 0) bagPrice = bagPrice / bagTons;
+  } else {
+    // Auto-select first available bag matching current spec
+    var bs = bagSpecSel ? bagSpecSel.value : "25KG";
+    for (var i = 0; i < DATA_BAGS.length; i++) {
+      if ((isJumbo && DATA_BAGS[i].spec === "Jumbo") || (!isJumbo && DATA_BAGS[i].spec === bs)) {
+        bagPrice = DATA_BAGS[i].price;
+        break;
+      }
+    }
+    if (isJumbo && bagTons > 0) bagPrice = bagPrice / bagTons;
+  }
   var otherPrice = 0, ocode = osel ? osel.value : "";
   if (ocode) { for (var i = 0; i < DATA_OTHERS.length; i++) { if (DATA_OTHERS[i].code === ocode) { otherPrice = DATA_OTHERS[i].price; break; } } if (otherTons > 0) otherPrice = otherPrice / otherTons; }
   var exwBase = isUsd ? prod.exw_usd : prod.exw_vnd;
@@ -872,7 +884,21 @@ var bagPrice = 0, bagTons = 1, bcode = bsel ? bsel.value : "";
   // When Jumbo selected, other spec also divides by bag tonnage
   if (isJumbo && bagTons > 0) otherTons = bagTons;
   var bagCode = "";
-  if (bcode) { for (var i = 0; i < DATA_BAGS.length; i++) { if (DATA_BAGS[i].code === bcode) { bagPrice = DATA_BAGS[i].price; bagCode = DATA_BAGS[i].code; break; } } if (isJumbo && bagTons > 0) bagPrice = bagPrice / bagTons; }
+  var isDefaultBag = false;
+  if (bcode) {
+    for (var i = 0; i < DATA_BAGS.length; i++) { if (DATA_BAGS[i].code === bcode) { bagPrice = DATA_BAGS[i].price; bagCode = DATA_BAGS[i].code; break; } } if (isJumbo && bagTons > 0) bagPrice = bagPrice / bagTons;
+  } else {
+    // Auto-select first available bag matching current spec
+    for (var i = 0; i < DATA_BAGS.length; i++) {
+      if ((isJumbo && DATA_BAGS[i].spec === "Jumbo") || (!isJumbo && DATA_BAGS[i].spec === bs)) {
+        bagPrice = DATA_BAGS[i].price;
+        bagCode = DATA_BAGS[i].code;
+        isDefaultBag = true;
+        break;
+      }
+    }
+    if (isJumbo && bagTons > 0) bagPrice = bagPrice / bagTons;
+  }
   var otherPrice = 0, otherCode = "";
   if (ocode) { for (var i = 0; i < DATA_OTHERS.length; i++) { if (DATA_OTHERS[i].code === ocode) { otherPrice = DATA_OTHERS[i].price; otherCode = DATA_OTHERS[i].code; break; } } if (otherTons > 0) otherPrice = otherPrice / otherTons; }
   // For FOB/CIF: (exw + bag + other + fobCost) * 1.05
@@ -912,7 +938,7 @@ var total = 0;
       h += '<div class="calc-result-item"><span class="calc-rl">🚢 Freight / tấn</span><span class="calc-rv other">' + fmtNum(cifFreightPerTon, isUsd) + ' ' + cc + '</span></div>';
     }
   }
-  var bd = ""; if (bcode) { bd = bagCode; if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">🛍️ Bao bì (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; }
+  var bd = ""; if (bcode || isDefaultBag) { bd = bagCode; if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">🛍️ Bao bì (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; if (isDefaultBag) h += '<div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">⚠️ Đang dùng loại bao tiêu chuẩn. Nếu bao bì khác vui lòng chọn chính xác!</span></div>'; }
   if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">📦 Quy cách khác (' + od + ')</span><span class="calc-rv other">' + fmtNum(otherPrice, isUsd) + ' ' + cc + '</span></div>'; }
   h += '<div class="calc-result-total-row">';
   h += '<span class="calc-rl">🏷️ Tổng giá thành (' + modeLabel + ')</span>';
