@@ -1324,7 +1324,10 @@ function handleManageFile(file) {
       }
       
       applyMarket();
-      document.getElementById("mProdCnt").textContent = DATA_PRODUCTS.length;
+      localStorage.setItem("dq_products", JSON.stringify(DATA_PRODUCTS));
+      localStorage.setItem("dq_bags", JSON.stringify(DATA_BAGS));
+      localStorage.setItem("dq_others", JSON.stringify(DATA_OTHERS));
+            document.getElementById("mProdCnt").textContent = DATA_PRODUCTS.length;
       document.getElementById("mBagCnt").textContent = DATA_BAGS.length;
       document.getElementById("mOtherCnt").textContent = DATA_OTHERS.length;
       populateFilters();
@@ -1833,6 +1836,18 @@ function printQuotation() {
 function fmtNum(n, isUsd) {
   if (isUsd) return n.toLocaleString('en-US', {minimumFractionDigits:1, maximumFractionDigits:2});
   return Math.round(n).toLocaleString();
+}
+var saved = localStorage.getItem("dq_products");
+if (saved) {
+  try { DATA_PRODUCTS = JSON.parse(saved); } catch(e) {}
+}
+var savedBags = localStorage.getItem("dq_bags");
+if (savedBags) {
+  try { DATA_BAGS = JSON.parse(savedBags); } catch(e) {}
+}
+var savedOthers = localStorage.getItem("dq_others");
+if (savedOthers) {
+  try { DATA_OTHERS = JSON.parse(savedOthers); } catch(e) {}
 }
 applyMarket();
 switchTab("pricelist");</script>
