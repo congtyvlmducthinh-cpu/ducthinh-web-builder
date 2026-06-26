@@ -664,7 +664,8 @@ function renderCalcTab() {
   h += '<div id="calcFreightGroup" style="display:none">';
   h += '<span class="ext-label">🚂 C\u01b0\u1edbc bi\u1ec3n:</span>';
   h += '<input type="number" class="ext-input" id="calcFreightInput" value="0" min="0" step="100" oninput="setCalcFreight(this.value)" style="width:100px">';
-  h += '<span class="ext-label">USD</span>';
+  h += '<span class="ext-label">USD</span>';;
+  h += '<button class="ext-label" onclick="showFreightPopup()" style="background:var(--primary);color:white;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;font-weight:600">📡 Tra cước</button>';
   h += '</div>';
   h += '</div>';
       // Currency toggle for calc tab 
