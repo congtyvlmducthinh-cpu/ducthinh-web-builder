@@ -938,7 +938,7 @@ var total = 0;
       h += '<div class="calc-result-item"><span class="calc-rl">🚢 Freight / tấn</span><span class="calc-rv other">' + fmtNum(cifFreightPerTon, isUsd) + ' ' + cc + '</span></div>';
     }
   }
-  var bd = ""; if (bcode || isDefaultBag) { bd = bagCode; if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">🛍️ Bao bì (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; if (isDefaultBag) h += '<div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">⚠️ Đang dùng loại bao tiêu chuẩn. Nếu bao bì khác vui lòng chọn chính xác!</span></div>'; }
+  var bd = ""; if (bcode || isDefaultBag) { if (!bcode) { bd = "Tiêu chuẩn " + bs; } else { bd = bagCode; } if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">🛍️ Bao bì (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; if (isDefaultBag) h += '<div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">⚠️ Đang dùng loại bao tiêu chuẩn. Nếu bao bì khác vui lòng chọn chính xác!</span></div>'; }
   if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">📦 Quy cách khác (' + od + ')</span><span class="calc-rv other">' + fmtNum(otherPrice, isUsd) + ' ' + cc + '</span></div>'; }
   h += '<div class="calc-result-total-row">';
   h += '<span class="calc-rl">🏷️ Tổng giá thành (' + modeLabel + ')</span>';
