@@ -801,15 +801,25 @@ function calcCommission() {
     var cml = mlsel && mlsel.value ? parseFloat(mlsel.value) : 0;
     if (!cml) cml = isJumbo ? getMaxLoading(prod.code, "maxJumbo") : getMaxLoading(prod.code, "max25");
     var cfobCost = getCostFobVND(cml, calcLccType);
+    // Convert to USD if needed
+    if (isUsd) {
+      bagPrice = Math.round(bagPrice / EXCHANGE_RATE);
+      otherPrice = Math.round(otherPrice / EXCHANGE_RATE);
+      cfobCost = Math.round(cfobCost / EXCHANGE_RATE);
+    }
     totalCost = (exwBase + bagPrice + otherPrice + cfobCost) * 1.05;
     if (calcPriceMode === "cif" && cml > 0) {
-      totalCost += (calcFreightUSD + 10) * EXCHANGE_RATE / cml;
+      totalCost += isUsd ? (calcFreightUSD + 10) / cml : (calcFreightUSD + 10) * EXCHANGE_RATE / cml;
     }
     // Hoa hong FOB/CIF: commBase + (gia ban - gia fob) / 1.05 * 30%
     var diff = Math.max(0, (sellPrice - totalCost) / 1.05);
     var commissionVar = diff * 0.3;
     var totalComm = commBase + commissionVar;
   } else {
+    if (isUsd) {
+      bagPrice = Math.round(bagPrice / EXCHANGE_RATE);
+      otherPrice = Math.round(otherPrice / EXCHANGE_RATE);
+    }
     totalCost = exwBase + bagPrice + otherPrice;
     var diff = Math.max(0, sellPrice - totalCost);
     var commissionVar = diff * 0.3;
