@@ -696,11 +696,21 @@ function populateCalcMaxLoad() {
   var psel = document.getElementById("calcProduct"), mlsel = document.getElementById("calcMaxLoad");
   if (!psel || !mlsel) return;
   var pcode = psel.value;
-  mlsel.innerHTML = '<option value="">— Tự động (theo bao bì) —</option>';
-  if (!pcode || !DATA_MAX_LOADING[pcode]) return;
-  var keys = Object.keys(DATA_MAX_LOADING[pcode]).sort();
+  mlsel.innerHTML = '<option value="">— Tự động (theo quy cách bao) —</option>';
+  if (!pcode) return;
+  // Fuzzy match like getMaxLoading: find any key that starts with product code
+  var found = null;
+  if (DATA_MAX_LOADING[pcode]) {
+    found = DATA_MAX_LOADING[pcode];
+  } else {
+    for (var k in DATA_MAX_LOADING) {
+      if (k.indexOf(pcode) === 0) { found = DATA_MAX_LOADING[k]; break; }
+    }
+  }
+  if (!found) return;
+  var keys = Object.keys(found).sort();
   for (var i = 0; i < keys.length; i++) {
-    var v = DATA_MAX_LOADING[pcode][keys[i]];
+    var v = found[keys[i]];
     if (v !== undefined && v !== null) {
       var label = keys[i] === "max25" ? "25KG" : keys[i] === "maxJumbo" ? "Jumbo" : keys[i];
       mlsel.innerHTML += '<option value="' + v + '">' + label + ' = ' + v + ' tấn</option>';
