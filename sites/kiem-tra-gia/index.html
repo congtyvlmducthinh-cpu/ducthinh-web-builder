@@ -158,6 +158,34 @@ tbody tr:hover td{background:#eff6ff}
 .freight-modal-body .freight-val{font-weight:700;color:var(--primary)}
 .freight-modal-footer{padding:12px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
 
+
+/* Quotation popup */
+.q-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:999;display:none;align-items:center;justify-content:center}
+.q-overlay.open{display:flex}
+.q-modal{background:white;border-radius:var(--radius);width:90%;max-width:780px;max-height:90vh;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.2);display:flex;flex-direction:column}
+.q-modal-header{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.q-modal-header h3{margin:0;font-size:16px;display:flex;align-items:center;gap:8px}
+.q-modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:#94a3b8;padding:4px 10px;border-radius:6px}
+.q-modal-close:hover{background:#f1f5f9;color:#334155}
+.q-modal-form{padding:16px 24px;border-bottom:1px solid #f1f5f9;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.q-modal-form label{font-size:12px;font-weight:700;color:#64748b;display:block;margin-bottom:2px}
+.q-modal-form input,.q-modal-form select{width:100%;padding:8px 12px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;outline:none;box-sizing:border-box}
+.q-modal-form input:focus,.q-modal-form select:focus{border-color:var(--primary)}
+.q-modal-body{flex:1;overflow-y:auto;padding:24px}
+.q-preview{font-family:'Arial',sans-serif;max-width:680px;margin:0 auto;padding:30px;background:white;border:1px solid #e2e8f0;border-radius:8px}
+.q-preview h1{font-size:20px;text-align:center;color:#1e293b;margin:0 0 4px;text-transform:uppercase;letter-spacing:.05em}
+.q-preview .q-sub{text-align:center;color:#64748b;font-size:12px;margin:0 0 20px}
+.q-preview .q-divider{height:2px;background:var(--primary);margin:0 0 16px}
+.q-preview .q-row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid #f1f5f9}
+.q-preview .q-row strong{color:#1e293b}
+.q-preview .q-row span{color:#475569}
+.q-preview .q-total{display:flex;justify-content:space-between;padding:12px 0;font-size:15px;border-top:2px solid var(--primary);margin-top:8px}
+.q-preview .q-total strong{color:var(--primary)}
+.q-preview .q-footer{margin-top:20px;font-size:11px;color:#94a3b8;line-height:1.6}
+.q-modal-footer{padding:12px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+button.q-btn-print{background:var(--primary);color:white;border:none;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600}
+button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border);padding:8px 20px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600}
+
 </style>
 </head>
 <body>
@@ -982,6 +1010,7 @@ var total = 0;
   h += '<div class="calc-commission-wrap">';
   h += '<div class="calc-sell-input"><span>💰 Giá bán</span><input type="number" id="calcSellPrice" placeholder="Nhập giá bán..." oninput="calcCommission()"></div>';
   h += '<div class="calc-comm-result" id="calcCommissionResult"></div>';
+  h += '<div style="margin-top:12px;text-align:center"><button onclick="showQuotationPopup()" style="background:var(--primary);color:white;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.3)">📄 Lên báo giá</button></div>';
   h += '</div>';
   res.innerHTML = h;
 }
@@ -1451,6 +1480,210 @@ function selectFreightRoute() {
   closeFreightPopup();
 }
 
+
+
+// ====== QUOTATION POPUP ======
+function showQuotationPopup() {
+  var popup = document.getElementById("quotationPopup");
+  if (!popup) return;
+  document.getElementById("qDateSpan").textContent = new Date().toLocaleDateString("vi-VN");
+  updateQuotationPreview();
+  popup.classList.add("open");
+}
+
+function closeQuotationPopup() {
+  document.getElementById("quotationPopup").classList.remove("open");
+}
+
+function getCalcPriceData() {
+  var psel = document.getElementById("calcProduct"), bsel = document.getElementById("calcBag"), tnsel = document.getElementById("calcTonnage"), osel = document.getElementById("calcOther"), bagSpecSel = document.getElementById("calcBagSpec"), sp = document.getElementById("calcSellPrice");
+  if (!psel || !psel.value) return null;
+  var prod = null;
+  for (var i = 0; i < DATA_PRODUCTS.length; i++) { if (DATA_PRODUCTS[i].code === psel.value) { prod = DATA_PRODUCTS[i]; break; } }
+  if (!prod) return null;
+  
+  var isUsd = currency === "USD";
+  var cc = isUsd ? "USD" : "VND";
+  var bs = bagSpecSel ? bagSpecSel.value : "25KG";
+  var isJumbo = bs === "Jumbo";
+  var bcode = bsel ? bsel.value : "";
+  var bagLabel = "";
+  if (bcode) {
+    for (var i = 0; i < DATA_BAGS.length; i++) { if (DATA_BAGS[i].code === bcode) { bagLabel = DATA_BAGS[i].spec; break; } }
+  } else {
+    bagLabel = bs;
+  }
+  
+  var sellPrice = sp && sp.value ? parseFloat(sp.value) : 0;
+  
+  // Build mode label
+  var modeStr = calcPriceMode.toUpperCase();
+  if (calcPriceMode === "fob") modeStr += " (" + (calcLccType === "sub" ? "Sub LCC" : "No LCC") + ")";
+  if (calcPriceMode === "cif") modeStr += " (" + (calcLccType === "sub" ? "Sub" : "No") + ")";
+  
+  return {
+    product: prod.code + " — " + prod.size,
+    machine: prod.machine,
+    standard: prod.standard,
+    bagSpec: bagLabel,
+    bagCode: bcode || bagLabel,
+    isJumbo: isJumbo,
+    mode: modeStr,
+    totalPrice: sellPrice,
+    cc: cc,
+    isUsd: isUsd
+  };
+}
+
+function updateQuotationPreview() {
+  var data = getCalcPriceData();
+  var content = document.getElementById("qPreviewContent");
+  var customer = document.getElementById("qCustomer").value || "______________________";
+  var valid = document.getElementById("qValid").value;
+  var payment = document.getElementById("qPayment").value;
+  var port = document.getElementById("qPort").value || "______________________";
+  var note = document.getElementById("qNote").value;
+  
+  if (!data) {
+    content.innerHTML = '<p style="text-align:center;color:#94a3b8;font-size:13px">Chọn sản phẩm và tính giá trước khi lên báo giá</p>';
+    return;
+  }
+  
+  var totalFormatted = data.totalPrice > 0 ? data.totalPrice.toLocaleString('en-US', data.isUsd ? {minimumFractionDigits:1,maximumFractionDigits:2} : {}) : "________________";
+  var now = new Date();
+  var dateStr = now.getDate() + "/" + (now.getMonth()+1) + "/" + now.getFullYear();
+  
+  var h = '';
+  h += '<div class="q-row"><strong>Khách hàng:</strong><span>' + customer + '</span></div>';
+  h += '<div class="q-row"><strong>Ngày:</strong><span>' + dateStr + '</span></div>';
+  h += '<div class="q-row"><strong>Sản phẩm:</strong><span>' + data.product + '</span></div>';
+  h += '<div class="q-row"><strong>Máy / Tiêu chuẩn:</strong><span>' + data.machine + ' / ' + data.standard + '</span></div>';
+  h += '<div class="q-row"><strong>Quy cách bao:</strong><span>' + data.bagSpec + '</span></div>';
+  h += '<div class="q-row"><strong>Điều kiện:</strong><span>' + data.mode + '</span></div>';
+  if (port && port !== "______________________") h += '<div class="q-row"><strong>Cảng đi:</strong><span>' + port + '</span></div>';
+  h += '<div class="q-row"><strong>Giá bán:</strong><span>' + totalFormatted + ' ' + data.cc + '</span></div>';
+  h += '<div class="q-row"><strong>Hiệu lực:</strong><span>' + valid + '</span></div>';
+  h += '<div class="q-row"><strong>Thanh toán:</strong><span>' + payment + '</span></div>';
+  if (note) h += '<div class="q-row"><strong>Ghi chú:</strong><span>' + note + '</span></div>';
+  
+  content.innerHTML = h;
+}
+
+function getQuotationText() {
+  var data = getCalcPriceData();
+  var customer = document.getElementById("qCustomer").value || "______________________";
+  var valid = document.getElementById("qValid").value;
+  var payment = document.getElementById("qPayment").value;
+  var port = document.getElementById("qPort").value || "";
+  var note = document.getElementById("qNote").value;
+  
+  if (!data) return "Chưa có dữ liệu sản phẩm";
+  
+  var totalFmt = data.totalPrice > 0 ? data.totalPrice.toLocaleString('en-US', data.isUsd ? {minimumFractionDigits:1,maximumFractionDigits:2} : {}) : "________________";
+  var now = new Date();
+  var dateStr = now.getDate() + "/" + (now.getMonth()+1) + "/" + now.getFullYear();
+  
+  var t = "CÔNG TY TNHH VL MỚI ĐỨC THỊNH
+";
+  t += "ĐC: QL1A, KP2, TT Mỹ Phước, H.Bến Cát, T.Bình Dương
+";
+  t += "MST: 3702861861
+";
+  t += "─────────────────────
+";
+  t += "📄 BÁO GIÁ
+";
+  t += "─────────────────────
+";
+  t += "Khách hàng: " + customer + "
+";
+  t += "Ngày: " + dateStr + "
+";
+  t += "Sản phẩm: " + data.product + "
+";
+  t += "Máy/Tiêu chuẩn: " + data.machine + " / " + data.standard + "
+";
+  t += "Quy cách bao: " + data.bagSpec + "
+";
+  t += "Điều kiện: " + data.mode + "
+";
+  if (port) t += "Cảng đi: " + port + "
+";
+  t += "Giá bán: " + totalFmt + " " + data.cc + "
+";
+  t += "Hiệu lực: " + valid + "
+";
+  t += "Thanh toán: " + payment + "
+";
+  if (note) t += "Ghi chú: " + note + "
+";
+  t += "─────────────────────
+";
+  t += "CÔNG TY TNHH VẬT LIỆU MỚI ĐỨC THỊNH";
+  return t;
+}
+
+function copyQuotation() {
+  var text = getQuotationText();
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = document.querySelector(".q-modal-footer .q-btn-copy");
+    if (btn) { btn.textContent = "✅ Đã copy!"; setTimeout(function() { btn.textContent = "📋 Copy"; }, 2000); }
+  });
+}
+
+function printQuotation() {
+  var data = getCalcPriceData();
+  var customer = document.getElementById("qCustomer").value || "______________________";
+  var valid = document.getElementById("qValid").value;
+  var payment = document.getElementById("qPayment").value;
+  var port = document.getElementById("qPort").value || "";
+  var note = document.getElementById("qNote").value;
+  if (!data) return;
+  
+  var totalFmt = data.totalPrice > 0 ? data.totalPrice.toLocaleString('en-US', data.isUsd ? {minimumFractionDigits:1,maximumFractionDigits:2} : {}) : "________________";
+  var now = new Date();
+  var dateStr = now.getDate() + "/" + (now.getMonth()+1) + "/" + now.getFullYear();
+  
+  var w = window.open("", "_blank");
+  w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Báo giá - ' + data.product + '</title>');
+  w.document.write('<style>');
+  w.document.write('body{font-family:"Arial",sans-serif;padding:40px;max-width:700px;margin:0 auto;color:#1e293b}');
+  w.document.write('h1{font-size:22px;text-align:center;margin:0 0 4px;text-transform:uppercase;letter-spacing:.05em}');
+  w.document.write('.sub{text-align:center;color:#64748b;font-size:12px;margin:0 0 20px}');
+  w.document.write('.divider{height:2px;background:#2563eb;margin:0 0 16px}');
+  w.document.write('.title{text-align:center;font-weight:700;font-size:15px;margin:0 0 20px}');
+  w.document.write('.row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:1px solid #f1f5f9}');
+  w.document.write('.row strong{color:#1e293b}.row span{color:#475569}');
+  w.document.write('.footer{margin-top:24px;font-size:11px;color:#94a3b8;line-height:1.6}');
+  w.document.write('@media print{body{padding:20px}}');
+  w.document.write('</style></head><body>');
+  w.document.write('<h1>CÔNG TY TNHH VẬT LIỆU MỚI ĐỨC THỊNH</h1>');
+  w.document.write('<p class="sub">ĐC: QL1A, KP2, TT Mỹ Phước, H.Bến Cát, T.Bình Dương<br>MST: 3702861861</p>');
+  w.document.write('<div class="divider"></div>');
+  w.document.write('<p class="title">📄 BÁO GIÁ</p>');
+  w.document.write('<div class="row"><strong>Khách hàng:</strong><span>' + customer + '</span></div>');
+  w.document.write('<div class="row"><strong>Ngày:</strong><span>' + dateStr + '</span></div>');
+  w.document.write('<div class="row"><strong>Sản phẩm:</strong><span>' + data.product + '</span></div>');
+  w.document.write('<div class="row"><strong>Máy / Tiêu chuẩn:</strong><span>' + data.machine + ' / ' + data.standard + '</span></div>');
+  w.document.write('<div class="row"><strong>Quy cách bao:</strong><span>' + data.bagSpec + '</span></div>');
+  w.document.write('<div class="row"><strong>Điều kiện:</strong><span>' + data.mode + '</span></div>');
+  if (port) w.document.write('<div class="row"><strong>Cảng đi:</strong><span>' + port + '</span></div>');
+  w.document.write('<div class="row"><strong>Giá bán:</strong><span>' + totalFmt + ' ' + data.cc + '</span></div>');
+  w.document.write('<div class="row"><strong>Hiệu lực:</strong><span>' + valid + '</span></div>');
+  w.document.write('<div class="row"><strong>Thanh toán:</strong><span>' + payment + '</span></div>');
+  if (note) w.document.write('<div class="row"><strong>Ghi chú:</strong><span>' + note + '</span></div>');
+  w.document.write('<div class="footer">');
+  w.document.write('<p>CÔNG TY TNHH VẬT LIỆU MỚI ĐỨC THỊNH<br>');
+  w.document.write('ĐC: QL1A, KP2, TT Mỹ Phước, H.Bến Cát, T.Bình Dương<br>');
+  w.document.write('MST: 3702861861<br>');
+  w.document.write('Hotline: ______________________</p></div>');
+  w.document.write('</body></html>');
+  w.document.close();
+  
+  // Auto-trigger print after a short delay
+  setTimeout(function() { w.focus(); w.print(); }, 500);
+}
+
 // ====== INIT ======
 (function() {
   var c = document.getElementById("mainContainer");
@@ -1491,6 +1724,38 @@ function fmtNum(n, isUsd) {
       <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="freightCount"></span>
       <button class="btn-cancel" onclick="closeFreightPopup()">Đóng</button>
       <button class="btn-confirm" onclick="selectFreightRoute()">✅ Chọn tuyến</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Quotation Popup -->
+<div class="q-overlay" id="quotationPopup">
+  <div class="q-modal">
+    <div class="q-modal-header">
+      <h3>📄 Lên báo giá</h3>
+      <button class="q-modal-close" onclick="closeQuotationPopup()">✕</button>
+    </div>
+    <div class="q-modal-form">
+      <div><label>👤 Khách hàng</label><input type="text" id="qCustomer" placeholder="Tên khách hàng..." oninput="updateQuotationPreview()"></div>
+      <div><label>📅 Hiệu lực</label><select id="qValid" onchange="updateQuotationPreview()"><option value="15 ngày">15 ngày</option><option value="30 ngày">30 ngày</option><option value="7 ngày">7 ngày</option><option value="kể từ ngày ký">Kể từ ngày ký</option></select></div>
+      <div><label>💵 Điều kiện thanh toán</label><select id="qPayment" onchange="updateQuotationPreview()"><option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option><option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div>
+      <div><label>🌊 Cảng đi</label><input type="text" id="qPort" placeholder="Cảng đi (nếu có)..." oninput="updateQuotationPreview()"></div>
+      <div style="grid-column:1/-1"><label>📝 Ghi chú</label><input type="text" id="qNote" placeholder="Ghi chú thêm..." oninput="updateQuotationPreview()" style="width:100%"></div>
+    </div>
+    <div class="q-modal-body" id="qPreviewBody">
+      <div class="q-preview" id="qPreview">
+        <h1>CÔNG TY TNHH VẬT LIỆU MỚI ĐỨC THỊNH</h1>
+        <p class="q-sub">ĐC: QL1A, KP2, TT Mỹ Phước, H.Bến Cát, T.Bình Dương<br>MST: 3702861861</p>
+        <div class="q-divider"></div>
+        <p style="text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px">📄 BÁO GIÁ</p>
+        <div id="qPreviewContent"><p style="text-align:center;color:#94a3b8;font-size:13px">Chọn sản phẩm và tính giá trước khi lên báo giá</p></div>
+      </div>
+    </div>
+    <div class="q-modal-footer">
+      <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="qDateSpan"></span>
+      <button class="q-btn-copy" onclick="copyQuotation()">📋 Copy</button>
+      <button class="q-btn-print" onclick="printQuotation()">🖨 In / PDF</button>
     </div>
   </div>
 </div>
