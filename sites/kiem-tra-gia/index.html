@@ -1299,13 +1299,13 @@ function handleManageFile(file) {
         if (s.length > 0) { DATA_PRODUCTS = s; updated++; }
       }
       
-      var bagSheet = hasSheet(["Bags", "bags", "Bao bì", "bao bì", "Bao", "bao", "Bag", "Template"]);
+      var bagSheet = hasSheet(["Bags", "bags", "Bao bì", "bao bì", "Bao", "bao", "Bag"]);
       if (bagSheet) {
         var s = XLSX.utils.sheet_to_json(wb.Sheets[bagSheet]);
         if (s.length > 0) { DATA_BAGS = s; updated++; }
       }
       
-      var otherSheet = hasSheet(["Others", "others", "Quy cách khác", "Other", "other", "Template"]);
+      var otherSheet = hasSheet(["Others", "others", "Quy cách khác", "Other", "other"]);
       if (otherSheet) {
         var s = XLSX.utils.sheet_to_json(wb.Sheets[otherSheet]);
         if (s.length > 0) { DATA_OTHERS = s; updated++; }
