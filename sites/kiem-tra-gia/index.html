@@ -896,7 +896,7 @@ var total = 0;
   }
   if (isCifMode) {
     if (fobCostPerTon > 0) {
-      h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + Math.round(fobCostPerTon).toLocaleString() + ' + cc + '</span></div>';
+      h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + Math.round(fobCostPerTon).toLocaleString() + ' ' + cc + '</span></div>';
     }
     if (maxLoad > 0) {
       var cifFreightPerTon = isUsd ? (calcFreightUSD + 10) / maxLoad : (calcFreightUSD + 10) * EXCHANGE_RATE / maxLoad;
