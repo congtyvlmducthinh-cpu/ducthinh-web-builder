@@ -639,7 +639,15 @@ function renderCalcTab() {
   h += '<span class="ext-label">USD</span>';
   h += '</div>';
   h += '</div>';
-    h += '<div class="calc-result" id="calcResult">';
+      // Currency toggle for calc tab 
+  h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:4px 0">';
+  h += '<span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">💱 Loại tiền:</span>';
+  h += '<div class="calc-currency-bar">';
+  h += '<button class="mode-btn active" id="calcCcyVnd" onclick="setCalcCurrency(\'VND\')">VND</button>';
+  h += '<button class="mode-btn" id="calcCcyUsd" onclick="setCalcCurrency(\'USD\')">USD</button>';
+  h += '</div>';
+  h += '</div>';
+h += '<div class="calc-result" id="calcResult">';
   h += '<div class="calc-empty">';
   h += '<div class="calc-empty-icon">📊</div>';
   h += '<div class="calc-empty-text">Ch\u1ecdn s\u1ea3n ph\u1ea9m v\u00e0 bao b\u00ec \u0111\u1ec3 b\u1eaft \u0111\u1ea7u</div>';
@@ -870,15 +878,7 @@ function calcPrice() {
     total = exwMin + bagPrice + otherPrice;
   }
   var cc = isUsd ? "USD" : "VND";
-    // Currency toggle inside result
-  h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">';
-  h += '<span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase">💱 Loại tiền:</span>';
-  h += '<div class="calc-currency-bar">';
-  h += '<button class="mode-btn active" id="calcCcyVnd" onclick="setCalcCurrency(\'VND\')">VND</button>';
-  h += '<button class="mode-btn" id="calcCcyUsd" onclick="setCalcCurrency(\'USD\')">USD</button>';
-  h += '</div>';
-  h += '</div>';
-var h = '<div class="calc-result-summary">';
+    var h = '<div class="calc-result-summary">';
   h += '<div class="calc-result-item"><span class="calc-rl">📦 Sản phẩm</span><span class="calc-rv">' + prod.code + '</span></div>';
   h += '<div class="calc-result-item"><span class="calc-rl">⚙️ Máy / Tiêu chuẩn</span><span class="calc-rv">' + prod.machine + ' · ' + prod.standard + '</span></div>';
   h += '<div class="calc-result-item"><span class="calc-rl">📐 Kích thước</span><span class="calc-rv">' + prod.size + '</span></div>';
