@@ -135,7 +135,30 @@ tbody tr:hover td{background:#eff6ff}
 .btn-cancel,.btn-confirm{padding:11px 28px;border-radius:10px;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)}
 .btn-cancel{background:#f1f5f9;color:var(--text-secondary)}
 .btn-confirm{background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff}
-@media(max-width:768px){body{padding:12px}.calc-grid{grid-template-columns:1fr}}</style>
+@media(max-width:768px){body{padding:12px}.calc-grid{grid-template-columns:1fr}}
+/* Freight lookup popup */
+.freight-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:999;display:none;align-items:center;justify-content:center}
+.freight-overlay.open{display:flex}
+.freight-modal{background:white;border-radius:var(--radius);width:90%;max-width:680px;max-height:80vh;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.2);display:flex;flex-direction:column}
+.freight-modal-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.freight-modal-header h3{margin:0;font-size:15px;display:flex;align-items:center;gap:8px}
+.freight-modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:#94a3b8;padding:4px 8px;border-radius:6px}
+.freight-modal-close:hover{background:#f1f5f9;color:#334155}
+.freight-modal-search{padding:12px 20px;border-bottom:1px solid var(--border)}
+.freight-modal-search input{width:100%;padding:10px 14px;border:2px solid var(--border);border-radius:8px;font-size:14px;outline:none;box-sizing:border-box}
+.freight-modal-search input:focus{border-color:var(--primary)}
+.freight-modal-filters{padding:8px 20px;display:flex;gap:8px;border-bottom:1px solid #f1f5f9;flex-wrap:wrap}
+.freight-modal-filters select{padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:white;min-width:120px}
+.freight-modal-body{flex:1;overflow-y:auto;padding:0}
+.freight-modal-body table{width:100%;border-collapse:collapse}
+.freight-modal-body th{position:sticky;top:0;background:#f8fafc;padding:10px 16px;font-size:12px;text-align:left;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:.03em;border-bottom:2px solid var(--border)}
+.freight-modal-body td{padding:10px 16px;font-size:13px;border-bottom:1px solid #f1f5f9;cursor:pointer}
+.freight-modal-body tr:hover td{background:#eff6ff}
+.freight-modal-body tr.selected td{background:#dbeafe;font-weight:600}
+.freight-modal-body .freight-val{font-weight:700;color:var(--primary)}
+.freight-modal-footer{padding:12px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+
+</style>
 </head>
 <body>
 <div class="container">
@@ -301,6 +324,7 @@ var managePassword = "Ducthinh@1";
 var calcPriceMode = "exw";
 var calcLccType = "no";
 var calcFreightUSD = 0;
+var FREIGHT_DATA = [{"port": "Shanghai", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Ningbo", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Qingdao", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Nansha", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "ShanTou", "country": "CHINA", "freight": 50, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Xiamen", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "RiZhao", "country": "CHINA", "freight": 165, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Changzhou", "country": "CHINA", "freight": 135, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Tianjin Xingang", "country": "CHINA", "freight": 12, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Wuhu", "country": "CHINA", "freight": 95, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "ZhenJiang", "country": "CHINA", "freight": 105, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Wuzhou", "country": "CHINA", "freight": 160, "forwarder": "KTO", "via": "ALL IN"}, {"port": "Fuzhou", "country": "CHINA", "freight": 100, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Jiangyin", "country": "CHINA", "freight": 105, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Wenzhou", "country": "CHINA", "freight": 195, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Yangzhou", "country": "CHINA", "freight": 150, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Zhapu", "country": "CHINA", "freight": 50, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Dalian", "country": "CHINA", "freight": 12, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Nanchang", "country": "CHINA", "freight": 200, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Zhongshan", "country": "CHINA", "freight": 100, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Yangpu", "country": "CHINA", "freight": 65, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "TaiCang", "country": "CHINA", "freight": 25, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Taizhou", "country": "CHINA", "freight": 105, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Jiujiang", "country": "CHINA", "freight": 90, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Nanjing", "country": "CHINA", "freight": 110, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "ShanShan", "country": "CHINA", "freight": 90, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Chongqing", "country": "CHINA", "freight": 225, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "SURABAYA", "country": "INDONEXIA", "freight": 210, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "MEDAN (Belawan)", "country": "INDONEXIA", "freight": 245, "forwarder": "Nagel", "via": "Sub LCC"}, {"port": "JAKARTA", "country": "INDONEXIA", "freight": 310, "forwarder": "KMG", "via": "Sub LCC"}, {"port": "SEMARANG", "country": "INDONEXIA", "freight": 290, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "PORT KLANG", "country": "MALAYSIA", "freight": 250, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "PENANG", "country": "MALAYSIA", "freight": 250, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "YANGON", "country": "MYANMAR", "freight": 480, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "BANGKOK", "country": "THAILAND", "freight": 265, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "LAEM CHABANG", "country": "THAILAND", "freight": 235, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "MANILA", "country": "PHILIPPINE", "freight": 120, "forwarder": "Nagel", "via": "Sub LCC"}, {"port": "CEBU", "country": "PHILIPPINE", "freight": 220, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "DAVAO", "country": "PHILIPPINE", "freight": 220, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "SIHANOUKVILLE", "country": "CAMBODIA", "freight": 150, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "CHITTAGONG", "country": "BANGLADESH", "freight": 950, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "NHAVA SHEVA", "country": "INDIA", "freight": 830, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "MUNDRA", "country": "INDIA", "freight": 830, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "CHENNAI", "country": "INDIA", "freight": 830, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "VIZAG", "country": "INDIA", "freight": 1350, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "KARACHI", "country": "INDIA", "freight": 1250, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "TUTICORIN", "country": "INDIA", "freight": 1350, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "COLOMBO", "country": "INDIA", "freight": 1350, "forwarder": "ITI", "via": "Sub LCC"}];
 var EXCHANGE_RATE = 26000;
 
 // ====== UTILITY ======
@@ -1336,6 +1360,96 @@ function setLang(lang) {
   });
 }
 
+
+// ====== FREIGHT LOOKUP POPUP ======
+var selectedFreightRoute = null;
+
+function showFreightPopup() {
+  var popup = document.getElementById("freightPopup");
+  if (!popup) return;
+  
+  // Populate filters
+  var countries = {}, forwarders = {}, vias = {};
+  FREIGHT_DATA.forEach(function(r) {
+    countries[r.country] = true;
+    forwarders[r.forwarder] = true;
+    vias[r.via] = true;
+  });
+  
+  var cf = document.getElementById("freightCountryFilter");
+  var ff = document.getElementById("freightForwarderFilter");
+  var vf = document.getElementById("freightViaFilter");
+  
+  if (cf) {
+    var cur = cf.value;
+    cf.innerHTML = '<option value="">Tất cả nước</option>';
+    Object.keys(countries).sort().forEach(function(c) { cf.innerHTML += '<option value="' + c + '">' + c + '</option>'; });
+    cf.value = cur;
+  }
+  if (ff) {
+    var cur = ff.value;
+    ff.innerHTML = '<option value="">Tất cả hãng</option>';
+    Object.keys(forwarders).sort().forEach(function(f) { ff.innerHTML += '<option value="' + f + '">' + f + '</option>'; });
+    ff.value = cur;
+  }
+  if (vf) {
+    var cur = vf.value;
+    vf.innerHTML = '<option value="">Tất cả loại</option>';
+    Object.keys(vias).sort().forEach(function(v) { vf.innerHTML += '<option value="' + v + '">' + v + '</option>'; });
+    vf.value = cur;
+  }
+  
+  selectedFreightRoute = null;
+  document.getElementById("freightSearch").value = "";
+  filterFreightRoutes();
+  popup.classList.add("open");
+}
+
+function closeFreightPopup() {
+  document.getElementById("freightPopup").classList.remove("open");
+}
+
+function filterFreightRoutes() {
+  var search = (document.getElementById("freightSearch").value || "").toLowerCase().trim();
+  var country = document.getElementById("freightCountryFilter").value;
+  var forwarder = document.getElementById("freightForwarderFilter").value;
+  var via = document.getElementById("freightViaFilter").value;
+  
+  var filtered = FREIGHT_DATA.filter(function(r) {
+    if (search && r.port.toLowerCase().indexOf(search) < 0 && r.country.toLowerCase().indexOf(search) < 0) return false;
+    if (country && r.country !== country) return false;
+    if (forwarder && r.forwarder !== forwarder) return false;
+    if (via && r.via !== via) return false;
+    return true;
+  });
+  
+  var tbody = document.getElementById("freightTableBody");
+  var count = document.getElementById("freightCount");
+  if (count) count.textContent = filtered.length + " tuyến";
+  if (!tbody) return;
+  
+  tbody.innerHTML = "";
+  filtered.forEach(function(r) {
+    var tr = document.createElement("tr");
+    tr.dataset.index = FREIGHT_DATA.indexOf(r);
+    tr.innerHTML = '<td>' + r.port + '</td><td>' + r.country + '</td><td class="freight-val">$' + r.freight + '</td><td>' + r.forwarder + '</td><td>' + r.via + '</td>';
+    tr.onclick = function() {
+      tbody.querySelectorAll("tr").forEach(function(t) { t.classList.remove("selected"); });
+      this.classList.add("selected");
+      selectedFreightRoute = r;
+    };
+    tbody.appendChild(tr);
+  });
+}
+
+function selectFreightRoute() {
+  if (!selectedFreightRoute) return;
+  var input = document.getElementById("calcFreightInput");
+  if (input) input.value = selectedFreightRoute.freight;
+  setCalcFreight(selectedFreightRoute.freight);
+  closeFreightPopup();
+}
+
 // ====== INIT ======
 (function() {
   var c = document.getElementById("mainContainer");
@@ -1350,4 +1464,34 @@ function fmtNum(n, isUsd) {
   return Math.round(n).toLocaleString();
 }
 </script>
+
+<!-- Freight Lookup Popup -->
+<div class="freight-overlay" id="freightPopup">
+  <div class="freight-modal">
+    <div class="freight-modal-header">
+      <h3>📡 Tra cước biển</h3>
+      <button class="freight-modal-close" onclick="closeFreightPopup()">✕</button>
+    </div>
+    <div class="freight-modal-search">
+      <input type="text" id="freightSearch" placeholder="🔍 Tìm cảng..." oninput="filterFreightRoutes()">
+    </div>
+    <div class="freight-modal-filters">
+      <select id="freightCountryFilter" onchange="filterFreightRoutes()"><option value="">Tất cả nước</option></select>
+      <select id="freightForwarderFilter" onchange="filterFreightRoutes()"><option value="">Tất cả hãng</option></select>
+      <select id="freightViaFilter" onchange="filterFreightRoutes()"><option value="">Tất cả loại</option></select>
+    </div>
+    <div class="freight-modal-body">
+      <table>
+        <thead><tr><th>Cảng đi</th><th>Nước đến</th><th>Cước (USD)</th><th>Hãng</th><th>Loại</th></tr></thead>
+        <tbody id="freightTableBody"></tbody>
+      </table>
+    </div>
+    <div class="freight-modal-footer">
+      <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="freightCount"></span>
+      <button class="btn-cancel" onclick="closeFreightPopup()">Đóng</button>
+      <button class="btn-confirm" onclick="selectFreightRoute()">✅ Chọn tuyến</button>
+    </div>
+  </div>
+</div>
+
 </body></html>
