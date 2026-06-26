@@ -1158,7 +1158,7 @@ function downloadTemplate(type) {
   var headers, fn, row;
   if (type === 0) {
     fn = "Mau_gia_ban.xlsx";
-    headers = ["code","size","standard","machine","exw_vnd","exw_usd","comm_vnd","comm_usd","pkg25_vnd","pkg25_usd","jumbo_vnd","jumbo_usd"];
+    headers = ["code","standard","machine","exw_vnd_cn","exw_usd_cn","comm_vnd_cn","comm_usd_cn","pkg25_vnd_cn","pkg25_usd_cn","jumbo_vnd_cn","jumbo_usd_cn","exw_vnd_other","exw_usd_other","comm_vnd_other","comm_usd_other","pkg25_vnd_other","pkg25_usd_other","jumbo_vnd_other","jumbo_usd_other"];
   } else if (type === 1) {
     fn = "Mau_bao_bi.xlsx";
     headers = ["code","cost","spec","qty","price","profit"];
@@ -1179,7 +1179,7 @@ function downloadFullTemplate() {
   var wb = XLSX.utils.book_new();
   
   // Sheet 1: Products
-  var prodHeaders = ["code","size","standard","machine","exw_vnd","exw_usd","comm_vnd","comm_usd","pkg25_vnd","pkg25_usd","jumbo_vnd","jumbo_usd"];
+  var prodHeaders = ["code","standard","machine","exw_vnd_cn","exw_usd_cn","comm_vnd_cn","comm_usd_cn","pkg25_vnd_cn","pkg25_usd_cn","jumbo_vnd_cn","jumbo_usd_cn","exw_vnd_other","exw_usd_other","comm_vnd_other","comm_usd_other","pkg25_vnd_other","pkg25_usd_other","jumbo_vnd_other","jumbo_usd_other"];
   XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([prodHeaders]), "Products");
   
   // Sheet 2: Bags
