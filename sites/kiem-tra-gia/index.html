@@ -614,6 +614,14 @@ function switchTab(tab) {
 }
 
 // ====== RENDER PRICE TAB ======
+function formatMaxLoading(v) {
+  if (v && v > 0) return '<span style="font-weight:600;color:#0f766e">' + v + ' t</span>';
+  return '—';
+}
+function formatMaxLoading(v) {
+  if (v && v > 0) return '<span style="font-weight:600;color:#0f766e">' + v + ' t</span>';
+  return '—';
+}
 function renderPriceTab() {
   var search = (document.getElementById("searchInput") && document.getElementById("searchInput").value || "").toLowerCase();
   var specFilter = document.getElementById("specFilter") && document.getElementById("specFilter").value || "";
@@ -667,10 +675,10 @@ function renderPriceTab() {
 
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
-  h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2">Gi\u00e1 bao g\u1ed3m bao b\u00ec</th>';
+  h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2">Max t\u1ea3i</th><th colspan="2">Gi\u00e1 bao g\u1ed3m bao b\u00ec</th>';
   if (!showFobCif) h += '<th colspan="2">Gi\u00e1 b\u00e1n (EXW)</th>';
   h += '</tr>';
-  h += '<tr><th>M\u00e3</th><th>K\u00edch th\u01b0\u1edbc</th><th>Ti\u00eau chu\u1ea9n</th><th>M\u00e1y</th><th>25KG <span class="info-row">(VND)</span></th><th>Jumbo <span class="info-row">(VND)</span></th>';
+  h += '<tr><th>M\u00e3</th><th>K\u00edch th\u01b0\u1edbc</th><th>Ti\u00eau chu\u1ea9n</th><th>M\u00e1y</th><th>Max 25KG <span class="info-row">(t\u1ea5n)</span></th><th>Max Jumbo <span class="info-row">(t\u1ea5n)</span></th><th>25KG <span class="info-row">(VND)</span></th><th>Jumbo <span class="info-row">(VND)</span></th>';
   if (!showFobCif) {
     h += '<th>EXW <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>Hoa h\u1ed3ng <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   }
@@ -683,6 +691,8 @@ function renderPriceTab() {
     h += '<td>' + p.size + '</td>';
     h += '<td><span class="badge-spec badge-' + p.standard.replace(/-/g, '').replace(/\+/g, '') + '">' + p.standard + '</span></td>';
     h += '<td>' + p.machine + '</td>';
+    h += '<td class="text-right">' + formatMaxLoading(getMaxLoading(p.code, "max25")) + '</td>';
+    h += '<td class="text-right">' + formatMaxLoading(getMaxLoading(p.code, "maxJumbo")) + '</td>';
     if (isFob) {
       h += '<td class="text-right">' + (isUsd ? formatCurrency(getFOB25PriceUSD(p, lccType), true) : formatCurrency(getFOB25PriceVND(p, lccType), false)) + '</td>';
       h += '<td class="text-right">' + (isUsd ? formatCurrency(getFOBJumboPriceUSD(p, lccType), true) : formatCurrency(getFOBJumboPriceVND(p, lccType), false)) + '</td>';
