@@ -398,23 +398,7 @@ function setMarket(mkt) {
 }
 
 var DATA_OTHERS = [{"code": "PALLET TÁI SỬ DỤNG", "cost": 70000, "price": 77000, "profit": 0.1}, {"code": "PALLET MỚI", "cost": 120000, "price": 132000, "profit": 0.1}, {"code": "NẸP ĐAI", "cost": 5000, "price": 5500, "profit": 0.1}, {"code": "QUẤN MÀNG", "cost": 18000, "price": 19800, "profit": 0.1}, {"code": "PALLET TRÁNG PHỦ", "cost": 160000, "price": 176000, "profit": 0.1}, {"code": "JUMBO MỞ NẮP (SLING)", "cost": 95000, "price": 104500, "profit": 0.1}, {"code": "PALLET MỚI + NẸP ĐAI + QUẤN MÀNG", "cost": 143000, "price": 157300, "profit": 0.1}, {"code": "JUMBO MỞ NẮP (SLING) CỦA KHÁCH", "cost": 35000, "price": 38500, "profit": 0.1}];
-// Max loading lookup (tons per container) — nguồn từ Max_loadding.xlsx
-var DATA_MAX_LOADING = {"H4A1":{"max25":20,"maxJumbo":14},"H5A1":{"max25":22,"maxJumbo":14},"H6A1":{"max25":24,"maxJumbo":14},"H8A1":{"max25":26,"maxJumbo":20},"H8RA1":{"max25":26,"maxJumbo":20},"H10A1":{"max25":27,"maxJumbo":22},"H12A1":{"max25":27,"maxJumbo":24},"H15A1":{"max25":27,"maxJumbo":26},"H17A1":{"max25":27,"maxJumbo":26},"H20A1":{"max25":28,"maxJumbo":27},"H25A1":{"max25":28,"maxJumbo":27},"H30A1":{"max25":28,"maxJumbo":27},"F15A1":{"max25":27,"maxJumbo":26},"F17A1":{"max25":27,"maxJumbo":26},"F20A1":{"max25":28,"maxJumbo":27},"F25A1":{"max25":28,"maxJumbo":27},"F30A1":{"max25":28,"maxJumbo":27},"F35A1":{"max25":28,"maxJumbo":27},"F40A1":{"max25":28,"maxJumbo":27},"F45A1":{"max25":28,"maxJumbo":27},"K45A2":{"max25":28,"maxJumbo":27},"K65A2":{"max25":28,"maxJumbo":27},"K45A3":{"max25":28,"maxJumbo":27},"K65A3":{"max25":28,"maxJumbo":27},"E80A2":{"max25":null,"maxJumbo":27},"E125A1":{"max25":null,"maxJumbo":27},"E70A1":{"max25":null,"maxJumbo":27},"S55A1":{"max25":null,"maxJumbo":27},"S30A1":{"max25":null,"maxJumbo":27},"S40A1":{"max25":null,"maxJumbo":27},"S20A1":{"max25":null,"maxJumbo":27},"S16A1":{"max25":null,"maxJumbo":27},"S8A1":{"max25":null,"maxJumbo":27}};
-// Merge F15A2, F17A2, F20A2, F25A2, F30A2, F35A2, F45A2 variations from max loading
-DATA_MAX_LOADING["F15A2-318-A2-"] = {"max25":27,"maxJumbo":26};
-DATA_MAX_LOADING["F17A2-318-A2-"] = {"max25":27,"maxJumbo":26};
-DATA_MAX_LOADING["F20A2-318-A2-"] = {"max25":28,"maxJumbo":27};
-DATA_MAX_LOADING["F25A2-318-A2-"] = {"max25":28,"maxJumbo":27};
-DATA_MAX_LOADING["F30A2-318-A2-"] = {"max25":28,"maxJumbo":27};
-DATA_MAX_LOADING["F35A2-318-A2-"] = {"max25":28,"maxJumbo":27};
-DATA_MAX_LOADING["F45A2-318-A2-"] = {"max25":28,"maxJumbo":27};
-DATA_MAX_LOADING["F15A2-318-A2"] = {"max25":27,"maxJumbo":27};
-DATA_MAX_LOADING["F17A2-318-A2"] = {"max25":27,"maxJumbo":26};
-DATA_MAX_LOADING["F20A2-318-A2"] = {"max25":28,"maxJumbo":26};
-DATA_MAX_LOADING["F25A2-318-A2"] = {"max25":28,"maxJumbo":27};
-DATA_MAX_LOADING["F30A2-318-A2"] = {"max25":28,"maxJumbo":27};
-
-// Cost Fob lookup table (VND/tấn) — nguồn từ Cost Fob.xlsx
+var DATA_MAX_LOADING = {}; // Empty - removed from pricelist table
 var DATA_COST_FOB = {14:{no:974600,sub:1263900},20:{no:682000,sub:884400},22:{no:620400,sub:804100},24:{no:568700,sub:737000},25:{no:545600,sub:707300},26:{no:524700,sub:680900},27:{no:504900,sub:655600},28:{no:487300,sub:632500}};
 
 
@@ -624,10 +608,10 @@ function renderPriceTab() {
 
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
-  h += '<tr><th colspan="5">Th\u00f4ng tin</th><th colspan="2">Gi\u00e1 bao g\u1ed3m bao b\u00ec</th>';
+  h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2">Gi\u00e1 bao g\u1ed3m bao b\u00ec</th>';
   if (!showFobCif) h += '<th colspan="2">Gi\u00e1 b\u00e1n (EXW)</th>';
   h += '</tr>';
-  h += '<tr><th>M\u00e3</th><th>K\u00edch th\u01b0\u1edbc</th><th>Ti\u00eau chu\u1ea9n</th><th>M\u00e1y</th><th>Max t\u1ea3i</th><th>25KG <span class="info-row">(VND)</span></th><th>Jumbo <span class="info-row">(VND)</span></th>';
+  h += '<tr><th>M\u00e3</th><th>K\u00edch th\u01b0\u1edbc</th><th>Ti\u00eau chu\u1ea9n</th><th>M\u00e1y</th><th>25KG <span class="info-row">(VND)</span></th><th>Jumbo <span class="info-row">(VND)</span></th>';
   if (!showFobCif) {
     h += '<th>EXW <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>Hoa h\u1ed3ng <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   }
@@ -640,12 +624,6 @@ function renderPriceTab() {
     h += '<td>' + p.size + '</td>';
     h += '<td><span class="badge-spec badge-' + p.standard.replace(/-/g, '').replace(/\+/g, '') + '">' + p.standard + '</span></td>';
     h += '<td>' + p.machine + '</td>';
-    // Max loading
-    var ml = DATA_MAX_LOADING[p.code];
-    var maxLoad = "";
-    if (ml && ml.max25 !== null && ml.max25 !== undefined) maxLoad = ml.max25 + " tấn";
-    else if (ml && ml.maxJumbo !== null && ml.maxJumbo !== undefined) maxLoad = ml.maxJumbo + " tấn";
-    h += '<td class="text-center" style="font-weight:600;color:#64748b;text-align:center">' + maxLoad + '</td>';
     if (isFob) {
       h += '<td class="text-right">' + (isUsd ? formatCurrency(getFOB25PriceUSD(p, lccType), true) : formatCurrency(getFOB25PriceVND(p, lccType), false)) + '</td>';
       h += '<td class="text-right">' + (isUsd ? formatCurrency(getFOBJumboPriceUSD(p, lccType), true) : formatCurrency(getFOBJumboPriceVND(p, lccType), false)) + '</td>';
@@ -1913,3 +1891,5 @@ switchTab("pricelist");</script>
 </div>
 
 </body></html>
+
+
