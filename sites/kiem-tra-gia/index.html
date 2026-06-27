@@ -1308,7 +1308,7 @@ function handleManageFile(file) {
         if (s.length > 0) { importMaxLoading(s); updated++; }
       }
       
-      var fobSheet = hasSheet(["CostFOB", "Cost FOB", "costfob", "cost fob", "FOB", "fob"]);
+      var fobSheet = hasSheet(["CostFOB", "Cost FOB", "costfob", "cost fob", "FOB", "fob", "Cost_FOB", "cost_fob", "Cost Fob"]);
       if (fobSheet) {
         var s = XLSX.utils.sheet_to_json(wb.Sheets[fobSheet]);
         if (s.length > 0) { importCostFOB(s); updated++; }
@@ -1351,11 +1351,13 @@ function handleManageFile(file) {
 function importCostFOB(arr) {
   DATA_COST_FOB = {};
   arr.forEach(function(r) {
-    var load = Number(r.maxLoading || r.MaxLoading || r.load || r.Load || r.tan || r.Tan || r["Tấn"]);
+    var load = Number(r.maxLoading || r.MaxLoading || r.load || r.Load || r.tan || r.Tan || r["Tấn"] || r["Max loadding"] || r["Max Loadding"]);
     if (!load) return;
     var obj = {};
-    if (r.no !== undefined && r.no !== null && r.no !== "") obj.no = Number(r.no);
-    if (r.sub !== undefined && r.sub !== null && r.sub !== "") obj.sub = Number(r.sub);
+    var vNo = r.no !== undefined ? r.no : r["No LCC"] || r["No lcc"];
+    var vSub = r.sub !== undefined ? r.sub : r["Sub LCC"] || r["Sub lcc"];
+    if (vNo !== undefined && vNo !== null && vNo !== "") obj.no = Number(vNo);
+    if (vSub !== undefined && vSub !== null && vSub !== "") obj.sub = Number(vSub);
     if (Object.keys(obj).length > 0) DATA_COST_FOB[load] = obj;
   });
 }
