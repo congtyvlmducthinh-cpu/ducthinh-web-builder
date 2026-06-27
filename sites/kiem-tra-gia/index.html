@@ -1830,6 +1830,7 @@ function fmtNum(n, isUsd) {
   if (isUsd) return n.toLocaleString('en-US', {minimumFractionDigits:1, maximumFractionDigits:2});
   return Math.round(n).toLocaleString();
 }
+localStorage.clear(); // Xóa dữ liệu cũ bị hỏng
 var saved = localStorage.getItem("dq_products");
 if (saved) {
   try { DATA_PRODUCTS = JSON.parse(saved); } catch(e) {}
