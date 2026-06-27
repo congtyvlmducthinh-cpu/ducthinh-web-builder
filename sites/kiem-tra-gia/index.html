@@ -1059,7 +1059,7 @@ var total = 0;
   var modeLabel = calcPriceMode.toUpperCase();
   if (isFobMode) modeLabel += " (" + (calcLccType === "sub" ? "Sub LCC" : "No LCC") + ")";
   if (isCifMode) modeLabel += " (LCC:" + (calcLccType === "sub" ? "Sub" : "No") + " F:" + calcFreightUSD + "USD)";
-  h += '<div class="calc-result-item"><span class="calc-rl">💰 ' + modeLabel + ' ' + (hasBag ? 'chưa bao bì' : 'có bao bì') + '</span><span class="calc-rv exw">' + fmtNum(exwMin, isUsd) + ' ' + cc + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">💰 ' + (hasBag ? modeLabel : 'EXW') + ' ' + (hasBag ? 'có bao bì' : 'chưa bao bì') + '</span><span class="calc-rv exw">' + fmtNum(exwMin, isUsd) + ' ' + cc + '</span></div>';
   if (isFobMode && maxLoad) {
     h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tấn</span></div>';
     h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
