@@ -437,7 +437,7 @@ var EXCHANGE_RATE = 26000;
 // ====== UTILITY ======
 function formatCurrency(v, isUsd) {
   if (v === null || v === undefined || isNaN(v)) return "\u2014";
-  var s = Math.round(v).toLocaleString();
+  var s = isUsd ? Number(v).toFixed(2).toLocaleString() : Math.round(v).toLocaleString();
   return s + " " + (isUsd ? "USD" : "VND");
 }
 
