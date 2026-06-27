@@ -688,10 +688,10 @@ function renderPriceTab() {
 
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
-  h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2">Max t\u1ea3i</th><th colspan="2">Gi\u00e1 bao g\u1ed3m bao b\u00ec</th>';
+  h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="4">Gi\u00e1 bao g\u1ed3m bao b\u00ec</th>';
   if (!showFobCif) h += '<th colspan="2">Gi\u00e1 b\u00e1n (EXW)</th>';
   h += '</tr>';
-  h += '<tr><th>M\u00e3</th><th>K\u00edch th\u01b0\u1edbc</th><th>Ti\u00eau chu\u1ea9n</th><th>M\u00e1y</th><th>Max 25KG <span class="info-row">(t\u1ea5n)</span></th><th>Max Jumbo <span class="info-row">(t\u1ea5n)</span></th><th>25KG <span class="info-row">(VND)</span></th><th>Jumbo <span class="info-row">(VND)</span></th>';
+  h += '<tr><th>M\u00e3</th><th>K\u00edch th\u01b0\u1edbc</th><th>Ti\u00eau chu\u1ea9n</th><th>M\u00e1y</th><th>25KG <span class="info-row">(VND)</span></th><th>Jumbo <span class="info-row">(VND)</span></th>';
   if (!showFobCif) {
     h += '<th>EXW <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>Hoa h\u1ed3ng <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   }
@@ -704,17 +704,15 @@ function renderPriceTab() {
     h += '<td>' + p.size + '</td>';
     h += '<td><span class="badge-spec badge-' + p.standard.replace(/-/g, '').replace(/\+/g, '') + '">' + p.standard + '</span></td>';
     h += '<td>' + p.machine + '</td>';
-    h += '<td class="text-right">' + formatMaxLoading(getMaxLoading(p.code, "max25")) + '</td>';
-    h += '<td class="text-right">' + formatMaxLoading(getMaxLoading(p.code, "maxJumbo")) + '</td>';
     if (isFob) {
-      h += '<td class="text-right">' + (isUsd ? formatCurrency(getFOB25PriceUSD(p, lccType), true) : formatCurrency(getFOB25PriceVND(p, lccType), false)) + '</td>';
-      h += '<td class="text-right">' + (isUsd ? formatCurrency(getFOBJumboPriceUSD(p, lccType), true) : formatCurrency(getFOBJumboPriceVND(p, lccType), false)) + '</td>';
+      h += '<td class="text-right" title="Max 25KG: ' + formatMaxLoading(getMaxLoading(p.code, 'max25')) + '">' + (isUsd ? formatCurrency(getFOB25PriceUSD(p, lccType), true) : formatCurrency(getFOB25PriceVND(p, lccType), false)) + '</td>';
+      h += '<td class="text-right" title="Max Jumbo: ' + formatMaxLoading(getMaxLoading(p.code, 'maxJumbo')) + '">' + (isUsd ? formatCurrency(getFOBJumboPriceUSD(p, lccType), true) : formatCurrency(getFOBJumboPriceVND(p, lccType), false)) + '</td>';
     } else if (isCif) {
-      h += '<td class="text-right">' + (isUsd ? formatCurrency(getCIF25PriceUSD(p, lccType, freightUSD), true) : formatCurrency(getCIF25PriceVND(p, lccType, freightUSD), false)) + '</td>';
-      h += '<td class="text-right">' + (isUsd ? formatCurrency(getCIFJumboPriceUSD(p, lccType, freightUSD), true) : formatCurrency(getCIFJumboPriceVND(p, lccType, freightUSD), false)) + '</td>';
+      h += '<td class="text-right" title="Max 25KG: ' + formatMaxLoading(getMaxLoading(p.code, 'max25')) + '">' + (isUsd ? formatCurrency(getCIF25PriceUSD(p, lccType, freightUSD), true) : formatCurrency(getCIF25PriceVND(p, lccType, freightUSD), false)) + '</td>';
+      h += '<td class="text-right" title="Max Jumbo: ' + formatMaxLoading(getMaxLoading(p.code, 'maxJumbo')) + '">' + (isUsd ? formatCurrency(getCIFJumboPriceUSD(p, lccType, freightUSD), true) : formatCurrency(getCIFJumboPriceVND(p, lccType, freightUSD), false)) + '</td>';
     } else {
-      h += '<td class="text-right">' + (p.pkg25_vnd ? (isUsd ? formatCurrency(p.pkg25_usd, true) : formatCurrency(p.pkg25_vnd, false)) : '\u2014') + '</td>';
-      h += '<td class="text-right">' + (p.jumbo_vnd ? (isUsd ? formatCurrency(p.jumbo_usd, true) : formatCurrency(p.jumbo_vnd, false)) : '\u2014') + '</td>';
+      h += '<td class="text-right" title="Max 25KG: ' + formatMaxLoading(getMaxLoading(p.code, 'max25')) + '">' + (p.pkg25_vnd ? (isUsd ? formatCurrency(p.pkg25_usd, true) : formatCurrency(p.pkg25_vnd, false)) : '\u2014') + '</td>';
+      h += '<td class="text-right" title="Max Jumbo: ' + formatMaxLoading(getMaxLoading(p.code, 'maxJumbo')) + '">' + (p.jumbo_vnd ? (isUsd ? formatCurrency(p.jumbo_usd, true) : formatCurrency(p.jumbo_vnd, false)) : '\u2014') + '</td>';
     }
     if (!showFobCif) {
       h += '<td class="text-right"><strong>' + formatCurrency(isUsd ? p.exw_usd : p.exw_vnd, isUsd) + '</strong></td>';
