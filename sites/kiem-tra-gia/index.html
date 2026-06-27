@@ -368,14 +368,15 @@ var currentMarket = "cn";
 function applyMarket() {
   var suffix = "_" + currentMarket;
   DATA_PRODUCTS.forEach(function(p) {
-    p.exw_vnd = p["exw_vnd" + suffix];
-    p.exw_usd = p["exw_usd" + suffix];
-    p.comm_vnd = p["comm_vnd" + suffix];
-    p.comm_usd = p["comm_usd" + suffix];
-    p.pkg25_vnd = p["pkg25_vnd" + suffix];
-    p.pkg25_usd = p["pkg25_usd" + suffix];
-    p.jumbo_vnd = p["jumbo_vnd" + suffix];
-    p.jumbo_usd = p["jumbo_usd" + suffix];
+    // Use suffix field if available, fall back to base field
+    p.exw_vnd = p["exw_vnd" + suffix] !== undefined ? p["exw_vnd" + suffix] : p.exw_vnd;
+    p.exw_usd = p["exw_usd" + suffix] !== undefined ? p["exw_usd" + suffix] : p.exw_usd;
+    p.comm_vnd = p["comm_vnd" + suffix] !== undefined ? p["comm_vnd" + suffix] : p.comm_vnd;
+    p.comm_usd = p["comm_usd" + suffix] !== undefined ? p["comm_usd" + suffix] : p.comm_usd;
+    p.pkg25_vnd = p["pkg25_vnd" + suffix] !== undefined ? p["pkg25_vnd" + suffix] : p.pkg25_vnd;
+    p.pkg25_usd = p["pkg25_usd" + suffix] !== undefined ? p["pkg25_usd" + suffix] : p.pkg25_usd;
+    p.jumbo_vnd = p["jumbo_vnd" + suffix] !== undefined ? p["jumbo_vnd" + suffix] : p.jumbo_vnd;
+    p.jumbo_usd = p["jumbo_usd" + suffix] !== undefined ? p["jumbo_usd" + suffix] : p.jumbo_usd;
   });
   // Re-render
   render();
@@ -563,7 +564,7 @@ function renderPriceTab() {
   var machineFilter = document.getElementById("machineFilter") && document.getElementById("machineFilter").value || "";
   var isUsd = currency === "USD";
   var filtered = DATA_PRODUCTS.filter(function(p) {
-    if (search && p.code.toLowerCase().indexOf(search) < 0 && p.size.toLowerCase().indexOf(search) < 0) return false;
+    if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0)) return false;
     if (specFilter && p.standard !== specFilter) return false;
     if (machineFilter && p.machine !== machineFilter) return false;
     return true;
@@ -1318,6 +1319,7 @@ function handleManageFile(file) {
       localStorage.setItem("dq_bags", JSON.stringify(DATA_BAGS));
       localStorage.setItem("dq_others", JSON.stringify(DATA_OTHERS));
       localStorage.setItem("dq_maxLoading", JSON.stringify(DATA_MAX_LOADING));
+      localStorage.setItem("dq_costFOB", JSON.stringify(DATA_COST_FOB));
             document.getElementById("mProdCnt").textContent = DATA_PRODUCTS.length;
       document.getElementById("mBagCnt").textContent = DATA_BAGS.length;
       document.getElementById("mOtherCnt").textContent = DATA_OTHERS.length;
@@ -1831,7 +1833,6 @@ function fmtNum(n, isUsd) {
   if (isUsd) return n.toLocaleString('en-US', {minimumFractionDigits:1, maximumFractionDigits:2});
   return Math.round(n).toLocaleString();
 }
-localStorage.clear(); // Xóa dữ liệu cũ bị hỏng
 var saved = localStorage.getItem("dq_products");
 if (saved) {
   try { DATA_PRODUCTS = JSON.parse(saved); } catch(e) {}
@@ -1847,6 +1848,10 @@ if (savedOthers) {
 var savedML = localStorage.getItem("dq_maxLoading");
 if (savedML) {
   try { DATA_MAX_LOADING = JSON.parse(savedML); } catch(e) {}
+}
+var savedCF = localStorage.getItem("dq_costFOB");
+if (savedCF) {
+  try { DATA_COST_FOB = JSON.parse(savedCF); } catch(e) {}
 }
 applyMarket();
 switchTab("pricelist");</script>
