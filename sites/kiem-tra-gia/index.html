@@ -276,6 +276,8 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 <button class="btn-cancel" onclick="downloadTemplate(0)">📄 Mẫu giá bán</button>
 <button class="btn-cancel" onclick="downloadTemplate(1)">📄 Mẫu bao bì</button>
 <button class="btn-cancel" onclick="downloadTemplate(2)">📄 Mẫu quy cách khác</button>
+<button class="btn-confirm" onclick="downloadFile(3)">⚖️ Max tải</button>
+<button class="btn-cancel" onclick="downloadTemplate(3)">📄 Mẫu max tải</button>
 </div>
 <div class="btn-row">
 <button class="btn-confirm" onclick="downloadAsExcel()">📊 Excel</button>
@@ -1130,6 +1132,9 @@ function downloadTemplate(type) {
   } else if (type === 2) {
     fn = "Mau_quy_cach_khac.xlsx";
     headers = ["code","name","cost","qty","price","profit"];
+  } else if (type === 3) {
+    fn = "Mau_max_tai.xlsx";
+    headers = ["SẢN PHẨM","Max Loading 25KG","Max Loading Jumbo"];
   }
   var ws = XLSX.utils.aoa_to_sheet([headers]);
   var wb = XLSX.utils.book_new();
@@ -1167,6 +1172,20 @@ function downloadFile(type) {
   if (type === 0) { fn = "Gia_ban_toi_thieu.xlsx"; data = DATA_PRODUCTS; sheetName = "Products"; }
   else if (type === 1) { fn = "Surcharge_bao_bi.xlsx"; data = DATA_BAGS; sheetName = "Bags"; }
   else if (type === 2) { fn = "Quy_cach_khac.xlsx"; data = DATA_OTHERS; sheetName = "Others"; }
+  else if (type === 3) {
+    fn = "Max_loadding.xlsx";
+    var mlArr = [];
+    if (DATA_MAX_LOADING && Object.keys(DATA_MAX_LOADING).length > 0) {
+      Object.keys(DATA_MAX_LOADING).forEach(function(k) {
+        var o = {"SẢN PHẨM": k};
+        if (DATA_MAX_LOADING[k].max25 !== undefined) o["Max Loading 25KG"] = DATA_MAX_LOADING[k].max25;
+        if (DATA_MAX_LOADING[k].maxJumbo !== undefined) o["Max Loading Jumbo"] = DATA_MAX_LOADING[k].maxJumbo;
+        mlArr.push(o);
+      });
+    }
+    data = mlArr;
+    sheetName = "MaxLoading";
+  }
   if (!data.length) return;
   var ws = XLSX.utils.json_to_sheet(data);
   var wb = XLSX.utils.book_new();
@@ -1298,6 +1317,7 @@ function handleManageFile(file) {
       localStorage.setItem("dq_products", JSON.stringify(DATA_PRODUCTS));
       localStorage.setItem("dq_bags", JSON.stringify(DATA_BAGS));
       localStorage.setItem("dq_others", JSON.stringify(DATA_OTHERS));
+      localStorage.setItem("dq_maxLoading", JSON.stringify(DATA_MAX_LOADING));
             document.getElementById("mProdCnt").textContent = DATA_PRODUCTS.length;
       document.getElementById("mBagCnt").textContent = DATA_BAGS.length;
       document.getElementById("mOtherCnt").textContent = DATA_OTHERS.length;
@@ -1314,11 +1334,14 @@ function handleManageFile(file) {
 }function importMaxLoading(arr) {
   DATA_MAX_LOADING = {};
   arr.forEach(function(r) {
-    var code = r.code || r.Code || r.CodeSP || r.CodeSP_Standard || "";
+    // Support Vietnamese column names from Max_loadding.xlsx
+    var code = r.code || r.Code || r.CodeSP || r.CodeSP_Standard || r["SẢN PHẨM"] || r["SAN PHAM"] || "";
     if (!code) return;
     var obj = {};
-    if (r.max25 !== undefined && r.max25 !== null && r.max25 !== "") obj.max25 = Number(r.max25);
-    if (r.maxJumbo !== undefined && r.maxJumbo !== null && r.maxJumbo !== "") obj.maxJumbo = Number(r.maxJumbo);
+    var v25 = r.max25 || r["Max Loading 25KG"] || r["Max Loading 25kg"] || r["max25"] || r["Max25"];
+    var vJb = r.maxJumbo || r["Max Loading Jumbo"] || r["Max Loading jumbo"] || r["maxJumbo"] || r["MaxJumbo"] || r["Max Jumbo"];
+    if (v25 !== undefined && v25 !== null && v25 !== "") obj.max25 = Number(v25);
+    if (vJb !== undefined && vJb !== null && vJb !== "") obj.maxJumbo = Number(vJb);
     if (Object.keys(obj).length > 0) DATA_MAX_LOADING[code] = obj;
   });
 }
@@ -1820,6 +1843,10 @@ if (savedBags) {
 var savedOthers = localStorage.getItem("dq_others");
 if (savedOthers) {
   try { DATA_OTHERS = JSON.parse(savedOthers); } catch(e) {}
+}
+var savedML = localStorage.getItem("dq_maxLoading");
+if (savedML) {
+  try { DATA_MAX_LOADING = JSON.parse(savedML); } catch(e) {}
 }
 applyMarket();
 switchTab("pricelist");</script>
