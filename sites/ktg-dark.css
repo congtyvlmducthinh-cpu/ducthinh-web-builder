@@ -1,0 +1,253 @@
+/* KTG Dark Glassmorphism Theme — injected by server.js */
+/* 0% risk: no file modification needed */
+
+/* Base background */
+body {
+  background: #020617 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Cards (table-wrap, summary-card, calc-left, calc-right, manage-login, etc) */
+.table-wrap,
+.summary-card,
+.calc-left,
+.calc-right,
+.calc-commission-wrap,
+.manage-login,
+.manage-card,
+.manage-actions,
+.q-modal,
+.freight-modal {
+  background: rgba(255,255,255,0.05) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important;
+}
+
+/* Tabs */
+.tabs {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  backdrop-filter: blur(8px) !important;
+}
+.tab-btn {
+  color: rgba(255,255,255,0.5) !important;
+}
+.tab-btn:hover {
+  background: rgba(255,255,255,0.08) !important;
+  color: #fff !important;
+}
+.tab-btn.active {
+  background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 15px rgba(37,99,235,0.4) !important;
+}
+
+/* Header */
+header {
+  background: linear-gradient(135deg, #020617, #0f172a, #1e3a5f) !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+/* Controls */
+.controls input,
+.controls select,
+.calc-select,
+.calc-sell-input input,
+.freight-modal-search input,
+.q-modal-form input,
+.q-modal-form select {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+  color: #e2e8f0 !important;
+}
+.controls input::placeholder,
+.calc-sell-input input::placeholder {
+  color: rgba(255,255,255,0.3) !important;
+}
+.controls input:focus,
+.controls select:focus,
+.calc-select:focus,
+.calc-sell-input input:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15) !important;
+}
+
+/* Currency toggle */
+.currency-toggle,
+.calc-currency-bar {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+}
+.currency-toggle button {
+  color: rgba(255,255,255,0.5) !important;
+}
+.currency-toggle button.active {
+  background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
+  color: #fff !important;
+}
+
+/* Price mode bar */
+.price-mode-bar {
+  background: rgba(255,255,255,0.05) !important;
+  border-color: rgba(255,255,255,0.1) !important;
+}
+.price-mode-bar .mode-btn,
+.price-mode-bar .lcc-btn {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.15) !important;
+  color: rgba(255,255,255,0.6) !important;
+}
+.price-mode-bar .mode-btn.active {
+  background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
+  color: #fff !important;
+}
+.price-mode-bar .lcc-btn.active {
+  background: linear-gradient(135deg, #059669, #10b981) !important;
+  color: #fff !important;
+}
+
+/* Table */
+table {
+  color: #e2e8f0 !important;
+}
+th {
+  color: #94a3b8 !important;
+  border-bottom-color: rgba(255,255,255,0.08) !important;
+}
+thead tr:first-child th {
+  background: rgba(255,255,255,0.05) !important;
+  color: #64748b !important;
+}
+thead tr:nth-child(2) th {
+  background: rgba(255,255,255,0.03) !important;
+  color: #f1f5f9 !important;
+  border-bottom-color: rgba(255,255,255,0.1) !important;
+}
+td {
+  border-bottom-color: rgba(255,255,255,0.05) !important;
+}
+tbody tr:nth-child(even) td {
+  background: rgba(255,255,255,0.02) !important;
+}
+tbody tr:hover td {
+  background: rgba(59,130,246,0.08) !important;
+}
+
+/* Summary bar */
+.summary-card .lbl { color: #94a3b8 !important; }
+.summary-card .val { color: #f1f5f9 !important; }
+
+/* Calc sections */
+.calc-grid {
+  background: transparent !important;
+}
+.calc-section-title {
+  background: rgba(255,255,255,0.04) !important;
+  border-color: rgba(255,255,255,0.08) !important;
+  color: #f1f5f9 !important;
+}
+.calc-form-label { color: #94a3b8 !important; }
+.calc-right-header {
+  color: #f1f5f9 !important;
+  border-bottom-color: #3b82f6 !important;
+}
+.calc-result {
+  background: rgba(255,255,255,0.03) !important;
+}
+.calc-empty-text { color: #64748b !important; }
+.calc-rl { color: #94a3b8 !important; }
+.calc-rv { color: #f1f5f9 !important; }
+
+/* Quotation modal */
+.q-preview {
+  background: rgba(255,255,255,0.05) !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  color: #e2e8f0 !important;
+}
+.q-preview h1 { color: #f1f5f9 !important; }
+.q-preview .q-row strong { color: #f1f5f9 !important; }
+.q-preview .q-row span { color: #cbd5e1 !important; }
+.q-modal-header {
+  border-bottom-color: rgba(255,255,255,0.1) !important;
+}
+.q-modal-form {
+  border-bottom-color: rgba(255,255,255,0.08) !important;
+}
+.q-modal-form label { color: #94a3b8 !important; }
+
+/* Freight popup */
+.freight-modal-header {
+  border-bottom-color: rgba(255,255,255,0.1) !important;
+  color: #f1f5f9 !important;
+}
+.freight-modal-search { border-bottom-color: rgba(255,255,255,0.08) !important; }
+.freight-modal-body th { color: #94a3b8 !important; }
+.freight-modal-body td { color: #e2e8f0 !important; }
+.freight-modal-body tr:hover td { background: rgba(59,130,246,0.08) !important; }
+.freight-modal-body tr.selected td { background: rgba(37,99,235,0.15) !important; }
+.freight-modal-footer {
+  border-top-color: rgba(255,255,255,0.08) !important;
+}
+.freight-overlay {
+  background: rgba(2,6,23,0.7) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  background: rgba(2,6,23,0.7) !important;
+  backdrop-filter: blur(4px) !important;
+}
+.modal-box {
+  background: rgba(255,255,255,0.08) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  color: #e2e8f0 !important;
+}
+.modal-box input {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+  color: #e2e8f0 !important;
+}
+
+/* Buttons */
+.btn-cancel {
+  background: rgba(255,255,255,0.08) !important;
+  color: #cbd5e1 !important;
+}
+.btn-confirm {
+  background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
+  color: #fff !important;
+}
+
+/* Badges */
+.badge-A1 { background: rgba(59,130,246,0.2) !important; color: #93c5fd !important; }
+.badge-A2 { background: rgba(16,185,129,0.2) !important; color: #6ee7b7 !important; }
+.badge-A2- { background: rgba(250,204,21,0.2) !important; color: #fcd34d !important; }
+.badge-A3 { background: rgba(244,63,94,0.2) !important; color: #fda4af !important; }
+
+/* Tag profit */
+.tag-profit {
+  background: rgba(16,185,129,0.15) !important;
+  color: #6ee7b7 !important;
+}
+
+/* Divider */
+.calc-divider {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1) 20%, rgba(255,255,255,0.1) 80%, transparent) !important;
+}
+
+/* Freight warning */
+.freight-warning {
+  background: rgba(217,119,6,0.15) !important;
+  border-color: rgba(217,119,6,0.3) !important;
+  color: #fcd34d !important;
+}
+
+/* Print popup adjustment */
+.q-overlay {
+  background: rgba(2,6,23,0.7) !important;
+  backdrop-filter: blur(4px) !important;
+}
