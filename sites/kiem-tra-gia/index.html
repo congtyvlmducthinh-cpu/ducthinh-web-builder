@@ -494,9 +494,10 @@ var FREIGHT_DATA = [{"port": "Shanghai", "country": "CHINA", "freight": 2, "forw
 var EXCHANGE_RATE = 26000;
 
 // ====== UTILITY ======
+function formatUsd(v) { var n = Number(v); var dec = Math.round((n - Math.floor(n)) * 10); return Math.floor(n).toLocaleString("vi-VN") + "," + dec; }
 function formatCurrency(v, isUsd) {
   if (v === null || v === undefined || isNaN(v)) return "\u2014";
-  var s = isUsd ? Number(v).toFixed(2).toLocaleString() : Math.round(v).toLocaleString();
+  var s = isUsd ? formatUsd(v) : Math.round(v).toLocaleString();
   return s + " " + (isUsd ? "USD" : "VND");
 }
 
@@ -546,8 +547,8 @@ function getFOBJumboPriceVND(prod, lccVariant) {
   var cf = getCostFobVND(ml, lccVariant);
   return Math.round((prod.jumbo_vnd + cf) * 1.05);
 }
-function getFOB25PriceUSD(prod, lccVariant) { return Math.round(getFOB25PriceVND(prod, lccVariant) / 26000); }
-function getFOBJumboPriceUSD(prod, lccVariant) { return Math.round(getFOBJumboPriceVND(prod, lccVariant) / 26000); }
+function getFOB25PriceUSD(prod, lccVariant) { return getFOB25PriceVND(prod, lccVariant) / 26000; }
+function getFOBJumboPriceUSD(prod, lccVariant) { return getFOBJumboPriceVND(prod, lccVariant) / 26000; }
 
 // ====== CIF PRICES ======
 function getCIF25PriceVND(prod, lccVariant, freight) {
@@ -564,8 +565,8 @@ function getCIFJumboPriceVND(prod, lccVariant, freight) {
   if (!freight || freight <= 0) return base;
   return Math.round(base + (freight + 10 + 10) * 26000 / ml);
 }
-function getCIF25PriceUSD(prod, lccVariant, freight) { return Math.round(getCIF25PriceVND(prod, lccVariant, freight) / 26000); }
-function getCIFJumboPriceUSD(prod, lccVariant, freight) { return Math.round(getCIFJumboPriceVND(prod, lccVariant, freight) / 26000); }
+function getCIF25PriceUSD(prod, lccVariant, freight) { return getCIF25PriceVND(prod, lccVariant, freight) / 26000; }
+function getCIFJumboPriceUSD(prod, lccVariant, freight) { return getCIFJumboPriceVND(prod, lccVariant, freight) / 26000; }
 
 // ====== PRICE MODE CONTROLS (Gi\u00e1 b\u00e1n tab) ======
 function setPriceMode(mode) {
