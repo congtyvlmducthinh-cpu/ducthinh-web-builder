@@ -448,24 +448,34 @@ function importProducts(arr) {
       DATA_MAX_LOADING[obj.code] = DATA_MAX_LOADING[obj.code] || {};
       DATA_MAX_LOADING[obj.code].maxJumbo = Number(maxJb);
     }
-    // Market-specific fields: always base value (not from Excel)
-    if (obj.exw_vnd_cn === undefined) obj.exw_vnd_cn = obj.exw_vnd;
-    if (obj.exw_usd_cn === undefined) obj.exw_usd_cn = obj.exw_usd;
-    if (obj.comm_vnd_cn === undefined) obj.comm_vnd_cn = obj.comm_vnd;
-    if (obj.comm_usd_cn === undefined) obj.comm_usd_cn = obj.comm_usd;
-    if (obj.pkg25_vnd_cn === undefined) obj.pkg25_vnd_cn = obj.pkg25_vnd;
-    if (obj.pkg25_usd_cn === undefined) obj.pkg25_usd_cn = obj.pkg25_usd;
-    if (obj.jumbo_vnd_cn === undefined) obj.jumbo_vnd_cn = obj.jumbo_vnd;
-    if (obj.jumbo_usd_cn === undefined) obj.jumbo_usd_cn = obj.jumbo_usd;
-    if (obj.exw_vnd_other === undefined) obj.exw_vnd_other = obj.exw_vnd;
-    if (obj.exw_usd_other === undefined) obj.exw_usd_other = obj.exw_usd;
-    if (obj.comm_vnd_other === undefined) obj.comm_vnd_other = obj.comm_vnd;
-    if (obj.comm_usd_other === undefined) obj.comm_usd_other = obj.comm_usd;
-    if (obj.pkg25_vnd_other === undefined) obj.pkg25_vnd_other = obj.pkg25_vnd;
-    if (obj.pkg25_usd_other === undefined) obj.pkg25_usd_other = obj.pkg25_usd;
-    if (obj.jumbo_vnd_other === undefined) obj.jumbo_vnd_other = obj.jumbo_vnd;
-    if (obj.jumbo_usd_other === undefined) obj.jumbo_usd_other = obj.jumbo_usd;
-    DATA_PRODUCTS.push(obj);
+  
+    // CN là base mặc định: ghi đè obj.exw_vnd bằng exw_vnd_cn
+    obj.exw_vnd = obj.exw_vnd_cn !== undefined ? obj.exw_vnd_cn : obj.exw_vnd;
+    obj.exw_usd = obj.exw_usd_cn !== undefined ? obj.exw_usd_cn : obj.exw_usd;
+    obj.comm_vnd = obj.comm_vnd_cn !== undefined ? obj.comm_vnd_cn : obj.comm_vnd;
+    obj.comm_usd = obj.comm_usd_cn !== undefined ? obj.comm_usd_cn : obj.comm_usd;
+    obj.pkg25_vnd = obj.pkg25_vnd_cn !== undefined ? obj.pkg25_vnd_cn : obj.pkg25_vnd;
+    obj.pkg25_usd = obj.pkg25_usd_cn !== undefined ? obj.pkg25_usd_cn : obj.pkg25_usd;
+    obj.jumbo_vnd = obj.jumbo_vnd_cn !== undefined ? obj.jumbo_vnd_cn : obj.jumbo_vnd;
+    obj.jumbo_usd = obj.jumbo_usd_cn !== undefined ? obj.jumbo_usd_cn : obj.jumbo_usd;
+    // Fallback CN: nếu vẫn undefined, copy từ base cũ (backward compat với file cũ)
+    if (obj.exw_vnd_cn === undefined) obj.exw_vnd_cn = obj.exw_vnd !== undefined ? obj.exw_vnd : 0;
+    if (obj.exw_usd_cn === undefined) obj.exw_usd_cn = obj.exw_usd !== undefined ? obj.exw_usd : 0;
+    if (obj.comm_vnd_cn === undefined) obj.comm_vnd_cn = obj.comm_vnd !== undefined ? obj.comm_vnd : 0;
+    if (obj.comm_usd_cn === undefined) obj.comm_usd_cn = obj.comm_usd !== undefined ? obj.comm_usd : 0;
+    if (obj.pkg25_vnd_cn === undefined) obj.pkg25_vnd_cn = obj.pkg25_vnd !== undefined ? obj.pkg25_vnd : 0;
+    if (obj.pkg25_usd_cn === undefined) obj.pkg25_usd_cn = obj.pkg25_usd !== undefined ? obj.pkg25_usd : 0;
+    if (obj.jumbo_vnd_cn === undefined) obj.jumbo_vnd_cn = obj.jumbo_vnd !== undefined ? obj.jumbo_vnd : 0;
+    if (obj.jumbo_usd_cn === undefined) obj.jumbo_usd_cn = obj.jumbo_usd !== undefined ? obj.jumbo_usd : 0;
+    // Fallback Other: copy từ CN
+    if (obj.exw_vnd_other === undefined) obj.exw_vnd_other = obj.exw_vnd_cn !== undefined ? obj.exw_vnd_cn : 0;
+    if (obj.exw_usd_other === undefined) obj.exw_usd_other = obj.exw_usd_cn !== undefined ? obj.exw_usd_cn : 0;
+    if (obj.comm_vnd_other === undefined) obj.comm_vnd_other = obj.comm_vnd_cn !== undefined ? obj.comm_vnd_cn : 0;
+    if (obj.comm_usd_other === undefined) obj.comm_usd_other = obj.comm_usd_cn !== undefined ? obj.comm_usd_cn : 0;
+    if (obj.pkg25_vnd_other === undefined) obj.pkg25_vnd_other = obj.pkg25_vnd_cn !== undefined ? obj.pkg25_vnd_cn : 0;
+    if (obj.pkg25_usd_other === undefined) obj.pkg25_usd_other = obj.pkg25_usd_cn !== undefined ? obj.pkg25_usd_cn : 0;
+    if (obj.jumbo_vnd_other === undefined) obj.jumbo_vnd_other = obj.jumbo_vnd_cn !== undefined ? obj.jumbo_vnd_cn : 0;
+    if (obj.jumbo_usd_other === undefined) obj.jumbo_usd_other = obj.jumbo_usd_cn !== undefined ? obj.jumbo_usd_cn : 0;DATA_PRODUCTS.push(obj);
   });
 }
 
@@ -1251,7 +1261,7 @@ function downloadTemplate(type) {
   var headers, fn, row;
   if (type === 0) {
     fn = "Mau_gia_ban.xlsx";
-    headers = ["code","size","standard","machine","EXW (VND)","EXW (USD)","Hoa hồng (VND)","Hoa hồng (USD)","25kg (VND)","25kg (USD)","Jumbo (VND)","Jumbo (USD)","max25","maxJumbo","EXW (VND)_cn","EXW (USD)_cn","Hoa hồng (VND)_cn","Hoa hồng (USD)_cn","25kg (VND)_cn","25kg (USD)_cn","Jumbo (VND)_cn","Jumbo (USD)_cn","EXW (VND)_other","EXW (USD)_other","Hoa hồng (VND)_other","Hoa hồng (USD)_other","25kg (VND)_other","25kg (USD)_other","Jumbo (VND)_other","Jumbo (USD)_other"];
+    headers = ["code","size","standard","machine","max25","maxJumbo","exw_vnd_cn","exw_usd_cn","comm_vnd_cn","comm_usd_cn","pkg25_vnd_cn","pkg25_usd_cn","jumbo_vnd_cn","jumbo_usd_cn","exw_vnd_other","exw_usd_other","comm_vnd_other","comm_usd_other","pkg25_vnd_other","pkg25_usd_other","jumbo_vnd_other","jumbo_usd_other"];
   } else if (type === 1) {
     fn = "Mau_bao_bi.xlsx";
     headers = ["code","cost","spec","qty","price","profit"];
@@ -1275,7 +1285,7 @@ function downloadFullTemplate() {
   var wb = XLSX.utils.book_new();
   
   // Sheet 1: Products
-  var prodHeaders = ["code","size","standard","machine","EXW (VND)","EXW (USD)","Hoa hồng (VND)","Hoa hồng (USD)","25kg (VND)","25kg (USD)","Jumbo (VND)","Jumbo (USD)","max25","maxJumbo","EXW (VND)_cn","EXW (USD)_cn","Hoa hồng (VND)_cn","Hoa hồng (USD)_cn","25kg (VND)_cn","25kg (USD)_cn","Jumbo (VND)_cn","Jumbo (USD)_cn","EXW (VND)_other","EXW (USD)_other","Hoa hồng (VND)_other","Hoa hồng (USD)_other","25kg (VND)_other","25kg (USD)_other","Jumbo (VND)_other","Jumbo (USD)_other"];
+  var prodHeaders = ["code","size","standard","machine","max25","maxJumbo","exw_vnd_cn","exw_usd_cn","comm_vnd_cn","comm_usd_cn","pkg25_vnd_cn","pkg25_usd_cn","jumbo_vnd_cn","jumbo_usd_cn","exw_vnd_other","exw_usd_other","comm_vnd_other","comm_usd_other","pkg25_vnd_other","pkg25_usd_other","jumbo_vnd_other","jumbo_usd_other"];
   XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([prodHeaders]), "Products");
   
   // Sheet 2: Bags
