@@ -1,335 +1,321 @@
-<!DOCTYPE html>
-<html lang="vi">
+﻿<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Đức Thịnh - Công Cụ Hỗ Trợ Xuất Nhập Khẩu 🚢</title>
+<title>Đức Thịnh - Công Cụ Hỗ Trợ Xuất Nhập Khẩu</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏭</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        heading: ['Plus Jakarta Sans', 'sans-serif'],
-      },
-      borderRadius: {
-        '2xl': '16px',
-        'xl': '12px',
-      },
-      colors: {
-        deep: { DEFAULT: '#020617', 900: '#0f172a', 800: '#1e293b', 700: '#334155' },
-      },
-      boxShadow: {
-        'glass': '0 8px 32px rgba(2, 6, 23, 0.5)',
-        'glass-sm': '0 4px 16px rgba(2, 6, 23, 0.4)',
-      },
-    },
-  },
-};
-</script>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif'],heading:['Plus Jakarta Sans','sans-serif']},borderRadius:{'2xl':'16px','xl':'12px'},colors:{deep:{DEFAULT:'#020617',900:'#0f172a',800:'#1e293b',700:'#334155'}}}}}</script>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Inter', system-ui, sans-serif;
-    background: #020617;
-    background-image:
-      radial-gradient(ellipse at 20% 10%, rgba(59, 130, 246, 0.08) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 90%, rgba(52, 211, 153, 0.06) 0%, transparent 60%),
-      radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
-    min-height: 100vh;
-    color: #e2e8f0;
-  }
-  .glass-card {
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(30, 41, 59, 0.6);
-    box-shadow: 0 8px 32px rgba(2, 6, 23, 0.4);
-  }
-  .glass-card-light {
-    background: rgba(15, 23, 42, 0.7);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(30, 41, 59, 0.5);
-  }
-  .gradient-border {
-    position: relative;
-  }
-  .gradient-border::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: 16px;
-    padding: 1px;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(52, 211, 153, 0.3));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
-  .lang-btn {
-    background: rgba(15, 23, 42, 0.7);
-    border: 1px solid rgba(30, 41, 59, 0.6);
-    border-radius: 10px;
-    padding: 6px 14px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: #94a3b8;
-    font-weight: 500;
-    backdrop-filter: blur(8px);
-    font-family: 'Inter', sans-serif;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .lang-btn:hover {
-    border-color: rgba(59, 130, 246, 0.4);
-    color: #e2e8f0;
-    background: rgba(30, 41, 59, 0.5);
-  }
-  .lang-btn.active {
-    background: linear-gradient(135deg, #2563eb, #059669);
-    color: #fff;
-    border-color: transparent;
-  }
-  .tool-card {
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(30, 41, 59, 0.6);
-    border-radius: 16px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    display: flex;
-    box-shadow: 0 8px 32px rgba(2, 6, 23, 0.4);
-  }
-  .tool-card:hover {
-    border-color: rgba(59, 130, 246, 0.25);
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.08), 0 12px 48px rgba(2, 6, 23, 0.5);
-    transform: translateY(-3px);
-  }
-  .tool-card a { text-decoration: none; color: inherit; display: flex; flex: 1; }
-  .tool-card .icon-box {
-    width: 72px; min-height: 100%; display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; position: relative;
-  }
-  .tool-card .icon-box svg { width: 30px; height: 30px; }
-  .tool-card .icon-box::after {
-    content: ''; position: absolute; right: 0; top: 10%; height: 80%; width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(30, 41, 59, 0.6), transparent);
-  }
-  .tool-card .body { padding: 18px 20px 18px 16px; flex: 1; }
-  .tool-card .body h3 {
-    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 600;
-    color: #f1f5f9; margin-bottom: 4px;
-  }
-  .tool-card .body .desc { font-size: 13px; color: #94a3b8; line-height: 1.6; }
-  .status-badge {
-    display: inline-flex; align-items: center; gap: 5px; font-size: 11px;
-    margin-top: 10px; padding: 4px 12px; border-radius: 20px; font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-  .status-badge svg { width: 13px; height: 13px; }
-  .status-badge.live {
-    background: rgba(52, 211, 153, 0.1); color: #34d399;
-    border: 1px solid rgba(52, 211, 153, 0.2);
-  }
-  .upcoming-item {
-    background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(8px);
-    padding: 7px 16px; border-radius: 20px; font-size: 13px; color: #94a3b8;
-    display: inline-flex; align-items: center; gap: 7px;
-    border: 1px solid rgba(30, 41, 59, 0.4); transition: all 0.2s ease;
-  }
-  .upcoming-item:hover { border-color: rgba(59, 130, 246, 0.2); color: #cbd5e1; }
-  .upcoming-item svg { width: 15px; height: 15px; flex-shrink: 0; }
-  footer {
-    text-align: center; font-size: 12px; color: #475569;
-    padding: 24px 0 16px; border-top: 1px solid rgba(30, 41, 59, 0.5); margin-top: 16px;
-  }
-  footer a { color: #64748b; text-decoration: none; }
-  footer a:hover { color: #94a3b8; }
-  @media (max-width: 640px) {
-    .hero-section { padding: 32px 20px !important; }
-    .hero-section h1 { font-size: 22px !important; }
-    .tool-card .icon-box { width: 56px; }
-    .tool-card .icon-box svg { width: 24px; height: 24px; }
-    .tool-card .body { padding: 14px 16px 14px 12px; }
-    .tool-card .body h3 { font-size: 15px; }
-  }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#020617;background-image:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(59,130,246,0.08) 0%,transparent 60%),radial-gradient(ellipse 80% 60% at 80% 90%,rgba(52,211,153,0.06) 0%,transparent 60%),radial-gradient(ellipse 70% 50% at 50% 50%,rgba(139,92,246,0.03) 0%,transparent 50%);min-height:100vh;color:#e2e8f0;overflow-x:hidden}
+.glass-card{background:rgba(15,23,42,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(30,41,59,0.6);box-shadow:0 8px 32px rgba(2,6,23,0.4)}
+.glass-light{background:rgba(15,23,42,0.7);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(30,41,59,0.5)}
+.gradient-border{position:relative;overflow:hidden}
+.gradient-border::before{content:'';position:absolute;inset:-1px;border-radius:16px;padding:1px;background:linear-gradient(135deg,rgba(96,165,250,0.6),rgba(52,211,153,0.6));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;animation:borderPulse 4s ease-in-out infinite}
+@keyframes borderPulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.hero-glow{position:relative}.hero-glow::after{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:300px;height:160px;background:radial-gradient(ellipse,rgba(59,130,246,0.12) 0%,transparent 70%);pointer-events:none}
+.particle-container{position:absolute;inset:0;overflow:hidden;pointer-events:none;border-radius:16px}
+.particle{position:absolute;border-radius:50%;background:rgba(96,165,250,0.25);animation:float linear infinite}
+.particle:nth-child(1){left:15%;top:20%;width:5px;height:5px;animation-duration:7s;animation-delay:0s;background:rgba(52,211,153,0.2)}
+.particle:nth-child(2){left:35%;top:60%;width:3px;height:3px;animation-duration:9s;animation-delay:1s;background:rgba(96,165,250,0.2)}
+.particle:nth-child(3){left:55%;top:30%;width:4px;height:4px;animation-duration:8s;animation-delay:2s;background:rgba(167,139,250,0.2)}
+.particle:nth-child(4){left:75%;top:70%;width:3px;height:3px;animation-duration:10s;animation-delay:.5s;background:rgba(52,211,153,0.15)}
+.particle:nth-child(5){left:90%;top:15%;width:4px;height:4px;animation-duration:6s;animation-delay:3s;background:rgba(96,165,250,0.15)}
+.particle:nth-child(6){left:5%;top:80%;width:3px;height:3px;animation-duration:11s;animation-delay:1.5s;background:rgba(167,139,250,0.15)}
+@keyframes float{0%{opacity:0;transform:translateY(40px) scale(0)}20%{opacity:1}80%{opacity:1}100%{opacity:0;transform:translateY(-80px) scale(1.5)}}
+.stagger-enter{opacity:0;transform:translateY(20px);animation:staggerUp .5s ease forwards}
+.stagger-enter:nth-child(1){animation-delay:.1s}.stagger-enter:nth-child(2){animation-delay:.2s}
+.stagger-enter:nth-child(3){animation-delay:.3s}.stagger-enter:nth-child(4){animation-delay:.4s}
+.stagger-enter:nth-child(5){animation-delay:.5s}.stagger-enter:nth-child(6){animation-delay:.6s}
+.stagger-enter:nth-child(7){animation-delay:.7s}.stagger-enter:nth-child(8){animation-delay:.8s}
+.stagger-enter:nth-child(9){animation-delay:.9s}
+@keyframes staggerUp{to{opacity:1;transform:translateY(0)}}
+.lang-btn{background:rgba(15,23,42,0.7);border:1px solid rgba(30,41,59,0.6);border-radius:10px;padding:6px 14px;font-size:13px;cursor:pointer;transition:all .3s ease;color:#94a3b8;font-weight:500;backdrop-filter:blur(8px);font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:6px;position:relative;overflow:hidden}
+.lang-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(59,130,246,0.1),rgba(52,211,153,0.1));opacity:0;transition:opacity .3s ease}
+.lang-btn:hover{border-color:rgba(59,130,246,0.4);color:#e2e8f0}.lang-btn:hover::after{opacity:1}
+.lang-btn.active{background:linear-gradient(135deg,#2563eb,#059669);color:#fff;border-color:transparent}
+.lang-btn.active::after{display:none}
+.lang-btn:focus-visible{outline:2px solid #60a5fa;outline-offset:2px}
+.tool-card{background:rgba(15,23,42,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(30,41,59,0.6);border-radius:16px;overflow:hidden;transition:all .4s cubic-bezier(.175,.885,.32,1.275);display:flex;box-shadow:0 8px 32px rgba(2,6,23,0.4);position:relative}
+.tool-card::before{content:'';position:absolute;inset:0;opacity:0;background:linear-gradient(135deg,rgba(59,130,246,0.03),rgba(52,211,153,0.03));transition:opacity .4s ease;pointer-events:none}
+.tool-card:hover{border-color:rgba(59,130,246,0.3);box-shadow:0 0 40px rgba(59,130,246,0.1),0 12px 48px rgba(2,6,23,0.5);transform:translateY(-4px) scale(1.003)}
+.tool-card:hover::before{opacity:1}
+.tool-card:focus-within{outline:2px solid #60a5fa;outline-offset:2px}
+.tool-card a{text-decoration:none;color:inherit;display:flex;flex:1}.tool-card a:active{transform:scale(.995);transition:transform .1s}
+.tool-card .icon-box{width:76px;min-height:100%;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
+.tool-card .icon-box svg{width:32px;height:32px}
+.tool-card .icon-box::after{content:'';position:absolute;right:0;top:12%;height:76%;width:1px;background:linear-gradient(to bottom,transparent,rgba(30,41,59,0.5),transparent)}
+.tool-card .body{padding:20px 20px 18px 16px;flex:1}
+.tool-card .body h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:600;color:#f1f5f9;margin-bottom:4px}
+.tool-card .body .desc{font-size:13px;color:#94a3b8;line-height:1.65}
+.status-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;margin-top:10px;padding:4px 12px;border-radius:20px;font-weight:600;letter-spacing:.02em}
+.status-badge svg{width:13px;height:13px}
+.status-badge.live{background:rgba(52,211,153,0.1);color:#34d399;border:1px solid rgba(52,211,153,0.2)}
+.upcoming-item{background:rgba(30,41,59,0.4);backdrop-filter:blur(8px);padding:8px 18px;border-radius:20px;font-size:13px;color:#94a3b8;display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(30,41,59,0.4);transition:all .3s cubic-bezier(.175,.885,.32,1.275);cursor:default}
+.upcoming-item:hover{border-color:rgba(59,130,246,0.25);color:#cbd5e1;background:rgba(30,41,59,0.6);transform:translateY(-2px)}
+.upcoming-item svg{width:15px;height:15px;flex-shrink:0}
+.step-dot{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.company-card{background:linear-gradient(135deg,rgba(30,41,59,0.6),rgba(15,23,42,0.8));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(30,41,59,0.5);border-radius:14px;transition:all .3s ease}
+.company-card:hover{border-color:rgba(59,130,246,0.2)}
+.progress-dot{width:8px;height:8px;border-radius:50%;background:rgba(30,41,59,0.5);transition:all .3s ease}
+.progress-dot.active{background:#059669;box-shadow:0 0 8px rgba(5,150,105,0.4)}
+.progress-dot.next{background:#2563eb;box-shadow:0 0 8px rgba(37,99,235,0.3)}
+footer{text-align:center;font-size:12px;color:#475569;padding:28px 0 20px;border-top:1px solid rgba(30,41,59,0.5);margin-top:20px}
+footer a{color:#64748b;text-decoration:none;transition:color .2s}footer a:hover{color:#94a3b8}
+@media(max-width:640px){.hero-inner{padding:32px 20px!important}.hero-inner h1{font-size:21px!important}.tool-card .icon-box{width:54px}.tool-card .icon-box svg{width:22px;height:22px}.tool-card .body{padding:14px 14px 12px 10px}.tool-card .body h3{font-size:14px}.tool-card .body .desc{font-size:12px}.company-card{padding:16px!important}}
 </style>
-<script>
-(function() {
-  var STORAGE_KEY = "ducthinh_lang";
-  var dict = {};
-  function getLang() { return localStorage.getItem(STORAGE_KEY) || "vi"; }
-  function setLang(lang) {
-    if (dict[lang]) {
-      localStorage.setItem(STORAGE_KEY, lang);
-      applyLang(lang);
-      window.dispatchEvent(new CustomEvent("langchange", { detail: lang }));
-    }
-  }
-  function t(key, lang) {
-    var l = lang || getLang();
-    return dict[l] && dict[l][key] !== undefined ? dict[l][key] : dict.vi && dict.vi[key] !== undefined ? dict.vi[key] : key;
-  }
-  window.__ = t; window.__lang = getLang;
-  function applyLang(lang) {
-    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang === "en" ? "en" : "vi";
-    document.querySelectorAll("[data-i18n]").forEach(function(el) { el.textContent = t(el.getAttribute("data-i18n"), lang); });
-    document.querySelectorAll("[data-lang-btn]").forEach(function(el) { el.classList.toggle("active", el.getAttribute("data-lang-btn") === lang); });
-  }
-  window.__dict = dict; window.__setLang = setLang; window.__i18nReady = true;
-  window.__loadI18n = function(pageDict) {
-    Object.assign(dict, pageDict);
-    applyLang(getLang());
-  };
-})();
-</script>
+<script>(function(){var sk="***",dict={},gl=function(){return localStorage.getItem(sk)||"vi"},sl=function(l){if(dict[l]){localStorage.setItem(sk,l);al(l);window.dispatchEvent(new CustomEvent("langchange",{detail:l}))}},t=function(k,l){var a=l||gl();return dict[a]&&dict[a][k]!==undefined?dict[a][k]:dict.vi&&dict.vi[k]!==undefined?dict.vi[k]:k},al=function(l){document.documentElement.lang=l==="zh"?"zh-CN":l==="en"?"en":"vi";document.querySelectorAll("[data-i18n]").forEach(function(e){e.textContent=t(e.getAttribute("data-i18n"),l)});document.querySelectorAll("[data-lang-btn]").forEach(function(e){e.classList.toggle("active",e.getAttribute("data-lang-btn")===l)})};window.__=t;window.__lang=gl;window.__dict=dict;window.__setLang=sl;window.__i18nReady=true;window.__loadI18n=function(pd){Object.assign(dict,pd);al(gl())}})();</script>
 </head>
 <body>
 <div class="max-w-4xl mx-auto px-4 py-6 sm:py-10">
 
-  <div class="flex gap-2 justify-end mb-6">
-    <button class="lang-btn active" data-lang-btn="vi" onclick="__setLang('vi')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg> VI</button>
-    <button class="lang-btn" data-lang-btn="en" onclick="__setLang('en')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M3 14h18"/></svg> EN</button>
-    <button class="lang-btn" data-lang-btn="zh" onclick="__setLang('zh')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18"/><path d="M12 3v18"/></svg> CN</button>
-  </div>
-
-  <div class="glass-card rounded-[16px] p-8 sm:p-12 text-center mb-8 gradient-border hero-section">
-    <div class="mb-4 flex justify-center">
-      <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400">
-        <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/>
-      </svg>
-    </div>
-    <h1 class="font-heading text-2xl sm:text-[28px] font-bold text-white mb-2" data-i18n="hero.title">Đức Thịnh – Công Cụ Hỗ Trợ</h1>
-    <p class="text-sm text-slate-400 max-w-lg mx-auto leading-relaxed" data-i18n="hero.sub">Bộ công cụ dành cho bộ phận xuất nhập khẩu, kiểm tra chứng từ và tra cứu giá</p>
-    <div class="mt-5 w-16 h-[2px] bg-gradient-to-r from-blue-500 to-emerald-400 mx-auto rounded-full"></div>
-  </div>
-
-  <div class="glass-card-light rounded-[14px] p-5 px-6 flex items-center gap-4 mb-7">
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-sky-400 flex-shrink-0"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-    <div class="flex-1 min-w-0">
-      <h3 class="font-heading text-sm font-semibold text-slate-200" data-i18n="company.title">Công ty Vật Liệu Mới Đức Thịnh</h3>
-      <p class="text-xs text-slate-500 mt-0.5">Email: <a href="mailto:sales@ducthinh.com" class="text-blue-400 hover:text-blue-300 transition-colors">sales@ducthinh.com</a> <span class="mx-2 text-slate-700">—</span> Web: <a href="https://ducthinhmaterials.com" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors">ducthinhmaterials.com</a></p>
-    </div>
-  </div>
-
-  <div class="flex items-center gap-3 mb-5">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-    <span class="font-heading font-semibold text-slate-300 text-sm" data-i18n="tools.section">Công cụ</span>
-    <span class="text-[11px] bg-slate-800/60 text-blue-400 px-3 py-1 rounded-full font-medium border border-slate-700/50" data-i18n="tools.count">2 tools</span>
-  </div>
-
-  <div class="grid gap-4 mb-10">
-    <div class="tool-card">
-      <a href="https://doccheck.ducthinhmaterials.com/" target="_blank">
-        <div class="icon-box" style="background:rgba(59,130,246,0.08)">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        </div>
-        <div class="body">
-          <h3 data-i18n="tool1.title">Kiểm Tra Chứng Từ (DocCheck)</h3>
-          <div class="desc" data-i18n="tool1.desc">Rà soát tự động Invoice, Packing List, Bill of Lading, Certificate of Origin, Hợp đồng, Quotation. Hỗ trợ copy-paste nội dung hoặc dán link Google Drive. So sánh chéo giữa nhiều chứng từ.</div>
-          <div class="status-badge live"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span data-i18n="tool1.status">Đang hoạt động</span></div>
-        </div>
-      </a>
-    </div>
-    <div class="tool-card">
-      <a href="/kiem-tra-gia/" target="_blank">
-        <div class="icon-box" style="background:rgba(52,211,153,0.08)">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        </div>
-        <div class="body">
-          <h3 data-i18n="tool2.title">Kiểm Tra Giá (Price Check)</h3>
-          <div class="desc" data-i18n="tool2.desc">Tra cứu giá bán tối thiểu CaCO₃, phụ phí bao bì, quy cách đóng bao khác. Tính giá thành nhanh từ EXW + phụ phí. Hỗ trợ upload Excel cập nhật dữ liệu.</div>
-          <div class="status-badge live"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span data-i18n="tool1.status">Đang hoạt động</span></div>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <div class="glass-card-light rounded-[14px] p-6 mb-6">
-    <h3 class="font-heading text-sm font-semibold text-slate-400 mb-4 flex items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
-      <span data-i18n="upcoming.title">Sắp ra mắt</span>
-    </h3>
-    <div class="flex flex-wrap gap-2.5">
-      <span class="upcoming-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4 7.55 4.24a1 1 0 0 0-1.1 0L2 6.5M16.5 9.4 21 11.5M16.5 9.4V17M7.55 4.24 3 6.5M7.55 4.24V12M3 6.5l4.55 2.74M3 6.5V14l4.55 2.74M13 21.5l-5.45-3.26M13 21.5V17l4.55-2.74M13 21.5l4.55-2.74M21 11.5v-5M21 11.5v5l-4.55 2.74"/></svg> Theo dõi container</span>
-      <span class="upcoming-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg> Báo cáo thống kê XNK</span>
-      <span class="upcoming-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> Tạo chứng từ mẫu</span>
-      <span class="upcoming-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg> Tra cứu lịch tàu</span>
-      <span class="upcoming-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Tỷ giá & phí XNK</span>
-    </div>
-  </div>
-
-  <footer><span data-i18n="footer.text">Công ty Vật Liệu Mới Đức Thịnh — sales@ducthinh.com</span></footer>
+<div class="flex gap-2 justify-end mb-6 stagger-enter" role="navigation" aria-label="Language selector">
+<button class="lang-btn active" data-lang-btn="vi" onclick="__setLang('vi')" aria-label="Tiáº¿ng Viá»‡t" aria-current="true">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+<span aria-hidden="true">VI</span></button>
+<button class="lang-btn" data-lang-btn="en" onclick="__setLang('en')" aria-label="English">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M3 14h18"/></svg>
+<span aria-hidden="true">EN</span></button>
+<button class="lang-btn" data-lang-btn="zh" onclick="__setLang('zh')" aria-label="ä¸­æ–‡">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18"/><path d="M12 3v18"/></svg>
+<span aria-hidden="true">CN</span></button>
 </div>
 
-<script>document.addEventListener('DOMContentLoaded', function() { lucide.createIcons(); });</script>
+<div class="glass-card rounded-[16px] mb-8 gradient-border hero-glow stagger-enter" role="banner">
+<div class="particle-container"><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div></div>
+<div class="hero-inner p-8 sm:p-12 text-center relative z-10">
+<div class="mb-4 flex justify-center">
+<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+</div>
+<h1 class="font-heading text-2xl sm:text-[28px] font-bold text-white mb-2" data-i18n="hero.title">Äá»©c Thá»‹nh â€“ CÃ´ng Cá»¥ Há»— Trá»£</h1>
+<p class="text-sm text-slate-400 max-w-lg mx-auto leading-relaxed" data-i18n="hero.sub">Bá»™ cÃ´ng cá»¥ dÃ nh cho bá»™ pháº­n xuáº¥t nháº­p kháº©u, kiá»ƒm tra chá»©ng tá»« vÃ tra cá»©u giÃ¡</p>
+<div class="mt-5 w-16 h-[2px] bg-gradient-to-r from-blue-500 to-emerald-400 mx-auto rounded-full"></div>
+</div></div>
+<!-- CTA / Onboarding hint for new users -->
+<div class="company-card p-5 mb-6 stagger-enter" role="complementary" aria-label="Welcome hint">
+<div class="flex items-center gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/20 to-emerald-500/20 flex items-center justify-center">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+</div>
+<p class="text-sm text-slate-300" data-i18n="onboarding.hint">Chọn công cụ bên dưới để bắt đầu. Tất cả đều miễn phí cho nội bộ công ty!</p>
+</div>
+</div>
+<!-- Company info section -->
+<div class="company-card p-6 mb-6 stagger-enter" role="region" aria-label="Company information">
+<div class="flex flex-col sm:flex-row items-start gap-5">
+<div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600/30 to-emerald-600/30 flex items-center justify-center">
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M2 7h20"/></svg>
+</div>
+<div class="flex-1 min-w-0">
+<h2 class="font-heading text-lg font-bold text-white mb-1" data-i18n="company.title">Công ty Vật Liệu Mới Đức Thịnh</h2>
+<p class="text-sm text-slate-400 leading-relaxed" data-i18n="company.desc">Chuyên cung cấp vật liệu xây dựng, thiết bị công nghiệp và giải pháp xuất nhập khẩu toàn diện.</p>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
+<div class="flex items-center gap-2 text-xs text-slate-500">
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+<span data-i18n="company.addr">56 Tân Chánh Hiệp 18, P. Tân Chánh Hiệp, Q.12, TP.HCM</span>
+</div>
+<div class="flex items-center gap-2 text-xs text-slate-500">
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+<span data-i18n="company.phone">0906 99 11 99</span>
+</div>
+<div class="flex items-center gap-2 text-xs text-slate-500">
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+<a href="mailto:info@ducthinhmaterials.com" class="hover:text-slate-300 transition-colors">info@ducthinhmaterials.com</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick start steps -->
+<div class="mb-8 stagger-enter">
+<h2 class="font-heading text-base font-bold text-white mb-4 flex items-center gap-2">
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+<span data-i18n="quickstart.title">Báº¯t Ä‘áº§u nhanh</span>
+</h2>
+<div class="space-y-3">
+<div class="flex items-center gap-3">
+<div class="step-dot bg-blue-500 text-white">1</div>
+<p class="text-sm text-slate-400" data-i18n="quickstart.step1">Báº¥m vÃ o cÃ´ng cá»¥ báº¡n cáº§n sá»­ dá»¥ng bÃªn dÆ°á»›i</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="step-dot bg-blue-500 text-white">2</div>
+<p class="text-sm text-slate-400" data-i18n="quickstart.step2">Ä�Äƒng nháº­p báº±ng mÃ£ sá»‘ nhÃ¢n viÃªn Ä‘Æ°á»£c cáº¥p</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="step-dot bg-emerald-500 text-white">3</div>
+<p class="text-sm text-slate-400" data-i18n="quickstart.step3">HoÃ n thÃ nh cÃ´ng viá»‡c vÃ xuáº¥t káº¿t quáº£</p>
+</div>
+</div>
+</div>
+<!-- Tool cards - Bento Grid: staggered sizes -->
+<h2 class="font-heading text-base font-bold text-white mb-4 flex items-center gap-2 stagger-enter">
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><rect width="7" height="7" x="14" y="3" rx="1"/><path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"/></svg>
+<span data-i18n="tools.title">CÃ´ng cá»¥ hiá»‡n cÃ³</span>
+</h2>
+
+<div class="grid grid-cols-1 gap-4 stagger-enter" role="list" aria-label="Available tools">
+
+<!-- Tool 1: Kiá»ƒm tra chá»©ng tá»« - Full width (bento large) -->
+<div class="tool-card lg:col-span-2 gradient-border" role="listitem">
+<a href="https://tools.ducthinhmaterials.com/doccheck/portal" target="_blank" rel="noopener" aria-label="CÃ´ng cá»¥ kiá»ƒm tra chá»©ng tá»«">
+<div class="icon-box bg-gradient-to-b from-blue-600/20 to-blue-600/5">
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15h6"/><path d="M12 18h3"/><path d="M9 12h6"/></svg>
+</div>
+<div class="body">
+<h3 data-i18n="tool1.name">Kiá»ƒm Tra Chá»©ng Tá»«</h3>
+<p class="desc" data-i18n="tool1.desc">Kiá»ƒm tra vÃ Ä‘á»‘i chiáº¿u chá»©ng tá»« xuáº¥t nháº­p kháº©u, tá»± Ä‘á»™ng phÃ¡t hiá»‡n lá»—i sai lá»‡ch thÃ´ng tin.</p>
+<div class="status-badge live">
+<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+<span data-i18n="tool1.status">Ä�ang hoáº¡t Ä‘á»™ng</span>
+</div>
+</div>
+</a>
+</div>
+<!-- Tool 2: Kiá»ƒm tra giÃ¡ - Full width (bento large) -->
+<div class="tool-card lg:col-span-2 gradient-border" role="listitem">
+<a href="https://tools.ducthinhmaterials.com/kiem-tra-gia" target="_blank" rel="noopener" aria-label="CÃ´ng cá»¥ kiá»ƒm tra giÃ¡">
+<div class="icon-box bg-gradient-to-b from-emerald-600/20 to-emerald-600/5">
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><circle cx="12" cy="12" r="10"/><path d="m8 14 2.5-5 2.5 5 2.5-5 2.5 5"/></svg>
+</div>
+<div class="body">
+<h3 data-i18n="tool2.name">Kiá»ƒm Tra GiÃ¡</h3>
+<p class="desc" data-i18n="tool2.desc">Tra cá»©u vÃ kiá»ƒm tra giÃ¡ xuáº¥t nháº­p kháº©u theo mÃ£ sáº£n pháº©m, Ä‘á»‘i chiáº¿u vá»›i thá»‹ trÆ°á»�ng.</p>
+<div class="status-badge live">
+<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+<span data-i18n="tool2.status">Ä�ang hoáº¡t Ä‘á»™ng</span>
+</div>
+</div>
+</a>
+</div>
+
+</div><!-- close grid -->
+<!-- Upcoming features - timeline/progress style -->
+<div class="mt-8 pb-2 stagger-enter">
+<h2 class="font-heading text-base font-bold text-white mb-4 flex items-center gap-2">
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet-400"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+<span data-i18n="upcoming.title">Ä�ang phÃ¡t triá»ƒn</span>
+</h2>
+
+<div class="flex flex-wrap gap-2">
+<span class="upcoming-item" data-i18n="upcoming.tool3">
+<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet-400"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+Tra cá»©u hÃ£ng tÃ u
+</span>
+<span class="upcoming-item" data-i18n="upcoming.tool4">
+<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet-400"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+Chat há»— trá»£ AI
+</span>
+</div>
+
+<!-- Progress indicator -->
+<div class="flex items-center gap-3 mt-4">
+<div class="h-1 flex-1 rounded-full bg-deep-700 overflow-hidden">
+<div class="h-full w-2/3 rounded-full bg-gradient-to-r from-blue-500 to-emerald-400"></div>
+</div>
+<span class="text-xs text-slate-600 font-medium">~66%</span>
+</div>
+</div>
+<!-- Footer -->
+<footer class="stagger-enter">
+<p>&copy; 2026 <a href="https://ducthinhmaterials.com" target="_blank" rel="noopener">CÃ´ng ty Váº­t Liá»‡u Má»›i Äá»©c Thá»‹nh</a></p>
+</footer>
+
+</div><!-- close max-w-4xl -->
 
 <script>
-const PORTAL_I18N = {
+// Wait for lucide to load then create icons
+if(window.lucide){
+  lucide.createIcons();
+}
+
+// Initialize i18n with dictionaries
+window.addEventListener('DOMContentLoaded', function(){
+  window.__loadI18n(PORTAL_I18N);
+  // Re-create lucide icons after lang change
+  window.addEventListener('langchange', function(){
+    if(window.lucide) lucide.createIcons();
+  });
+  // Force stagger re-trigger for already-visible elements
+});
+
+// I18N dictionaries
+var PORTAL_I18N = {
   vi: {
-    "hero.title": "Đức Thịnh – Công Cụ Hỗ Trợ",
-    "hero.sub": "Bộ công cụ dành cho bộ phận xuất nhập khẩu, kiểm tra chứng từ và tra cứu giá",
-    "company.title": "Công ty Vật Liệu Mới Đức Thịnh",
-    "tools.section": "Công cụ", "tools.count": "2 tools",
-    "tool1.title": "Kiểm Tra Chứng Từ (DocCheck)",
-    "tool1.desc": "Rà soát tự động Invoice, Packing List, Bill of Lading, Certificate of Origin, Hợp đồng, Quotation. Hỗ trợ copy-paste nội dung hoặc dán link Google Drive. So sánh chéo giữa nhiều chứng từ.",
-    "tool1.status": "Đang hoạt động",
-    "tool2.title": "Kiểm Tra Giá (Price Check)",
-    "tool2.desc": "Tra cứu giá bán tối thiểu CaCO₃, phụ phí bao bì, quy cách đóng bao khác. Tính giá thành nhanh từ EXW + phụ phí. Hỗ trợ upload Excel cập nhật dữ liệu.",
-    "tool2.status": "Đang hoạt động",
-    "upcoming.title": "Sắp ra mắt",
-    "footer.text": "Công ty Vật Liệu Mới Đức Thịnh — sales@ducthinh.com"
+    "hero.title": "Äá»©c Thá»‹nh – CÃ´ng Cá»¥ Há»— Trá»£",
+    "hero.sub": "Bá»™ cÃ´ng cá»¥ dÃ nh cho bá»™ pháº­n xuáº¥t nháº­p kháº©u, kiá»ƒm tra chá»©ng tá»« vÃ  tra cá»©u giÃ¡",
+    "onboarding.hint": "Chá»n cÃ´ng cá»¥ bÃªn dÆ°á»›i Ä‘á»ƒ báº¯t Ä‘áº§u. Táº¥t cáº£ Ä‘á»u miá»…n phÃ cho ná»™i bá»™ cÃ´ng ty!",
+    "company.title": "CÃ´ng ty Váº­t Liá»‡u Má»›i Äá»©c Thá»‹nh",
+    "company.desc": "ChuyÃªn cung cáº¥p váº­t liá»‡u xÃ¢y dá»±ng, thiáº¿t bá»‹ cÃ´ng nghiá»‡p vÃ  giáº£i phÃ¡p xuáº¥t nháº­p kháº©u toÃ n diá»‡n.",
+    "company.addr": "56 TÃ¢n ChÃ¡nh Hiá»‡p 18, P. TÃ¢n ChÃ¡nh Hiá»‡p, Q.12, TP.HCM",
+    "company.phone": "0906 99 11 99",
+    "quickstart.title": "Báº¯t Ä‘áº§u nhanh",
+    "quickstart.step1": "Báº¥m vÃ o cÃ´ng cá»¥ báº¡n cáº§n sá»­ dá»¥ng bÃªn dÆ°á»›i",
+    "quickstart.step2": "ÄÄƒng nháº­p báº±ng mÃ£ sá»‘ nhÃ¢n viÃªn Ä‘Æ°á»£c cáº¥p",
+    "quickstart.step3": "HoÃ n thÃ nh cÃ´ng viá»‡c vÃ  xuáº¥t káº¿t quáº£",
+    "tools.title": "CÃ´ng cá»¥ hiá»‡n cÃ³",
+    "tool1.name": "Kiá»ƒm Tra Chá»©ng Tá»«",
+    "tool1.desc": "Kiá»ƒm tra vÃ  Ä‘á»‘i chiáº¿u chá»©ng tá»« xuáº¥t nháº­p kháº©u, tá»± Ä‘á»™ng phÃ¡t hiá»‡n lá»—i sai lá»‡ch thÃ´ng tin.",
+    "tool1.status": "Äang hoáº¡t Ä‘á»™ng",
+    "tool2.name": "Kiá»ƒm Tra GiÃ¡",
+    "tool2.desc": "Tra cá»©u vÃ  kiá»ƒm tra giÃ¡ xuáº¥t nháº­p kháº©u theo mÃ£ sáº£n pháº©m, Ä‘á»‘i chiáº¿u vá»›i thá»‹ trÆ°á»�ng.",
+    "tool2.status": "Äang hoáº¡t Ä‘á»™ng",
+    "upcoming.title": "Äang phÃ¡t triá»ƒn",
+    "upcoming.tool3": "Tra cá»©u hÃ£ng tÃ u",
+    "upcoming.tool4": "Chat há»— trá»£ AI"
   },
   en: {
-    "hero.title": "Đức Thịnh – Support Tools",
-    "hero.sub": "Toolkit for import-export department: document checking and price lookup",
-    "company.title": "Đức Thịnh New Materials Company",
-    "tools.section": "Tools", "tools.count": "2 tools",
-    "tool1.title": "Document Check (DocCheck)",
-    "tool1.desc": "Auto-review Invoice, Packing List, Bill of Lading, Certificate of Origin, Contracts, Quotations. Support copy-paste or Google Drive links. Cross-compare multiple documents.",
+    "hero.title": "Duc Thinh – Tool Hub",
+    "hero.sub": "A set of tools for import-export department: document checking and price lookup.",
+    "onboarding.hint": "Select a tool below to get started. All tools are free for internal use!",
+    "company.title": "Duc Thinh New Materials Company",
+    "company.desc": "Specializing in construction materials, industrial equipment and comprehensive import-export solutions.",
+    "company.addr": "56 Tan Chanh Hiep 18, Tan Chanh Hiep Ward, Dist.12, HCMC",
+    "company.phone": "0906 99 11 99",
+    "quickstart.title": "Quick Start",
+    "quickstart.step1": "Click on a tool below",
+    "quickstart.step2": "Log in with your employee ID",
+    "quickstart.step3": "Complete your task and export results",
+    "tools.title": "Available Tools",
+    "tool1.name": "Document Checker",
+    "tool1.desc": "Check and compare import-export documents, automatically detect information discrepancies.",
     "tool1.status": "Live",
-    "tool2.title": "Price Check",
-    "tool2.desc": "Lookup minimum selling price of CaCO₃, packaging surcharges, other bagging specs. Quick price calculation from EXW + surcharges. Support Excel upload.",
+    "tool2.name": "Price Checker",
+    "tool2.desc": "Look up and verify import-export prices by product code, compare with market rates.",
     "tool2.status": "Live",
     "upcoming.title": "Coming Soon",
-    "footer.text": "Đức Thịnh New Materials Company — sales@ducthinh.com"
+    "upcoming.tool3": "Shipping line lookup",
+    "upcoming.tool4": "AI support chat"
   },
   zh: {
-    "hero.title": "Đức Thịnh – 支持工具",
-    "hero.sub": "进出口部门工具包：文件审核和价格查询",
-    "company.title": "Đức Thịnh 新材料有限公司",
-    "tools.section": "工具", "tools.count": "2 个工具",
-    "tool1.title": "文件审核 (DocCheck)",
-    "tool1.desc": "自动审核发票、装箱单、提单、原产地证书、合同、报价单。支持复制粘贴或Google Drive链接。多份文件交叉对比。",
+    "hero.title": "德盛 – 工具中心",
+    "hero.sub": "为进出口部门提供的工具集：文件检查和价格查询。",
+    "onboarding.hint": "选择下面的工具开始。所有工具均可免费使用！",
+    "company.title": "德盛新材料公司",
+    "company.desc": "专业提供建筑材料、工业设备和全面的进出口解决方案。",
+    "company.addr": "56 Tan Chanh Hiep 18, Tan Chanh Hiep Ward, Dist.12, HCMC",
+    "company.phone": "0906 99 11 99",
+    "quickstart.title": "快速开始",
+    "quickstart.step1": "点击下方您需要的工具",
+    "quickstart.step2": "使用您的员工编号登录",
+    "quickstart.step3": "完成任务并导出结果",
+    "tools.title": "现有工具",
+    "tool1.name": "文件检查",
+    "tool1.desc": "检查并比对进出口文件，自动检测信息差异。",
     "tool1.status": "运行中",
-    "tool2.title": "价格查询",
-    "tool2.desc": "查询CaCO₃最低售价、包装附加费、其他袋装规格。从EXW + 附加费快速计算价格。支持上传Excel更新数据。",
+    "tool2.name": "价格检查",
+    "tool2.desc": "按产品代码查询和验证进出口价格，与市场对比。",
     "tool2.status": "运行中",
-    "upcoming.title": "即将推出",
-    "footer.text": "Đức Thịnh 新材料有限公司 — sales@ducthinh.com"
+    "upcoming.title": "开发中",
+    "upcoming.tool3": "船公司查询",
+    "upcoming.tool4": "AI 客服聊天"
   }
 };
-__loadI18n(PORTAL_I18N);
-</script>
-
-<script>
-(function() {
-  let sessionToken = localStorage.getItem('doccheck_session');
-  if (!sessionToken && document.cookie.includes('doccheck_session=')) {
-    sessionToken = document.cookie.match(/doccheck_session=([^;]+)/)[1];
-    localStorage.setItem('doccheck_session', sessionToken);
-  }
-  window.__getSessionToken = function() { return sessionToken; };
-})();
 </script>
 </body>
 </html>
