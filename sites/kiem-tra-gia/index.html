@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html lang="vi">
+﻿<!DOCTYPE html>
+<html lang="vi" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kiểm Tra Giá - Vật Liệu Mới Đức Thịnh</title>
+<title data-lang="app.title" data-lang-suffix=" - " data-lang-suffix2="company.name">Kiểm Tra Giá - Vật Liệu Mới Đức Thịnh</title>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>:root{--primary:#1a56db;--primary-dark:#1e40af;--primary-glow:rgba(26,86,219,.2);--green:#059669;--green-light:#d1fae5;--amber:#d97706;--red:#dc2626;--bg:#f0f2f5;--card:#ffffff;--text:#0f172a;--text-secondary:#475569;--muted:#94a3b8;--border:#e2e8f0;--radius-sm:8px;--radius:12px;--radius-lg:16px;--shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);--shadow-md:0 4px 6px -1px rgba(0,0,0,.07),0 2px 4px -1px rgba(0,0,0,.04);--shadow-lg:0 10px 25px -3px rgba(0,0,0,.08),0 4px 8px -2px rgba(0,0,0,.04);--font:"Inter","SF Pro Display","Segoe UI",sans-serif}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -199,6 +199,10 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 
 
 /* Max loading toggle */ .ml-toggle { display: none; } .ml-toggle.ml-visible { display: table-cell; }
+.lang-switcher{display:flex;gap:3px;align-items:center;z-index:1;position:relative}
+.lang-btn{width:34px;height:34px;border:2px solid rgba(255,255,255,.2);border-radius:8px;background:rgba(255,255,255,.08);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s;padding:0}
+.lang-btn:hover{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.15)}
+.lang-btn.active{border-color:#93bbff;background:rgba(147,187,255,.25);box-shadow:0 0 12px rgba(147,187,255,.3)}
 </style>
 </head>
 <body>
@@ -206,48 +210,53 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 
 <header>
 <div>
-<h1>Kiểm Tra Giá <span>🔍</span></h1>
-<div class="sub" style="margin-top:6px;font-size:13px;opacity:.8;">Vật Liệu Mới Đức Thịnh - Bảng giá tháng 06/2026</div>
+<h1><span data-lang="app.title">Kiểm Tra Giá 🔍</span></h1>
+<div class="sub" style="margin-top:6px;font-size:13px;opacity:.8;" data-lang="app.subtitle">Vật Liệu Mới Đức Thịnh - Bảng giá tháng 06/2026</div>
 </div>
-<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="badge">🏭 CÔNG TY TNHH CÔNG NGHỆ VẬT LIỆU MỚI ĐỨC THỊNH</span><span class="badge" id="dataInfo">📊 0 SP</span></div>
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="badge" data-lang="company.name">🏭 CÔNG TY TNHH CÔNG NGHỆ VẬT LIỆU MỚI ĐỨC THỊNH</span><span class="badge" id="dataInfo">📊 0 SP</span></div>
+<div class="lang-switcher">
+<button class="lang-btn" data-lang="vi" onclick="setLang('vi')" title="Tiếng Việt">🇻🇳</button>
+<button class="lang-btn" data-lang="en" onclick="setLang('en')" title="English">🇬🇧</button>
+<button class="lang-btn" data-lang="zh" onclick="setLang('zh')" title="中文">🇨🇳</button>
+</div>
 </header>
 
 <div class="tabs" id="tabs">
-<button class="tab-btn active" data-tab="pricelist" onclick="switchTab('pricelist')"><span>📋 Giá bán</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Bảng giá</small></button>
-<button class="tab-btn" data-tab="bags" onclick="switchTab('bags')"><span>📦 Bao bì</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Surcharge</small></button>
-<button class="tab-btn" data-tab="others" onclick="switchTab('others')"><span>📐 Quy cách khác</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Phụ phí</small></button>
-<button class="tab-btn" data-tab="calc" onclick="switchTab('calc')"><span>📝 Tính giá</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Tính giá thành</small></button>
-<button class="tab-btn" data-tab="manage" onclick="switchTab('manage')"><span>⚙️ Quản lý</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Upload dữ liệu</small></button>
+<button class="tab-btn active" data-tab="pricelist" onclick="switchTab('pricelist')"><span data-lang="tab.pricelist">📋 Giá bán</span><br><small data-lang="tab.pricelist.sub" style="font-weight:400;font-size:10px;opacity:.7">Bảng giá</small></button>
+<button class="tab-btn" data-tab="bags" onclick="switchTab('bags')"><span data-lang="tab.bags">📦 Bao bì</span><br><small data-lang="tab.bags.sub" style="font-weight:400;font-size:10px;opacity:.7">Surcharge</small></button>
+<button class="tab-btn" data-tab="others" onclick="switchTab('others')"><span data-lang="tab.others">📐 Quy cách khác</span><br><small data-lang="tab.others.sub" style="font-weight:400;font-size:10px;opacity:.7">Phụ phí</small></button>
+<button class="tab-btn" data-tab="calc" onclick="switchTab('calc')"><span data-lang="tab.calc">📝 Tính giá</span><br><small data-lang="tab.calc.sub" style="font-weight:400;font-size:10px;opacity:.7">Tính giá thành</small></button>
+<button class="tab-btn" data-tab="manage" onclick="switchTab('manage')"><span data-lang="tab.manage">⚙️ Quản lý</span><br><small data-lang="tab.manage.sub" style="font-weight:400;font-size:10px;opacity:.7">Upload dữ liệu</small></button>
 </div>
 
 <div class="controls" id="controlBar">
-<input type="text" id="searchInput" placeholder="🔍 Tìm sản phẩm..." oninput="globalSearch()">
-<select id="specFilter" onchange="render()"><option value="">Tất cả tiêu chuẩn</option></select>
-<select id="machineFilter" onchange="render()"><option value="">Tất cả máy</option></select>
+<input type="text" id="searchInput" data-lang-ph="search.placeholder" placeholder="🔍 Tìm sản phẩm..." oninput="globalSearch()">
+<select id="specFilter" onchange="render()"><option value="" data-lang="filter.all.standards">Tất cả tiêu chuẩn</option></select>
+<select id="machineFilter" onchange="render()"><option value="" data-lang="filter.all.machines">Tất cả máy</option></select>
 <div class="currency-toggle">
 <button class="active" data-currency="VND" onclick="toggleCurrency(this)">VND</button>
 <button data-currency="USD" onclick="toggleCurrency(this)">USD</button>
 </div>
 </div>
 <div class="btn-group" id="marketGroup" style="display:inline-flex;margin-left:6px;gap:3px">
-<span class="ext-label">🌏 Thị trường:</span>
-<button class="btn-sm active" id="marketCn" onclick="setMarket('cn')" style="padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid #d0d5dd;background:#1a56db;color:#fff;cursor:pointer;transition:all .15s ease">🇨🇳 TQ</button>
-<button class="btn-sm" id="marketOther" onclick="setMarket('other')" style="padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid #d0d5dd;background:#fff;color:#333;cursor:pointer;transition:all .15s ease">🌏 Khác</button>
+<span class="ext-label" data-lang="market.label">🌏 Thị trường:</span>
+<button class="btn-sm active" id="marketCn" onclick="setMarket('cn')" data-lang="market.cn" style="padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid #d0d5dd;background:#1a56db;color:#fff;cursor:pointer;transition:all .15s ease">🇨🇳 TQ</button>
+<button class="btn-sm" id="marketOther" onclick="setMarket('other')" data-lang="market.other" style="padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid #d0d5dd;background:#fff;color:#333;cursor:pointer;transition:all .15s ease">🌏 Khác</button>
 </div>
 
 <div class="price-mode-bar" id="priceModeBar" style="display:none">
 <div class="mode-group">
 <button class="mode-btn active" data-mode="exw" onclick="setPriceMode('exw')">EXW</button>
-<button class="mode-btn" data-mode="fob" onclick="setPriceMode('fob')">FOB</button>
-<button class="mode-btn" data-mode="cif" onclick="setPriceMode('cif')">CIF</button>
+<button class="mode-btn" data-mode="fob" onclick="setPriceMode('fob')" data-lang="mode.fob">FOB</button>
+<button class="mode-btn" data-mode="cif" onclick="setPriceMode('cif')" data-lang="mode.cif">CIF</button>
 </div>
 <div class="lcc-group" id="lccGroup" style="display:none">
-<span class="ext-label">Loại LCC:</span>
-<button class="lcc-btn active" data-lcc="no" onclick="setLccType('no')">No Lcc</button>
-<button class="lcc-btn" data-lcc="sub" onclick="setLccType('sub')">Sub Lcc</button>
+<span class="ext-label" data-lang="mode.lcc.type">Loại LCC:</span>
+<button class="lcc-btn active" data-lcc="no" onclick="setLccType('no')" data-lang="mode.lcc.no">No Lcc</button>
+<button class="lcc-btn" data-lcc="sub" onclick="setLccType('sub')" data-lang="mode.lcc.sub">Sub Lcc</button>
 </div>
 <div id="freightGroup" style="display:none">
-<span class="ext-label">🚂 Cước biển:</span>
+<span class="ext-label" data-lang="mode.freight">🚂 Cước biển:</span>
 <input type="number" class="ext-input" id="freightInput" value="0" min="0" step="100" oninput="onFreightChange()" style="width:100px">
 <span class="ext-label">USD</span>
 </div>
@@ -257,41 +266,41 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 
 <div class="manage-panel" id="managePanel">
 <div class="manage-login" id="manageLogin">
-<h3>⚙️ Quản lý dữ liệu</h3>
-<p>🔒 Nhập mật khẩu để tải / upload / cập nhật dữ liệu</p>
-<input type="password" id="managePass" placeholder="🔑 Nhập mật khẩu..." onkeydown="if(event.key==='Enter')manageLogin()" autocomplete="off">
-<button onclick="manageLogin()">🔑 Đăng nhập</button>
+<h3 data-lang="manage.title">⚙️ Quản lý dữ liệu</h3>
+<p data-lang="manage.pw.hint">🔒 Nhập mật khẩu để tải / upload / cập nhật dữ liệu</p>
+<input type="password" id="managePass" data-lang-ph="manage.pw.placeholder" placeholder="🔑 Nhập mật khẩu..." onkeydown="if(event.key==='Enter')manageLogin()" autocomplete="off">
+<button onclick="manageLogin()" data-lang="manage.login">🔑 Đăng nhập</button>
 <div class="manage-error" id="manageError"></div>
 </div>
 <div class="manage-dashboard" id="manageDashboard">
 <div class="manage-grid">
-<div class="manage-card"><div class="num" id="mProdCnt">0</div><div class="lbl">Sản phẩm</div></div>
-<div class="manage-card"><div class="num" id="mBagCnt">0</div><div class="lbl">Bao bì</div></div>
-<div class="manage-card"><div class="num" id="mOtherCnt">0</div><div class="lbl">Quy cách khác</div></div>
-<div class="manage-card"><div class="num" id="mUptd">06/2026</div><div class="lbl">Cập nhật</div></div>
+<div class="manage-card"><div class="num" id="mProdCnt">0</div><div class="lbl" data-lang="manage.prods">Sản phẩm</div></div>
+<div class="manage-card"><div class="num" id="mBagCnt">0</div><div class="lbl" data-lang="manage.bags">Bao bì</div></div>
+<div class="manage-card"><div class="num" id="mOtherCnt">0</div><div class="lbl" data-lang="manage.other.specs">Quy cách khác</div></div>
+<div class="manage-card"><div class="num" id="mUptd">06/2026</div><div class="lbl" data-lang="manage.updated">Cập nhật</div></div>
 </div>
 <div class="manage-actions">
-<h3>⬇ Tải dữ liệu</h3>
+<h3 data-lang="manage.download">⬇ Tải dữ liệu</h3>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:10px">
-<button class="btn-confirm" onclick="downloadFile(0)">📋 Giá bán</button>
-<button class="btn-confirm" onclick="downloadFile(1)">📦 Bao bì</button>
-<button class="btn-confirm" onclick="downloadFile(2)">📐 Quy cách khác</button>
-<button class="btn-cancel" onclick="downloadTemplate(0)">📄 Mẫu giá bán</button>
-<button class="btn-cancel" onclick="downloadTemplate(1)">📄 Mẫu bao bì</button>
-<button class="btn-cancel" onclick="downloadTemplate(2)">📄 Mẫu quy cách khác</button>
-<button class="btn-confirm" onclick="downloadFile(3)">⚖️ Max tải</button>
-<button class="btn-cancel" onclick="downloadTemplate(3)">📄 Mẫu max tải</button>
+<button class="btn-confirm" onclick="downloadFile(0)" data-lang="manage.dl.pricelist">📋 Giá bán</button>
+<button class="btn-confirm" onclick="downloadFile(1)" data-lang="manage.dl.bags">📦 Bao bì</button>
+<button class="btn-confirm" onclick="downloadFile(2)" data-lang="manage.dl.others">📐 Quy cách khác</button>
+<button class="btn-cancel" onclick="downloadTemplate(0)" data-lang="manage.tpl.pricelist">📄 Mẫu giá bán</button>
+<button class="btn-cancel" onclick="downloadTemplate(1)" data-lang="manage.tpl.bags">📄 Mẫu bao bì</button>
+<button class="btn-cancel" onclick="downloadTemplate(2)" data-lang="manage.tpl.others">📄 Mẫu quy cách khác</button>
+<button class="btn-confirm" onclick="downloadFile(3)" data-lang="manage.dl.maxload">⚖️ Max tải</button>
+<button class="btn-cancel" onclick="downloadTemplate(3)" data-lang="manage.tpl.maxload">📄 Mẫu max tải</button>
 </div>
 <div class="btn-row">
-<button class="btn-confirm" onclick="downloadAsExcel()">📊 Excel</button>
-<button class="btn-cancel" onclick="downloadAsJSON()">📋 JS</button>
-<button class="btn-confirm" onclick="downloadFullTemplate()">📊 Mẫu đầy đủ</button>
+<button class="btn-confirm" onclick="downloadAsExcel()" data-lang="manage.export.excel">📊 Excel</button>
+<button class="btn-cancel" onclick="downloadAsJSON()" data-lang="manage.export.json">📋 JS</button>
+<button class="btn-confirm" onclick="downloadFullTemplate()" data-lang="manage.export.full">📊 Mẫu đầy đủ</button>
 </div>
 </div>
 <div class="manage-actions">
-<h3>📤 Upload dữ liệu mới</h3>
-<p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">Upload file Excel (.xlsx)</p>
-<div class="upload-sm" id="manageDropZone" style="border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;background:#fafbfc"><div style="font-size:1.5rem;margin-bottom:6px">📂</div><div><strong>Kéo thả file vào đây</strong><br>hoặc bấm để chọn</div></div>
+<h3 data-lang="manage.upload.title">📤 Upload dữ liệu mới</h3>
+<p style="font-size:.85rem;color:var(--muted);margin-bottom:8px" data-lang="manage.upload.hint">Upload file Excel (.xlsx)</p>
+<div class="upload-sm" id="manageDropZone" style="border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;background:#fafbfc"><div style="font-size:1.5rem;margin-bottom:6px">📂</div><div><strong data-lang="manage.upload.drop">Kéo thả file vào đây</strong><br><span data-lang="manage.upload.click">hoặc bấm để chọn</span></div></div>
 <input type="file" id="manageFileInput" accept=".xlsx,.xls" style="display:none">
 <div class="manage-status-sm" id="manageUploadStatus" style="margin-top:10px;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;display:none"></div>
 </div>
@@ -302,13 +311,13 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 
 <div class="modal-overlay" id="pwModal">
 <div class="modal-box">
-<h3>🔐 Nhập mật khẩu</h3>
-<p>🔒 Chức năng quản lý yêu cầu mật khẩu</p>
-<input type="password" id="pwInput" placeholder="🔑 Nhập mật khẩu..." onkeydown="if(event.key==='Enter')checkPassword()" autocomplete="off">
-<div class="pw-error" id="pwError">❌ Sai mật khẩu!</div>
+<h3 data-lang="pw.modal.title">🔐 Nhập mật khẩu</h3>
+<p data-lang="pw.modal.desc">🔒 Chức năng quản lý yêu cầu mật khẩu</p>
+<input type="password" id="pwInput" data-lang-ph="pw.modal.placeholder" placeholder="🔑 Nhập mật khẩu..." onkeydown="if(event.key==='Enter')checkPassword()" autocomplete="off">
+<div class="pw-error" id="pwError" data-lang="pw.modal.error">❌ Sai mật khẩu!</div>
 <div class="btn-row">
-<button class="btn-cancel" onclick="closePwModal()">Hủy</button>
-<button class="btn-confirm" onclick="checkPassword()">Xác nhận</button>
+<button class="btn-cancel" onclick="closePwModal()" data-lang="pw.modal.cancel">Hủy</button>
+<button class="btn-confirm" onclick="checkPassword()" data-lang="pw.modal.confirm">Xác nhận</button>
 </div>
 </div>
 </div>
@@ -683,11 +692,11 @@ function renderPriceTab() {
   h += '</div>';
   h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">\ud83d\udccb Hi\u1ec7n max t\u1ea3i</button>';
   h += '<div class="summary-bar" style="margin-top:4px;gap:6px">';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">TB 25KG</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
+  h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">'+t('summary.avg.25kg')+'</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
   h += '<div class="summary-card" style="padding:8px 12px;background:#fef2f2;border-color:#fecaca"><div class="lbl" style="font-size:10px">C.nh\u1ea5t 25KG</div><div class="val" style="font-size:15px">' + fmt(max25) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#f0fdf4;border-color:#bbf7d0"><div class="lbl" style="font-size:10px">TB Jumbo</div><div class="val" style="font-size:15px">' + fmt(cntJ?Math.round(sumJ/cntJ):0) + '</div></div>';
+  h += '<div class="summary-card" style="padding:8px 12px;background:#f0fdf4;border-color:#bbf7d0"><div class="lbl" style="font-size:10px">'+t('summary.avg.jumbo')+'</div><div class="val" style="font-size:15px">' + fmt(cntJ?Math.round(sumJ/cntJ):0) + '</div></div>';
   h += '<div class="summary-card" style="padding:8px 12px;background:#fefce8;border-color:#fde68a"><div class="lbl" style="font-size:10px">C.nh\u1ea5t Jumbo</div><div class="val" style="font-size:15px">' + fmt(maxJ) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#f5f3ff;border-color:#ddd6fe"><div class="lbl" style="font-size:10px">TB EXW</div><div class="val" style="font-size:15px">' + fmt(cntExw?Math.round(sumExw/cntExw):0) + '</div></div>';
+  h += '<div class="summary-card" style="padding:8px 12px;background:#f5f3ff;border-color:#ddd6fe"><div class="lbl" style="font-size:10px">'+t('summary.avg.exw')+'</div><div class="val" style="font-size:15px">' + fmt(cntExw?Math.round(sumExw/cntExw):0) + '</div></div>';
   h += '<div class="summary-card" style="padding:8px 12px;background:#fff1f2;border-color:#fecdd3"><div class="lbl" style="font-size:10px">C.nh\u1ea5t EXW</div><div class="val" style="font-size:15px">' + fmt(maxExw) + '</div></div>';
   h += '</div>';
 
@@ -696,7 +705,7 @@ function renderPriceTab() {
   h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2" class="ml-toggle">Max t\u1ea3i</th><th colspan="2">Gi\u00e1 bao g\u1ed3m bao b\u00ec</th>';
   if (!showFobCif) h += '<th colspan="2">Gi\u00e1 b\u00e1n (EXW)</th>';
   h += '</tr>';
-  h += '<tr><th>M\u00e3</th><th>K\u00edch th\u01b0\u1edbc</th><th>Ti\u00eau chu\u1ea9n</th><th>M\u00e1y</th><th class="ml-toggle">Max 25KG <span class="info-row">(t\u1ea5n)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(t\u1ea5n)</span></th><th>25KG <span class="info-row">(VND)</span></th><th>Jumbo <span class="info-row">(VND)</span></th>';
+  h += '<tr><th>M\u00e3</th><th>K\u00edch th\u01b0\u1edbc</th><th>Ti\u00eau chu\u1ea9n</th><th>M\u00e1y</th><th class="ml-toggle" data-lang="table.max.25kg">Max 25KG <span class="info-row">(t\u1ea5n)</span></th><th class="ml-toggle" data-lang="table.max.jumbo">Max Jumbo <span class="info-row">(t\u1ea5n)</span></th><th><span data-lang="bag.spec.25kg">25KG</span> <span class="info-row">(VND)</span></th><th><span data-lang="bag.spec.jumbo">Jumbo</span> <span class="info-row">(VND)</span></th>';
   if (!showFobCif) {
     h += '<th>EXW <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>Hoa h\u1ed3ng <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   }
@@ -1502,7 +1511,7 @@ function toggleMaxLoad() {
 
 function renderBagsTab() {
   var h = '<div class="table-wrap" style="margin-top:0"><table><thead>';
-  h += '<tr><th colspan="4">Thông tin bao bì</th><th colspan="2">Giá</th></tr>';
+  h += '<tr><th colspan="4">'+t('bags.title')+'</th><th colspan="2">'+t('bags.price')+'</th></tr>';
   h += '<tr><th>Mã bao</th><th>Quy cách</th><th>Số lượng</th><th>Giá vốn</th><th>Giá bán</th><th>Lợi nhuận</th></tr>';
   h += '</thead><tbody>';
   for (var i = 0; i < DATA_BAGS.length; i++) {
@@ -1591,33 +1600,211 @@ function render() {
 function updateDataInfo() {
   var el = document.getElementById("dataInfo");
   if (!el) return;
-  el.textContent = "📊 " + DATA_PRODUCTS.length + " SP · " + DATA_BAGS.length + " BB · " + DATA_OTHERS.length + " QC";
+  el.textContent = "📊 " + DATA_PRODUCTS.length + " " + t("manage.prods") + " · " + DATA_BAGS.length + " " + t("manage.bags") + " · " + DATA_OTHERS.length + " " + t("manage.other.specs") + "";
 }
 
-// Language switch (i18n stub - keeps layout functional)
-var currentLang = "vi";
-var i18nStrings = {};
+// ====== MULTI-LANGUAGE SYSTEM ======
+var currentLang = localStorage.getItem("dt_lang") || "vi";
+var LANG_MAP = {
+  "app.title":{vi:"Kiểm Tra Giá 🔍",en:"Price Check 🔍",zh:"价格查询 🔍"},
+  "app.subtitle":{vi:"Vật Liệu Mới Đức Thịnh - Bảng giá tháng 06/2026",en:"Duc Thinh New Materials - Price List June 2026",zh:"德盛新材料 - 2026年6月价格表"},
+  "company.name":{vi:"🏭 CÔNG TY TNHH CÔNG NGHỆ VẬT LIỆU MỚI ĐỨC THỊNH",en:"🏭 DUC THINH NEW MATERIALS TECHNOLOGY CO., LTD.",zh:"🏭 德盛新材料科技有限公司"},
+  "tab.pricelist":{vi:"📋 Giá bán",en:"📋 Price List",zh:"📋 价格表"},
+  "tab.pricelist.sub":{vi:"Bảng giá",en:"Price List",zh:"价格表"},
+  "tab.bags":{vi:"📦 Bao bì",en:"📦 Bags",zh:"📦 包装"},
+  "tab.bags.sub":{vi:"Surcharge",en:"Surcharge",zh:"附加费"},
+  "tab.others":{vi:"📐 Quy cách khác",en:"📐 Other Specs",zh:"📐 其他规格"},
+  "tab.others.sub":{vi:"Phụ phí",en:"Surcharges",zh:"附加费用"},
+  "tab.calc":{vi:"📝 Tính giá",en:"📝 Price Calc",zh:"📝 价格计算"},
+  "tab.calc.sub":{vi:"Tính giá thành",en:"Cost Calculation",zh:"成本计算"},
+  "tab.manage":{vi:"⚙️ Quản lý",en:"⚙️ Manage",zh:"⚙️ 管理"},
+  "tab.manage.sub":{vi:"Upload dữ liệu",en:"Data Upload",zh:"数据上传"},
+  "search.placeholder":{vi:"🔍 Tìm sản phẩm...",en:"🔍 Search product...",zh:"🔍 搜索产品..."},
+  "filter.all.standards":{vi:"Tất cả tiêu chuẩn",en:"All Standards",zh:"所有标准"},
+  "filter.all.machines":{vi:"Tất cả máy",en:"All Machines",zh:"所有机器"},
+  "market.label":{vi:"🌏 Thị trường:",en:"🌏 Market:",zh:"🌏 市场:"},
+  "market.cn":{vi:"🇨🇳 TQ",en:"🇨🇳 CN",zh:"🇨🇳 中国"},
+  "market.other":{vi:"🌏 Khác",en:"🌏 Other",zh:"🌏 其他"},
+  "mode.exw":{vi:"EXW",en:"EXW",zh:"EXW"},
+  "mode.fob":{vi:"FOB",en:"FOB",zh:"FOB"},
+  "mode.cif":{vi:"CIF",en:"CIF",zh:"CIF"},
+  "mode.lcc.type":{vi:"Loại LCC:",en:"LCC Type:",zh:"LCC类型:"},
+  "mode.lcc.no":{vi:"No Lcc",en:"No Lcc",zh:"无LCC"},
+  "mode.lcc.sub":{vi:"Sub Lcc",en:"Sub Lcc",zh:"子LCC"},
+  "mode.freight":{vi:"🚂 Cước biển:",en:"🚂 Freight:",zh:"🚂 海运费:"},
+  "manage.title":{vi:"⚙️ Quản lý dữ liệu",en:"⚙️ Data Management",zh:"⚙️ 数据管理"},
+  "manage.pw.hint":{vi:"🔒 Nhập mật khẩu để tải / upload / cập nhật dữ liệu",en:"🔒 Enter password to download / upload / update data",zh:"🔒 输入密码以加载/上传/更新数据"},
+  "manage.pw.placeholder":{vi:"🔑 Nhập mật khẩu...",en:"🔑 Enter password...",zh:"🔑 输入密码..."},
+  "manage.login":{vi:"🔑 Đăng nhập",en:"🔑 Login",zh:"🔑 登录"},
+  "pw.modal.title":{vi:"🔐 Nhập mật khẩu",en:"🔐 Enter Password",zh:"🔐 输入密码"},
+  "pw.modal.desc":{vi:"🔒 Chức năng quản lý yêu cầu mật khẩu",en:"🔒 Management requires password",zh:"🔒 管理功能需密码"},
+  "pw.modal.placeholder":{vi:"🔑 Nhập mật khẩu...",en:"🔑 Enter password...",zh:"🔑 输入密码..."},
+  "pw.modal.error":{vi:"❌ Sai mật khẩu!",en:"❌ Wrong password!",zh:"❌ 密码错误!"},
+  "pw.modal.cancel":{vi:"Hủy",en:"Cancel",zh:"取消"},
+  "pw.modal.confirm":{vi:"Xác nhận",en:"Confirm",zh:"确认"},
+  "manage.prods":{vi:"Sản phẩm",en:"Products",zh:"产品"},
+  "manage.bags":{vi:"Bao bì",en:"Bags",zh:"包装"},
+  "manage.other.specs":{vi:"Quy cách khác",en:"Other Specs",zh:"其他规格"},
+  "manage.updated":{vi:"Cập nhật",en:"Updated",zh:"更新"},
+  "manage.download":{vi:"⬇ Tải dữ liệu",en:"⬇ Download Data",zh:"⬇ 下载数据"},
+  "manage.dl.pricelist":{vi:"📋 Giá bán",en:"📋 Price List",zh:"📋 价格表"},
+  "manage.dl.bags":{vi:"📦 Bao bì",en:"📦 Bags",zh:"📦 包装"},
+  "manage.dl.others":{vi:"📐 Quy cách khác",en:"📐 Other Specs",zh:"📐 其他规格"},
+  "manage.tpl.pricelist":{vi:"📄 Mẫu giá bán",en:"📄 Price List Template",zh:"📄 价格表模板"},
+  "manage.tpl.bags":{vi:"📄 Mẫu bao bì",en:"📄 Bag Template",zh:"📄 包装模板"},
+  "manage.tpl.others":{vi:"📄 Mẫu quy cách khác",en:"📄 Other Specs Template",zh:"📄 其他规格模板"},
+  "manage.dl.maxload":{vi:"⚖️ Max tải",en:"⚖️ Max Load",zh:"⚖️ 最大载重"},
+  "manage.tpl.maxload":{vi:"📄 Mẫu max tải",en:"📄 Max Load Template",zh:"📄 最大载重模板"},
+  "manage.export.excel":{vi:"📊 Excel",en:"📊 Excel",zh:"📊 Excel"},
+  "manage.export.json":{vi:"📋 JS",en:"📋 JSON",zh:"📋 JSON"},
+  "manage.export.full":{vi:"📊 Mẫu đầy đủ",en:"📊 Full Template",zh:"📊 完整模板"},
+  "manage.upload.title":{vi:"📤 Upload dữ liệu mới",en:"📤 Upload New Data",zh:"📤 上传新数据"},
+  "manage.upload.hint":{vi:"Upload file Excel (.xlsx)",en:"Upload Excel file (.xlsx)",zh:"上传Excel文件(.xlsx)"},
+  "manage.upload.drop":{vi:"Kéo thả file vào đây",en:"Drop file here",zh:"将文件拖放至此"},
+  "manage.upload.click":{vi:"hoặc bấm để chọn",en:"or click to select",zh:"或点击选择"},
+  "calc.title":{vi:"📝 Tính giá thành",en:"📝 Price Calculator",zh:"📝 价格计算器"},
+  "calc.section.products":{vi:"📦 Sản phẩm",en:"📦 Products",zh:"📦 产品"},
+  "calc.section.bags":{vi:"🛍️ Bao bì",en:"🛍️ Bags",zh:"🛍️ 包装"},
+  "calc.section.others":{vi:"📐 Quy cách khác",en:"📐 Other Specs",zh:"📐 其他规格"},
+  "calc.select.product":{vi:"— Chọn sản phẩm —",en:"— Select Product —",zh:"— 选择产品 —"},
+  "calc.select.machine":{vi:"— Chọn máy —",en:"— Select Machine —",zh:"— 选择机器 —"},
+  "calc.select.standard":{vi:"— Chọn tiêu chuẩn —",en:"— Select Standard —",zh:"— 选择标准 —"},
+  "calc.select.bag":{vi:"— Không chọn bao bì —",en:"— No Bag Selected —",zh:"— 未选包装 —"},
+  "calc.select.none":{vi:"— Không chọn —",en:"— None —",zh:"— 无 —"},
+  "calc.label.product":{vi:"Sản phẩm",en:"Product",zh:"产品"},
+  "calc.label.machine":{vi:"🏭 Máy",en:"🏭 Machine",zh:"🏭 机器"},
+  "calc.label.standard":{vi:"📋 Tiêu chuẩn",en:"📋 Standard",zh:"📋 标准"},
+  "calc.label.bag.spec":{vi:"🛍️ Loại bao",en:"🛍️ Bag Type",zh:"🛍️ 包装类型"},
+  "calc.label.bag":{vi:"📦 Bao bì",en:"📦 Bag",zh:"📦 包装"},
+  "calc.label.other.spec":{vi:"📐 Quy cách khác",en:"📐 Other Spec",zh:"📐 其他规格"},
+  "calc.label.tonnage":{vi:"⚖️ Số tấn / bao Jumbo",en:"⚖️ Tons / Jumbo Bag",zh:"⚖️ 吨/集装袋"},
+  "calc.ton":{vi:"tấn",en:"tons",zh:"吨"},
+  "calc.label.other.tonnage":{vi:"⚖️ Số tấn",en:"⚖️ Tonnage",zh:"⚖️ 吨位"},
+  "calc.label.maxload":{vi:"⚖️ Max loading",en:"⚖️ Max Loading",zh:"⚖️ 最大载重"},
+  "calc.label.currency":{vi:"💱 Loại tiền:",en:"💱 Currency:",zh:"💱 货币:"},
+  "calc.label.price.mode":{vi:"💵 Điều kiện:",en:"💵 Terms:",zh:"💵 贸易条款:"},
+  "calc.label.freight":{vi:"🚢 Freight / tấn",en:"🚢 Freight / ton",zh:"🚢 运费/吨"},
+  "calc.label.port":{vi:"🌊 Cảng đi",en:"🌊 Port of Loading",zh:"🌊 装运港"},
+  "calc.label.comm":{vi:"Hoa hồng cơ bản",en:"Basic Commission",zh:"基本佣金"},
+  "calc.label.sell.price":{vi:"💰 Giá bán",en:"💰 Selling Price",zh:"💰 售价"},
+  "calc.result.title":{vi:"Kết quả tính giá",en:"Price Result",zh:"价格结果"},
+  "calc.result.empty":{vi:"👈 Vui lòng chọn sản phẩm",en:"👈 Please select a product",zh:"👈 请选择产品"},
+  "calc.result.exw":{vi:"Giá vốn (EXW)",en:"Cost (EXW)",zh:"成本(EXW)"},
+  "calc.result.bag":{vi:"Giá bao gồm bao bì",en:"Price incl. packaging",zh:"含包装价格"},
+  "calc.result.other":{vi:"Phụ phí",en:"Surcharge",zh:"附加费"},
+  "calc.result.total":{vi:"Tổng giá vốn",en:"Total Cost",zh:"总成本"},
+  "calc.result.comm":{vi:"Hoa hồng",en:"Commission",zh:"佣金"},
+  "calc.sell.placeholder":{vi:"Nhập giá bán đề xuất...",en:"Enter proposed price...",zh:"输入建议售价..."},
+  "calc.warning.bag.used":{vi:"⚠️ Đang dùng giá bao gồm bao bì tiêu chuẩn. Nếu bao bì khác vui lòng chọn chính xác!",en:"⚠️ Using standard packaging price. Select exact if different!",zh:"⚠️ 使用标准包装价格。如不同请选择准确包装!"},
+  "calc.warning.cif.freight":{vi:"⚠️ Chế độ CIF yêu cầu nhập cước biển. Nhập Freight USD ở thanh công cụ bên trên.",en:"⚠️ CIF mode requires freight. Enter Freight USD in toolbar above.",zh:"⚠️ CIF模式需输入运费。请在上方工具栏输入。"},
+  "quotation.title.prefix":{vi:"📄 BÁO GIÁ",en:"📄 QUOTATION",zh:"📄 报价单"},
+  "quotation.label.customer":{vi:"👤 Khách hàng",en:"👤 Customer",zh:"👤 客户"},
+  "quotation.label.contact":{vi:"📞 Liên hệ",en:"📞 Contact",zh:"📞 联系人"},
+  "quotation.label.assigned":{vi:"👤 Người phụ trách",en:"👤 Person in Charge",zh:"👤 负责人"},
+  "quotation.label.email":{vi:"✉️ Email KH",en:"✉️ Customer Email",zh:"✉️ 客户邮箱"},
+  "quotation.label.qty":{vi:"📦 Số lượng (tấn)",en:"📦 Quantity (tons)",zh:"📦 数量(吨)"},
+  "quotation.label.validity":{vi:"📅 Hiệu lực",en:"📅 Validity",zh:"📅 有效期"},
+  "quotation.label.payment":{vi:"💵 Thanh toán:",en:"💵 Payment:",zh:"💵 付款:"},
+  "quotation.label.port":{vi:"🌊 Cảng đi:",en:"🌊 Port:",zh:"🌊 装运港:"},
+  "quotation.label.delivery":{vi:"🚚 Giao hàng:",en:"🚚 Delivery:",zh:"🚚 交货:"},
+  "quotation.label.note":{vi:"📝 Ghi chú:",en:"📝 Note:",zh:"📝 备注:"},
+  "quotation.pay.tt30":{vi:"T/T 30 days",en:"T/T 30 days",zh:"T/T 30天"},
+  "quotation.pay.tt60":{vi:"T/T 60 days",en:"T/T 60 days",zh:"T/T 60天"},
+  "quotation.pay.lc.sight":{vi:"L/C at sight",en:"L/C at sight",zh:"即期信用证"},
+  "quotation.valid.from.sign":{vi:"Kể từ ngày ký",en:"From signing date",zh:"自签署日起"},
+  "quotation.btn.copy":{vi:"📋 Copy",en:"📋 Copy",zh:"📋 复制"},
+  "quotation.btn.print":{vi:"🖨 In / PDF",en:"🖨 Print / PDF",zh:"🖨 打印/PDF"},
+  "quotation.btn.close":{vi:"Đóng",en:"Close",zh:"关闭"},
+  "quotation.copied":{vi:"✅ Đã copy báo giá vào clipboard",en:"✅ Quotation copied to clipboard",zh:"✅ 报价已复制"},
+  "quotation.no.data":{vi:"Chưa có dữ liệu sản phẩm",en:"No product data",zh:"无产品数据"},
+  "quotation.select.first":{vi:"Chọn sản phẩm và tính giá trước!",en:"Select product and calc price first!",zh:"请先选择产品并计算价格!"},
+  "freight.title":{vi:"📡 Tra cước biển",en:"📡 Freight Lookup",zh:"📡 海运查询"},
+  "freight.search":{vi:"Tìm kiếm...",en:"Search...",zh:"搜索..."},
+  "freight.filter.country":{vi:"Tất cả nước",en:"All Countries",zh:"所有国家"},
+  "freight.filter.forwarder":{vi:"Tất cả hãng",en:"All Forwarders",zh:"所有货代"},
+  "freight.filter.via":{vi:"Tất cả loại",en:"All Types",zh:"所有类型"},
+  "freight.select":{vi:"✅ Chọn tuyến",en:"✅ Select Route",zh:"✅ 选择路线"},
+  "freight.cancel":{vi:"Hủy",en:"Cancel",zh:"取消"},
+  "freight.no.result":{vi:"❌ Không tìm thấy",en:"❌ Not found",zh:"❌ 未找到"},
+  "summary.products":{vi:"Sản phẩm",en:"Products",zh:"产品"},
+  "summary.standards":{vi:"Tiêu chuẩn",en:"Standards",zh:"标准"},
+  "summary.machines":{vi:"Máy",en:"Machines",zh:"机器"},
+  "summary.date":{vi:"Ngày",en:"Date",zh:"日期"},
+  "summary.avg.25kg":{vi:"TB 25KG",en:"Avg 25KG",zh:"平均25KG"},
+  "summary.max.25kg":{vi:"C.nhất 25KG",en:"Max 25KG",zh:"最高25KG"},
+  "summary.avg.jumbo":{vi:"TB Jumbo",en:"Avg Jumbo",zh:"平均集装袋"},
+  "summary.max.jumbo":{vi:"C.nhất Jumbo",en:"Max Jumbo",zh:"最高集装袋"},
+  "summary.avg.exw":{vi:"TB EXW",en:"Avg EXW",zh:"平均EXW"},
+  "summary.max.exw":{vi:"C.nhất EXW",en:"Max EXW",zh:"最高EXW"},
+  "table.info":{vi:"Thông tin",en:"Information",zh:"信息"},
+  "table.maxload":{vi:"Max tải",en:"Max Load",zh:"最大载重"},
+  "table.price.incl.pkg":{vi:"Giá bao gồm bao bì",en:"Price incl. Packaging",zh:"含包装价格"},
+  "table.price.sell":{vi:"Giá bán (EXW)",en:"Selling Price (EXW)",zh:"售价(EXW)"},
+  "table.code":{vi:"Mã",en:"Code",zh:"代码"},
+  "table.size":{vi:"Kích thước",en:"Size",zh:"尺寸"},
+  "table.standard":{vi:"Tiêu chuẩn",en:"Standard",zh:"标准"},
+  "table.machine":{vi:"Máy",en:"Machine",zh:"机器"},
+  "table.unit":{vi:"ĐVT",en:"Unit",zh:"单位"},
+  "bags.title":{vi:"Thông tin bao bì",en:"Bag Information",zh:"包装信息"},
+  "bags.code":{vi:"Mã bao",en:"Bag Code",zh:"包装代码"},
+  "bags.spec":{vi:"Quy cách",en:"Specification",zh:"规格"},
+  "bags.price":{vi:"Giá",en:"Price",zh:"价格"},
+  "bags.type":{vi:"Loại",en:"Type",zh:"类型"},
+  "bags.total":{vi:"Tổng loại bao",en:"Total Bag Types",zh:"包装类型总数"},
+  "others.title":{vi:"Quy cách khác",en:"Other Specifications",zh:"其他规格"},
+  "others.code":{vi:"Mã",en:"Code",zh:"代码"},
+  "others.spec":{vi:"Quy cách",en:"Spec",zh:"规格"},
+  "others.price":{vi:"Giá",en:"Price",zh:"价格"},
+  "others.total":{vi:"Tổng quy cách",en:"Total Other Specs",zh:"其他规格总数"},
+  "bag.spec.25kg":{vi:"25KG",en:"25KG",zh:"25公斤"},
+  "bag.spec.jumbo":{vi:"Jumbo",en:"Jumbo",zh:"集装袋"},
+  "btn.show.maxload":{vi:"📋 Hiện max tải",en:"📋 Show Max Load",zh:"📋 显示最大载重"},
+  "btn.hide.maxload":{vi:"📋 Ẩn max tải",en:"📋 Hide Max Load",zh:"📋 隐藏最大载重"},
+  "table.max.25kg":{vi:"Max 25KG",en:"Max 25KG",zh:"最大25公斤"},
+  "table.max.jumbo":{vi:"Max Jumbo",en:"Max Jumbo",zh:"最大集装袋"},
+  "loading":{vi:"Đang tải...",en:"Loading...",zh:"加载中..."}
+};
+function t(key) {
+  var m = LANG_MAP[key];
+  if (!m) return key;
+  return m[currentLang] || m["vi"] || key;
+}
+function applyLang(root) {
+  if (!root) root = document;
+  root.querySelectorAll("[data-lang]").forEach(function(el) {
+    var key = el.getAttribute("data-lang");
+    el.textContent = t(key);
+  });
+  root.querySelectorAll("[data-lang-ph]").forEach(function(el) {
+    var key = el.getAttribute("data-lang-ph");
+    el.placeholder = t(key);
+  });
+  root.querySelectorAll(".lang-btn").forEach(function(b) {
+    b.classList.toggle("active", b.dataset.lang === currentLang);
+  });
+}
 function setLang(lang) {
+  var r=document.getElementById("htmlRoot");if(r)r.lang=lang==="zh"?"zh":lang;
   currentLang = lang;
-  // Simple implementation - just updates visible text
-  document.querySelectorAll("[data-i18n]").forEach(function(el) {
-    var key = el.getAttribute("data-i18n");
-    if (i18nStrings[key] && i18nStrings[key][lang]) {
-      el.textContent = i18nStrings[key][lang];
-    }
-  });
-  document.querySelectorAll("[data-i18n-placeholder]").forEach(function(el) {
-    var key = el.getAttribute("data-i18n-placeholder");
-    if (i18nStrings[key] && i18nStrings[key][lang]) {
-      el.placeholder = i18nStrings[key][lang];
-    }
-  });
-  document.querySelectorAll(".lang-btn").forEach(function(b) {
-    b.classList.toggle("active", b.dataset.lang === lang);
-  });
+  localStorage.setItem("dt_lang", lang);
+  applyLang(document);
+  // Re-render dynamic content
+  if (typeof render === "function") render();
+  if (typeof renderQuotationPreview === "function") renderQuotationPreview();
+  var qh=document.querySelector(".q-modal-header h3");if(qh)qh.textContent=t("quotation.title.prefix");
+  if (typeof calcPrice === "function") calcPrice();
+  // Update manage panel
+  if (typeof updateDataInfo === "function") updateDataInfo();
+  var pt=document.getElementById("pageTitle");if(pt)pt.textContent=t("app.title")+" - "+t("company.name");
 }
-
-
+// Init on load
+document.addEventListener("DOMContentLoaded", function() {
+  applyLang();
+  document.querySelectorAll(".lang-btn").forEach(function(b) {
+    b.classList.toggle("active", b.dataset.lang === currentLang);
+  });
+});
+// ====== END MULTI-LANGUAGE SYSTEM ======
 // ====== FREIGHT LOOKUP POPUP ======
 var selectedFreightRoute = null;
 
@@ -1639,19 +1826,19 @@ function showFreightPopup() {
   
   if (cf) {
     var cur = cf.value;
-    cf.innerHTML = '<option value="">Tất cả nước</option>';
+    cf.innerHTML = '<option value="" data-lang="freight.filter.country">Tất cả nước</option>';
     Object.keys(countries).sort().forEach(function(c) { cf.innerHTML += '<option value="' + c + '">' + c + '</option>'; });
     cf.value = cur;
   }
   if (ff) {
     var cur = ff.value;
-    ff.innerHTML = '<option value="">Tất cả hãng</option>';
+    ff.innerHTML = '<option value="" data-lang="freight.filter.forwarder">Tất cả hãng</option>';
     Object.keys(forwarders).sort().forEach(function(f) { ff.innerHTML += '<option value="' + f + '">' + f + '</option>'; });
     ff.value = cur;
   }
   if (vf) {
     var cur = vf.value;
-    vf.innerHTML = '<option value="">Tất cả loại</option>';
+    vf.innerHTML = '<option value="" data-lang="freight.filter.via">Tất cả loại</option>';
     Object.keys(vias).sort().forEach(function(v) { vf.innerHTML += '<option value="' + v + '">' + v + '</option>'; });
     vf.value = cur;
   }
@@ -1852,7 +2039,7 @@ function getQuotationText() {
   t+="──────────────────────────────────────────────────\n";
   t+="📄 BÁO GIÁ\n";
   t+="──────────────────────────────────────────────────\n";
-  t+="Khách hàng: "+customer+"\n";
+  t+=t("quotation.label.customer")+": "+customer+"\n";
   if (contact) t+="Người liên hệ: "+contact+"\n";
   if (assigned) t+="Người phụ trách: "+assigned+"\n";
   if (custEmail) t+="Email: "+custEmail+"\n";
@@ -1860,7 +2047,7 @@ function getQuotationText() {
   t+="──────────────────────────────────────────────────\n";
   t+="Sản phẩm: "+data.product+"\n";
   t+="Spec: "+data.spec+"\n";
-  t+="Quy cách bao: "+data.bagSpec+"\n";
+  t+=t("bags.spec")+": "+data.bagSpec+"\n";
   t+="Số lượng: "+qty+" tấn\n";
   t+="Điều kiện: "+data.mode+"\n";
   if (port) t+="Cảng đi: "+port+"\n";
@@ -1869,7 +2056,7 @@ function getQuotationText() {
   t+="Giá bán: "+totalFmt+" "+data.cc+" / tấn\n";
   t+="──────────────────────────────────────────────────\n";
   t+="Hiệu lực: "+valid+"\n";
-  t+="Thanh toán: "+payment+"\n";
+  t+=t("quotation.label.payment")+": "+payment+"\n";
   if (note) t+="Ghi chú: "+note+"\n";
   t+="\n";
   t+="- Giá không bao gồm thuế VAT\n";
@@ -1879,7 +2066,7 @@ function getQuotationText() {
 }
 function copyQuotation() {
   var txt=getQuotationText();
-  if (navigator.clipboard) { navigator.clipboard.writeText(txt).then(function(){alert("✅ Đã copy báo giá vào clipboard");}); }
+  if (navigator.clipboard) { navigator.clipboard.writeText(txt).then(function(){alert(t("quotation.copied"));}); }
   else { prompt("Copy đoạn text dưới đây:",txt); }
 }
 function printQuotation() {
@@ -1903,7 +2090,11 @@ function printQuotation() {
   var dateStr=dd+"/"+mm+"/"+yy;
   var w=window.open("","_blank");
   w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Báo giá - '+data.product+'</title>');
-  w.document.write('<style>body{font-family:"Arial",sans-serif;padding:40px;max-width:780px;margin:0 auto;color:#1e293b}h1{font-size:22px;text-align:center;margin:0 0 4px;text-transform:uppercase;letter-spacing:.05em}.sub{text-align:center;color:#64748b;font-size:12px;margin:0 0 20px;line-height:1.5}.divider{height:2px;background:#2563eb;margin:0 0 16px}.title{text-align:center;font-weight:700;font-size:15px;margin:0 0 20px}table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px}th{background:#f1f5f9;text-align:left;padding:8px 6px;font-size:11px;text-transform:uppercase;color:#475569;border:1px solid #e2e8f0}td{padding:8px 6px;border:1px solid #e2e8f0}.row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid #f1f5f9}.row strong{color:#1e293b}.row span{color:#475569}.footer{margin-top:20px;font-size:11px;color:#94a3b8;line-height:1.6}@media print{body{padding:20px}}</style></head><body>');
+  w.document.write('<style>body{font-family:"Arial",sans-serif;padding:40px;max-width:780px;margin:0 auto;color:#1e293b}h1{font-size:22px;text-align:center;margin:0 0 4px;text-transform:uppercase;letter-spacing:.05em}.sub{text-align:center;color:#64748b;font-size:12px;margin:0 0 20px;line-height:1.5}.divider{height:2px;background:#2563eb;margin:0 0 16px}.title{text-align:center;font-weight:700;font-size:15px;margin:0 0 20px}table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px}th{background:#f1f5f9;text-align:left;padding:8px 6px;font-size:11px;text-transform:uppercase;color:#475569;border:1px solid #e2e8f0}td{padding:8px 6px;border:1px solid #e2e8f0}.row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid #f1f5f9}.row strong{color:#1e293b}.row span{color:#475569}.footer{margin-top:20px;font-size:11px;color:#94a3b8;line-height:1.6}@media print{body{padding:20px}}.lang-switcher{display:flex;gap:3px;align-items:center;z-index:1;position:relative}
+.lang-btn{width:34px;height:34px;border:2px solid rgba(255,255,255,.2);border-radius:8px;background:rgba(255,255,255,.08);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s;padding:0}
+.lang-btn:hover{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.15)}
+.lang-btn.active{border-color:#93bbff;background:rgba(147,187,255,.25);box-shadow:0 0 12px rgba(147,187,255,.3)}
+</style></head><body>');
   w.document.write('<h1>'+COMPANY+'</h1>');
   w.document.write('<p class="sub">'+ADDR+'<br>Email: '+EMAIL+' - '+WEBSITE+'<br>Tel: '+PHONE+' Ext: '+EXT+' - MST: '+MST+'</p>');
   w.document.write('<div class="divider"></div>');
@@ -1958,7 +2149,7 @@ switchTab("pricelist");</script>
 <div class="freight-overlay" id="freightPopup">
   <div class="freight-modal">
     <div class="freight-modal-header">
-      <h3>📡 Tra cước biển</h3>
+      <h3 data-lang="freight.title">📡 Tra cước biển</h3>
       <button class="freight-modal-close" onclick="closeFreightPopup()">✕</button>
     </div>
     <div class="freight-modal-search">
@@ -1992,16 +2183,16 @@ switchTab("pricelist");</script>
       <button class="q-modal-close" onclick="closeQuotationPopup()">✕</button>
     </div>
     <div class="q-modal-form">
-      <div><label>👤 Khách hàng</label><input type="text" id="qCustomer" placeholder="Tên khách hàng..." oninput="updateQuotationPreview()"></div>
-      <div><label>📞 Liên hệ</label><input type="text" id="qContact" placeholder="Người liên hệ..." oninput="updateQuotationPreview()"></div>
-      <div><label>👤 Người phụ trách</label><input type="text" id="qAssigned" placeholder="Nhân viên phụ trách..." oninput="updateQuotationPreview()"></div>
-      <div><label>✉️ Email KH</label><input type="email" id="qCustEmail" placeholder="Email khách hàng..." oninput="updateQuotationPreview()"></div>
-      <div><label>📦 Số lượng (tấn)</label><input type="number" id="qQty" value="1" min="1" step="0.5" oninput="updateQuotationPreview()"></div>
-      <div><label>📅 Hiệu lực</label><select id="qValid" onchange="updateQuotationPreview()"><option value="15 ngày">15 ngày</option><option value="30 ngày">30 ngày</option><option value="7 ngày">7 ngày</option><option value="kể từ ngày ký">Kể từ ngày ký</option></select></div>
-      <div><label>💵 Điều kiện thanh toán</label><select id="qPayment" onchange="updateQuotationPreview()"><option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option><option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div>
-      <div><label>🌊 Cảng đi</label><input type="text" id="qPort" placeholder="Cảng đi (nếu có)..." oninput="updateQuotationPreview()"></div>
-      <div><label>🚚 Giao hàng</label><input type="text" id="qDelivery" placeholder="Điều kiện giao hàng..." oninput="updateQuotationPreview()"></div>
-      <div style="grid-column:1/-1"><label>📝 Ghi chú</label><input type="text" id="qNote" placeholder="Ghi chú thêm..." oninput="updateQuotationPreview()" style="width:100%"></div>
+      <div><label data-lang="quotation.label.customer">👤 Khách hàng</label><input type="text" id="qCustomer" placeholder="Tên khách hàng..." oninput="updateQuotationPreview()"></div>
+      <div><label data-lang="quotation.label.contact">📞 Liên hệ</label><input type="text" id="qContact" placeholder="Người liên hệ..." oninput="updateQuotationPreview()"></div>
+      <div><label data-lang="quotation.label.assigned">👤 Người phụ trách</label><input type="text" id="qAssigned" placeholder="Nhân viên phụ trách..." oninput="updateQuotationPreview()"></div>
+      <div><label data-lang="quotation.label.email">✉️ Email KH</label><input type="email" id="qCustEmail" placeholder="Email khách hàng..." oninput="updateQuotationPreview()"></div>
+      <div><label data-lang="quotation.label.qty">📦 Số lượng (tấn)</label><input type="number" id="qQty" value="1" min="1" step="0.5" oninput="updateQuotationPreview()"></div>
+      <div><label data-lang="quotation.label.validity">📅 Hiệu lực</label><select id="qValid" onchange="updateQuotationPreview()"><option value="15 ngày">15 ngày</option><option value="30 ngày">30 ngày</option><option value="7 ngày">7 ngày</option><option value="kể từ ngày ký">Kể từ ngày ký</option></select></div>
+      <div><label data-lang="quotation.label.payment">💵 Điều kiện thanh toán</label><select id="qPayment" onchange="updateQuotationPreview()"><option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days" data-lang="quotation.pay.tt60">T/T 60 days</option><option value="L/C at sight" data-lang="quotation.pay.lc.sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div>
+      <div><label data-lang="quotation.label.port">🌊 Cảng đi</label><input type="text" id="qPort" placeholder="Cảng đi (nếu có)..." oninput="updateQuotationPreview()"></div>
+      <div><label data-lang="quotation.label.delivery">🚚 Giao hàng</label><input type="text" id="qDelivery" placeholder="Điều kiện giao hàng..." oninput="updateQuotationPreview()"></div>
+      <div style="grid-column:1/-1"><label data-lang="quotation.label.note">📝 Ghi chú</label><input type="text" id="qNote" placeholder="Ghi chú thêm..." oninput="updateQuotationPreview()" style="width:100%"></div>
     </div>
     <div class="q-modal-body" id="qPreviewBody">
       <div class="q-preview" id="qPreview">
@@ -2014,8 +2205,8 @@ switchTab("pricelist");</script>
     </div>
     <div class="q-modal-footer">
       <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="qDateSpan"></span>
-      <button class="q-btn-copy" onclick="copyQuotation()">📋 Copy</button>
-      <button class="q-btn-print" onclick="printQuotation()">🖨 In / PDF</button>
+      <button class="q-btn-copy" onclick="copyQuotation()" data-lang="quotation.btn.copy">📋 Copy</button>
+      <button class="q-btn-print" onclick="printQuotation()" data-lang="quotation.btn.print">🖨 In / PDF</button>
     </div>
   </div>
 </div>
