@@ -1028,7 +1028,7 @@ function calcCommission() {
     // Hoa hong FOB/CIF: commBase + (gia ban - gia fob) / 1.05 * 30%
     var diff = Math.max(0, (sellPrice - totalCost) / 1.05);
     var commissionVar = diff * 0.3;
-    var totalComm = commBase + commissionVar;
+    var totalComm = (sellPrice < totalCost ? 0 : commBase) + commissionVar;
   } else {
     if (isUsd) {
       bagPrice = Math.round(bagPrice / EXCHANGE_RATE);
@@ -1037,7 +1037,7 @@ function calcCommission() {
     totalCost = exwBase + bagPrice + otherPrice;
     var diff = Math.max(0, sellPrice - totalCost);
     var commissionVar = diff * 0.3;
-    var totalComm = commBase + commissionVar;
+    var totalComm = (sellPrice < totalCost ? 0 : commBase) + commissionVar;
   }
   var h = '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + fmtNum(commBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
