@@ -1683,6 +1683,7 @@ function saveToServer() {
       DATA_MAX_LOADING: "var DATA_MAX_LOADING = " + JSON.stringify(DATA_MAX_LOADING, null, 2) + ";",
       DATA_COST_FOB: "var DATA_COST_FOB = " + JSON.stringify(DATA_COST_FOB, null, 2) + ";"
     }
+  };
 
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "/api/ktg-data", true);
