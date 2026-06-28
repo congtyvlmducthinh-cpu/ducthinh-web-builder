@@ -398,8 +398,6 @@ function importProducts(arr) {
       for (var i = 0; i < names.length; i++) {
         if (r[names[i]] !== undefined && r[names[i]] !== null && r[names[i]] !== "") {
           obj[k] = Number(r[names[i]]);
-          obj[k + "_cn"] = Number(r[names[i]]);
-          obj[k + "_other"] = Number(r[names[i]]);
           break;
         }
       }
@@ -422,23 +420,23 @@ function importProducts(arr) {
       DATA_MAX_LOADING[obj.code] = DATA_MAX_LOADING[obj.code] || {};
       DATA_MAX_LOADING[obj.code].maxJumbo = Number(maxJb);
     }
-    // Preserve market-specific fields from template files
-    if (r.exw_vnd_cn !== undefined) obj.exw_vnd_cn = Number(r.exw_vnd_cn);
-    if (r.exw_usd_cn !== undefined) obj.exw_usd_cn = Number(r.exw_usd_cn);
-    if (r.comm_vnd_cn !== undefined) obj.comm_vnd_cn = Number(r.comm_vnd_cn);
-    if (r.comm_usd_cn !== undefined) obj.comm_usd_cn = Number(r.comm_usd_cn);
-    if (r.pkg25_vnd_cn !== undefined) obj.pkg25_vnd_cn = Number(r.pkg25_vnd_cn);
-    if (r.pkg25_usd_cn !== undefined) obj.pkg25_usd_cn = Number(r.pkg25_usd_cn);
-    if (r.jumbo_vnd_cn !== undefined) obj.jumbo_vnd_cn = Number(r.jumbo_vnd_cn);
-    if (r.jumbo_usd_cn !== undefined) obj.jumbo_usd_cn = Number(r.jumbo_usd_cn);
-    if (r.exw_vnd_other !== undefined) obj.exw_vnd_other = Number(r.exw_vnd_other);
-    if (r.exw_usd_other !== undefined) obj.exw_usd_other = Number(r.exw_usd_other);
-    if (r.comm_vnd_other !== undefined) obj.comm_vnd_other = Number(r.comm_vnd_other);
-    if (r.comm_usd_other !== undefined) obj.comm_usd_other = Number(r.comm_usd_other);
-    if (r.pkg25_vnd_other !== undefined) obj.pkg25_vnd_other = Number(r.pkg25_vnd_other);
-    if (r.pkg25_usd_other !== undefined) obj.pkg25_usd_other = Number(r.pkg25_usd_other);
-    if (r.jumbo_vnd_other !== undefined) obj.jumbo_vnd_other = Number(r.jumbo_vnd_other);
-    if (r.jumbo_usd_other !== undefined) obj.jumbo_usd_other = Number(r.jumbo_usd_other);
+    // Market-specific fields: use column if exists, else fall back to base
+    obj.exw_vnd_cn = r.exw_vnd_cn !== undefined ? Number(r.exw_vnd_cn) : obj.exw_vnd;
+    obj.exw_usd_cn = r.exw_usd_cn !== undefined ? Number(r.exw_usd_cn) : obj.exw_usd;
+    obj.comm_vnd_cn = r.comm_vnd_cn !== undefined ? Number(r.comm_vnd_cn) : obj.comm_vnd;
+    obj.comm_usd_cn = r.comm_usd_cn !== undefined ? Number(r.comm_usd_cn) : obj.comm_usd;
+    obj.pkg25_vnd_cn = r.pkg25_vnd_cn !== undefined ? Number(r.pkg25_vnd_cn) : obj.pkg25_vnd;
+    obj.pkg25_usd_cn = r.pkg25_usd_cn !== undefined ? Number(r.pkg25_usd_cn) : obj.pkg25_usd;
+    obj.jumbo_vnd_cn = r.jumbo_vnd_cn !== undefined ? Number(r.jumbo_vnd_cn) : obj.jumbo_vnd;
+    obj.jumbo_usd_cn = r.jumbo_usd_cn !== undefined ? Number(r.jumbo_usd_cn) : obj.jumbo_usd;
+    obj.exw_vnd_other = r.exw_vnd_other !== undefined ? Number(r.exw_vnd_other) : obj.exw_vnd;
+    obj.exw_usd_other = r.exw_usd_other !== undefined ? Number(r.exw_usd_other) : obj.exw_usd;
+    obj.comm_vnd_other = r.comm_vnd_other !== undefined ? Number(r.comm_vnd_other) : obj.comm_vnd;
+    obj.comm_usd_other = r.comm_usd_other !== undefined ? Number(r.comm_usd_other) : obj.comm_usd;
+    obj.pkg25_vnd_other = r.pkg25_vnd_other !== undefined ? Number(r.pkg25_vnd_other) : obj.pkg25_vnd;
+    obj.pkg25_usd_other = r.pkg25_usd_other !== undefined ? Number(r.pkg25_usd_other) : obj.pkg25_usd;
+    obj.jumbo_vnd_other = r.jumbo_vnd_other !== undefined ? Number(r.jumbo_vnd_other) : obj.jumbo_vnd;
+    obj.jumbo_usd_other = r.jumbo_usd_other !== undefined ? Number(r.jumbo_usd_other) : obj.jumbo_usd;
     DATA_PRODUCTS.push(obj);
   });
 }
@@ -2015,7 +2013,7 @@ function fmtNum(n, isUsd) {
   if (isUsd) return n.toLocaleString('en-US', {minimumFractionDigits:1, maximumFractionDigits:2});
   return Math.round(n).toLocaleString();
 }
-/* var saved = localStorage.getItem("dq_products");
+var saved = localStorage.getItem("dq_products");
 if (saved) {
   try { DATA_PRODUCTS = JSON.parse(saved); } catch(e) {}
 }
@@ -2035,7 +2033,6 @@ var savedCF = localStorage.getItem("dq_costFOB");
 if (savedCF) {
   try { DATA_COST_FOB = JSON.parse(savedCF); } catch(e) {}
 }
-*/
 applyMarket();
 
 switchTab("pricelist");</script>

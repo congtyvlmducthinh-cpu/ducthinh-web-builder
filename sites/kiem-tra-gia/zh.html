@@ -306,7 +306,23 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 
 </div>
 
-<div class="modal-overlay" id="pwModal">
+<div class="modal-overlay" 
+<!-- Save to Server Button -->
+<div class="manage-actions" style="margin-top:8px">
+<h3>&#128190; Server Sync</h3>
+<p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">将当前数据保存到服务器以同步所有语言版本（vi/en/zh）</p>
+<button class="btn-confirm" id="saveServerBtn" onclick="saveToServer()">&#128190; 保存到服务器</button>
+</div>
+
+
+<!-- Save to Server Button -->
+<div class="manage-actions" style="margin-top:8px">
+<h3>&#128190; Server Sync</h3>
+<p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">将当前数据保存到服务器以同步所有语言版本（vi/en/zh）</p>
+<button class="btn-confirm" id="saveServerBtn" onclick="saveToServer()">&#128190; 保存到服务器</button>
+</div>
+
+id="pwModal">
 <div class="modal-box">
 <h3>🔐 输入密码</h3>
 <p>🔒 管理功能需要密码</p>
@@ -392,8 +408,6 @@ function importProducts(arr) {
       for (var i = 0; i < names.length; i++) {
         if (r[names[i]] !== undefined && r[names[i]] !== null && r[names[i]] !== "") {
           obj[k] = Number(r[names[i]]);
-          obj[k + "_cn"] = Number(r[names[i]]);
-          obj[k + "_other"] = Number(r[names[i]]);
           break;
         }
       }
@@ -416,23 +430,23 @@ function importProducts(arr) {
       DATA_MAX_LOADING[obj.code] = DATA_MAX_LOADING[obj.code] || {};
       DATA_MAX_LOADING[obj.code].maxJumbo = Number(maxJb);
     }
-    // Preserve market-specific fields from template files
-    if (r.exw_vnd_cn !== undefined) obj.exw_vnd_cn = Number(r.exw_vnd_cn);
-    if (r.exw_usd_cn !== undefined) obj.exw_usd_cn = Number(r.exw_usd_cn);
-    if (r.comm_vnd_cn !== undefined) obj.comm_vnd_cn = Number(r.comm_vnd_cn);
-    if (r.comm_usd_cn !== undefined) obj.comm_usd_cn = Number(r.comm_usd_cn);
-    if (r.pkg25_vnd_cn !== undefined) obj.pkg25_vnd_cn = Number(r.pkg25_vnd_cn);
-    if (r.pkg25_usd_cn !== undefined) obj.pkg25_usd_cn = Number(r.pkg25_usd_cn);
-    if (r.jumbo_vnd_cn !== undefined) obj.jumbo_vnd_cn = Number(r.jumbo_vnd_cn);
-    if (r.jumbo_usd_cn !== undefined) obj.jumbo_usd_cn = Number(r.jumbo_usd_cn);
-    if (r.exw_vnd_other !== undefined) obj.exw_vnd_other = Number(r.exw_vnd_other);
-    if (r.exw_usd_other !== undefined) obj.exw_usd_other = Number(r.exw_usd_other);
-    if (r.comm_vnd_other !== undefined) obj.comm_vnd_other = Number(r.comm_vnd_other);
-    if (r.comm_usd_other !== undefined) obj.comm_usd_other = Number(r.comm_usd_other);
-    if (r.pkg25_vnd_other !== undefined) obj.pkg25_vnd_other = Number(r.pkg25_vnd_other);
-    if (r.pkg25_usd_other !== undefined) obj.pkg25_usd_other = Number(r.pkg25_usd_other);
-    if (r.jumbo_vnd_other !== undefined) obj.jumbo_vnd_other = Number(r.jumbo_vnd_other);
-    if (r.jumbo_usd_other !== undefined) obj.jumbo_usd_other = Number(r.jumbo_usd_other);
+    // Market-specific fields: use column if exists, else fall back to base
+    obj.exw_vnd_cn = r.exw_vnd_cn !== undefined ? Number(r.exw_vnd_cn) : obj.exw_vnd;
+    obj.exw_usd_cn = r.exw_usd_cn !== undefined ? Number(r.exw_usd_cn) : obj.exw_usd;
+    obj.comm_vnd_cn = r.comm_vnd_cn !== undefined ? Number(r.comm_vnd_cn) : obj.comm_vnd;
+    obj.comm_usd_cn = r.comm_usd_cn !== undefined ? Number(r.comm_usd_cn) : obj.comm_usd;
+    obj.pkg25_vnd_cn = r.pkg25_vnd_cn !== undefined ? Number(r.pkg25_vnd_cn) : obj.pkg25_vnd;
+    obj.pkg25_usd_cn = r.pkg25_usd_cn !== undefined ? Number(r.pkg25_usd_cn) : obj.pkg25_usd;
+    obj.jumbo_vnd_cn = r.jumbo_vnd_cn !== undefined ? Number(r.jumbo_vnd_cn) : obj.jumbo_vnd;
+    obj.jumbo_usd_cn = r.jumbo_usd_cn !== undefined ? Number(r.jumbo_usd_cn) : obj.jumbo_usd;
+    obj.exw_vnd_other = r.exw_vnd_other !== undefined ? Number(r.exw_vnd_other) : obj.exw_vnd;
+    obj.exw_usd_other = r.exw_usd_other !== undefined ? Number(r.exw_usd_other) : obj.exw_usd;
+    obj.comm_vnd_other = r.comm_vnd_other !== undefined ? Number(r.comm_vnd_other) : obj.comm_vnd;
+    obj.comm_usd_other = r.comm_usd_other !== undefined ? Number(r.comm_usd_other) : obj.comm_usd;
+    obj.pkg25_vnd_other = r.pkg25_vnd_other !== undefined ? Number(r.pkg25_vnd_other) : obj.pkg25_vnd;
+    obj.pkg25_usd_other = r.pkg25_usd_other !== undefined ? Number(r.pkg25_usd_other) : obj.pkg25_usd;
+    obj.jumbo_vnd_other = r.jumbo_vnd_other !== undefined ? Number(r.jumbo_vnd_other) : obj.jumbo_vnd;
+    obj.jumbo_usd_other = r.jumbo_usd_other !== undefined ? Number(r.jumbo_usd_other) : obj.jumbo_usd;
     DATA_PRODUCTS.push(obj);
   });
 }
@@ -1418,7 +1432,9 @@ function handleManageFile(file) {
       document.getElementById("mOtherCnt").textContent = DATA_OTHERS.length;
       populateFilters();
       render();
-      status.className = "manage-status-sm ok";
+            saveToServer();
+      saveToServer();
+status.className = "manage-status-sm ok";
       status.textContent = "✅ 已更新 " + updated + " 数据表！";
     } catch(err) {
       status.className = "manage-status-sm err";
@@ -1958,7 +1974,51 @@ if (savedCF) {
   try { DATA_COST_FOB = JSON.parse(savedCF); } catch(e) {}
 }
 applyMarket();
-switchTab("pricelist");</script>
+switchTab("pricelist");
+function saveToServer() {
+  var blocks = {};
+  blocks.DATA_PRODUCTS = 'var DATA_PRODUCTS = ' + JSON.stringify(DATA_PRODUCTS, null, 2) + ';';
+  blocks.DATA_BAGS = 'var DATA_BAGS = ' + JSON.stringify(DATA_BAGS, null, 2) + ';';
+  blocks.DATA_OTHERS = 'var DATA_OTHERS = ' + JSON.stringify(DATA_OTHERS, null, 2) + ';';
+  blocks.DATA_MAX_LOADING = 'var DATA_MAX_LOADING = ' + JSON.stringify(DATA_MAX_LOADING, null, 2) + ';';
+  blocks.DATA_COST_FOB = 'var DATA_COST_FOB = ' + JSON.stringify(DATA_COST_FOB, null, 2) + ';';
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/api/ktg-data', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      console.log('[KTG] Saved to server');
+    } else {
+      console.error('[KTG] Server save failed:', xhr.status);
+    }
+  };
+  xhr.onerror = function() { console.error('[KTG] Server save network error'); };
+  xhr.send(JSON.stringify({ blocks: blocks }));
+}
+
+
+function saveToServer() {
+  var blocks = {};
+  blocks.DATA_PRODUCTS = 'var DATA_PRODUCTS = ' + JSON.stringify(DATA_PRODUCTS, null, 2) + ';';
+  blocks.DATA_BAGS = 'var DATA_BAGS = ' + JSON.stringify(DATA_BAGS, null, 2) + ';';
+  blocks.DATA_OTHERS = 'var DATA_OTHERS = ' + JSON.stringify(DATA_OTHERS, null, 2) + ';';
+  blocks.DATA_MAX_LOADING = 'var DATA_MAX_LOADING = ' + JSON.stringify(DATA_MAX_LOADING, null, 2) + ';';
+  blocks.DATA_COST_FOB = 'var DATA_COST_FOB = ' + JSON.stringify(DATA_COST_FOB, null, 2) + ';';
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/api/ktg-data', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      console.log('[KTG] Saved to server');
+    } else {
+      console.error('[KTG] Server save failed:', xhr.status);
+    }
+  };
+  xhr.onerror = function() { console.error('[KTG] Server save network error'); };
+  xhr.send(JSON.stringify({ blocks: blocks }));
+}
+
+</script>
 
 <!-- Freight Lookup Popup -->
 <div class="freight-overlay" id="freightPopup">

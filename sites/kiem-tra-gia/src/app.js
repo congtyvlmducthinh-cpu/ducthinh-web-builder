@@ -588,7 +588,9 @@ function handleManageFile(file) {
       document.getElementById("mOtherCnt").textContent = DATA_OTHERS.length;
       populateFilters();
       render();
-      status.className = "manage-status-sm ok";
+            saveToServer();
+      saveToServer();
+status.className = "manage-status-sm ok";
       status.textContent = "\u2705 \u0110\u00e3 c\u1eadp nh\u1eadt " + updated + " b\u1ea3ng d\u1eef li\u1ec7u!";
     } catch(err) {
       status.className = "manage-status-sm err";
