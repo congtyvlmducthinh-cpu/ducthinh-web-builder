@@ -653,7 +653,7 @@ function renderPriceTab() {
   var filtered = DATA_PRODUCTS.filter(function(p) {
     if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0)) return false;
     if (specFilter && p.standard !== specFilter) return false;
-    if (machineFilter && p.machine !== machineFilter) return false;
+    if (machineFilter && String(p.machine) !== machineFilter) return false;
     return true;
   });
   var isFob = priceMode === "fob";
