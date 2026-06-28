@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiểm Tra Chứng Từ — DocCheck &#8211; DocCheck</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%A7%BE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:["Inter","system-ui","sans-serif"],heading:["Plus Jakarta Sans","sans-serif"]},borderRadius:{"2xl":"16px","xl":"12px"},colors:{deep:{DEFAULT:"#020617","900":"#0f172a","800":"#1e293b","700":"#334155"}},boxShadow:{glass:"0 8px 32px rgba(2,6,23,0.5)","glass-sm":"0 4px 16px rgba(2,6,23,0.4)"}}}};</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui,sans-serif;background:#020617;background-image:radial-gradient(ellipse at 20% 10%,rgba(59,130,246,0.08)0%,transparent 60%),radial-gradient(ellipse at 80% 90%,rgba(52,211,153,0.06)0%,transparent 60%),radial-gradient(ellipse at 50% 50%,rgba(139,92,246,0.03)0%,transparent 50%);min-height:100vh;color:#e2e8f0}.glass-card{background:rgba(15,23,42,0.85);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid rgba(30,41,59,0.6);box-shadow:0 8px 32px rgba(2,6,23,0.4)}.glass-card-light{background:rgba(15,23,42,0.7);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid rgba(30,41,59,0.5)}.glass-card-chat{background:rgba(15,23,42,0.75);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid rgba(30,41,59,0.5)}.glass-input{background:rgba(15,23,42,0.6);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(30,41,59,0.5);color:#e2e8f0;transition:all .2s;font-size:14px;font-family:inherit}.glass-input:focus{border-color:rgba(59,130,246,0.4);box-shadow:0 0 0 2px rgba(59,130,246,0.12);outline:none}.glass-input::placeholder{color:#475569}.lang-btn{background:rgba(15,23,42,0.7);border:1px solid rgba(30,41,59,0.6);border-radius:10px;padding:6px 14px;font-size:13px;cursor:pointer;transition:all .3s;color:#94a3b8;font-weight:500;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-family:Inter,sans-serif;display:inline-flex;align-items:center;gap:6px}.lang-btn:hover{border-color:rgba(59,130,246,0.4);color:#e2e8f0;background:rgba(30,41,59,0.5)}.lang-btn.active{background:linear-gradient(135deg,#2563eb,#059669);color:#fff;border-color:transparent}.chat-box{flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:380px}.msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:10px}.msg{max-width:88%;padding:12px 18px;border-radius:14px;font-size:14px;line-height:1.6;word-wrap:break-word;white-space:pre-wrap;animation:fadeIn .2s}@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}.msg.user{align-self:flex-end;background:linear-gradient(135deg,#1e40af,#065f46);color:#f1f5f9;border-bottom-right-radius:4px;box-shadow:0 2px 12px rgba(30,64,175,0.2)}.msg.bot{align-self:flex-start;background:rgba(30,41,59,0.8);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(30,41,59,0.6);color:#e2e8f0;border-bottom-left-radius:4px}.msg.bot code{background:rgba(0,0,0,0.3);padding:1px 5px;border-radius:3px;font-size:12px;color:#93c5fd}.typing{display:inline-flex;gap:5px;align-items:center;padding:4px 0}.typing span{width:8px;height:8px;background:#64748b;border-radius:50%;animation:bounce 1.3s infinite}.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}@keyframes bounce{0%{transform:translateY(0)}30%{transform:translateY(-6px)}60%{transform:translateY(0)}100%{transform:translateY(0)}}.input-area{display:flex;gap:8px;padding:12px 16px;border-top:1px solid rgba(30,41,59,0.5);align-items:flex-end}.input-area textarea{flex:1;border-radius:12px;padding:10px 14px;font-size:14px;resize:none;min-height:44px;max-height:120px;font-family:inherit}.btn{border:none;border-radius:12px;padding:10px 20px;font-size:14px;cursor:pointer;font-weight:500;transition:all .2s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}.btn:hover{transform:translateY(-1px)}.btn-primary{background:linear-gradient(135deg,#2563eb,#059669);color:#fff}.btn-primary:hover{box-shadow:0 4px 20px rgba(37,99,235,0.3)}.btn-primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}.status-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;display:inline-block}.status-dot.green{background:#34d399;box-shadow:0 0 8px rgba(52,211,153,0.4)}.guide-btn{background:rgba(15,23,42,0.7);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(30,41,59,0.5);border-radius:10px;padding:8px 16px;font-size:13px;cursor:pointer;transition:all .2s;color:#94a3b8;font-weight:500;display:inline-flex;align-items:center;gap:6px;font-family:Inter,sans-serif}.guide-btn:hover{border-color:rgba(59,130,246,0.3);color:#e2e8f0}.guide-panel{max-height:0;overflow:hidden;transition:max-height .35s,opacity .3s;opacity:0;padding:0 20px}.guide-panel.open{max-height:1200px;opacity:1;padding:0 20px 16px}.guide-table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}.guide-table td,.guide-table th{padding:8px 10px;border:1px solid rgba(30,41,59,0.5);text-align:left}.guide-table th{background:rgba(15,23,42,0.5);font-weight:600;color:#94a3b8}.guide-table td:first-child{white-space:nowrap;font-weight:500;color:#60a5fa}.welcome-block{padding:28px 20px;text-align:center}.welcome-block h2{font-size:18px;margin-bottom:8px;font-family:"Plus Jakarta Sans",sans-serif}.welcome-block p{font-size:14px;line-height:1.7;margin-bottom:6px;color:#94a3b8}.example-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:14px 0}.example-chips span{background:rgba(30,41,59,0.5);color:#94a3b8;padding:6px 14px;border-radius:16px;font-size:12px;cursor:pointer;transition:all .15s;border:1px solid rgba(30,41,59,0.4)}.example-chips span:hover{background:rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.3);color:#bfdbfe}footer{text-align:center;font-size:12px;color:#475569;padding:16px 0;border-top:1px solid rgba(30,41,59,0.4);margin-top:4px}footer a{color:#64748b;text-decoration:none}footer a:hover{color:#94a3b8}@media(max-width:640px){.app{padding:10px!important;gap:8px!important}header{padding:14px 18px!important}header h1{font-size:16px!important}.input-area{flex-wrap:wrap;padding:10px}.input-area textarea{min-width:100%}.msg{max-width:95%;font-size:13px;padding:10px 14px}.guide-table td,.guide-table th{font-size:12px;padding:5px 6px}.guide-table td:first-child{white-space:normal}}</style>
+<script>
+(function(){
+var SK="***",dict={};
+function gl(){return localStorage.getItem(SK)||"vi"}
+function sl(l){if(dict[l]){localStorage.setItem(SK,l);al(l);window.dispatchEvent(new CustomEvent("langchange",{detail:l}))}}
+function t(k,l){var ln=l||gl();return dict[ln]&&dict[ln][k]!==undefined?dict[ln][k]:dict.vi&&dict.vi[k]!==undefined?dict.vi[k]:k}
+window.__=t;window.__lang=gl;
+function al(l){document.documentElement.lang=l==="zh"?"zh-CN":l==="en"?"en":"vi";document.querySelectorAll("[data-i18n]").forEach(function(e){e.textContent=t(e.getAttribute("data-i18n"),l)});document.querySelectorAll("[data-lang-btn]").forEach(function(e){e.classList.toggle("active",e.getAttribute("data-lang-btn")===l)})}
+window.__dict=dict;window.__setLang=sl;window.__i18nReady=true;
+window.__loadI18n=function(pd){Object.assign(dict,pd);al(gl())}})();
+</script>
+</head>
+<body>
+<div class="max-w-3xl mx-auto px-4 py-4 sm:py-6 app" style="display:flex;flex-direction:column;gap:10px;min-height:100vh">
+<div class="flex gap-2 justify-end">
+<button class="lang-btn active" data-lang-btn="vi" onclick="__setLang('vi')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg> VI</button>
+<button class="lang-btn" data-lang-btn="en" onclick="__setLang('en')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M3 14h18"/></svg> EN</button>
+<button class="lang-btn" data-lang-btn="zh" onclick="__setLang('zh')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18"/><path d="M12 3v18"/></svg> CN</button>
+</div>
+<div class="glass-card rounded-[14px] p-5 px-6 flex items-center gap-4">
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400 flex-shrink-0"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+<div class="flex-1 min-w-0">
+<h1 class="font-heading text-lg font-bold text-white" data-i18n="header.title">Kiểm Tra Chứng Từ — DocCheck</h1>
+<p class="text-xs text-slate-400 mt-0.5" data-i18n="header.sub">Rà soát tự động Invoice, PL, BL, CO, Hợp đồng, Quotation</p>
+</div>
+</div>
+<div class="glass-card-light rounded-[10px] px-4 py-2.5 flex items-center gap-2.5 text-xs">
+<span class="status-dot green"></span>
+<span class="text-slate-400 font-medium" id="statusText" data-i18n="status.online">Sẵn sàng</span>
+</div>
+<div class="glass-card-light rounded-[12px] overflow-hidden">
+<div class="guide-btn" onclick="toggleGuide()" style="width:100%;border:none;border-radius:0">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-400"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+<span data-i18n="guide.title">Hướng dẫn sử dụng</span>
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-auto transition-transform duration-300" id="guideArrow"><polyline points="6 9 12 15 18 9"/></svg>
+</div>
+<div class="guide-panel" id="guideBody">
+<h4 class="font-heading text-sm font-semibold text-slate-300 mt-3 mb-1.5" data-i18n="guide.what">🤖 Bot làm được gì?</h4>
+<p class="text-sm text-slate-400 leading-relaxed" data-i18n="guide.what.desc">Bot kiểm tra tính hợp lệ, đầy đủ và khớp nhau của chứng từ xuất nhập khẩu dựa trên nội dung bạn cung cấp. Bot không đọc file PDF/Excel — bạn cần gõ hoặc copy nội dung vào tin nhắn.</p>
+<h4 class="font-heading text-sm font-semibold text-slate-300 mt-4 mb-2" data-i18n="guide.types">📋 Loại chứng từ kiểm tra được</h4>
+<table class="guide-table">
+<tr><th data-i18n="guide.type">Loại</th><th data-i18n="guide.content">Nội dung kiểm tra</th></tr>
+<tr><td data-i18n="guide.inv">Invoice</td><td data-i18n="guide.inv.desc">Số invoice, ngày, người mua/bán, mô tả hàng, số lượng, đơn giá, thành tiền, điều khoản TT, incoterm</td></tr>
+<tr><td data-i18n="guide.pl">Packing List</td><td data-i18n="guide.pl.desc">Số PL, mô tả hàng, số kiện, trọng lượng tịnh/tổng, marks & numbers, kích thước</td></tr>
+<tr><td data-i18n="guide.bl">Bill of Lading</td><td data-i18n="guide.bl.desc">Số BL, tên tàu, cảng xếp/dỡ, người gửi/nhận, container, freight</td></tr>
+<tr><td data-i18n="guide.co">CO</td><td data-i18n="guide.co.desc">Số CO, ngày cấp, người XK/NK, tiêu chí xuất xứ, nước xuất xứ</td></tr>
+<tr><td data-i18n="guide.contract">Hợp đồng</td><td data-i18n="guide.contract.desc">Số hợp đồng, ngày, 2 bên, sản phẩm, số lượng, đơn giá, tổng giá trị, TT, giao hàng, phạt</td></tr>
+<tr><td data-i18n="guide.quote">Quotation</td><td data-i18n="guide.quote.desc">Số báo giá, ngày, hiệu lực, người mua, sản phẩm, số lượng, đơn giá, tổng giá trị, incoterm</td></tr>
+</table>
+<h4 class="font-heading text-sm font-semibold text-slate-300 mt-4 mb-1.5" data-i18n="guide.gdrive">🔗 Lấy chứng từ từ Google Drive</h4>
+<ul class="text-sm text-slate-400 space-y-1 pl-4 list-disc">
+<li data-i18n="guide.gdrive.1">Share file trên Google Drive (quyền Anyone with the link hoặc Viewer)</li>
+<li data-i18n="guide.gdrive.2">Copy đường dẫn chia sẻ từ Google Drive (dạng drive.google.com/file/d/...)</li>
+<li data-i18n="guide.gdrive.3">Gõ vào ô chat: "Kiểm tra chứng từ tại link: [dán link Google Drive]"</li>
+<li data-i18n="guide.gdrive.4">Bot sẽ tự động tải file từ Google Drive, phân tích loại chứng từ và kiểm tra</li>
+<li data-i18n="guide.gdrive.5">Hỗ trợ: PDF, Excel (.xlsx), ảnh (chụp chứng từ)</li>
+<li class="text-amber-400/70 font-medium" data-i18n="guide.gdrive.note">Lưu ý: File phải được share công khai (Anyone with the link), bot mới tải được</li>
+</ul>
+<h4 class="font-heading text-sm font-semibold text-slate-300 mt-4 mb-1.5" data-i18n="guide.howto">💡 Cách sử dụng</h4>
+<ul class="text-sm text-slate-400 space-y-1 pl-4 list-disc">
+<li data-i18n="guide.howto.1">Gõ trực tiếp nội dung chứng từ vào ô chat</li>
+<li data-i18n="guide.howto.2">Copy từ email/file và paste vào — bot tự nhận dạng loại chứng từ</li>
+<li data-i18n="guide.howto.3">Gửi nhiều chứng từ một lúc — bot sẽ so sánh chéo (cross-check) giữa các file</li>
+<li data-i18n="guide.howto.4">Bot trả lời dạng: summary → lỗi từng file → cross-check</li>
+</ul>
+</div>
+</div>
+<div class="glass-card-chat rounded-[14px] flex flex-col flex-1 overflow-hidden" style="min-height:400px">
+<div class="msgs" id="msgContainer">
+<div class="welcome-block" id="welcomeBlock">
+<h2 class="font-heading" data-i18n="welcome.title">Chào bạn! 👋</h2>
+<p data-i18n="welcome.desc">Mình là trợ lý kiểm tra chứng từ. Gửi mình nội dung chứng từ (Invoice, PL, BL, CO, Hợp đồng, Quotation) hoặc link Google Drive, mình sẽ rà soát giúp bạn.</p>
+<p style="color:#64748b;font-size:13px" data-i18n="welcome.tip">Bạn có thể gửi 1 hoặc nhiều chứng từ cùng lúc để mình so sánh chéo.</p>
+<div class="example-chips">
+<span onclick="exampleClick('Kiểm tra chứng từ tại link:
+https://drive.google.com/file/d/1abcXYZexample123/view?usp=sharing')"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg> Google Drive mẫu</span>
+<span onclick="exampleClick('Kiểm tra invoice sau:
+Số: INV-2026-001
+Ngày: 15/06/2026
+Người bán: DUC THINH NEW MATERIAL TECHNOLOGY CO., LTD
+Người mua: NEW POWERFUL INTERNATIONAL LIMITED
+Hàng hóa: Ground Calcium Carbonate
+Số lượng: 135 MT
+Đơn giá: 85 USD/MT
+Tổng: 11,475 USD
+Điều khoản TT: T/T 30 days
+Incoterm: FOB Hai Phong')"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg> Invoice mẫu</span>
+<span onclick="exampleClick('Kiểm tra BL:
+Số BL: DB-aabbcc
+Tên tàu: MSC ARIANA
+Cảng xếp: HAI PHONG PORT, VIETNAM
+Cảng dỡ: SURABAYA, INDONESIA
+Shipper: DUC THINH NEW MATERIAL TECHNOLOGY CO., LTD
+Consignee: NEW POWERFUL INTERNATIONAL LIMITED
+5 containers
+Freight prepaid')"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M22 17H2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3Z"/><path d="M6 10V2h12v8"/><path d="M2 10h20v5H2Z"/></svg> BL mẫu</span>
+<span onclick="exampleClick('So sánh 2 invoice này:
+---
+Invoice A:
+Số: INV-001
+Số lượng: 100 MT
+Đơn giá: 85 USD/MT
+---
+Invoice B:
+Số: INV-002
+Số lượng: 100 MT
+Đơn giá: 82 USD/MT')"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> So sánh mẫu</span>
+</div>
+</div>
+</div>
+<div class="input-area">
+<textarea class="glass-input" id="msgInput" placeholder="Nhập nội dung chứng từ, dán link Google Drive, hoặc đặt câu hỏi..." rows="2" oninput="autoResize(this)"></textarea>
+<button class="btn btn-primary" id="sendBtn" onclick="sendMsg()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> <span data-i18n="input.send">Gửi</span></button>
+</div>
+</div>
+<footer><span data-i18n="footer.text">Công ty Vật Liệu Mới Đức Thịnh — sales@ducthinh.com</span></footer>
+</div>
+<script>document.addEventListener('DOMContentLoaded',function(){if(window.lucide)lucide.createIcons()});</script>
+<script>const DOCCHECK_I18N={
+  "vi": {
+    "header.title": "Kiểm Tra Chứng Từ — DocCheck",
+    "header.sub": "Rà soát tự động Invoice, PL, BL, CO, Hợp đồng, Quotation",
+    "status.online": "Sẵn sàng",
+    "guide.title": "Hướng dẫn sử dụng",
+    "guide.what": "🤖 Bot làm được gì?",
+    "guide.what.desc": "Bot kiểm tra tính hợp lệ, đầy đủ và khớp nhau của chứng từ xuất nhập khẩu dựa trên nội dung bạn cung cấp. Bot không đọc file PDF/Excel — bạn cần gõ hoặc copy nội dung vào tin nhắn.",
+    "guide.types": "📋 Loại chứng từ kiểm tra được",
+    "guide.type": "Loại",
+    "guide.content": "Nội dung kiểm tra",
+    "guide.inv": "Invoice",
+    "guide.inv.desc": "Số invoice, ngày, người mua/bán, mô tả hàng, số lượng, đơn giá, thành tiền, điều khoản TT, incoterm",
+    "guide.pl": "Packing List",
+    "guide.pl.desc": "Số PL, mô tả hàng, số kiện, trọng lượng tịnh/tổng, marks & numbers, kích thước",
+    "guide.bl": "Bill of Lading",
+    "guide.bl.desc": "Số BL, tên tàu, cảng xếp/dỡ, người gửi/nhận, container, freight",
+    "guide.co": "CO",
+    "guide.co.desc": "Số CO, ngày cấp, người XK/NK, tiêu chí xuất xứ, nước xuất xứ",
+    "guide.contract": "Hợp đồng",
+    "guide.contract.desc": "Số hợp đồng, ngày, 2 bên, sản phẩm, số lượng, đơn giá, tổng giá trị, TT, giao hàng, phạt",
+    "guide.quote": "Quotation",
+    "guide.quote.desc": "Số báo giá, ngày, hiệu lực, người mua, sản phẩm, số lượng, đơn giá, tổng giá trị, incoterm",
+    "guide.gdrive": "🔗 Lấy chứng từ từ Google Drive",
+    "guide.gdrive.1": "Share file trên Google Drive (quyền Anyone with the link hoặc Viewer)",
+    "guide.gdrive.2": "Copy đường dẫn chia sẻ từ Google Drive (dạng drive.google.com/file/d/...)",
+    "guide.gdrive.3": "Gõ vào ô chat: \"Kiểm tra chứng từ tại link: [dán link Google Drive]\"",
+    "guide.gdrive.4": "Bot sẽ tự động tải file từ Google Drive, phân tích loại chứng từ và kiểm tra",
+    "guide.gdrive.5": "Hỗ trợ: PDF, Excel (.xlsx), ảnh (chụp chứng từ)",
+    "guide.gdrive.note": "Lưu ý: File phải được share công khai (Anyone with the link), bot mới tải được",
+    "guide.howto": "💡 Cách sử dụng",
+    "guide.howto.1": "Gõ trực tiếp nội dung chứng từ vào ô chat",
+    "guide.howto.2": "Copy từ email/file và paste vào — bot tự nhận dạng loại chứng từ",
+    "guide.howto.3": "Gửi nhiều chứng từ một lúc — bot sẽ so sánh chéo (cross-check) giữa các file",
+    "guide.howto.4": "Bot trả lời dạng: summary → lỗi từng file → cross-check",
+    "welcome.title": "Chào bạn! 👋",
+    "welcome.desc": "Mình là trợ lý kiểm tra chứng từ. Gửi mình nội dung chứng từ (Invoice, PL, BL, CO, Hợp đồng, Quotation) hoặc link Google Drive, mình sẽ rà soát giúp bạn.",
+    "welcome.tip": "Bạn có thể gửi 1 hoặc nhiều chứng từ cùng lúc để mình so sánh chéo.",
+    "input.placeholder": "Nhập nội dung chứng từ, dán link Google Drive, hoặc đặt câu hỏi...",
+    "input.send": "Gửi",
+    "sample.gdrive": "Kiểm tra chứng từ tại link:",
+    "sample.gdrive2": "Google Drive mẫu",
+    "sample.inv": "Kiểm tra invoice sau:",
+    "sample.inv2": "Invoice mẫu",
+    "sample.bl": "Kiểm tra BL:",
+    "sample.bl2": "BL mẫu",
+    "sample.compare": "So sánh 2 invoice này:",
+    "sample.compare2": "So sánh mẫu",
+    "footer.text": "Công ty Vật Liệu Mới Đức Thịnh — sales@ducthinh.com"
+  },
+  "en": {
+    "header.title": "Document Check — DocCheck",
+    "header.sub": "Auto-review Invoice, PL, BL, CO, Contracts, Quotations",
+    "status.online": "Ready",
+    "guide.title": "User Guide",
+    "guide.what": "🤖 What can the bot do?",
+    "guide.what.desc": "The bot checks the validity, completeness, and cross-matching of import-export documents based on the content you provide. The bot does NOT read PDF/Excel files — you need to type or copy content into the chat.",
+    "guide.types": "📋 Supported document types",
+    "guide.type": "Type",
+    "guide.content": "Content checked",
+    "guide.inv": "Invoice",
+    "guide.inv.desc": "Invoice number, date, buyer/seller, item description, quantity, unit price, total, payment terms, incoterm",
+    "guide.pl": "Packing List",
+    "guide.pl.desc": "PL number, item description, packages, net/gross weight, marks & numbers, dimensions",
+    "guide.bl": "Bill of Lading",
+    "guide.bl.desc": "BL number, vessel name, port of loading/discharge, shipper/consignee, container, freight",
+    "guide.co": "CO",
+    "guide.co.desc": "CO number, issue date, exporter/importer, origin criteria, country of origin",
+    "guide.contract": "Contract",
+    "guide.contract.desc": "Contract number, date, parties, product, quantity, unit price, total value, payment, delivery, penalty",
+    "guide.quote": "Quotation",
+    "guide.quote.desc": "Quote number, date, validity, buyer, product, quantity, unit price, total value, incoterm",
+    "guide.gdrive": "🔗 Get documents from Google Drive",
+    "guide.gdrive.1": "Share file on Google Drive (Anyone with the link or Viewer permission)",
+    "guide.gdrive.2": "Copy the share link from Google Drive (format drive.google.com/file/d/...)",
+    "guide.gdrive.3": "Type in chat: \"Check documents at link: [paste Google Drive link]\"",
+    "guide.gdrive.4": "Bot will automatically download the file, analyze document type and check it",
+    "guide.gdrive.5": "Supports: PDF, Excel (.xlsx), images (document photos)",
+    "guide.gdrive.note": "Note: File must be shared publicly (Anyone with the link) for the bot to download",
+    "guide.howto": "💡 How to use",
+    "guide.howto.1": "Type document content directly into the chat",
+    "guide.howto.2": "Copy from email/file and paste — bot auto-detects document type",
+    "guide.howto.3": "Send multiple documents at once — bot will cross-compare them",
+    "guide.howto.4": "Bot replies in format: summary → per-file issues → cross-check",
+    "welcome.title": "Hello! 👋",
+    "welcome.desc": "I'm your document checking assistant. Send me document content (Invoice, PL, BL, CO, Contract, Quotation) or a Google Drive link, and I'll review it for you.",
+    "welcome.tip": "You can send one or multiple documents at once for cross-comparison.",
+    "input.placeholder": "Paste document content, Google Drive link, or ask a question...",
+    "input.send": "Send",
+    "sample.gdrive": "Check documents at link:",
+    "sample.gdrive2": "Google Drive sample",
+    "sample.inv": "Check this invoice:",
+    "sample.inv2": "Invoice sample",
+    "sample.bl": "Check BL:",
+    "sample.bl2": "BL sample",
+    "sample.compare": "Compare these 2 invoices:",
+    "sample.compare2": "Compare sample",
+    "footer.text": "Duc Thinh New Materials Company — sales@ducthinh.com"
+  },
+  "zh": {
+    "header.title": "文件审核 — DocCheck",
+    "header.sub": "自动审核发票、装箱单、提单、原产地证、合同、报价单",
+    "status.online": "已就绪",
+    "guide.title": "使用指南",
+    "guide.what": "🤖 机器人能做什么？",
+    "guide.what.desc": "机器人根据你提供的内容检查进出口文件的完整性、有效性和匹配性。机器人不直接读取PDF/Excel文件——你需要手动输入或复制内容到聊天框。",
+    "guide.types": "📋 支持审核的文件类型",
+    "guide.type": "类型",
+    "guide.content": "审核内容",
+    "guide.inv": "发票",
+    "guide.inv.desc": "发票号、日期、买方/卖方、商品描述、数量、单价、总金额、付款条款、贸易术语",
+    "guide.pl": "装箱单",
+    "guide.pl.desc": "装箱单号、商品描述、件数、净重/毛重、唛头、尺寸",
+    "guide.bl": "提单",
+    "guide.bl.desc": "提单号、船名、装货港/卸货港、发货人/收货人、集装箱、运费",
+    "guide.co": "原产地证",
+    "guide.co.desc": "原产地证号、签发日期、出口商/进口商、原产地标准、原产国",
+    "guide.contract": "合同",
+    "guide.contract.desc": "合同号、日期、双方、产品、数量、单价、总金额、付款方式、交货、违约金",
+    "guide.quote": "报价单",
+    "guide.quote.desc": "报价单号、日期、有效期、买方、产品、数量、单价、总金额、贸易术语",
+    "guide.gdrive": "🔗 从Google Drive获取文件",
+    "guide.gdrive.1": "在Google Drive上分享文件（Anyone with the link或Viewer权限）",
+    "guide.gdrive.2": "复制Google Drive的分享链接（格式：drive.google.com/file/d/...）",
+    "guide.gdrive.3": "在聊天框中输入：\"在此链接检查文件：[粘贴Google Drive链接]\"",
+    "guide.gdrive.4": "机器人将自动下载文件，分析文件类型并进行审核",
+    "guide.gdrive.5": "支持：PDF、Excel (.xlsx)、图片（文件照片）",
+    "guide.gdrive.note": "注意：文件必须公开共享（Anyone with the link），机器人才能下载",
+    "guide.howto": "💡 使用方法",
+    "guide.howto.1": "直接在聊天框中输入文件内容",
+    "guide.howto.2": "从邮件/文件复制并粘贴——机器人自动识别文件类型",
+    "guide.howto.3": "一次发送多份文件——机器人会进行交叉对比",
+    "guide.howto.4": "机器人回复格式：摘要 → 每份文件的问题 → 交叉对比",
+    "welcome.title": "您好！👋",
+    "welcome.desc": "我是您的文件审核助手。请发送文件内容（发票、装箱单、提单、原产地证、合同、报价单）或Google Drive链接，我将为您审核。",
+    "welcome.tip": "您可以同时发送一份或多份文件，我会进行交叉对比。",
+    "input.placeholder": "粘贴文件内容、Google Drive链接或提问...",
+    "input.send": "发送",
+    "sample.gdrive": "在此链接检查文件：",
+    "sample.gdrive2": "Google Drive样本",
+    "sample.inv": "审核此发票：",
+    "sample.inv2": "发票样本",
+    "sample.bl": "审核提单：",
+    "sample.bl2": "提单样本",
+    "sample.compare": "对比这两张发票：",
+    "sample.compare2": "对比样本",
+    "footer.text": "德盛新材料有限公司 — sales@ducthinh.com"
+  }
+};__loadI18n(DOCCHECK_I18N);</script>
+
+<!-- Chat JS -->
+<script>
+const API_URL = '/api/chat';
+const SESSION_ID = 'web_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now();
+
+function $(sel) { return document.querySelector(sel); }
+function autoResize(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 120) + 'px'; }
+
+function addMsg(text, role) {
+  const welcome = document.getElementById('welcomeBlock');
+  if (welcome) welcome.remove();
+  const c = $('#msgContainer');
+  const d = document.createElement('div');
+  d.className = 'msg ' + role;
+  const lines = text.split('\n');
+  if (lines.length > 1) {
+    const pre = document.createElement('div');
+    lines.forEach(function(ln, i) {
+      if (i > 0) pre.appendChild(document.createElement('br'));
+      pre.appendChild(document.createTextNode(ln));
+    });
+    d.appendChild(pre);
+  } else {
+    d.textContent = text;
+  }
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+
+function showTyping() {
+  if (document.getElementById('typingInd')) return;
+  const el = document.createElement('div');
+  el.className = 'msg bot';
+  el.id = 'typingInd';
+  el.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
+  $('#msgContainer').appendChild(el);
+  el.scrollIntoView();
+}
+
+function hideTyping() {
+  const el = document.getElementById('typingInd');
+  if (el) el.remove();
+}
+
+function exampleClick(text) {
+  $('#msgInput').value = text;
+  autoResize($('#msgInput'));
+  $('#msgInput').focus();
+}
+
+function toggleGuide() {
+  var body = document.getElementById('guideBody');
+  var arrow = document.getElementById('guideArrow');
+  body.classList.toggle('open');
+  if (body.classList.contains('open')) {
+    arrow.style.transform = 'rotate(180deg)';
+  } else {
+    arrow.style.transform = '';
+  }
+}
+
+async function sendMsg() {
+  const input = $('#msgInput');
+  const text = input.value.trim();
+  if (!text) return;
+  addMsg(text, 'user');
+  input.value = '';
+  autoResize(input);
+  showTyping();
+  try {
+    const resp = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: text,
+        attachments: [],
+        sessionId: SESSION_ID,
+        token: window.__getSessionToken ? window.__getSessionToken() : ''
+      })
+    });
+    const result = await resp.json();
+    hideTyping();
+    if (result.ok) {
+      addMsg(result.reply || 'Done.', 'bot');
+    } else {
+      addMsg('Error: ' + (result.error || JSON.stringify(result)), 'bot');
+    }
+  } catch(e) {
+    hideTyping();
+    addMsg('Connection failed: ' + e.message, 'bot');
+  }
+}
+$('#msgInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); }
+});
+</script>
+</body>
+</html>
