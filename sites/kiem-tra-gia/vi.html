@@ -199,6 +199,12 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 
 
 /* Max loading toggle */ .ml-toggle { display: none; } .ml-toggle.ml-visible { display: table-cell; }
+
+.lang-switcher{display:flex;gap:4px;align-items:center;margin-left:auto;z-index:1;position:relative}
+.lang-switcher a{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;font-size:15px;text-decoration:none;transition:all .2s;opacity:.55;background:rgba(255,255,255,.08);border:1px solid transparent}
+.lang-switcher a:hover{opacity:1;background:rgba(255,255,255,.18);transform:scale(1.12)}
+.lang-switcher a.active{opacity:1;background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.4);transform:scale(1.08)}
+
 </style>
 </head>
 <body>
@@ -209,7 +215,7 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 <h1>Kiểm Tra Giá <span>🔍</span></h1>
 <div class="sub" style="margin-top:6px;font-size:13px;opacity:.8;">Vật Liệu Mới Đức Thịnh - Bảng giá tháng 06/2026</div>
 </div>
-<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="badge">🏭 CÔNG TY TNHH CÔNG NGHỆ VẬT LIỆU MỚI ĐỨC THỊNH</span><span class="badge" id="dataInfo">📊 0 SP</span></div>
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><div class="lang-switcher"><a class="active" href="vi.html" onclick="localStorage.setItem('preferred_lang','vi')" title="VI">🇻🇳</a><a href="en.html" onclick="localStorage.setItem('preferred_lang','en')" title="EN">🇬🇧</a><a href="zh.html" onclick="localStorage.setItem('preferred_lang','zh')" title="ZH">🇨🇳</a></div><span class="badge">🏭 CÔNG TY TNHH CÔNG NGHỆ VẬT LIỆU MỚI ĐỨC THỊNH</span><span class="badge" id="dataInfo">📊 0 SP</span></div>
 </header>
 
 <div class="tabs" id="tabs">
