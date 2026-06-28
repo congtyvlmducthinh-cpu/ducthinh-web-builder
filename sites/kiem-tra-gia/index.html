@@ -198,7 +198,7 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 .btn-sm:hover{background:var(--hover-bg,#f0f4ff);border-color:var(--primary,#1a56db);color:var(--primary,#1a56db)}
 
 
-/* Max loading toggle */ .ml-toggle { display: none; }
+/* Max loading toggle */ .ml-toggle { display: none; } .ml-toggle.ml-visible { display: table-cell; }
 </style>
 </head>
 <body>
@@ -1493,7 +1493,7 @@ function toggleMaxLoad() {
   var cols = document.querySelectorAll('.ml-toggle');
   var btn = document.getElementById('mlToggleBtn');
   var hidden = btn.textContent.indexOf('Hi\u1ec7n') >= 0;
-  cols.forEach(function(el) { el.style.display = hidden ? '' : 'none'; });
+  cols.forEach(function(el) { el.classList.toggle('ml-visible', hidden); });
   btn.textContent = hidden ? '\ud83d\udccb \u1ea8n max t\u1ea3i' : '\ud83d\udccb Hi\u1ec7n max t\u1ea3i';
 }
 
