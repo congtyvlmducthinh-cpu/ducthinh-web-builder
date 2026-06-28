@@ -1,0 +1,30 @@
+        # Store as tuple with a unique key
+        repl_key = (str_start, str_end)
+        if repl_key not in dict(replacements):
+            replacements.append((str_start, str_end, new_str))
+        pos = str_end
+        break  # This string range is handled
+    
+    if pos < len(js):
+        pass
+
+# Apply all replacements in reverse order (by start position)
+processed = set()
+sorted_repl = sorted([r for r in replacements], key=lambda x: -x[0])
+for start, end, new in sorted_repl:
+    if start not in processed:
+        js = js[:start] + new + js[end:]
+        processed.add(start)
+
+# ====== UPDATE ======
+content = content[:main_start] + js + content[main_end:]
+
+# ====== WRITE ======
+with open(PATH, 'w', encoding='utf-8') as f:
+    f.write(content)
+
+calls = content.count("__(")
+i18n_attrs = content.count('data-i18n=')
+print(f'__() calls: {calls}')
+print(f'data-i18n: {i18n_attrs}')
+print('Done!')
