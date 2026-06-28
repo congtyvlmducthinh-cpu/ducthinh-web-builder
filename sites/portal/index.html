@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đức Thịnh - Công Cụ Hỗ Trợ Xuất Nhập Khẩu 🚢</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        heading: ['Plus Jakarta Sans', 'sans-serif'],
+      },
+      borderRadius: {
+        '2xl': '16px',
+        'xl': '12px',
+      },
+      colors: {
+        deep: { DEFAULT: '#020617', 900: '#0f172a', 800: '#1e293b', 700: '#334155' },
+      },
+      boxShadow: {
+        'glass': '0 8px 32px rgba(2, 6, 23, 0.5)',
+        'glass-sm': '0 4px 16px rgba(2, 6, 23, 0.4)',
+      },
+    },
+  },
+};
+</script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #020617;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(59, 130, 246, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(52, 211, 153, 0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
+    min-height: 100vh;
+    color: #e2e8f0;
+  }
+  .glass-card {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(30, 41, 59, 0.6);
+    box-shadow: 0 8px 32px rgba(2, 6, 23, 0.4);
+  }
+  .glass-card-light {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(30, 41, 59, 0.5);
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, #60a5fa, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(52, 211, 153, 0.3));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .card-glow {
+    transition: box-shadow 0.4s ease, transform 0.3s ease;
+  }
+  .card-glow:hover {
+    box-shadow:
+      0 0 30px rgba(59, 130, 246, 0.08),
+      0 12px 40px rgba(2, 6, 23, 0.5);
+    transform: translateY(-3px);
+  }
+
+  /* Lang switcher */
+  .lang-btn {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(30, 41, 59, 0.6);
+    border-radius: 10px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #94a3b8;
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+    font-family: 'Inter', sans-serif;
+  }
+  .lang-btn:hover {
+    border-color: rgba(59, 130, 246, 0.4);
+    color: #e2e8f0;
+    background: rgba(30, 41, 59, 0.5);
+  }
+  .lang-btn.active {
+    background: linear-gradient(135deg, #2563eb, #059669);
+    color: #fff;
+    border-color: transparent;
+  }
+
+  /* Tool card */
+  .tool-card {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(30, 41, 59, 0.6);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    box-shadow: 0 8px 32px rgba(2, 6, 23, 0.4);
+  }
+  .tool-card:hover {
+    border-color: rgba(59, 130, 246, 0.25);
+    box-shadow:
+      0 0 30px rgba(59, 130, 246, 0.08),
+      0 12px 48px rgba(2, 6, 23, 0.5);
+    transform: translateY(-3px);
+  }
+  .tool-card a { text-decoration: none; color: inherit; display: flex; flex: 1; }
+  .tool-card .icon-box {
+    width: 72px;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .tool-card .icon-box::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 10%;
+    height: 80%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(30, 41, 59, 0.6), transparent);
+  }
+  .tool-card .body { padding: 18px 20px 18px 16px; flex: 1; }
+  .tool-card .body h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #f1f5f9;
+    margin-bottom: 4px;
+  }
+  .tool-card .body .desc { font-size: 13px; color: #94a3b8; line-height: 1.6; }
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    margin-top: 10px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .status-badge.live {
+    background: rgba(52, 211, 153, 0.1);
+    color: #34d399;
+    border: 1px solid rgba(52, 211, 153, 0.2);
+  }
+  .status-badge.beta {
+    background: rgba(251, 191, 36, 0.1);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.2);
+  }
+  .status-badge.coming {
+    background: rgba(71, 85, 105, 0.2);
+    color: #64748b;
+    border: 1px solid rgba(71, 85, 105, 0.15);
+  }
+
+  /* Upcoming */
+  .upcoming-item {
+    background: rgba(30, 41, 59, 0.4);
+    backdrop-filter: blur(8px);
+    padding: 7px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #94a3b8;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid rgba(30, 41, 59, 0.4);
+    transition: all 0.2s ease;
+  }
+  .upcoming-item:hover {
+    border-color: rgba(59, 130, 246, 0.2);
+    color: #cbd5e1;
+  }
+  .upcoming-item .emoji { font-size: 15px; }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: #475569;
+    padding: 24px 0 16px;
+    border-top: 1px solid rgba(30, 41, 59, 0.5);
+    margin-top: 16px;
+  }
+  footer a { color: #64748b; text-decoration: none; }
+  footer a:hover { color: #94a3b8; }
+
+  @media (max-width: 640px) {
+    .hero-section { padding: 32px 20px !important; }
+    .hero-section h1 { font-size: 22px !important; }
+    .tool-card .icon-box { width: 56px; font-size: 26px; }
+    .tool-card .body { padding: 14px 16px 14px 12px; }
+    .tool-card .body h3 { font-size: 15px; }
+  }
+</style>
+<script>// i18n - Đa ngôn ngữ cho Đức Thịnh Tools
+(function() {
+  var STORAGE_KEY = "ducthinh_lang";
+  var LANG_FLAGS = { vi: "\uD83C\uDDFB\uD83C\uDDF3", en: "\uD83C\uDDEC\uD83C\uDDE7", zh: "\uD83C\uDDE8\uD83C\uDDF3" };
+  var LANG_NAMES = { vi: "Tiếng Việt", en: "English", zh: "中文" };
+
+  var dict = {};
+
+  function getLang() {
+    return localStorage.getItem(STORAGE_KEY) || "vi";
+  }
+
+  function setLang(lang) {
+    if (dict[lang]) {
+      localStorage.setItem(STORAGE_KEY, lang);
+      applyLang(lang);
+      window.dispatchEvent(new CustomEvent("langchange", { detail: lang }));
+    }
+  }
+
+  function t(key, lang) {
+    var l = lang || getLang();
+    return dict[l] && dict[l][key] !== undefined ? dict[l][key] : dict.vi && dict.vi[key] !== undefined ? dict.vi[key] : key;
+  }
+
+  window.__ = t;
+  window.__lang = getLang;
+
+  function applyLang(lang) {
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang === "en" ? "en" : "vi";
+    document.querySelectorAll("[data-i18n]").forEach(function(el) {
+      var key = el.getAttribute("data-i18n");
+      el.textContent = t(key, lang);
+    });
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(function(el) {
+      var key = el.getAttribute("data-i18n-placeholder");
+      el.placeholder = t(key, lang);
+    });
+    document.querySelectorAll("[data-lang-btn]").forEach(function(el) {
+      var btnLang = el.getAttribute("data-lang-btn");
+      el.classList.toggle("active", btnLang === lang);
+    });
+  }
+
+  window.__dict = dict;
+  window.__setLang = setLang;
+  window.__i18nReady = true;
+
+  window.__loadI18n = function(pageDict) {
+    for (var k in pageDict) {
+      if (pageDict.hasOwnProperty(k)) {
+        dict[k] = pageDict[k];
+      }
+    }
+    applyLang(getLang());
+  };
+})();
+</script>
+</head>
+<body>
+<div class="max-w-4xl mx-auto px-4 py-6 sm:py-10">
+
+  <!-- Lang switcher -->
+  <div class="flex gap-2 justify-end mb-6">
+    <button class="lang-btn active" data-lang-btn="vi" onclick="__setLang('vi')">🇻🇳 VI</button>
+    <button class="lang-btn" data-lang-btn="en" onclick="__setLang('en')">🇬🇧 EN</button>
+    <button class="lang-btn" data-lang-btn="zh" onclick="__setLang('zh')">🇨🇳 CN</button>
+  </div>
+
+  <!-- Hero -->
+  <div class="glass-card rounded-[16px] p-8 sm:p-12 text-center mb-8 gradient-border hero-section">
+    <div class="text-6xl mb-4 leading-none">🏭</div>
+    <h1 class="font-heading text-2xl sm:text-[28px] font-bold text-white mb-2" data-i18n="hero.title">Đức Thịnh – Công Cụ Hỗ Trợ</h1>
+    <p class="text-sm text-slate-400 max-w-lg mx-auto leading-relaxed" data-i18n="hero.sub">Bộ công cụ dành cho bộ phận xuất nhập khẩu, kiểm tra chứng từ và tra cứu giá</p>
+    <div class="mt-5 w-16 h-[2px] bg-gradient-to-r from-blue-500 to-emerald-400 mx-auto rounded-full"></div>
+  </div>
+
+  <!-- Company info -->
+  <div class="glass-card-light rounded-[14px] p-5 px-6 flex items-center gap-4 mb-7">
+    <div class="text-3xl flex-shrink-0">📬</div>
+    <div class="flex-1 min-w-0">
+      <h3 class="font-heading text-sm font-semibold text-slate-200" data-i18n="company.title">Công ty Vật Liệu Mới Đức Thịnh</h3>
+      <p class="text-xs text-slate-500 mt-0.5">
+        Email: <a href="mailto:sales@ducthinh.com" class="text-blue-400 hover:text-blue-300 transition-colors">sales@ducthinh.com</a>
+        <span class="mx-2 text-slate-700">—</span>
+        Web: <a href="https://ducthinhmaterials.com" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors">ducthinhmaterials.com</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Tools section title -->
+  <div class="flex items-center gap-3 mb-5">
+    <span class="text-lg">🛠️</span>
+    <span class="font-heading font-semibold text-slate-300 text-sm" data-i18n="tools.section">Công cụ</span>
+    <span class="text-[11px] bg-slate-800/60 text-blue-400 px-3 py-1 rounded-full font-medium border border-slate-700/50" data-i18n="tools.count">2 tools</span>
+  </div>
+
+  <!-- Tool cards -->
+  <div class="grid gap-4 mb-10">
+    <!-- DocCheck -->
+    <div class="tool-card">
+      <a href="https://doccheck.ducthinhmaterials.com/" target="_blank">
+        <div class="icon-box" style="background:rgba(59,130,246,0.08)">🧾</div>
+        <div class="body">
+          <h3 data-i18n="tool1.title">Kiểm Tra Chứng Từ (DocCheck)</h3>
+          <div class="desc" data-i18n="tool1.desc">
+            Rà soát tự động Invoice, Packing List, Bill of Lading, Certificate of Origin, Hợp đồng, Quotation.
+            Hỗ trợ copy-paste nội dung hoặc dán link Google Drive.
+            So sánh chéo giữa nhiều chứng từ.
+          </div>
+          <div class="status-badge live" data-i18n="tool1.status">✅ Đang hoạt động</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Kiểm Tra Giá -->
+    <div class="tool-card">
+      <a href="/kiem-tra-gia/" target="_blank">
+        <div class="icon-box" style="background:rgba(52,211,153,0.08)">💰</div>
+        <div class="body">
+          <h3 data-i18n="tool2.title">Kiểm Tra Giá (Price Check)</h3>
+          <div class="desc" data-i18n="tool2.desc">
+            Tra cứu giá bán tối thiểu CaCO₃, phụ phí bao bì, quy cách đóng bao khác.
+            Tính giá thành nhanh từ EXW + phụ phí. Hỗ trợ upload Excel cập nhật dữ liệu.
+          </div>
+          <div class="status-badge live" data-i18n="tool1.status">✅ Đang hoạt động</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Upcoming -->
+  <div class="glass-card-light rounded-[14px] p-6 mb-6">
+    <h3 class="font-heading text-sm font-semibold text-slate-400 mb-4 flex items-center gap-2">
+      <span>🚧</span>
+      <span data-i18n="upcoming.title">Sắp ra mắt</span>
+    </h3>
+    <div class="flex flex-wrap gap-2.5">
+      <span class="upcoming-item"><span class="emoji">📦</span> Theo dõi container</span>
+      <span class="upcoming-item"><span class="emoji">📊</span> Báo cáo thống kê XNK</span>
+      <span class="upcoming-item"><span class="emoji">📝</span> Tạo chứng từ mẫu</span>
+      <span class="upcoming-item"><span class="emoji">🌊</span> Tra cứu lịch tàu</span>
+      <span class="upcoming-item"><span class="emoji">💱</span> Tỷ giá & phí XNK</span>
+    </div>
+  </div>
+
+  <footer>
+    <span data-i18n="footer.text">Công ty Vật Liệu Mới Đức Thịnh — sales@ducthinh.com</span>
+  </footer>
+</div>
+<script>
+const PORTAL_I18N = {
+  vi: {
+    "hero.title": "Đức Thịnh – Công Cụ Hỗ Trợ",
+    "hero.sub": "Bộ công cụ dành cho bộ phận xuất nhập khẩu, kiểm tra chứng từ và tra cứu giá",
+    "company.title": "Công ty Vật Liệu Mới Đức Thịnh",
+    "tools.section": "Công cụ",
+    "tools.count": "2 tools",
+    "tool1.title": "Kiểm Tra Chứng Từ (DocCheck)",
+    "tool1.desc": "Rà soát tự động Invoice, Packing List, Bill of Lading, Certificate of Origin, Hợp đồng, Quotation. Hỗ trợ copy-paste nội dung hoặc dán link Google Drive. So sánh chéo giữa nhiều chứng từ.",
+    "tool1.status": "✅ Đang hoạt động",
+    "tool2.title": "Kiểm Tra Giá (Price Check)",
+    "tool2.desc": "Tra cứu giá bán tối thiểu CaCO₃, phụ phí bao bì, quy cách đóng bao khác. Tính giá thành nhanh từ EXW + phụ phí. Hỗ trợ upload Excel cập nhật dữ liệu.",
+    "tool2.status": "✅ Đang hoạt động",
+    "upcoming.title": "🚧 Sắp ra mắt",
+    "upcoming.cont": "📦 Theo dõi container",
+    "upcoming.stats": "📊 Báo cáo thống kê XNK",
+    "upcoming.template": "📝 Tạo chứng từ mẫu",
+    "upcoming.ship": "🌊 Tra cứu lịch tàu",
+    "upcoming.fx": "💱 Tỷ giá & phí XNK",
+    "footer.text": "Công ty Vật Liệu Mới Đức Thịnh — sales@ducthinh.com"
+  },
+  en: {
+    "hero.title": "Đức Thịnh – Support Tools",
+    "hero.sub": "Toolkit for import-export department: document checking and price lookup",
+    "company.title": "Đức Thịnh New Materials Company",
+    "tools.section": "Tools",
+    "tools.count": "2 tools",
+    "tool1.title": "Document Check (DocCheck)",
+    "tool1.desc": "Auto-review Invoice, Packing List, Bill of Lading, Certificate of Origin, Contracts, Quotations. Support copy-paste or Google Drive links. Cross-compare multiple documents.",
+    "tool1.status": "✅ Live",
+    "tool2.title": "Price Check",
+    "tool2.desc": "Lookup minimum selling price of CaCO₃, packaging surcharges, other bagging specs. Quick price calculation from EXW + surcharges. Support Excel upload.",
+    "tool2.status": "✅ Live",
+    "upcoming.title": "🚧 Coming Soon",
+    "upcoming.cont": "📦 Container Tracking",
+    "upcoming.stats": "📊 XNK Statistics Reports",
+    "upcoming.template": "📝 Document Templates",
+    "upcoming.ship": "🌊 Vessel Schedule Lookup",
+    "upcoming.fx": "💱 Exchange Rate & XNK Fees",
+    "footer.text": "Đức Thịnh New Materials Company — sales@ducthinh.com"
+  },
+  zh: {
+    "hero.title": "Đức Thịnh – 支持工具",
+    "hero.sub": "进出口部门工具包：文件审核和价格查询",
+    "company.title": "Đức Thịnh 新材料有限公司",
+    "tools.section": "工具",
+    "tools.count": "2 个工具",
+    "tool1.title": "文件审核 (DocCheck)",
+    "tool1.desc": "自动审核发票、装箱单、提单、原产地证书、合同、报价单。支持复制粘贴或Google Drive链接。多份文件交叉对比。",
+    "tool1.status": "✅ 运行中",
+    "tool2.title": "价格查询",
+    "tool2.desc": "查询CaCO₃最低售价、包装附加费、其他袋装规格。从EXW + 附加费快速计算价格。支持上传Excel更新数据。",
+    "tool2.status": "✅ 运行中",
+    "upcoming.title": "🚧 即将推出",
+    "upcoming.cont": "📦 货柜追踪",
+    "upcoming.stats": "📊 进出口统计报告",
+    "upcoming.template": "📝 文件模板",
+    "upcoming.ship": "🌊 船期查询",
+    "upcoming.fx": "💱 汇率与进出口费用",
+    "footer.text": "Đức Thịnh 新材料有限公司 — sales@ducthinh.com"
+  }
+};
+__loadI18n(PORTAL_I18N);
+</script>
+
+<script>
+(function() {
+  let sessionToken = localStorage.getItem('doccheck_session');
+  if (!sessionToken && document.cookie.includes('doccheck_session=')) {
+    sessionToken = document.cookie.match(/doccheck_session=([^;]+)/)[1];
+    localStorage.setItem('doccheck_session', sessionToken);
+  }
+  window.__getSessionToken = function() { return sessionToken; };
+})();
+</script>
+</body>
+</html>
