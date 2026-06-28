@@ -1,0 +1,15 @@
+{
+  "hero.title": "Đức Thịnh – Công Cụ Hỗ Trợ",
+  "hero.sub": "Bộ công cụ dành cho bộ phận xuất nhập khẩu, kiểm tra chứng từ và tra cứu giá",
+  "company.title": "Công ty Vật Liệu Mới Đức Thịnh",
+  "tools.section": "Công cụ",
+  "tools.count": "2 tools",
+  "tool1.title": "Kiểm Tra Chứng Từ (DocCheck)",
+  "tool1.desc": "Rà soát tự động Invoice, Packing List, Bill of Lading, Certificate of Origin, Hợp đồng, Quotation. Hỗ trợ copy-paste nội dung hoặc dán link Google Drive. So sánh chéo giữa nhiều chứng từ.",
+  "tool1.status": "Đang hoạt động",
+  "tool2.title": "Kiểm Tra Giá (Price Check)",
+  "tool2.desc": "Tra cứu giá bán tối thiểu CaCO₃, phụ phí bao bì, quy cách đóng bao khác. Tính giá thành nhanh từ EXW + phụ phí. Hỗ trợ upload Excel cập nhật dữ liệu.",
+  "tool2.status": "Đang hoạt động",
+  "upcoming.title": "Sắp ra mắt",
+  "footer.text": "Công ty Vật Liệu Mới Đức Thịnh — sales@ducthinh.com"
+}

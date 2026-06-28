@@ -1,0 +1,15 @@
+{
+  "hero.title": "德盛 – 支持工具",
+  "hero.sub": "进出口部门工具包：文件审核和价格查询",
+  "company.title": "德盛新材料有限公司",
+  "tools.section": "工具",
+  "tools.count": "2 个工具",
+  "tool1.title": "文件审核 (DocCheck)",
+  "tool1.desc": "自动审核发票、装箱单、提单、原产地证书、合同、报价单。支持复制粘贴或Google Drive链接。多份文件交叉对比。",
+  "tool1.status": "运行中",
+  "tool2.title": "价格查询",
+  "tool2.desc": "查询CaCO₃最低售价、包装附加费、其他袋装规格。从EXW + 附加费快速计算价格。支持上传Excel更新数据。",
+  "tool2.status": "运行中",
+  "upcoming.title": "即将推出",
+  "footer.text": "德盛新材料有限公司 — sales@ducthinh.com"
+}
