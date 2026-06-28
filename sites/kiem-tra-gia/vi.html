@@ -300,6 +300,12 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 <div class="upload-sm" id="manageDropZone" style="border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;background:#fafbfc"><div style="font-size:1.5rem;margin-bottom:6px">📂</div><div><strong>Kéo thả file vào đây</strong><br>hoặc bấm để chọn</div></div>
 <input type="file" id="manageFileInput" accept=".xlsx,.xls" style="display:none">
 <div class="manage-status-sm" id="manageUploadStatus" style="margin-top:10px;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;display:none"></div>
+
+<div class="manage-actions">
+<h3>💾 Lưu lên server</h3>
+<p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">Lưu dữ liệu hiện tại lên server để đồng bộ sang cả 3 ngôn ngữ (vi/en/zh)</p>
+<button class="btn-confirm" id="saveServerBtn" onclick="saveToServer()">💾 Lưu lên server</button>
+</div>
 </div>
 </div>
 </div>
@@ -651,9 +657,9 @@ function renderPriceTab() {
   var machineFilter = document.getElementById("machineFilter") && document.getElementById("machineFilter").value || "";
   var isUsd = currency === "USD";
   var filtered = DATA_PRODUCTS.filter(function(p) {
-    if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0)) return false;
+    if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0) && (!p.machine || p.machine.toLowerCase().indexOf(search) < 0) && (!p.standard || p.standard.toLowerCase().indexOf(search) < 0)) return false;
     if (specFilter && p.standard !== specFilter) return false;
-    if (machineFilter && p.machine !== machineFilter) return false;
+    if (machineFilter && String(p.machine) !== machineFilter) return false;
     return true;
   });
   var isFob = priceMode === "fob";
@@ -866,7 +872,7 @@ function filterCalcProducts() {
   // Collect standards by machine, and machines by standard
   var machinesByStd = {}, standardsByMach = {};
   DATA_PRODUCTS.forEach(function(p) {
-    if (!m || p.machine === m) standardsByMach[p.standard] = true;
+    if (!m || String(p.machine) === m) standardsByMach[p.standard] = true;
     if (!s || p.standard === s) machinesByStd[p.machine] = true;
   });
   // Populate machines (if standard is selected, filter)
@@ -889,7 +895,7 @@ function filterCalcProducts_products() {
   var m = me.value, s = se.value;
   var prevProd = pe.value;
   pe.innerHTML = '<option value="">— Chọn sản phẩm —</option>';
-  DATA_PRODUCTS.forEach(function(p) { if ((!m || p.machine === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
+  DATA_PRODUCTS.forEach(function(p) { if ((!m || String(p.machine) === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
   pe.value = prevProd;
 }
 function onCalcProductChange() { populateCalcMaxLoad(); calcPrice(); }
@@ -1504,7 +1510,7 @@ function populateFilters() {
   // Cross-link: when machine is selected, only show related standards; vice versa
   var machinesByStd = {}, standardsByMach = {};
   DATA_PRODUCTS.forEach(function(p) {
-    if (!curMach || p.machine === curMach) standardsByMach[p.standard] = true;
+    if (!curMach || String(p.machine) === curMach) standardsByMach[p.standard] = true;
     if (!curSpec || p.standard === curSpec) machinesByStd[p.machine] = true;
   });
   // Rebuild spec filter (standards available for selected machine)
@@ -1616,6 +1622,56 @@ function render() {
 
 
 // ====== MISSING FUNCTIONS ======
+
+// ====== SAVE DATA TO SERVER ======
+function detectCurrentLang() {
+  var path = window.location.pathname;
+  var m = path.match(/\/(vi|en|zh)(?:\.html)?(?:\/|$)/);
+  return m ? m[1] : "vi";
+}
+
+function saveToServer() {
+  var btn = document.getElementById("saveServerBtn");
+  if (!btn) return;
+  var origText = btn.textContent;
+  btn.textContent = "⏳ Đang lưu...";
+  btn.disabled = true;
+  var status = document.getElementById("manageUploadStatus");
+
+  var payload = {
+    lang: "__ALL__",
+    blocks: {
+      DATA_PRODUCTS: "var DATA_PRODUCTS = " + JSON.stringify(DATA_PRODUCTS, null, 2) + ";",
+      DATA_BAGS: "var DATA_BAGS = " + JSON.stringify(DATA_BAGS, null, 2) + ";",
+      DATA_OTHERS: "var DATA_OTHERS = " + JSON.stringify(DATA_OTHERS, null, 2) + ";"
+    }
+  };
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "/api/ktg-data", true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.onload = function() {
+    btn.textContent = origText;
+    btn.disabled = false;
+    if (status) {
+      status.style.display = "block";
+      status.className = xhr.status === 200 ? "manage-status-sm ok" : "manage-status-sm err";
+      status.textContent = xhr.status === 200
+        ? "✅ Đã lưu lên server! Tải lại en.html, zh.html để thấy dữ liệu mới."
+        : "❌ Lỗi: " + xhr.status + " - " + xhr.statusText;
+    }
+  };
+  xhr.onerror = function() {
+    btn.textContent = origText;
+    btn.disabled = false;
+    if (status) {
+      status.style.display = "block";
+      status.className = "manage-status-sm err";
+      status.textContent = "❌ Không thể kết nối server!";
+    }
+  };
+  xhr.send(JSON.stringify(payload));
+}
 function updateDataInfo() {
   var el = document.getElementById("dataInfo");
   if (!el) return;
