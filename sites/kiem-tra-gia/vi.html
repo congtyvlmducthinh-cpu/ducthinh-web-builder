@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
@@ -402,6 +402,34 @@ function importProducts(arr) {
         }
       }
     });
+    // Read market-specific overrides (cn/other) if present in template
+    var marketSuffixes = ["_cn","_other"];
+    function readMarketField(r, obj, key, suffix) {
+      // Try suffixed user-friendly names first, then raw key+suffix
+      var baseNames = ["EXW (VND)","EXW (USD)","Hoa hồng (VND)","Hoa hồng (USD)","25kg (VND)","25kg (USD)","Jumbo (VND)","Jumbo (USD)"];
+      for (var si = 0; si < baseNames.length; si++) {
+        var fullName = baseNames[si] + suffix;
+        if (r[fullName] !== undefined && r[fullName] !== null && r[fullName] !== "") {
+          obj[key + suffix] = Number(r[fullName]);
+          return true;
+        }
+      }
+      if (r[key + suffix] !== undefined && r[key + suffix] !== null && r[key + suffix] !== "") {
+        obj[key + suffix] = Number(r[key + suffix]);
+        return true;
+      }
+      return false;
+    }
+    marketSuffixes.forEach(function(sfx) {
+      readMarketField(r, obj, "exw_vnd", sfx);
+      readMarketField(r, obj, "exw_usd", sfx);
+      readMarketField(r, obj, "comm_vnd", sfx);
+      readMarketField(r, obj, "comm_usd", sfx);
+      readMarketField(r, obj, "pkg25_vnd", sfx);
+      readMarketField(r, obj, "pkg25_usd", sfx);
+      readMarketField(r, obj, "jumbo_vnd", sfx);
+      readMarketField(r, obj, "jumbo_usd", sfx);
+    });
     // Copy extra fields
     if (r.d50 !== undefined) obj.d50 = Number(r.d50);
     if (r.d97 !== undefined) obj.d97 = Number(r.d97);
@@ -420,23 +448,23 @@ function importProducts(arr) {
       DATA_MAX_LOADING[obj.code] = DATA_MAX_LOADING[obj.code] || {};
       DATA_MAX_LOADING[obj.code].maxJumbo = Number(maxJb);
     }
-    // Market-specific fields: use column if exists, else fall back to base
-    obj.exw_vnd_cn = r.exw_vnd_cn !== undefined ? Number(r.exw_vnd_cn) : obj.exw_vnd;
-    obj.exw_usd_cn = r.exw_usd_cn !== undefined ? Number(r.exw_usd_cn) : obj.exw_usd;
-    obj.comm_vnd_cn = r.comm_vnd_cn !== undefined ? Number(r.comm_vnd_cn) : obj.comm_vnd;
-    obj.comm_usd_cn = r.comm_usd_cn !== undefined ? Number(r.comm_usd_cn) : obj.comm_usd;
-    obj.pkg25_vnd_cn = r.pkg25_vnd_cn !== undefined ? Number(r.pkg25_vnd_cn) : obj.pkg25_vnd;
-    obj.pkg25_usd_cn = r.pkg25_usd_cn !== undefined ? Number(r.pkg25_usd_cn) : obj.pkg25_usd;
-    obj.jumbo_vnd_cn = r.jumbo_vnd_cn !== undefined ? Number(r.jumbo_vnd_cn) : obj.jumbo_vnd;
-    obj.jumbo_usd_cn = r.jumbo_usd_cn !== undefined ? Number(r.jumbo_usd_cn) : obj.jumbo_usd;
-    obj.exw_vnd_other = r.exw_vnd_other !== undefined ? Number(r.exw_vnd_other) : obj.exw_vnd;
-    obj.exw_usd_other = r.exw_usd_other !== undefined ? Number(r.exw_usd_other) : obj.exw_usd;
-    obj.comm_vnd_other = r.comm_vnd_other !== undefined ? Number(r.comm_vnd_other) : obj.comm_vnd;
-    obj.comm_usd_other = r.comm_usd_other !== undefined ? Number(r.comm_usd_other) : obj.comm_usd;
-    obj.pkg25_vnd_other = r.pkg25_vnd_other !== undefined ? Number(r.pkg25_vnd_other) : obj.pkg25_vnd;
-    obj.pkg25_usd_other = r.pkg25_usd_other !== undefined ? Number(r.pkg25_usd_other) : obj.pkg25_usd;
-    obj.jumbo_vnd_other = r.jumbo_vnd_other !== undefined ? Number(r.jumbo_vnd_other) : obj.jumbo_vnd;
-    obj.jumbo_usd_other = r.jumbo_usd_other !== undefined ? Number(r.jumbo_usd_other) : obj.jumbo_usd;
+    // Market-specific fields: always base value (not from Excel)
+    if (obj.exw_vnd_cn === undefined) obj.exw_vnd_cn = obj.exw_vnd;
+    if (obj.exw_usd_cn === undefined) obj.exw_usd_cn = obj.exw_usd;
+    if (obj.comm_vnd_cn === undefined) obj.comm_vnd_cn = obj.comm_vnd;
+    if (obj.comm_usd_cn === undefined) obj.comm_usd_cn = obj.comm_usd;
+    if (obj.pkg25_vnd_cn === undefined) obj.pkg25_vnd_cn = obj.pkg25_vnd;
+    if (obj.pkg25_usd_cn === undefined) obj.pkg25_usd_cn = obj.pkg25_usd;
+    if (obj.jumbo_vnd_cn === undefined) obj.jumbo_vnd_cn = obj.jumbo_vnd;
+    if (obj.jumbo_usd_cn === undefined) obj.jumbo_usd_cn = obj.jumbo_usd;
+    if (obj.exw_vnd_other === undefined) obj.exw_vnd_other = obj.exw_vnd;
+    if (obj.exw_usd_other === undefined) obj.exw_usd_other = obj.exw_usd;
+    if (obj.comm_vnd_other === undefined) obj.comm_vnd_other = obj.comm_vnd;
+    if (obj.comm_usd_other === undefined) obj.comm_usd_other = obj.comm_usd;
+    if (obj.pkg25_vnd_other === undefined) obj.pkg25_vnd_other = obj.pkg25_vnd;
+    if (obj.pkg25_usd_other === undefined) obj.pkg25_usd_other = obj.pkg25_usd;
+    if (obj.jumbo_vnd_other === undefined) obj.jumbo_vnd_other = obj.jumbo_vnd;
+    if (obj.jumbo_usd_other === undefined) obj.jumbo_usd_other = obj.jumbo_usd;
     DATA_PRODUCTS.push(obj);
   });
 }
@@ -1223,7 +1251,7 @@ function downloadTemplate(type) {
   var headers, fn, row;
   if (type === 0) {
     fn = "Mau_gia_ban.xlsx";
-    headers = ["code","size","standard","machine","max25","maxJumbo","exw_vnd_cn","exw_usd_cn","comm_vnd_cn","comm_usd_cn","pkg25_vnd_cn","pkg25_usd_cn","jumbo_vnd_cn","jumbo_usd_cn","exw_vnd_other","exw_usd_other","comm_vnd_other","comm_usd_other","pkg25_vnd_other","pkg25_usd_other","jumbo_vnd_other","jumbo_usd_other"];
+    headers = ["code","size","standard","machine","EXW (VND)","EXW (USD)","Hoa hồng (VND)","Hoa hồng (USD)","25kg (VND)","25kg (USD)","Jumbo (VND)","Jumbo (USD)","max25","maxJumbo","EXW (VND)_cn","EXW (USD)_cn","Hoa hồng (VND)_cn","Hoa hồng (USD)_cn","25kg (VND)_cn","25kg (USD)_cn","Jumbo (VND)_cn","Jumbo (USD)_cn","EXW (VND)_other","EXW (USD)_other","Hoa hồng (VND)_other","Hoa hồng (USD)_other","25kg (VND)_other","25kg (USD)_other","Jumbo (VND)_other","Jumbo (USD)_other"];
   } else if (type === 1) {
     fn = "Mau_bao_bi.xlsx";
     headers = ["code","cost","spec","qty","price","profit"];
@@ -1247,7 +1275,7 @@ function downloadFullTemplate() {
   var wb = XLSX.utils.book_new();
   
   // Sheet 1: Products
-  var prodHeaders = ["code","size","standard","machine","max25","maxJumbo","exw_vnd_cn","exw_usd_cn","comm_vnd_cn","comm_usd_cn","pkg25_vnd_cn","pkg25_usd_cn","jumbo_vnd_cn","jumbo_usd_cn","exw_vnd_other","exw_usd_other","comm_vnd_other","comm_usd_other","pkg25_vnd_other","pkg25_usd_other","jumbo_vnd_other","jumbo_usd_other"];
+  var prodHeaders = ["code","size","standard","machine","EXW (VND)","EXW (USD)","Hoa hồng (VND)","Hoa hồng (USD)","25kg (VND)","25kg (USD)","Jumbo (VND)","Jumbo (USD)","max25","maxJumbo","EXW (VND)_cn","EXW (USD)_cn","Hoa hồng (VND)_cn","Hoa hồng (USD)_cn","25kg (VND)_cn","25kg (USD)_cn","Jumbo (VND)_cn","Jumbo (USD)_cn","EXW (VND)_other","EXW (USD)_other","Hoa hồng (VND)_other","Hoa hồng (USD)_other","25kg (VND)_other","25kg (USD)_other","Jumbo (VND)_other","Jumbo (USD)_other"];
   XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([prodHeaders]), "Products");
   
   // Sheet 2: Bags
