@@ -555,14 +555,14 @@ function getCIF25PriceVND(prod, lccVariant, freight) {
   if (!ml || ml <= 0) return prod.exw_vnd;
   var base = getFOB25PriceVND(prod, lccVariant);
   if (!freight || freight <= 0) return base;
-  return Math.round(base + (freight + 10) * 26000 / ml);
+  return Math.round(base + (freight + 10 + 10) * 26000 / ml);
 }
 function getCIFJumboPriceVND(prod, lccVariant, freight) {
   var ml = getMaxLoading(prod.code, "maxJumbo");
   if (!ml || ml <= 0) return prod.exw_vnd;
   var base = getFOBJumboPriceVND(prod, lccVariant);
   if (!freight || freight <= 0) return base;
-  return Math.round(base + (freight + 10) * 26000 / ml);
+  return Math.round(base + (freight + 10 + 10) * 26000 / ml);
 }
 function getCIF25PriceUSD(prod, lccVariant, freight) { return Math.round(getCIF25PriceVND(prod, lccVariant, freight) / 26000); }
 function getCIFJumboPriceUSD(prod, lccVariant, freight) { return Math.round(getCIFJumboPriceVND(prod, lccVariant, freight) / 26000); }
