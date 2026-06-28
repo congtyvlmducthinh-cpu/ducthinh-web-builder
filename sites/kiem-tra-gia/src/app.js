@@ -176,10 +176,10 @@ function renderPriceTab() {
   var machineFilter = document.getElementById("machineFilter") && document.getElementById("machineFilter").value || "";
   var isUsd = currency === "USD";
   var filtered = DATA_PRODUCTS.filter(function(p) {
-    if (search && p.code.toLowerCase().indexOf(search) < 0 && p.size.toLowerCase().indexOf(search) < 0) return false;
+    if (search && p.code.toLowerCase().indexOf(search) < 0 && p.size.toLowerCase().indexOf(search) < 0 && (p.machine||"").toLowerCase().indexOf(search) < 0 && (p.standard||"").toLowerCase().indexOf(search) < 0) return false;
     if (specFilter && p.standard !== specFilter) return false;
     if (sizeFilter && p.size !== sizeFilter) return false;
-    if (machineFilter && p.machine !== machineFilter) return false;
+    if (machineFilter && String(p.machine) !== machineFilter) return false;
     return true;
   });
   var isFob = priceMode === "fob";
@@ -315,7 +315,7 @@ function filterCalcProducts() {
   var me = document.getElementById("calcMachine"), se = document.getElementById("calcStandard"), pe = document.getElementById("calcProduct");
   if (!me || !se || !pe) return;
   var m = me.value, standards = {};
-  DATA_PRODUCTS.forEach(function(p) { if (!m || p.machine === m) standards[p.standard] = true; });
+  DATA_PRODUCTS.forEach(function(p) { if (!m || String(p.machine) === m) standards[p.standard] = true; });
   var sk = Object.keys(standards).sort();
   se.innerHTML = '<option value="">— Chọn tiêu chuẩn —</option>';
   for (var i = 0; i < sk.length; i++) se.innerHTML += '<option value="' + sk[i].replace(/"/g, '&quot;') + '">' + sk[i] + '</option>';
@@ -326,7 +326,7 @@ function filterCalcProducts_products() {
   if (!me || !se || !pe) return;
   var m = me.value, s = se.value;
   pe.innerHTML = '<option value="">— Chọn sản phẩm —</option>';
-  DATA_PRODUCTS.forEach(function(p) { if ((!m || p.machine === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
+  DATA_PRODUCTS.forEach(function(p) { if ((!m || String(p.machine) === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
 }
 function onCalcProductChange() { calcPrice(); }
 // ====== FILTER HELPERS ======
@@ -438,6 +438,56 @@ function exportToExcel() {
 }
 
 // ====== MANAGE PANEL FUNCTIONS ======
+
+// ====== SAVE DATA TO SERVER ======
+function detectCurrentLang() {
+  var path = window.location.pathname;
+  var m = path.match(/\/(vi|en|zh)(?:\.html)?(?:\/|$)/);
+  return m ? m[1] : "vi";
+}
+
+function saveToServer() {
+  var btn = document.getElementById("saveServerBtn");
+  if (!btn) return;
+  var origText = btn.textContent;
+  btn.textContent = "⏳ Đang lưu...";
+  btn.disabled = true;
+  var status = document.getElementById("manageUploadStatus");
+
+  var payload = {
+    lang: "__ALL__",
+    blocks: {
+      DATA_PRODUCTS: "var DATA_PRODUCTS = " + JSON.stringify(DATA_PRODUCTS, null, 2) + ";",
+      DATA_BAGS: "var DATA_BAGS = " + JSON.stringify(DATA_BAGS, null, 2) + ";",
+      DATA_OTHERS: "var DATA_OTHERS = " + JSON.stringify(DATA_OTHERS, null, 2) + ";"
+    }
+  };
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "/api/ktg-data", true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.onload = function() {
+    btn.textContent = origText;
+    btn.disabled = false;
+    if (status) {
+      status.style.display = "block";
+      status.className = xhr.status === 200 ? "manage-status-sm ok" : "manage-status-sm err";
+      status.textContent = xhr.status === 200
+        ? "✅ Đã lưu lên server! Tải lại en.html, zh.html để thấy dữ liệu mới."
+        : "❌ Lỗi: " + xhr.status + " - " + xhr.statusText;
+    }
+  };
+  xhr.onerror = function() {
+    btn.textContent = origText;
+    btn.disabled = false;
+    if (status) {
+      status.style.display = "block";
+      status.className = "manage-status-sm err";
+      status.textContent = "❌ Không thể kết nối server!";
+    }
+  };
+  xhr.send(JSON.stringify(payload));
+}
 function manageLogin() {
   var pw = document.getElementById("managePass").value;
   if (pw === managePassword) {
@@ -572,22 +622,23 @@ function populateFilters() {
   var sf = document.getElementById("specFilter");
   var mf = document.getElementById("machineFilter");
   if (!sf || !mf) return;
-  var specSet = {}, machSet = {};
-  DATA_PRODUCTS.forEach(function(p) {
-    specSet[p.standard] = true;
-    machSet[p.machine] = true;
-  });
   var curSpec = sf.value, curMach = mf.value;
+  // Cross-link: when machine is selected, only show related standards; vice versa
+  var machinesByStd = {}, standardsByMach = {};
+  DATA_PRODUCTS.forEach(function(p) {
+    if (!curMach || String(p.machine) === curMach) standardsByMach[p.standard] = true;
+    if (!curSpec || p.standard === curSpec) machinesByStd[p.machine] = true;
+  });
+  // Rebuild spec filter (standards available for selected machine)
   sf.innerHTML = '<option value="">Tất cả tiêu chuẩn</option>';
-  Object.keys(specSet).sort().forEach(function(s) {
-    sf.innerHTML += '<option value="' + s.replace(/"/g, '&quot;') + '">' + s + '</option>';
-  });
-  sf.value = curSpec;
+  var sk = Object.keys(standardsByMach).sort();
+  for (var i = 0; i < sk.length; i++) { sf.innerHTML += '<option value="' + sk[i].replace(/"/g, '&quot;') + '">' + sk[i] + '</option>'; }
+  sf.value = curSpec && sk.indexOf(curSpec) >= 0 ? curSpec : "";
+  // Rebuild machine filter (machines available for selected standard)
   mf.innerHTML = '<option value="">Tất cả máy</option>';
-  Object.keys(machSet).sort().forEach(function(m) {
-    mf.innerHTML += '<option value="' + m.replace(/"/g, '&quot;') + '">' + m + '</option>';
-  });
-  mf.value = curMach;
+  var mk = Object.keys(machinesByStd).sort();
+  for (var i = 0; i < mk.length; i++) { mf.innerHTML += '<option value="' + mk[i].replace(/"/g, '&quot;') + '">' + mk[i] + '</option>'; }
+  mf.value = curMach && mk.indexOf(curMach) >= 0 ? curMach : "";
 }
 
 // ====== RENDER BAGS TAB ======
