@@ -699,12 +699,12 @@ function renderPriceTab() {
 
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
-  h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2" class="ml-toggle">Max t\u1ea3i</th><th colspan="2">Gi\u00e1 bao g\u1ed3m bao b\u00ec</th>';
-  if (!showFobCif) h += '<th colspan="2">Gi\u00e1 b\u00e1n (EXW)</th>';
+  h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2" class="ml-toggle">Max t\u1ea3i</th><th colspan="2">' + (priceMode==="exw"?"Giá bán (EXW)":"Gi\u00e1 bao g\u1ed3m bao b\u00ec") + '</th>';
+  if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"EXW chưa bao bì":"Giá bán (EXW)") + '</th>';
   h += '</tr>';
-  h += '<tr><th>M\u00e3</th><th>K\u00edch th\u01b0\u1edbc</th><th>Ti\u00eau chu\u1ea9n</th><th>M\u00e1y</th><th class="ml-toggle">Max 25KG <span class="info-row">(t\u1ea5n)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(t\u1ea5n)</span></th><th>25KG <span class="info-row">(VND)</span></th><th>Jumbo <span class="info-row">(VND)</span></th>';
+  h += '<tr><th>M\u00e3</th><th>K\u00edch th\u01b0\u1edbc</th><th>Ti\u00eau chu\u1ea9n</th><th>M\u00e1y</th><th class="ml-toggle">Max 25KG <span class="info-row">(t\u1ea5n)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(t\u1ea5n)</span></th><th>' + (priceMode==="exw"?"EXW 25KG bao tiêu chuẩn":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW jumbo bao tiêu chuẩn":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
   if (!showFobCif) {
-    h += '<th>EXW <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>Hoa h\u1ed3ng <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
+    h += '<th>' + (priceMode==="exw"?"EXW chưa bao bì":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"Hoa hồng cơ bản":"Hoa hồng") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   }
   h += '</tr></thead><tbody>';
 

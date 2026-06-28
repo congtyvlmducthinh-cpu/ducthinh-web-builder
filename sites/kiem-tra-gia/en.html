@@ -682,10 +682,10 @@ function renderPriceTab() {
   });
   var fmt = function(v) { return (v || 0).toLocaleString('vi-VN'); };
   h += '<div class="summary-bar">';
-  h += '<div class="summary-card"><div class="lbl">S\u1ea3n ph\u1ea9m</div><div class="val">' + Object.keys(uniqueCodes).length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">Ti\u00eau chu\u1ea9n</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">M\u00e1y</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">Ng\u00e0y</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Products</div><div class="val">' + Object.keys(uniqueCodes).length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Standard</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Machine</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Date</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
   h += '</div>';
   h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">\ud83d\udccb Hi\u1ec7n max t\u1ea3i</button>';
   h += '<div class="summary-bar" style="margin-top:4px;gap:6px">';
@@ -699,12 +699,12 @@ function renderPriceTab() {
 
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
-  h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2" class="ml-toggle">Max t\u1ea3i</th><th colspan="2">Gi\u00e1 bao g\u1ed3m bao b\u00ec</th>';
-  if (!showFobCif) h += '<th colspan="2">Gi\u00e1 b\u00e1n (EXW)</th>';
+  h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2" class="ml-toggle">Max load</th><th colspan="2">' + (priceMode==="exw"?"Sell Price (EXW)":"Price incl. bag") + '</th>';
+  if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"Unpacked EXW":"Sell Price (EXW)") + '</th>';
   h += '</tr>';
-  h += '<tr><th>M\u00e3</th><th>K\u00edch th\u01b0\u1edbc</th><th>Ti\u00eau chu\u1ea9n</th><th>M\u00e1y</th><th class="ml-toggle">Max 25KG <span class="info-row">(t\u1ea5n)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(t\u1ea5n)</span></th><th>25KG <span class="info-row">(VND)</span></th><th>Jumbo <span class="info-row">(VND)</span></th>';
+  h += '<tr><th>M\u00e3</th><th>Size</th><th>Standard</th><th>Machine</th><th class="ml-toggle">Max 25KG <span class="info-row">(tons)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(tons)</span></th><th>' + (priceMode==="exw"?"EXW 25KG std bag":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW jumbo std bag":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
   if (!showFobCif) {
-    h += '<th>EXW <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>Hoa h\u1ed3ng <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
+    h += '<th>' + (priceMode==="exw"?"Unpacked EXW":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"Base commission":"Commission") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   }
   h += '</tr></thead><tbody>';
 
@@ -1170,7 +1170,7 @@ function exportToExcel() {
   if (priceMode === "fob" || priceMode === "cif") modeLabel += " (" + (lccType === "sub" ? "Sub LCC" : "No LCC") + ")";
   var fn = "DT-PriceList-" + dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate() + ".xlsx";
 
-  var rows = [["M\u00e3","K\u00edch th\u01b0\u1edbc","Ti\u00eau chu\u1ea9n","M\u00e1y","25KG (VND)","Jumbo (VND)","Gi\u00e1 b\u00e1n (" + modeLabel + ", " + (isUsd ? "USD" : "VND") + ")","Hoa h\u1ed3ng (" + (isUsd ? "USD" : "VND") + ")"]];
+  var rows = [["M\u00e3","Size","Standard","Machine","25KG (VND)","Jumbo (VND)","Gi\u00e1 b\u00e1n (" + modeLabel + ", " + (isUsd ? "USD" : "VND") + ")","Hoa h\u1ed3ng (" + (isUsd ? "USD" : "VND") + ")"]];
 
   for (var i = 0; i < DATA_PRODUCTS.length; i++) {
     var p = DATA_PRODUCTS[i];
