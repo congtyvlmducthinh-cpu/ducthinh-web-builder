@@ -1478,24 +1478,24 @@ function populateFilters() {
   var sf = document.getElementById("specFilter");
   var mf = document.getElementById("machineFilter");
   if (!sf || !mf) return;
-  var specSet = {}, machSet = {};
-  DATA_PRODUCTS.forEach(function(p) {
-    specSet[p.standard] = true;
-    machSet[p.machine] = true;
-  });
   var curSpec = sf.value, curMach = mf.value;
+  // Cross-link: when machine is selected, only show related standards; vice versa
+  var machinesByStd = {}, standardsByMach = {};
+  DATA_PRODUCTS.forEach(function(p) {
+    if (!curMach || p.machine === curMach) standardsByMach[p.standard] = true;
+    if (!curSpec || p.standard === curSpec) machinesByStd[p.machine] = true;
+  });
+  // Rebuild spec filter (standards available for selected machine)
   sf.innerHTML = '<option value="">Tất cả tiêu chuẩn</option>';
-  Object.keys(specSet).sort().forEach(function(s) {
-    sf.innerHTML += '<option value="' + s.replace(/"/g, '&quot;') + '">' + s + '</option>';
-  });
-  sf.value = curSpec;
+  var sk = Object.keys(standardsByMach).sort();
+  for (var i = 0; i < sk.length; i++) { sf.innerHTML += '<option value="' + sk[i].replace(/"/g, '&quot;') + '">' + sk[i] + '</option>'; }
+  sf.value = curSpec && sk.indexOf(curSpec) >= 0 ? curSpec : "";
+  // Rebuild machine filter (machines available for selected standard)
   mf.innerHTML = '<option value="">Tất cả máy</option>';
-  Object.keys(machSet).sort().forEach(function(m) {
-    mf.innerHTML += '<option value="' + m.replace(/"/g, '&quot;') + '">' + m + '</option>';
-  });
-  mf.value = curMach;
+  var mk = Object.keys(machinesByStd).sort();
+  for (var i = 0; i < mk.length; i++) { mf.innerHTML += '<option value="' + mk[i].replace(/"/g, '&quot;') + '">' + mk[i] + '</option>'; }
+  mf.value = curMach && mk.indexOf(curMach) >= 0 ? curMach : "";
 }
-
 // ====== RENDER BAGS TAB ======
 
 function toggleMaxLoad() {
