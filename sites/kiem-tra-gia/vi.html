@@ -1419,6 +1419,7 @@ function handleManageFile(file) {
       populateFilters();
       render();
       status.className = "manage-status-sm ok";
+            saveToServer();
       status.textContent = "✅ Đã cập nhật " + updated + " bảng dữ liệu!";
     } catch(err) {
       status.className = "manage-status-sm err";
@@ -1453,6 +1454,27 @@ function importCostFOB(arr) {
     if (vSub !== undefined && vSub !== null && vSub !== "") obj.sub = Number(vSub);
     if (Object.keys(obj).length > 0) DATA_COST_FOB[load] = obj;
   });
+}
+
+function saveToServer() {
+  var blocks = {};
+  blocks.DATA_PRODUCTS = 'var DATA_PRODUCTS = ' + JSON.stringify(DATA_PRODUCTS, null, 2) + ';';
+  blocks.DATA_BAGS = 'var DATA_BAGS = ' + JSON.stringify(DATA_BAGS, null, 2) + ';';
+  blocks.DATA_OTHERS = 'var DATA_OTHERS = ' + JSON.stringify(DATA_OTHERS, null, 2) + ';';
+  blocks.DATA_MAX_LOADING = 'var DATA_MAX_LOADING = ' + JSON.stringify(DATA_MAX_LOADING, null, 2) + ';';
+  blocks.DATA_COST_FOB = 'var DATA_COST_FOB = ' + JSON.stringify(DATA_COST_FOB, null, 2) + ';';
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/api/ktg-data', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      console.log('[KTG] Saved to server');
+    } else {
+      console.error('[KTG] Server save failed:', xhr.status);
+    }
+  };
+  xhr.onerror = function() { console.error('[KTG] Server save network error'); };
+  xhr.send(JSON.stringify({ blocks: blocks }));
 }
 // ====== PASSWORD MODAL ======
 function showPwModal() {
@@ -1937,7 +1959,7 @@ function fmtNum(n, isUsd) {
   if (isUsd) return n.toLocaleString('en-US', {minimumFractionDigits:1, maximumFractionDigits:2});
   return Math.round(n).toLocaleString();
 }
-var saved = localStorage.getItem("dq_products");
+/* var saved = localStorage.getItem("dq_products");
 if (saved) {
   try { DATA_PRODUCTS = JSON.parse(saved); } catch(e) {}
 }
@@ -1957,7 +1979,8 @@ var savedCF = localStorage.getItem("dq_costFOB");
 if (savedCF) {
   try { DATA_COST_FOB = JSON.parse(savedCF); } catch(e) {}
 }
-applyMarket();
+applyMarket(); */
+
 switchTab("pricelist");</script>
 
 <!-- Freight Lookup Popup -->
