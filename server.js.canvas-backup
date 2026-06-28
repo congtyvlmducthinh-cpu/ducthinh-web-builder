@@ -1,0 +1,461 @@
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+// --- KTG Data injector ----------------------------------------------------
+var ktgInjector = require('C:/Users/Admin/.openclaw/workspace-skills/web-builder/sites/kiem-tra-gia/_ktg-data-injector.js')({
+  dir: __dirname + '/ktg-data',
+  __dirname: __dirname,
+  fs: fs,
+  path: path
+});
+
+// --- KTG Data injector ----------------------------------------------------
+const crypto = require('crypto');
+
+// --- Config -------------------------------------------------------------
+
+const GATEWAY_HOST = '127.0.0.1:18789';
+const GATEWAY_TOKEN = '57c3f1b8e2282d1151fd07d6c4bf86bf4acb41474edab9a8';
+const HTTP_PORT = 8080;
+const PORTAL_FILE = path.join(__dirname, 'portal.html');
+const DOCCHECK_FILE = path.join(__dirname, 'doccheck.html');
+const SITES_ROOT = path.resolve(__dirname, '..', 'workspace-skills', 'web-builder', 'sites');
+
+const MIME = {
+  '.html': 'text/html; charset=utf-8',
+  '.js':   'application/javascript; charset=utf-8',
+  '.css':  'text/css; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.png':  'image/png',
+  '.jpg':  'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif':  'image/gif',
+  '.svg':  'image/svg+xml',
+  '.ico':  'image/x-icon',
+  '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  '.woff2':'font/woff2',
+};
+
+// ─── Hostname routing ──────────────────────────────────────
+const HOST_ROUTES = {
+  'tools.ducthinhmaterials.com': { page: 'portal', auth: false },
+  'doccheck.ducthinhmaterials.com': { page: 'doccheck', auth: true },
+};
+const DEFAULT_ROUTE = { page: 'portal', auth: false };
+
+// ─── Users ─────────────────────────────────────────────────
+const USERS = {
+  'ducthinh': 'ducthinh2024'
+};
+
+// ─── Session store ─────────────────────────────────────────
+const activeTokens = new Map();
+
+function createSession(user) {
+  const token = crypto.randomBytes(32).toString('hex');
+  activeTokens.set(token, { user, createdAt: Date.now() });
+  return token;
+}
+
+function validateToken(token) {
+  if (!token || !activeTokens.has(token)) return null;
+  const session = activeTokens.get(token);
+  if (Date.now() - session.createdAt > 24 * 60 * 60 * 1000) {
+    activeTokens.delete(token);
+    return null;
+  }
+  return session;
+}
+
+function getTokenFromReq(req) {
+  const auth = req.headers['authorization'];
+  if (auth) {
+    const parts = auth.split(' ');
+    if (parts.length === 2 && parts[0].toLowerCase() === 'bearer') return parts[1];
+  }
+  const cookie = req.headers['cookie'];
+  if (cookie) {
+    const match = cookie.match(/doccheck_session=([^;]+)/);
+    if (match) return match[1];
+  }
+  return null;
+}
+
+function getRoute(req) {
+  const host = (req.headers['host'] || '').toLowerCase().replace(/:\d+$/, '');
+  return HOST_ROUTES[host] || DEFAULT_ROUTE;
+}
+
+// ─── Static file server ─────────────────────────────────────
+function serveStatic(url, res) {
+  let filePath;
+  if (url === '/') {
+    filePath = path.join(SITES_ROOT, 'index.html');
+  } else {
+    filePath = path.join(SITES_ROOT, url);
+  }
+
+  // Security: no path traversal
+  if (!filePath.startsWith(SITES_ROOT)) {
+    res.writeHead(403);
+    return res.end('Forbidden');
+  }
+
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      // Try index.html inside subdir (e.g. /kiem-tra-gia/ -> sites/kiem-tra-gia/index.html)
+      const indexPath = path.join(filePath, 'index.html');
+      fs.readFile(indexPath, (err2, data2) => {
+        if (err2) {
+          // ─── Serve canvas static files (i18n.js, etc) ──────
+  const canvasFile = path.join(__dirname, req.url);
+  if (canvasFile.startsWith(__dirname) && fs.existsSync(canvasFile) && fs.statSync(canvasFile).isFile()) {
+    const ext = path.extname(canvasFile);
+    res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
+    res.end(fs.readFileSync(canvasFile));
+    return;
+  }
+
+  res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+          return res.end('404 - ' + url + ' not found');
+        }
+        const ext = path.extname(indexPath);
+        res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
+        res.end(data2);
+      });
+    } else {
+      const ext = path.extname(filePath);
+      res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
+      res.end(data);
+    }
+  });
+}
+function serveHTML(res, htmlPath, requireAuth, hasSession) {
+  try {
+    let html = fs.readFileSync(htmlPath, 'utf-8');
+
+    if (requireAuth && !hasSession) {
+      html = html.replace('<body>', `<body>
+<div id="loginOverlay">
+  <div class="login-box">
+    <div class="login-icon">🧾</div>
+    <h2>Đức Thịnh – Kiểm Tra Chứng Từ</h2>
+    <p class="login-sub">Vui lòng đăng nhập để tiếp tục</p>
+    <div class="login-field">
+      <input type="text" id="loginUser" placeholder="Tên đăng nhập" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <input type="password" id="loginPass" placeholder="Mật khẩu" autocomplete="current-password">
+    </div>
+    <div id="loginError" class="login-error"></div>
+    <button class="btn btn-primary login-btn" onclick="doLogin()">Đăng nhập</button>
+    <p class="login-hint">Nhấn Enter để đăng nhập</p>
+  </div>
+</div>
+<style>
+#loginOverlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: linear-gradient(135deg, #e8edf5 0%, #f0f2f5 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+body.logged-in #loginOverlay { display: none !important; }
+.login-box {
+  background: #fff; border-radius: 16px; padding: 40px 36px;
+  width: 380px; max-width: 90vw;
+  box-shadow: 0 10px 40px rgba(0,0,0,.12);
+  text-align: center;
+}
+.login-icon { font-size: 48px; margin-bottom: 12px; }
+.login-box h2 { font-size: 20px; color: #1a1a1a; margin-bottom: 4px; }
+.login-sub { font-size: 13px; color: #888; margin-bottom: 24px; }
+.login-field { margin-bottom: 12px; }
+.login-field input {
+  width: 100%; padding: 12px 14px; border: 1px solid #d0d0d0;
+  border-radius: 10px; font-size: 15px; outline: none; transition: border .15s; box-sizing: border-box;
+}
+.login-field input:focus { border-color: #1a73e8; box-shadow: 0 0 0 2px #1a73e822; }
+.login-btn { width: 100%; padding: 12px; font-size: 15px; margin-top: 8px; justify-content: center; }
+.login-error { color: #d93025; font-size: 13px; margin: 8px 0; display: none; }
+.login-hint { font-size: 12px; color: #aaa; margin-top: 16px; }
+</style>`)
+      html = html.replace('</body>', `
+<script>
+(function() {
+  const APP_URL = '/api';
+  let sessionToken = localStorage.getItem('doccheck_session');
+
+  async function checkSession() {
+    if (!sessionToken) return false;
+    try {
+      const r = await fetch(APP_URL + '/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: sessionToken })
+      });
+      const d = await r.json();
+      if (d.ok) { document.body.classList.add('logged-in'); return true; }
+    } catch(e) {}
+    localStorage.removeItem('doccheck_session');
+    return false;
+  }
+
+  async function doLogin() {
+    const u = document.getElementById('loginUser').value.trim();
+    const p = document.getElementById('loginPass').value.trim();
+    if (!u || !p) { showLoginError('Vui lòng nhập tài khoản và mật khẩu'); return; }
+    try {
+      const r = await fetch(APP_URL + '/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: u, password: p })
+      });
+      const d = await r.json();
+      if (d.ok) {
+        sessionToken = d.token;
+        localStorage.setItem('doccheck_session', d.token);
+        document.body.classList.add('logged-in');
+      } else {
+        showLoginError(d.error || 'Đăng nhập thất bại');
+      }
+    } catch(e) {
+      showLoginError('Lỗi kết nối: ' + e.message);
+    }
+  }
+
+  function showLoginError(msg) {
+    const el = document.getElementById('loginError');
+    if (el) { el.textContent = msg; el.style.display = 'block'; }
+  }
+
+  window.__getSessionToken = function() { return sessionToken; };
+
+  if (document.cookie.includes('doccheck_session=')) {
+    sessionToken = document.cookie.match(/doccheck_session=([^;]+)/)[1];
+    localStorage.setItem('doccheck_session', sessionToken);
+  }
+
+  checkSession();
+  window.doLogin = doLogin;
+})();
+</script>
+</body>`)
+    } else {
+      html = html.replace('</body>', `
+<script>
+(function() {
+  let sessionToken = localStorage.getItem('doccheck_session');
+  if (!sessionToken && document.cookie.includes('doccheck_session=')) {
+    sessionToken = document.cookie.match(/doccheck_session=([^;]+)/)[1];
+    localStorage.setItem('doccheck_session', sessionToken);
+  }
+  window.__getSessionToken = function() { return sessionToken; };
+})();
+</script>
+</body>`)
+    }
+
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.end(html);
+  } catch(e) {
+    res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.end('Error: ' + e.message);
+  }
+}
+
+const server = http.createServer((req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Cookie');
+
+  if (req.url.startsWith('/kiem-tra-gia')) {
+    const urlPath = req.url.substring('/kiem-tra-gia'.length) || '/';
+    let lang = 'vi';
+    let filePath = path.join(SITES_ROOT, 'kiem-tra-gia', 'vi.html');
+    const langMatch = urlPath.match(/^\/(vi|en|zh)(?:\.html)?(?:\/.*)?$/);
+    if (langMatch) {
+      lang = langMatch[1];
+      filePath = path.join(SITES_ROOT, 'kiem-tra-gia', lang + '.html');
+    }
+    if (!filePath.startsWith(SITES_ROOT)) {
+      res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('Forbidden');
+      return;
+    }
+    fs.readFile(filePath, { encoding: 'utf-8' }, function(err, html) {
+      if (err) {
+        res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('KTG page not found for: ' + lang);
+        return;
+      }
+      try {
+        html = ktgInjector.inject(html, lang);
+      } catch(e) {
+        console.error('[KTG] inject error:', e.message);
+      }
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(html);
+    });
+    return;
+  }
+  if (req.url.startsWith('/static/')) {
+    const staticPath = path.join(__dirname, req.url);
+    if (staticPath.startsWith(__dirname) && fs.existsSync(staticPath) && fs.statSync(staticPath).isFile()) {
+      const ext = path.extname(staticPath);
+      res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
+      res.end(fs.readFileSync(staticPath));
+      return;
+    }
+    res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+    return res.end('Static file not found');
+  }
+
+  // ─── Login endpoint ───────────────────────────────────────
+  if (req.url === '/api/login' && req.method === 'POST') {
+    parseBody(req).then(async (data) => {
+      const { username, password } = data;
+      if (!username || !password || !USERS[username] || USERS[username] !== password) {
+        console.log('[AUTH] Login failed:', username);
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: 'Sai tài khoản hoặc mật khẩu' }));
+        return;
+      }
+      const token = createSession(username);
+      console.log('[AUTH] Login success:', username, 'token:', token.substring(0, 8) + '...');
+      res.writeHead(200, {
+        'Content-Type': 'application/json',
+        'Set-Cookie': `doccheck_session=${token}; HttpOnly; SameSite=Lax; Max-Age=${24*60*60}; Path=/`
+      });
+      res.end(JSON.stringify({ ok: true, token }));
+    }).catch(e => {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: false, error: 'Invalid JSON' }));
+    });
+    return;
+  }
+
+  // ─── Verify session endpoint ──────────────────────────────
+  if (req.url === '/api/verify' && req.method === 'POST') {
+    parseBody(req).then((data) => {
+      const token = data.token || getTokenFromReq(req);
+      const session = validateToken(token);
+      if (!session) {
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: 'Session hết hạn hoặc không hợp lệ' }));
+        return;
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: true, user: session.user }));
+    }).catch(e => {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: false, error: 'Invalid JSON' }));
+    });
+    return;
+  }
+
+  // ─── Serve pages based on hostname ─────────────────────────
+  if (req.url === '/') {
+    const route = getRoute(req);
+    if (route.page === 'doccheck') {
+      const token = getTokenFromReq(req);
+      const session = validateToken(token);
+      serveHTML(res, DOCCHECK_FILE, true, !!session);
+    } else {
+      serveHTML(res, PORTAL_FILE, false, false);
+    }
+    return;
+  }
+
+  // ─── Legacy /check path (redirect for backward compat) ─────
+  if (req.url === '/check' || req.url === '/check/') {
+    const token = getTokenFromReq(req);
+    const session = validateToken(token);
+    serveHTML(res, DOCCHECK_FILE, true, !!session);
+    return;
+  }
+
+  // ─── API: Chat (requires auth) ─────────────────────────────
+  if (req.url === '/api/chat' && req.method === 'POST') {
+    parseBody(req).then(async (data) => {
+      const token = data.token || getTokenFromReq(req);
+      const session = validateToken(token);
+      if (!session) {
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: 'Session hết hạn hoặc không hợp lệ' }));
+        return;
+      }
+
+      const sessionId = data.sessionId || req.socket.remoteAddress + ':' + req.socket.remotePort;
+      console.log('[API] User:', session.user, '| Session:', sessionId, '| Msg:', (data.message || '').slice(0, 100), '| Files:', (data.attachments || []).length);
+
+      const reply = await sendToAgent(sessionId, data.message || 'Kiem tra chung tu', data.attachments || []);
+      console.log('[API] Reply:', reply.length, 'chars');
+
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ ok: true, reply }));
+    }).catch(e => {
+      console.log('[API] Error:', e.message);
+      res.writeHead(e.message === 'Invalid JSON' ? 400 : 500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: false, error: e.message }));
+    });
+    return;
+  }
+
+  // ─── Logout ────────────────────────────────────────────────
+  if (req.url === '/api/logout' && req.method === 'POST') {
+    parseBody(req).then((data) => {
+      const token = data.token || getTokenFromReq(req);
+      if (token) activeTokens.delete(token);
+      res.writeHead(200, {
+        'Content-Type': 'application/json',
+        'Set-Cookie': 'doccheck_session=; Max-Age=0; Path=/'
+      });
+      res.end(JSON.stringify({ ok: true }));
+    }).catch(e => {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: false, error: 'Invalid JSON' }));
+    });
+    return;
+  }
+
+  
+  // --- KTG Data upload API ----------------------------------------------
+  if (req.url === '/api/ktg-data' && req.method === 'POST') {
+    parseBody(req).then(function(data) {
+      var lang = data.lang || 'vi';
+      var blocks = data.blocks || {};
+      ktgInjector.save(lang, blocks);
+      console.log('[KTG] Upload data for ' + lang + ': ' + Object.keys(blocks).length + ' blocks');
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: true, saved: Object.keys(blocks).length }));
+    }).catch(function(e) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: false, error: 'Invalid JSON: ' + e.message }));
+    });
+
+    res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.end('Not found');
+  }
+});
+
+
+
+// ─── Cleanup expired sessions every 5 min ────────────────────
+function escapeHtml(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+setInterval(() => {
+  const now = Date.now();
+  for (const [token, session] of activeTokens) {
+    if (now - session.createdAt > 24 * 60 * 60 * 1000) activeTokens.delete(token);
+  }
+}, 5 * 60 * 1000);
+
+server.listen(HTTP_PORT, '127.0.0.1', () => {
+  console.log('');
+  console.log('Đức Thịnh Tools Server (Virtual Hosting + Static)');
+  console.log('  http://127.0.0.1:' + HTTP_PORT + '          → Portal (fallback)');
+  console.log('  tools.ducthinhmaterials.com    → Portal');
+  console.log('  doccheck.ducthinhmaterials.com  → DocCheck (có auth)');
+  console.log('  /kiem-tra-gia/                 → Static site (local serve)');
+  console.log('Users:', Object.keys(USERS).join(', '));
+  console.log('Sites root:', SITES_ROOT);
+});
