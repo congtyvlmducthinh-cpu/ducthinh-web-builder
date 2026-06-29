@@ -724,7 +724,7 @@ function renderPriceTab() {
   });
   var fmt = function(v) { return (v || 0).toLocaleString('vi-VN'); };
   h += '<div class="summary-bar">';
-  h += '<div class="summary-card"><div class="lbl">S\u1ea3n ph\u1ea9m</div><div class="val">' + Object.keys(uniqueCodes).length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">S\u1ea3n ph\u1ea9m</div><div class="val">' + filtered.length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Ti\u00eau chu\u1ea9n</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">M\u00e1y</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Ng\u00e0y</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
