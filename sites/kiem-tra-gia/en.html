@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -212,22 +212,22 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 
 <header>
 <div>
-<h1>Price Check Tool <span>ðŸ”</span></h1>
+<h1>Price Check Tool <span>🔍</span></h1>
 <div class="sub" style="margin-top:6px;font-size:13px;opacity:.8;">Duc Thinh New Materials - Price List 06/2026</div>
 </div>
-<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><div class="lang-switcher"><a href="vi.html" onclick="localStorage.setItem('preferred_lang','vi')" title="VI">ðŸ‡»ðŸ‡³</a><a class="active" href="en.html" onclick="localStorage.setItem('preferred_lang','en')" title="EN">ðŸ‡¬ðŸ‡§</a><a href="zh.html" onclick="localStorage.setItem('preferred_lang','zh')" title="ZH">ðŸ‡¨ðŸ‡³</a></div><span class="badge">ðŸ­ DUC THINH NEW MATERIALS TECHNOLOGY CO., LTD.</span><span class="badge" id="dataInfo">ðŸ“Š 0 SP</span></div>
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><div class="lang-switcher"><a href="vi.html" onclick="localStorage.setItem('preferred_lang','vi')" title="VI">🇻🇳</a><a class="active" href="en.html" onclick="localStorage.setItem('preferred_lang','en')" title="EN">🇬🇧</a><a href="zh.html" onclick="localStorage.setItem('preferred_lang','zh')" title="ZH">🇨🇳</a></div><span class="badge">🏭 DUC THINH NEW MATERIALS TECHNOLOGY CO., LTD.</span><span class="badge" id="dataInfo">📊 0 SP</span></div>
 </header>
 
 <div class="tabs" id="tabs">
-<button class="tab-btn active" data-tab="pricelist" onclick="switchTab('pricelist')"><span>ðŸ“‹ Sell Price</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Price List</small></button>
-<button class="tab-btn" data-tab="bags" onclick="switchTab('bags')"><span>ðŸ“¦ Packaging</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Surcharge</small></button>
-<button class="tab-btn" data-tab="others" onclick="switchTab('others')"><span>ðŸ“ Other Specs</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Surcharge</small></button>
-<button class="tab-btn" data-tab="calc" onclick="switchTab('calc')"><span>ðŸ“ Calculator</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Calculator</small></button>
-<button class="tab-btn" data-tab="manage" onclick="switchTab('manage')"><span>âš™ï¸ Manage</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Upload Data</small></button>
+<button class="tab-btn active" data-tab="pricelist" onclick="switchTab('pricelist')"><span>📋 Sell Price</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Price List</small></button>
+<button class="tab-btn" data-tab="bags" onclick="switchTab('bags')"><span>📦 Packaging</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Surcharge</small></button>
+<button class="tab-btn" data-tab="others" onclick="switchTab('others')"><span>📐 Other Specs</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Surcharge</small></button>
+<button class="tab-btn" data-tab="calc" onclick="switchTab('calc')"><span>📝 Calculator</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Calculator</small></button>
+<button class="tab-btn" data-tab="manage" onclick="switchTab('manage')"><span>⚙️ Manage</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Upload Data</small></button>
 </div>
 
 <div class="controls" id="controlBar">
-<input type="text" id="searchInput" placeholder="ðŸ” Search products..." oninput="globalSearch()">
+<input type="text" id="searchInput" placeholder="🔍 Search products..." oninput="globalSearch()">
 <select id="specFilter" onchange="render()"><option value="">All Standards</option></select>
 <select id="machineFilter" onchange="render()"><option value="">All Machines</option></select>
 <div class="currency-toggle">
@@ -236,8 +236,8 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 </div>
 </div>
 <div class="btn-group" id="marketGroup" style="display:inline-flex;margin-left:6px;gap:3px">
-<span class="ext-label">ðŸŒ Market:</span>
-<button class="btn-sm active" id="marketCn" onclick="setMarket('cn')" style="padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid #d0d5dd;background:#1a56db;color:#fff;cursor:pointer;transition:all .15s ease">ðŸ‡¨ðŸ‡³ TQ</button>
+<span class="ext-label">🌏 Market:</span>
+<button class="btn-sm active" id="marketCn" onclick="setMarket('cn')" style="padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid #d0d5dd;background:#1a56db;color:#fff;cursor:pointer;transition:all .15s ease">🇨🇳 TQ</button>
 <button class="btn-sm" id="marketOther" onclick="setMarket('other')" style="padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid #d0d5dd;background:#fff;color:#333;cursor:pointer;transition:all .15s ease">Other</button>
 </div>
 
@@ -253,7 +253,7 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 <button class="lcc-btn" data-lcc="sub" onclick="setLccType('sub')">Sub LCC</button>
 </div>
 <div id="freightGroup" style="display:none">
-<span class="ext-label">ðŸš‚ Freight:</span>
+<span class="ext-label">🚂 Freight:</span>
 <input type="number" class="ext-input" id="freightInput" value="0" min="0" step="100" oninput="onFreightChange()" style="width:100px">
 <span class="ext-label">USD</span>
 </div>
@@ -263,10 +263,10 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 
 <div class="manage-panel" id="managePanel">
 <div class="manage-login" id="manageLogin">
-<h3>âš™ï¸ Data Management</h3>
-<p>ðŸ”’ Enter password to load / upload / update data</p>
-<input type="password" id="managePass" placeholder="ðŸ”‘ Enter password..." onkeydown="if(event.key==='Enter')manageLogin()" autocomplete="off">
-<button onclick="manageLogin()">ðŸ”‘ Login</button>
+<h3>⚙️ Data Management</h3>
+<p>🔒 Enter password to load / upload / update data</p>
+<input type="password" id="managePass" placeholder="🔑 Enter password..." onkeydown="if(event.key==='Enter')manageLogin()" autocomplete="off">
+<button onclick="manageLogin()">🔑 Login</button>
 <div class="manage-error" id="manageError"></div>
 </div>
 <div class="manage-dashboard" id="manageDashboard">
@@ -277,27 +277,27 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 <div class="manage-card"><div class="num" id="mUptd">06/2026</div><div class="lbl">Update</div></div>
 </div>
 <div class="manage-actions">
-<h3>â¬‡ Load Data</h3>
+<h3>⬇ Load Data</h3>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:10px">
-<button class="btn-confirm" onclick="downloadFile(0)">ðŸ“‹ Sell Price</button>
-<button class="btn-confirm" onclick="downloadFile(1)">ðŸ“¦ Packaging</button>
-<button class="btn-confirm" onclick="downloadFile(2)">ðŸ“ Other Specs</button>
-<button class="btn-cancel" onclick="downloadTemplate(0)">ðŸ“„ Price List Template</button>
-<button class="btn-cancel" onclick="downloadTemplate(1)">ðŸ“„ Bag Template</button>
-<button class="btn-cancel" onclick="downloadTemplate(2)">ðŸ“„ Other Spec Template</button>
-<button class="btn-confirm" onclick="downloadFile(3)">âš–ï¸ Max Load</button>
-<button class="btn-cancel" onclick="downloadTemplate(3)">ðŸ“„ Max Load Template</button>
+<button class="btn-confirm" onclick="downloadFile(0)">📋 Sell Price</button>
+<button class="btn-confirm" onclick="downloadFile(1)">📦 Packaging</button>
+<button class="btn-confirm" onclick="downloadFile(2)">📐 Other Specs</button>
+<button class="btn-cancel" onclick="downloadTemplate(0)">📄 Price List Template</button>
+<button class="btn-cancel" onclick="downloadTemplate(1)">📄 Bag Template</button>
+<button class="btn-cancel" onclick="downloadTemplate(2)">📄 Other Spec Template</button>
+<button class="btn-confirm" onclick="downloadFile(3)">⚖️ Max Load</button>
+<button class="btn-cancel" onclick="downloadTemplate(3)">📄 Max Load Template</button>
 </div>
 <div class="btn-row">
-<button class="btn-confirm" onclick="downloadAsExcel()">ðŸ“Š Excel</button>
-<button class="btn-cancel" onclick="downloadAsJSON()">ðŸ“‹ JS</button>
-<button class="btn-confirm" onclick="downloadFullTemplate()">ðŸ“Š Full Template</button>
+<button class="btn-confirm" onclick="downloadAsExcel()">📊 Excel</button>
+<button class="btn-cancel" onclick="downloadAsJSON()">📋 JS</button>
+<button class="btn-confirm" onclick="downloadFullTemplate()">📊 Full Template</button>
 </div>
 </div>
 <div class="manage-actions">
-<h3>ðŸ“¤ Upload New Data</h3>
+<h3>📤 Upload New Data</h3>
 <p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">Upload file Excel (.xlsx)</p>
-<div class="upload-sm" id="manageDropZone" style="border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;background:#fafbfc"><div style="font-size:1.5rem;margin-bottom:6px">ðŸ“‚</div><div><strong>Drag & drop file here</strong><br>or click to select</div></div>
+<div class="upload-sm" id="manageDropZone" style="border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;background:#fafbfc"><div style="font-size:1.5rem;margin-bottom:6px">📂</div><div><strong>Drag & drop file here</strong><br>or click to select</div></div>
 <input type="file" id="manageFileInput" accept=".xlsx,.xls" style="display:none">
 <div class="manage-status-sm" id="manageUploadStatus" style="margin-top:10px;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;display:none"></div>
 </div>
@@ -324,10 +324,10 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 
 id="pwModal">
 <div class="modal-box">
-<h3>ðŸ” Enter Password</h3>
-<p>ðŸ”’ Management requires password</p>
-<input type="password" id="pwInput" placeholder="ðŸ”‘ Enter password..." onkeydown="if(event.key==='Enter')checkPassword()" autocomplete="off">
-<div class="pw-error" id="pwError">âŒ Wrong password!</div>
+<h3>🔐 Enter Password</h3>
+<p>🔒 Management requires password</p>
+<input type="password" id="pwInput" placeholder="🔑 Enter password..." onkeydown="if(event.key==='Enter')checkPassword()" autocomplete="off">
+<div class="pw-error" id="pwError">❌ Wrong password!</div>
 <div class="btn-row">
 <button class="btn-cancel" onclick="closePwModal()">Cancel</button>
 <button class="btn-confirm" onclick="checkPassword()">Confirm</button>
@@ -338,45 +338,45 @@ id="pwModal">
 <script>
 // Data
 var DATA_PRODUCTS = [
-  {"code": "H4A1", "size": "4Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 2380000, "exw_usd": 91.54, "comm_vnd": 32000, "comm_usd": 1.23, "pkg25_vnd": 2601000, "pkg25_usd": 100.04, "jumbo_vnd": 2591000, "jumbo_usd": 99.65, "exw_vnd_cn": 2380000, "exw_usd_cn": 91.54, "comm_vnd_cn": 32000, "comm_usd_cn": 1.23, "pkg25_vnd_cn": 2601000, "pkg25_usd_cn": 100.04, "jumbo_vnd_cn": 2591000, "jumbo_usd_cn": 99.65, "exw_vnd_other": 2380000, "exw_usd_other": 91.54, "comm_vnd_other": 32000, "comm_usd_other": 1.23, "pkg25_vnd_other": 2601000, "pkg25_usd_other": 100.04, "jumbo_vnd_other": 2591000, "jumbo_usd_other": 99.65},
-  {"code": "H5A1", "size": "5Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 1850000, "exw_usd": 71.15, "comm_vnd": 26000, "comm_usd": 1, "pkg25_vnd": 2046000, "pkg25_usd": 78.69, "jumbo_vnd": 2061000, "jumbo_usd": 79.27, "exw_vnd_cn": 1850000, "exw_usd_cn": 71.15, "comm_vnd_cn": 26000, "comm_usd_cn": 1, "pkg25_vnd_cn": 2046000, "pkg25_usd_cn": 78.69, "jumbo_vnd_cn": 2061000, "jumbo_usd_cn": 79.27, "exw_vnd_other": 1850000, "exw_usd_other": 71.15, "comm_vnd_other": 26000, "comm_usd_other": 1, "pkg25_vnd_other": 2046000, "pkg25_usd_other": 78.69, "jumbo_vnd_other": 2061000, "jumbo_usd_other": 79.27},
-  {"code": "H6A1", "size": "6Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 1470000, "exw_usd": 56.54, "comm_vnd": 21000, "comm_usd": 0.81, "pkg25_vnd": 1666000, "pkg25_usd": 64.08, "jumbo_vnd": 1681000, "jumbo_usd": 64.65, "exw_vnd_cn": 1470000, "exw_usd_cn": 56.54, "comm_vnd_cn": 21000, "comm_usd_cn": 0.81, "pkg25_vnd_cn": 1666000, "pkg25_usd_cn": 64.08, "jumbo_vnd_cn": 1681000, "jumbo_usd_cn": 64.65, "exw_vnd_other": 1470000, "exw_usd_other": 56.54, "comm_vnd_other": 21000, "comm_usd_other": 0.81, "pkg25_vnd_other": 1666000, "pkg25_usd_other": 64.08, "jumbo_vnd_other": 1681000, "jumbo_usd_other": 64.65},
-  {"code": "H8A1", "size": "8Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 1060000, "exw_usd": 40.77, "comm_vnd": 15000, "comm_usd": 0.58, "pkg25_vnd": 1247000, "pkg25_usd": 47.96, "jumbo_vnd": 1208000, "jumbo_usd": 46.46, "exw_vnd_cn": 1060000, "exw_usd_cn": 40.77, "comm_vnd_cn": 15000, "comm_usd_cn": 0.58, "pkg25_vnd_cn": 1247000, "pkg25_usd_cn": 47.96, "jumbo_vnd_cn": 1208000, "jumbo_usd_cn": 46.46, "exw_vnd_other": 1090000, "exw_usd_other": 41.92, "comm_vnd_other": 16000, "comm_usd_other": 0.62, "pkg25_vnd_other": 1277000, "pkg25_usd_other": 49.12, "jumbo_vnd_other": 1238000, "jumbo_usd_other": 47.62},
-  {"code": "H8RA1", "size": "8Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 1340000, "exw_usd": 51.54, "comm_vnd": 19000, "comm_usd": 0.73, "pkg25_vnd": 1527000, "pkg25_usd": 58.73, "jumbo_vnd": 1488000, "jumbo_usd": 57.23, "exw_vnd_cn": 1340000, "exw_usd_cn": 51.54, "comm_vnd_cn": 19000, "comm_usd_cn": 0.73, "pkg25_vnd_cn": 1527000, "pkg25_usd_cn": 58.73, "jumbo_vnd_cn": 1488000, "jumbo_usd_cn": 57.23, "exw_vnd_other": 1340000, "exw_usd_other": 51.54, "comm_vnd_other": 19000, "comm_usd_other": 0.73, "pkg25_vnd_other": 1527000, "pkg25_usd_other": 58.73, "jumbo_vnd_other": 1488000, "jumbo_usd_other": 57.23},
-  {"code": "H10A1", "size": "10Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 920000, "exw_usd": 35.38, "comm_vnd": 13000, "comm_usd": 0.5, "pkg25_vnd": 1107000, "pkg25_usd": 42.58, "jumbo_vnd": 1055000, "jumbo_usd": 40.58, "exw_vnd_cn": 920000, "exw_usd_cn": 35.38, "comm_vnd_cn": 13000, "comm_usd_cn": 0.5, "pkg25_vnd_cn": 1107000, "pkg25_usd_cn": 42.58, "jumbo_vnd_cn": 1055000, "jumbo_usd_cn": 40.58, "exw_vnd_other": 920000, "exw_usd_other": 35.38, "comm_vnd_other": 13000, "comm_usd_other": 0.5, "pkg25_vnd_other": 1107000, "pkg25_usd_other": 42.58, "jumbo_vnd_other": 1055000, "jumbo_usd_other": 40.58},
-  {"code": "H12A1", "size": "12Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 900000, "exw_usd": 34.62, "comm_vnd": 13000, "comm_usd": 0.5, "pkg25_vnd": 1087000, "pkg25_usd": 41.81, "jumbo_vnd": 1024000, "jumbo_usd": 39.38, "exw_vnd_cn": 900000, "exw_usd_cn": 34.62, "comm_vnd_cn": 13000, "comm_usd_cn": 0.5, "pkg25_vnd_cn": 1087000, "pkg25_usd_cn": 41.81, "jumbo_vnd_cn": 1024000, "jumbo_usd_cn": 39.38, "exw_vnd_other": 900000, "exw_usd_other": 34.62, "comm_vnd_other": 13000, "comm_usd_other": 0.5, "pkg25_vnd_other": 1087000, "pkg25_usd_other": 41.81, "jumbo_vnd_other": 1024000, "jumbo_usd_other": 39.38},
-  {"code": "H15A1", "size": "15Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 820000, "exw_usd": 31.54, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 998000, "pkg25_usd": 38.38, "jumbo_vnd": 939000, "jumbo_usd": 36.12, "exw_vnd_cn": 820000, "exw_usd_cn": 31.54, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 998000, "pkg25_usd_cn": 38.38, "jumbo_vnd_cn": 939000, "jumbo_usd_cn": 36.12, "exw_vnd_other": 820000, "exw_usd_other": 31.54, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 998000, "pkg25_usd_other": 38.38, "jumbo_vnd_other": 939000, "jumbo_usd_other": 36.12},
-  {"code": "H17A1", "size": "17Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 810000, "exw_usd": 31.15, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 988000, "pkg25_usd": 38, "jumbo_vnd": 929000, "jumbo_usd": 35.73, "exw_vnd_cn": 810000, "exw_usd_cn": 31.15, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 988000, "pkg25_usd_cn": 38, "jumbo_vnd_cn": 929000, "jumbo_usd_cn": 35.73, "exw_vnd_other": 810000, "exw_usd_other": 31.15, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 988000, "pkg25_usd_other": 38, "jumbo_vnd_other": 929000, "jumbo_usd_other": 35.73},
-  {"code": "H20A1", "size": "20Â±2 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 790000, "exw_usd": 30.38, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 968000, "pkg25_usd": 37.23, "jumbo_vnd": 900000, "jumbo_usd": 34.62, "exw_vnd_cn": 790000, "exw_usd_cn": 30.38, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 968000, "pkg25_usd_cn": 37.23, "jumbo_vnd_cn": 900000, "jumbo_usd_cn": 34.62, "exw_vnd_other": 790000, "exw_usd_other": 30.38, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 968000, "pkg25_usd_other": 37.23, "jumbo_vnd_other": 900000, "jumbo_usd_other": 34.62},
-  {"code": "H25A1", "size": "25Â±2 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 750000, "exw_usd": 28.85, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 928000, "pkg25_usd": 35.69, "jumbo_vnd": 860000, "jumbo_usd": 33.08, "exw_vnd_cn": 750000, "exw_usd_cn": 28.85, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 928000, "pkg25_usd_cn": 35.69, "jumbo_vnd_cn": 860000, "jumbo_usd_cn": 33.08, "exw_vnd_other": 750000, "exw_usd_other": 28.85, "comm_vnd_other": 11000, "comm_usd_other": 0.42, "pkg25_vnd_other": 928000, "pkg25_usd_other": 35.69, "jumbo_vnd_other": 860000, "jumbo_usd_other": 33.08},
-  {"code": "H30A1", "size": "30Â±3 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 700000, "exw_usd": 26.92, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 878000, "pkg25_usd": 33.77, "jumbo_vnd": 810000, "jumbo_usd": 31.15, "exw_vnd_cn": 700000, "exw_usd_cn": 26.92, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 878000, "pkg25_usd_cn": 33.77, "jumbo_vnd_cn": 810000, "jumbo_usd_cn": 31.15, "exw_vnd_other": 700000, "exw_usd_other": 26.92, "comm_vnd_other": 11000, "comm_usd_other": 0.42, "pkg25_vnd_other": 878000, "pkg25_usd_other": 33.77, "jumbo_vnd_other": 810000, "jumbo_usd_other": 31.15},
-  {"code": "F15A1", "size": "15Â±1 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 750000, "exw_usd": 28.85, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 928000, "pkg25_usd": 35.69, "jumbo_vnd": 860000, "jumbo_usd": 33.08, "exw_vnd_cn": 750000, "exw_usd_cn": 28.85, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 928000, "pkg25_usd_cn": 35.69, "jumbo_vnd_cn": 860000, "jumbo_usd_cn": 33.08, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 948000, "pkg25_usd_other": 36.46, "jumbo_vnd_other": 880000, "jumbo_usd_other": 33.85},
-  {"code": "F17A1", "size": "17Â±1 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 740000, "exw_usd": 28.46, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 918000, "pkg25_usd": 35.31, "jumbo_vnd": 859000, "jumbo_usd": 33.04, "exw_vnd_cn": 740000, "exw_usd_cn": 28.46, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 918000, "pkg25_usd_cn": 35.31, "jumbo_vnd_cn": 859000, "jumbo_usd_cn": 33.04, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 948000, "pkg25_usd_other": 36.46, "jumbo_vnd_other": 889000, "jumbo_usd_other": 34.19},
-  {"code": "F20A1", "size": "20Â±2 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 690000, "exw_usd": 26.54, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 868000, "pkg25_usd": 33.38, "jumbo_vnd": 800000, "jumbo_usd": 30.77, "exw_vnd_cn": 690000, "exw_usd_cn": 26.54, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 868000, "pkg25_usd_cn": 33.38, "jumbo_vnd_cn": 800000, "jumbo_usd_cn": 30.77, "exw_vnd_other": 700000, "exw_usd_other": 26.92, "comm_vnd_other": 11000, "comm_usd_other": 0.42, "pkg25_vnd_other": 878000, "pkg25_usd_other": 33.77, "jumbo_vnd_other": 810000, "jumbo_usd_other": 31.15},
-  {"code": "F25A1", "size": "25Â±2 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 660000, "exw_usd": 25.38, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 838000, "pkg25_usd": 32.23, "jumbo_vnd": 770000, "jumbo_usd": 29.62, "exw_vnd_cn": 660000, "exw_usd_cn": 25.38, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 838000, "pkg25_usd_cn": 32.23, "jumbo_vnd_cn": 770000, "jumbo_usd_cn": 29.62, "exw_vnd_other": 670000, "exw_usd_other": 25.77, "comm_vnd_other": 10000, "comm_usd_other": 0.38, "pkg25_vnd_other": 848000, "pkg25_usd_other": 32.62, "jumbo_vnd_other": 780000, "jumbo_usd_other": 30},
-  {"code": "F30A1", "size": "30Â±3 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 630000, "exw_usd": 24.23, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 808000, "pkg25_usd": 31.08, "jumbo_vnd": 740000, "jumbo_usd": 28.46, "exw_vnd_cn": 630000, "exw_usd_cn": 24.23, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 808000, "pkg25_usd_cn": 31.08, "jumbo_vnd_cn": 740000, "jumbo_usd_cn": 28.46, "exw_vnd_other": 650000, "exw_usd_other": 25, "comm_vnd_other": 10000, "comm_usd_other": 0.38, "pkg25_vnd_other": 828000, "pkg25_usd_other": 31.85, "jumbo_vnd_other": 760000, "jumbo_usd_other": 29.23},
-  {"code": "F35A1", "size": "35Â±3 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 620000, "exw_usd": 23.85, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 798000, "pkg25_usd": 30.69, "jumbo_vnd": 730000, "jumbo_usd": 28.08, "exw_vnd_cn": 620000, "exw_usd_cn": 23.85, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 798000, "pkg25_usd_cn": 30.69, "jumbo_vnd_cn": 730000, "jumbo_usd_cn": 28.08, "exw_vnd_other": 640000, "exw_usd_other": 24.62, "comm_vnd_other": 10000, "comm_usd_other": 0.38, "pkg25_vnd_other": 818000, "pkg25_usd_other": 31.46, "jumbo_vnd_other": 750000, "jumbo_usd_other": 28.85},
-  {"code": "F40A1", "size": "40Â±3 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 740000, "exw_usd": 28.46, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 918000, "pkg25_usd": 35.31, "jumbo_vnd": 850000, "jumbo_usd": 32.69, "exw_vnd_cn": 740000, "exw_usd_cn": 28.46, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 918000, "pkg25_usd_cn": 35.31, "jumbo_vnd_cn": 850000, "jumbo_usd_cn": 32.69, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 948000, "pkg25_usd_other": 36.46, "jumbo_vnd_other": 880000, "jumbo_usd_other": 33.85},
-  {"code": "F45A1", "size": "45Â±3 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 590000, "exw_usd": 22.69, "comm_vnd": 9000, "comm_usd": 0.35, "pkg25_vnd": 768000, "pkg25_usd": 29.54, "jumbo_vnd": 700000, "jumbo_usd": 26.92, "exw_vnd_cn": 590000, "exw_usd_cn": 22.69, "comm_vnd_cn": 9000, "comm_usd_cn": 0.35, "pkg25_vnd_cn": 768000, "pkg25_usd_cn": 29.54, "jumbo_vnd_cn": 700000, "jumbo_usd_cn": 26.92, "exw_vnd_other": 600000, "exw_usd_other": 23.08, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 778000, "pkg25_usd_other": 29.92, "jumbo_vnd_other": 710000, "jumbo_usd_other": 27.31},
-  {"code": "F15A2", "size": "15Â±1 Âµm", "standard": "A2-", "machine": "318", "exw_vnd": 530000, "exw_usd": 20.38, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 708000, "pkg25_usd": 27.23, "jumbo_vnd": 640000, "jumbo_usd": 24.62, "exw_vnd_cn": 530000, "exw_usd_cn": 20.38, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 708000, "pkg25_usd_cn": 27.23, "jumbo_vnd_cn": 640000, "jumbo_usd_cn": 24.62, "exw_vnd_other": 550000, "exw_usd_other": 21.15, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 728000, "pkg25_usd_other": 28, "jumbo_vnd_other": 660000, "jumbo_usd_other": 25.38},
-  {"code": "F17A2", "size": "17Â±1 Âµm", "standard": "A2-", "machine": "318", "exw_vnd": 490000, "exw_usd": 18.85, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 668000, "pkg25_usd": 25.69, "jumbo_vnd": 609000, "jumbo_usd": 23.42, "exw_vnd_cn": 490000, "exw_usd_cn": 18.85, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 668000, "pkg25_usd_cn": 25.69, "jumbo_vnd_cn": 609000, "jumbo_usd_cn": 23.42, "exw_vnd_other": 500000, "exw_usd_other": 19.23, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 678000, "pkg25_usd_other": 26.08, "jumbo_vnd_other": 619000, "jumbo_usd_other": 23.81},
-  {"code": "F20A2", "size": "20Â±2 Âµm", "standard": "A2-", "machine": "318", "exw_vnd": 460000, "exw_usd": 17.69, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 638000, "pkg25_usd": 24.54, "jumbo_vnd": 570000, "jumbo_usd": 21.92, "exw_vnd_cn": 460000, "exw_usd_cn": 17.69, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 638000, "pkg25_usd_cn": 24.54, "jumbo_vnd_cn": 570000, "jumbo_usd_cn": 21.92, "exw_vnd_other": 480000, "exw_usd_other": 18.46, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 658000, "pkg25_usd_other": 25.31, "jumbo_vnd_other": 590000, "jumbo_usd_other": 22.69},
-  {"code": "F25A2", "size": "25Â±2 Âµm", "standard": "A2-", "machine": "318", "exw_vnd": 430000, "exw_usd": 16.54, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 608000, "pkg25_usd": 23.38, "jumbo_vnd": 540000, "jumbo_usd": 20.77, "exw_vnd_cn": 430000, "exw_usd_cn": 16.54, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 608000, "pkg25_usd_cn": 23.38, "jumbo_vnd_cn": 540000, "jumbo_usd_cn": 20.77, "exw_vnd_other": 450000, "exw_usd_other": 17.31, "comm_vnd_other": 7000, "comm_usd_other": 0.27, "pkg25_vnd_other": 628000, "pkg25_usd_other": 24.15, "jumbo_vnd_other": 560000, "jumbo_usd_other": 21.54},
-  {"code": "F30A2", "size": "30Â±3 Âµm", "standard": "A2-", "machine": "318", "exw_vnd": 410000, "exw_usd": 15.77, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 588000, "pkg25_usd": 22.62, "jumbo_vnd": 520000, "jumbo_usd": 20, "exw_vnd_cn": 410000, "exw_usd_cn": 15.77, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 588000, "pkg25_usd_cn": 22.62, "jumbo_vnd_cn": 520000, "jumbo_usd_cn": 20, "exw_vnd_other": 420000, "exw_usd_other": 16.15, "comm_vnd_other": 7000, "comm_usd_other": 0.27, "pkg25_vnd_other": 598000, "pkg25_usd_other": 23, "jumbo_vnd_other": 530000, "jumbo_usd_other": 20.38},
-  {"code": "F35A2", "size": "35Â±3 Âµm", "standard": "A2-", "machine": "318", "exw_vnd": 400000, "exw_usd": 15.38, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 578000, "pkg25_usd": 22.23, "jumbo_vnd": 510000, "jumbo_usd": 19.62, "exw_vnd_cn": 400000, "exw_usd_cn": 15.38, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 578000, "pkg25_usd_cn": 22.23, "jumbo_vnd_cn": 510000, "jumbo_usd_cn": 19.62, "exw_vnd_other": 410000, "exw_usd_other": 15.77, "comm_vnd_other": 7000, "comm_usd_other": 0.27, "pkg25_vnd_other": 588000, "pkg25_usd_other": 22.62, "jumbo_vnd_other": 520000, "jumbo_usd_other": 20},
-  {"code": "F45A2", "size": "45Â±3 Âµm", "standard": "A2-", "machine": "318", "exw_vnd": 360000, "exw_usd": 13.85, "comm_vnd": 6000, "comm_usd": 0.23, "pkg25_vnd": 538000, "pkg25_usd": 20.69, "jumbo_vnd": 470000, "jumbo_usd": 18.08, "exw_vnd_cn": 360000, "exw_usd_cn": 13.85, "comm_vnd_cn": 6000, "comm_usd_cn": 0.23, "pkg25_vnd_cn": 538000, "pkg25_usd_cn": 20.69, "jumbo_vnd_cn": 470000, "jumbo_usd_cn": 18.08, "exw_vnd_other": 370000, "exw_usd_other": 14.23, "comm_vnd_other": 6000, "comm_usd_other": 0.23, "pkg25_vnd_other": 548000, "pkg25_usd_other": 21.08, "jumbo_vnd_other": 480000, "jumbo_usd_other": 18.46},
-  {"code": "F15A2", "size": "15Â±1 Âµm", "standard": "A2", "machine": "318", "exw_vnd": 600000, "exw_usd": 23.08, "comm_vnd": 9000, "comm_usd": 0.35, "pkg25_vnd": 778000, "pkg25_usd": 29.92, "jumbo_vnd": 710000, "jumbo_usd": 27.31, "exw_vnd_cn": 600000, "exw_usd_cn": 23.08, "comm_vnd_cn": 9000, "comm_usd_cn": 0.35, "pkg25_vnd_cn": 778000, "pkg25_usd_cn": 29.92, "jumbo_vnd_cn": 710000, "jumbo_usd_cn": 27.31, "exw_vnd_other": 610000, "exw_usd_other": 23.46, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 788000, "pkg25_usd_other": 30.31, "jumbo_vnd_other": 720000, "jumbo_usd_other": 27.69},
-  {"code": "F17A2", "size": "17Â±1 Âµm", "standard": "A2", "machine": "318", "exw_vnd": 550000, "exw_usd": 21.15, "comm_vnd": 9000, "comm_usd": 0.35, "pkg25_vnd": 728000, "pkg25_usd": 28, "jumbo_vnd": 660000, "jumbo_usd": 25.38, "exw_vnd_cn": 550000, "exw_usd_cn": 21.15, "comm_vnd_cn": 9000, "comm_usd_cn": 0.35, "pkg25_vnd_cn": 728000, "pkg25_usd_cn": 28, "jumbo_vnd_cn": 660000, "jumbo_usd_cn": 25.38, "exw_vnd_other": 560000, "exw_usd_other": 21.54, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 738000, "pkg25_usd_other": 28.38, "jumbo_vnd_other": 670000, "jumbo_usd_other": 25.77},
-  {"code": "F20A2", "size": "20Â±2 Âµm", "standard": "A2", "machine": "318", "exw_vnd": 530000, "exw_usd": 20.38, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 708000, "pkg25_usd": 27.23, "jumbo_vnd": 649000, "jumbo_usd": 24.96, "exw_vnd_cn": 530000, "exw_usd_cn": 20.38, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 708000, "pkg25_usd_cn": 27.23, "jumbo_vnd_cn": 649000, "jumbo_usd_cn": 24.96, "exw_vnd_other": 540000, "exw_usd_other": 20.77, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 718000, "pkg25_usd_other": 27.62, "jumbo_vnd_other": 659000, "jumbo_usd_other": 25.35},
-  {"code": "F25A2", "size": "25Â±2 Âµm", "standard": "A2", "machine": "318", "exw_vnd": 500000, "exw_usd": 19.23, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 678000, "pkg25_usd": 26.08, "jumbo_vnd": 610000, "jumbo_usd": 23.46, "exw_vnd_cn": 500000, "exw_usd_cn": 19.23, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 678000, "pkg25_usd_cn": 26.08, "jumbo_vnd_cn": 610000, "jumbo_usd_cn": 23.46, "exw_vnd_other": 510000, "exw_usd_other": 19.62, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 688000, "pkg25_usd_other": 26.46, "jumbo_vnd_other": 620000, "jumbo_usd_other": 23.85},
-  {"code": "F30A2", "size": "30Â±3 Âµm", "standard": "A2", "machine": "318", "exw_vnd": 470000, "exw_usd": 18.08, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 648000, "pkg25_usd": 24.92, "jumbo_vnd": 580000, "jumbo_usd": 22.31, "exw_vnd_cn": 470000, "exw_usd_cn": 18.08, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 648000, "pkg25_usd_cn": 24.92, "jumbo_vnd_cn": 580000, "jumbo_usd_cn": 22.31, "exw_vnd_other": 490000, "exw_usd_other": 18.85, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 668000, "pkg25_usd_other": 25.69, "jumbo_vnd_other": 600000, "jumbo_usd_other": 23.08},
-  {"code": "K45A2", "size": "45Â±3 Âµm", "standard": "A2-", "machine": "1500", "exw_vnd": 350000, "exw_usd": 13.46, "comm_vnd": 6000, "comm_usd": 0.23, "pkg25_vnd": 528000, "pkg25_usd": 20.31, "jumbo_vnd": 460000, "jumbo_usd": 17.69, "exw_vnd_cn": 350000, "exw_usd_cn": 13.46, "comm_vnd_cn": 6000, "comm_usd_cn": 0.23, "pkg25_vnd_cn": 528000, "pkg25_usd_cn": 20.31, "jumbo_vnd_cn": 460000, "jumbo_usd_cn": 17.69, "exw_vnd_other": 350000, "exw_usd_other": 13.46, "comm_vnd_other": 6000, "comm_usd_other": 0.23, "pkg25_vnd_other": 528000, "pkg25_usd_other": 20.31, "jumbo_vnd_other": 460000, "jumbo_usd_other": 17.69},
-  {"code": "K65A2", "size": "65Â±3 Âµm", "standard": "A2-", "machine": "1500", "exw_vnd": 330000, "exw_usd": 12.69, "comm_vnd": 6000, "comm_usd": 0.23, "pkg25_vnd": 508000, "pkg25_usd": 19.54, "jumbo_vnd": 440000, "jumbo_usd": 16.92, "exw_vnd_cn": 330000, "exw_usd_cn": 12.69, "comm_vnd_cn": 6000, "comm_usd_cn": 0.23, "pkg25_vnd_cn": 508000, "pkg25_usd_cn": 19.54, "jumbo_vnd_cn": 440000, "jumbo_usd_cn": 16.92, "exw_vnd_other": 330000, "exw_usd_other": 12.69, "comm_vnd_other": 6000, "comm_usd_other": 0.23, "pkg25_vnd_other": 508000, "pkg25_usd_other": 19.54, "jumbo_vnd_other": 440000, "jumbo_usd_other": 16.92},
-  {"code": "K45A3", "size": "45Â±3 Âµm", "standard": "A3", "machine": "1500", "exw_vnd": 260000, "exw_usd": 10, "comm_vnd": 5000, "comm_usd": 0.19, "pkg25_vnd": 438000, "pkg25_usd": 16.85, "jumbo_vnd": 370000, "jumbo_usd": 14.23, "exw_vnd_cn": 260000, "exw_usd_cn": 10, "comm_vnd_cn": 5000, "comm_usd_cn": 0.19, "pkg25_vnd_cn": 438000, "pkg25_usd_cn": 16.85, "jumbo_vnd_cn": 370000, "jumbo_usd_cn": 14.23, "exw_vnd_other": 260000, "exw_usd_other": 10, "comm_vnd_other": 5000, "comm_usd_other": 0.19, "pkg25_vnd_other": 438000, "pkg25_usd_other": 16.85, "jumbo_vnd_other": 370000, "jumbo_usd_other": 14.23},
-  {"code": "K65A3", "size": "65Â±3 Âµm", "standard": "A3", "machine": "1500", "exw_vnd": 240000, "exw_usd": 9.23, "comm_vnd": 5000, "comm_usd": 0.19, "pkg25_vnd": 418000, "pkg25_usd": 16.08, "jumbo_vnd": 350000, "jumbo_usd": 13.46, "exw_vnd_cn": 240000, "exw_usd_cn": 9.23, "comm_vnd_cn": 5000, "comm_usd_cn": 0.19, "pkg25_vnd_cn": 418000, "pkg25_usd_cn": 16.08, "jumbo_vnd_cn": 350000, "jumbo_usd_cn": 13.46, "exw_vnd_other": 240000, "exw_usd_other": 9.23, "comm_vnd_other": 5000, "comm_usd_other": 0.19, "pkg25_vnd_other": 418000, "pkg25_usd_other": 16.08, "jumbo_vnd_other": 350000, "jumbo_usd_other": 13.46},
-  {"code": "E80A2", "size": "80Â±3 Âµm", "standard": "A2", "machine": "1300", "exw_vnd": 770000, "exw_usd": 29.62, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 880000, "pkg25_usd": 33.85, "jumbo_vnd": 880000, "jumbo_usd": 33.85, "exw_vnd_cn": 770000, "exw_usd_cn": 29.62, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 880000, "pkg25_usd_cn": 33.85, "jumbo_vnd_cn": 880000, "jumbo_usd_cn": 33.85, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 880000, "pkg25_usd_other": 33.85, "jumbo_vnd_other": 880000, "jumbo_usd_other": 33.85},
-  {"code": "E125A1", "size": "70Â±3 Âµm", "standard": "A1", "machine": "1300", "exw_vnd": 1150000, "exw_usd": 44.23, "comm_vnd": 16000, "comm_usd": 0.62, "pkg25_vnd": 1260000, "pkg25_usd": 48.46, "jumbo_vnd": 1260000, "jumbo_usd": 48.46, "exw_vnd_cn": 1150000, "exw_usd_cn": 44.23, "comm_vnd_cn": 16000, "comm_usd_cn": 0.62, "pkg25_vnd_cn": 1260000, "pkg25_usd_cn": 48.46, "jumbo_vnd_cn": 1260000, "jumbo_usd_cn": 48.46, "exw_vnd_other": 1150000, "exw_usd_other": 44.23, "comm_vnd_other": 16000, "comm_usd_other": 0.62, "pkg25_vnd_other": 1260000, "pkg25_usd_other": 48.46, "jumbo_vnd_other": 1260000, "jumbo_usd_other": 48.46},
-  {"code": "E70A1", "size": "70Â±3 Âµm", "standard": "A1", "machine": "1300", "exw_vnd": 1180000, "exw_usd": 45.38, "comm_vnd": 17000, "comm_usd": 0.65, "pkg25_vnd": 1290000, "pkg25_usd": 49.62, "jumbo_vnd": 1290000, "jumbo_usd": 49.62, "exw_vnd_cn": 1180000, "exw_usd_cn": 45.38, "comm_vnd_cn": 17000, "comm_usd_cn": 0.65, "pkg25_vnd_cn": 1290000, "pkg25_usd_cn": 49.62, "jumbo_vnd_cn": 1290000, "jumbo_usd_cn": 49.62, "exw_vnd_other": 1180000, "exw_usd_other": 45.38, "comm_vnd_other": 17000, "comm_usd_other": 0.65, "pkg25_vnd_other": 1290000, "pkg25_usd_other": 49.62, "jumbo_vnd_other": 1290000, "jumbo_usd_other": 49.62},
+  {"code": "H4A1", "size": "4±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 2380000, "exw_usd": 91.54, "comm_vnd": 32000, "comm_usd": 1.23, "pkg25_vnd": 2601000, "pkg25_usd": 100.04, "jumbo_vnd": 2591000, "jumbo_usd": 99.65, "exw_vnd_cn": 2380000, "exw_usd_cn": 91.54, "comm_vnd_cn": 32000, "comm_usd_cn": 1.23, "pkg25_vnd_cn": 2601000, "pkg25_usd_cn": 100.04, "jumbo_vnd_cn": 2591000, "jumbo_usd_cn": 99.65, "exw_vnd_other": 2380000, "exw_usd_other": 91.54, "comm_vnd_other": 32000, "comm_usd_other": 1.23, "pkg25_vnd_other": 2601000, "pkg25_usd_other": 100.04, "jumbo_vnd_other": 2591000, "jumbo_usd_other": 99.65},
+  {"code": "H5A1", "size": "5±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 1850000, "exw_usd": 71.15, "comm_vnd": 26000, "comm_usd": 1, "pkg25_vnd": 2046000, "pkg25_usd": 78.69, "jumbo_vnd": 2061000, "jumbo_usd": 79.27, "exw_vnd_cn": 1850000, "exw_usd_cn": 71.15, "comm_vnd_cn": 26000, "comm_usd_cn": 1, "pkg25_vnd_cn": 2046000, "pkg25_usd_cn": 78.69, "jumbo_vnd_cn": 2061000, "jumbo_usd_cn": 79.27, "exw_vnd_other": 1850000, "exw_usd_other": 71.15, "comm_vnd_other": 26000, "comm_usd_other": 1, "pkg25_vnd_other": 2046000, "pkg25_usd_other": 78.69, "jumbo_vnd_other": 2061000, "jumbo_usd_other": 79.27},
+  {"code": "H6A1", "size": "6±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 1470000, "exw_usd": 56.54, "comm_vnd": 21000, "comm_usd": 0.81, "pkg25_vnd": 1666000, "pkg25_usd": 64.08, "jumbo_vnd": 1681000, "jumbo_usd": 64.65, "exw_vnd_cn": 1470000, "exw_usd_cn": 56.54, "comm_vnd_cn": 21000, "comm_usd_cn": 0.81, "pkg25_vnd_cn": 1666000, "pkg25_usd_cn": 64.08, "jumbo_vnd_cn": 1681000, "jumbo_usd_cn": 64.65, "exw_vnd_other": 1470000, "exw_usd_other": 56.54, "comm_vnd_other": 21000, "comm_usd_other": 0.81, "pkg25_vnd_other": 1666000, "pkg25_usd_other": 64.08, "jumbo_vnd_other": 1681000, "jumbo_usd_other": 64.65},
+  {"code": "H8A1", "size": "8±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 1060000, "exw_usd": 40.77, "comm_vnd": 15000, "comm_usd": 0.58, "pkg25_vnd": 1247000, "pkg25_usd": 47.96, "jumbo_vnd": 1208000, "jumbo_usd": 46.46, "exw_vnd_cn": 1060000, "exw_usd_cn": 40.77, "comm_vnd_cn": 15000, "comm_usd_cn": 0.58, "pkg25_vnd_cn": 1247000, "pkg25_usd_cn": 47.96, "jumbo_vnd_cn": 1208000, "jumbo_usd_cn": 46.46, "exw_vnd_other": 1090000, "exw_usd_other": 41.92, "comm_vnd_other": 16000, "comm_usd_other": 0.62, "pkg25_vnd_other": 1277000, "pkg25_usd_other": 49.12, "jumbo_vnd_other": 1238000, "jumbo_usd_other": 47.62},
+  {"code": "H8RA1", "size": "8±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 1340000, "exw_usd": 51.54, "comm_vnd": 19000, "comm_usd": 0.73, "pkg25_vnd": 1527000, "pkg25_usd": 58.73, "jumbo_vnd": 1488000, "jumbo_usd": 57.23, "exw_vnd_cn": 1340000, "exw_usd_cn": 51.54, "comm_vnd_cn": 19000, "comm_usd_cn": 0.73, "pkg25_vnd_cn": 1527000, "pkg25_usd_cn": 58.73, "jumbo_vnd_cn": 1488000, "jumbo_usd_cn": 57.23, "exw_vnd_other": 1340000, "exw_usd_other": 51.54, "comm_vnd_other": 19000, "comm_usd_other": 0.73, "pkg25_vnd_other": 1527000, "pkg25_usd_other": 58.73, "jumbo_vnd_other": 1488000, "jumbo_usd_other": 57.23},
+  {"code": "H10A1", "size": "10±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 920000, "exw_usd": 35.38, "comm_vnd": 13000, "comm_usd": 0.5, "pkg25_vnd": 1107000, "pkg25_usd": 42.58, "jumbo_vnd": 1055000, "jumbo_usd": 40.58, "exw_vnd_cn": 920000, "exw_usd_cn": 35.38, "comm_vnd_cn": 13000, "comm_usd_cn": 0.5, "pkg25_vnd_cn": 1107000, "pkg25_usd_cn": 42.58, "jumbo_vnd_cn": 1055000, "jumbo_usd_cn": 40.58, "exw_vnd_other": 920000, "exw_usd_other": 35.38, "comm_vnd_other": 13000, "comm_usd_other": 0.5, "pkg25_vnd_other": 1107000, "pkg25_usd_other": 42.58, "jumbo_vnd_other": 1055000, "jumbo_usd_other": 40.58},
+  {"code": "H12A1", "size": "12±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 900000, "exw_usd": 34.62, "comm_vnd": 13000, "comm_usd": 0.5, "pkg25_vnd": 1087000, "pkg25_usd": 41.81, "jumbo_vnd": 1024000, "jumbo_usd": 39.38, "exw_vnd_cn": 900000, "exw_usd_cn": 34.62, "comm_vnd_cn": 13000, "comm_usd_cn": 0.5, "pkg25_vnd_cn": 1087000, "pkg25_usd_cn": 41.81, "jumbo_vnd_cn": 1024000, "jumbo_usd_cn": 39.38, "exw_vnd_other": 900000, "exw_usd_other": 34.62, "comm_vnd_other": 13000, "comm_usd_other": 0.5, "pkg25_vnd_other": 1087000, "pkg25_usd_other": 41.81, "jumbo_vnd_other": 1024000, "jumbo_usd_other": 39.38},
+  {"code": "H15A1", "size": "15±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 820000, "exw_usd": 31.54, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 998000, "pkg25_usd": 38.38, "jumbo_vnd": 939000, "jumbo_usd": 36.12, "exw_vnd_cn": 820000, "exw_usd_cn": 31.54, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 998000, "pkg25_usd_cn": 38.38, "jumbo_vnd_cn": 939000, "jumbo_usd_cn": 36.12, "exw_vnd_other": 820000, "exw_usd_other": 31.54, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 998000, "pkg25_usd_other": 38.38, "jumbo_vnd_other": 939000, "jumbo_usd_other": 36.12},
+  {"code": "H17A1", "size": "17±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 810000, "exw_usd": 31.15, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 988000, "pkg25_usd": 38, "jumbo_vnd": 929000, "jumbo_usd": 35.73, "exw_vnd_cn": 810000, "exw_usd_cn": 31.15, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 988000, "pkg25_usd_cn": 38, "jumbo_vnd_cn": 929000, "jumbo_usd_cn": 35.73, "exw_vnd_other": 810000, "exw_usd_other": 31.15, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 988000, "pkg25_usd_other": 38, "jumbo_vnd_other": 929000, "jumbo_usd_other": 35.73},
+  {"code": "H20A1", "size": "20±2 µm", "standard": "A1", "machine": "1700", "exw_vnd": 790000, "exw_usd": 30.38, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 968000, "pkg25_usd": 37.23, "jumbo_vnd": 900000, "jumbo_usd": 34.62, "exw_vnd_cn": 790000, "exw_usd_cn": 30.38, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 968000, "pkg25_usd_cn": 37.23, "jumbo_vnd_cn": 900000, "jumbo_usd_cn": 34.62, "exw_vnd_other": 790000, "exw_usd_other": 30.38, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 968000, "pkg25_usd_other": 37.23, "jumbo_vnd_other": 900000, "jumbo_usd_other": 34.62},
+  {"code": "H25A1", "size": "25±2 µm", "standard": "A1", "machine": "1700", "exw_vnd": 750000, "exw_usd": 28.85, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 928000, "pkg25_usd": 35.69, "jumbo_vnd": 860000, "jumbo_usd": 33.08, "exw_vnd_cn": 750000, "exw_usd_cn": 28.85, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 928000, "pkg25_usd_cn": 35.69, "jumbo_vnd_cn": 860000, "jumbo_usd_cn": 33.08, "exw_vnd_other": 750000, "exw_usd_other": 28.85, "comm_vnd_other": 11000, "comm_usd_other": 0.42, "pkg25_vnd_other": 928000, "pkg25_usd_other": 35.69, "jumbo_vnd_other": 860000, "jumbo_usd_other": 33.08},
+  {"code": "H30A1", "size": "30±3 µm", "standard": "A1", "machine": "1700", "exw_vnd": 700000, "exw_usd": 26.92, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 878000, "pkg25_usd": 33.77, "jumbo_vnd": 810000, "jumbo_usd": 31.15, "exw_vnd_cn": 700000, "exw_usd_cn": 26.92, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 878000, "pkg25_usd_cn": 33.77, "jumbo_vnd_cn": 810000, "jumbo_usd_cn": 31.15, "exw_vnd_other": 700000, "exw_usd_other": 26.92, "comm_vnd_other": 11000, "comm_usd_other": 0.42, "pkg25_vnd_other": 878000, "pkg25_usd_other": 33.77, "jumbo_vnd_other": 810000, "jumbo_usd_other": 31.15},
+  {"code": "F15A1", "size": "15±1 µm", "standard": "A1", "machine": "318", "exw_vnd": 750000, "exw_usd": 28.85, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 928000, "pkg25_usd": 35.69, "jumbo_vnd": 860000, "jumbo_usd": 33.08, "exw_vnd_cn": 750000, "exw_usd_cn": 28.85, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 928000, "pkg25_usd_cn": 35.69, "jumbo_vnd_cn": 860000, "jumbo_usd_cn": 33.08, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 948000, "pkg25_usd_other": 36.46, "jumbo_vnd_other": 880000, "jumbo_usd_other": 33.85},
+  {"code": "F17A1", "size": "17±1 µm", "standard": "A1", "machine": "318", "exw_vnd": 740000, "exw_usd": 28.46, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 918000, "pkg25_usd": 35.31, "jumbo_vnd": 859000, "jumbo_usd": 33.04, "exw_vnd_cn": 740000, "exw_usd_cn": 28.46, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 918000, "pkg25_usd_cn": 35.31, "jumbo_vnd_cn": 859000, "jumbo_usd_cn": 33.04, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 948000, "pkg25_usd_other": 36.46, "jumbo_vnd_other": 889000, "jumbo_usd_other": 34.19},
+  {"code": "F20A1", "size": "20±2 µm", "standard": "A1", "machine": "318", "exw_vnd": 690000, "exw_usd": 26.54, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 868000, "pkg25_usd": 33.38, "jumbo_vnd": 800000, "jumbo_usd": 30.77, "exw_vnd_cn": 690000, "exw_usd_cn": 26.54, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 868000, "pkg25_usd_cn": 33.38, "jumbo_vnd_cn": 800000, "jumbo_usd_cn": 30.77, "exw_vnd_other": 700000, "exw_usd_other": 26.92, "comm_vnd_other": 11000, "comm_usd_other": 0.42, "pkg25_vnd_other": 878000, "pkg25_usd_other": 33.77, "jumbo_vnd_other": 810000, "jumbo_usd_other": 31.15},
+  {"code": "F25A1", "size": "25±2 µm", "standard": "A1", "machine": "318", "exw_vnd": 660000, "exw_usd": 25.38, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 838000, "pkg25_usd": 32.23, "jumbo_vnd": 770000, "jumbo_usd": 29.62, "exw_vnd_cn": 660000, "exw_usd_cn": 25.38, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 838000, "pkg25_usd_cn": 32.23, "jumbo_vnd_cn": 770000, "jumbo_usd_cn": 29.62, "exw_vnd_other": 670000, "exw_usd_other": 25.77, "comm_vnd_other": 10000, "comm_usd_other": 0.38, "pkg25_vnd_other": 848000, "pkg25_usd_other": 32.62, "jumbo_vnd_other": 780000, "jumbo_usd_other": 30},
+  {"code": "F30A1", "size": "30±3 µm", "standard": "A1", "machine": "318", "exw_vnd": 630000, "exw_usd": 24.23, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 808000, "pkg25_usd": 31.08, "jumbo_vnd": 740000, "jumbo_usd": 28.46, "exw_vnd_cn": 630000, "exw_usd_cn": 24.23, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 808000, "pkg25_usd_cn": 31.08, "jumbo_vnd_cn": 740000, "jumbo_usd_cn": 28.46, "exw_vnd_other": 650000, "exw_usd_other": 25, "comm_vnd_other": 10000, "comm_usd_other": 0.38, "pkg25_vnd_other": 828000, "pkg25_usd_other": 31.85, "jumbo_vnd_other": 760000, "jumbo_usd_other": 29.23},
+  {"code": "F35A1", "size": "35±3 µm", "standard": "A1", "machine": "318", "exw_vnd": 620000, "exw_usd": 23.85, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 798000, "pkg25_usd": 30.69, "jumbo_vnd": 730000, "jumbo_usd": 28.08, "exw_vnd_cn": 620000, "exw_usd_cn": 23.85, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 798000, "pkg25_usd_cn": 30.69, "jumbo_vnd_cn": 730000, "jumbo_usd_cn": 28.08, "exw_vnd_other": 640000, "exw_usd_other": 24.62, "comm_vnd_other": 10000, "comm_usd_other": 0.38, "pkg25_vnd_other": 818000, "pkg25_usd_other": 31.46, "jumbo_vnd_other": 750000, "jumbo_usd_other": 28.85},
+  {"code": "F40A1", "size": "40±3 µm", "standard": "A1", "machine": "318", "exw_vnd": 740000, "exw_usd": 28.46, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 918000, "pkg25_usd": 35.31, "jumbo_vnd": 850000, "jumbo_usd": 32.69, "exw_vnd_cn": 740000, "exw_usd_cn": 28.46, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 918000, "pkg25_usd_cn": 35.31, "jumbo_vnd_cn": 850000, "jumbo_usd_cn": 32.69, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 948000, "pkg25_usd_other": 36.46, "jumbo_vnd_other": 880000, "jumbo_usd_other": 33.85},
+  {"code": "F45A1", "size": "45±3 µm", "standard": "A1", "machine": "318", "exw_vnd": 590000, "exw_usd": 22.69, "comm_vnd": 9000, "comm_usd": 0.35, "pkg25_vnd": 768000, "pkg25_usd": 29.54, "jumbo_vnd": 700000, "jumbo_usd": 26.92, "exw_vnd_cn": 590000, "exw_usd_cn": 22.69, "comm_vnd_cn": 9000, "comm_usd_cn": 0.35, "pkg25_vnd_cn": 768000, "pkg25_usd_cn": 29.54, "jumbo_vnd_cn": 700000, "jumbo_usd_cn": 26.92, "exw_vnd_other": 600000, "exw_usd_other": 23.08, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 778000, "pkg25_usd_other": 29.92, "jumbo_vnd_other": 710000, "jumbo_usd_other": 27.31},
+  {"code": "F15A2", "size": "15±1 µm", "standard": "A2-", "machine": "318", "exw_vnd": 530000, "exw_usd": 20.38, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 708000, "pkg25_usd": 27.23, "jumbo_vnd": 640000, "jumbo_usd": 24.62, "exw_vnd_cn": 530000, "exw_usd_cn": 20.38, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 708000, "pkg25_usd_cn": 27.23, "jumbo_vnd_cn": 640000, "jumbo_usd_cn": 24.62, "exw_vnd_other": 550000, "exw_usd_other": 21.15, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 728000, "pkg25_usd_other": 28, "jumbo_vnd_other": 660000, "jumbo_usd_other": 25.38},
+  {"code": "F17A2", "size": "17±1 µm", "standard": "A2-", "machine": "318", "exw_vnd": 490000, "exw_usd": 18.85, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 668000, "pkg25_usd": 25.69, "jumbo_vnd": 609000, "jumbo_usd": 23.42, "exw_vnd_cn": 490000, "exw_usd_cn": 18.85, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 668000, "pkg25_usd_cn": 25.69, "jumbo_vnd_cn": 609000, "jumbo_usd_cn": 23.42, "exw_vnd_other": 500000, "exw_usd_other": 19.23, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 678000, "pkg25_usd_other": 26.08, "jumbo_vnd_other": 619000, "jumbo_usd_other": 23.81},
+  {"code": "F20A2", "size": "20±2 µm", "standard": "A2-", "machine": "318", "exw_vnd": 460000, "exw_usd": 17.69, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 638000, "pkg25_usd": 24.54, "jumbo_vnd": 570000, "jumbo_usd": 21.92, "exw_vnd_cn": 460000, "exw_usd_cn": 17.69, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 638000, "pkg25_usd_cn": 24.54, "jumbo_vnd_cn": 570000, "jumbo_usd_cn": 21.92, "exw_vnd_other": 480000, "exw_usd_other": 18.46, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 658000, "pkg25_usd_other": 25.31, "jumbo_vnd_other": 590000, "jumbo_usd_other": 22.69},
+  {"code": "F25A2", "size": "25±2 µm", "standard": "A2-", "machine": "318", "exw_vnd": 430000, "exw_usd": 16.54, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 608000, "pkg25_usd": 23.38, "jumbo_vnd": 540000, "jumbo_usd": 20.77, "exw_vnd_cn": 430000, "exw_usd_cn": 16.54, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 608000, "pkg25_usd_cn": 23.38, "jumbo_vnd_cn": 540000, "jumbo_usd_cn": 20.77, "exw_vnd_other": 450000, "exw_usd_other": 17.31, "comm_vnd_other": 7000, "comm_usd_other": 0.27, "pkg25_vnd_other": 628000, "pkg25_usd_other": 24.15, "jumbo_vnd_other": 560000, "jumbo_usd_other": 21.54},
+  {"code": "F30A2", "size": "30±3 µm", "standard": "A2-", "machine": "318", "exw_vnd": 410000, "exw_usd": 15.77, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 588000, "pkg25_usd": 22.62, "jumbo_vnd": 520000, "jumbo_usd": 20, "exw_vnd_cn": 410000, "exw_usd_cn": 15.77, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 588000, "pkg25_usd_cn": 22.62, "jumbo_vnd_cn": 520000, "jumbo_usd_cn": 20, "exw_vnd_other": 420000, "exw_usd_other": 16.15, "comm_vnd_other": 7000, "comm_usd_other": 0.27, "pkg25_vnd_other": 598000, "pkg25_usd_other": 23, "jumbo_vnd_other": 530000, "jumbo_usd_other": 20.38},
+  {"code": "F35A2", "size": "35±3 µm", "standard": "A2-", "machine": "318", "exw_vnd": 400000, "exw_usd": 15.38, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 578000, "pkg25_usd": 22.23, "jumbo_vnd": 510000, "jumbo_usd": 19.62, "exw_vnd_cn": 400000, "exw_usd_cn": 15.38, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 578000, "pkg25_usd_cn": 22.23, "jumbo_vnd_cn": 510000, "jumbo_usd_cn": 19.62, "exw_vnd_other": 410000, "exw_usd_other": 15.77, "comm_vnd_other": 7000, "comm_usd_other": 0.27, "pkg25_vnd_other": 588000, "pkg25_usd_other": 22.62, "jumbo_vnd_other": 520000, "jumbo_usd_other": 20},
+  {"code": "F45A2", "size": "45±3 µm", "standard": "A2-", "machine": "318", "exw_vnd": 360000, "exw_usd": 13.85, "comm_vnd": 6000, "comm_usd": 0.23, "pkg25_vnd": 538000, "pkg25_usd": 20.69, "jumbo_vnd": 470000, "jumbo_usd": 18.08, "exw_vnd_cn": 360000, "exw_usd_cn": 13.85, "comm_vnd_cn": 6000, "comm_usd_cn": 0.23, "pkg25_vnd_cn": 538000, "pkg25_usd_cn": 20.69, "jumbo_vnd_cn": 470000, "jumbo_usd_cn": 18.08, "exw_vnd_other": 370000, "exw_usd_other": 14.23, "comm_vnd_other": 6000, "comm_usd_other": 0.23, "pkg25_vnd_other": 548000, "pkg25_usd_other": 21.08, "jumbo_vnd_other": 480000, "jumbo_usd_other": 18.46},
+  {"code": "F15A2", "size": "15±1 µm", "standard": "A2", "machine": "318", "exw_vnd": 600000, "exw_usd": 23.08, "comm_vnd": 9000, "comm_usd": 0.35, "pkg25_vnd": 778000, "pkg25_usd": 29.92, "jumbo_vnd": 710000, "jumbo_usd": 27.31, "exw_vnd_cn": 600000, "exw_usd_cn": 23.08, "comm_vnd_cn": 9000, "comm_usd_cn": 0.35, "pkg25_vnd_cn": 778000, "pkg25_usd_cn": 29.92, "jumbo_vnd_cn": 710000, "jumbo_usd_cn": 27.31, "exw_vnd_other": 610000, "exw_usd_other": 23.46, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 788000, "pkg25_usd_other": 30.31, "jumbo_vnd_other": 720000, "jumbo_usd_other": 27.69},
+  {"code": "F17A2", "size": "17±1 µm", "standard": "A2", "machine": "318", "exw_vnd": 550000, "exw_usd": 21.15, "comm_vnd": 9000, "comm_usd": 0.35, "pkg25_vnd": 728000, "pkg25_usd": 28, "jumbo_vnd": 660000, "jumbo_usd": 25.38, "exw_vnd_cn": 550000, "exw_usd_cn": 21.15, "comm_vnd_cn": 9000, "comm_usd_cn": 0.35, "pkg25_vnd_cn": 728000, "pkg25_usd_cn": 28, "jumbo_vnd_cn": 660000, "jumbo_usd_cn": 25.38, "exw_vnd_other": 560000, "exw_usd_other": 21.54, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 738000, "pkg25_usd_other": 28.38, "jumbo_vnd_other": 670000, "jumbo_usd_other": 25.77},
+  {"code": "F20A2", "size": "20±2 µm", "standard": "A2", "machine": "318", "exw_vnd": 530000, "exw_usd": 20.38, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 708000, "pkg25_usd": 27.23, "jumbo_vnd": 649000, "jumbo_usd": 24.96, "exw_vnd_cn": 530000, "exw_usd_cn": 20.38, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 708000, "pkg25_usd_cn": 27.23, "jumbo_vnd_cn": 649000, "jumbo_usd_cn": 24.96, "exw_vnd_other": 540000, "exw_usd_other": 20.77, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 718000, "pkg25_usd_other": 27.62, "jumbo_vnd_other": 659000, "jumbo_usd_other": 25.35},
+  {"code": "F25A2", "size": "25±2 µm", "standard": "A2", "machine": "318", "exw_vnd": 500000, "exw_usd": 19.23, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 678000, "pkg25_usd": 26.08, "jumbo_vnd": 610000, "jumbo_usd": 23.46, "exw_vnd_cn": 500000, "exw_usd_cn": 19.23, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 678000, "pkg25_usd_cn": 26.08, "jumbo_vnd_cn": 610000, "jumbo_usd_cn": 23.46, "exw_vnd_other": 510000, "exw_usd_other": 19.62, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 688000, "pkg25_usd_other": 26.46, "jumbo_vnd_other": 620000, "jumbo_usd_other": 23.85},
+  {"code": "F30A2", "size": "30±3 µm", "standard": "A2", "machine": "318", "exw_vnd": 470000, "exw_usd": 18.08, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 648000, "pkg25_usd": 24.92, "jumbo_vnd": 580000, "jumbo_usd": 22.31, "exw_vnd_cn": 470000, "exw_usd_cn": 18.08, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 648000, "pkg25_usd_cn": 24.92, "jumbo_vnd_cn": 580000, "jumbo_usd_cn": 22.31, "exw_vnd_other": 490000, "exw_usd_other": 18.85, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 668000, "pkg25_usd_other": 25.69, "jumbo_vnd_other": 600000, "jumbo_usd_other": 23.08},
+  {"code": "K45A2", "size": "45±3 µm", "standard": "A2-", "machine": "1500", "exw_vnd": 350000, "exw_usd": 13.46, "comm_vnd": 6000, "comm_usd": 0.23, "pkg25_vnd": 528000, "pkg25_usd": 20.31, "jumbo_vnd": 460000, "jumbo_usd": 17.69, "exw_vnd_cn": 350000, "exw_usd_cn": 13.46, "comm_vnd_cn": 6000, "comm_usd_cn": 0.23, "pkg25_vnd_cn": 528000, "pkg25_usd_cn": 20.31, "jumbo_vnd_cn": 460000, "jumbo_usd_cn": 17.69, "exw_vnd_other": 350000, "exw_usd_other": 13.46, "comm_vnd_other": 6000, "comm_usd_other": 0.23, "pkg25_vnd_other": 528000, "pkg25_usd_other": 20.31, "jumbo_vnd_other": 460000, "jumbo_usd_other": 17.69},
+  {"code": "K65A2", "size": "65±3 µm", "standard": "A2-", "machine": "1500", "exw_vnd": 330000, "exw_usd": 12.69, "comm_vnd": 6000, "comm_usd": 0.23, "pkg25_vnd": 508000, "pkg25_usd": 19.54, "jumbo_vnd": 440000, "jumbo_usd": 16.92, "exw_vnd_cn": 330000, "exw_usd_cn": 12.69, "comm_vnd_cn": 6000, "comm_usd_cn": 0.23, "pkg25_vnd_cn": 508000, "pkg25_usd_cn": 19.54, "jumbo_vnd_cn": 440000, "jumbo_usd_cn": 16.92, "exw_vnd_other": 330000, "exw_usd_other": 12.69, "comm_vnd_other": 6000, "comm_usd_other": 0.23, "pkg25_vnd_other": 508000, "pkg25_usd_other": 19.54, "jumbo_vnd_other": 440000, "jumbo_usd_other": 16.92},
+  {"code": "K45A3", "size": "45±3 µm", "standard": "A3", "machine": "1500", "exw_vnd": 260000, "exw_usd": 10, "comm_vnd": 5000, "comm_usd": 0.19, "pkg25_vnd": 438000, "pkg25_usd": 16.85, "jumbo_vnd": 370000, "jumbo_usd": 14.23, "exw_vnd_cn": 260000, "exw_usd_cn": 10, "comm_vnd_cn": 5000, "comm_usd_cn": 0.19, "pkg25_vnd_cn": 438000, "pkg25_usd_cn": 16.85, "jumbo_vnd_cn": 370000, "jumbo_usd_cn": 14.23, "exw_vnd_other": 260000, "exw_usd_other": 10, "comm_vnd_other": 5000, "comm_usd_other": 0.19, "pkg25_vnd_other": 438000, "pkg25_usd_other": 16.85, "jumbo_vnd_other": 370000, "jumbo_usd_other": 14.23},
+  {"code": "K65A3", "size": "65±3 µm", "standard": "A3", "machine": "1500", "exw_vnd": 240000, "exw_usd": 9.23, "comm_vnd": 5000, "comm_usd": 0.19, "pkg25_vnd": 418000, "pkg25_usd": 16.08, "jumbo_vnd": 350000, "jumbo_usd": 13.46, "exw_vnd_cn": 240000, "exw_usd_cn": 9.23, "comm_vnd_cn": 5000, "comm_usd_cn": 0.19, "pkg25_vnd_cn": 418000, "pkg25_usd_cn": 16.08, "jumbo_vnd_cn": 350000, "jumbo_usd_cn": 13.46, "exw_vnd_other": 240000, "exw_usd_other": 9.23, "comm_vnd_other": 5000, "comm_usd_other": 0.19, "pkg25_vnd_other": 418000, "pkg25_usd_other": 16.08, "jumbo_vnd_other": 350000, "jumbo_usd_other": 13.46},
+  {"code": "E80A2", "size": "80±3 µm", "standard": "A2", "machine": "1300", "exw_vnd": 770000, "exw_usd": 29.62, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 880000, "pkg25_usd": 33.85, "jumbo_vnd": 880000, "jumbo_usd": 33.85, "exw_vnd_cn": 770000, "exw_usd_cn": 29.62, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 880000, "pkg25_usd_cn": 33.85, "jumbo_vnd_cn": 880000, "jumbo_usd_cn": 33.85, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 880000, "pkg25_usd_other": 33.85, "jumbo_vnd_other": 880000, "jumbo_usd_other": 33.85},
+  {"code": "E125A1", "size": "70±3 µm", "standard": "A1", "machine": "1300", "exw_vnd": 1150000, "exw_usd": 44.23, "comm_vnd": 16000, "comm_usd": 0.62, "pkg25_vnd": 1260000, "pkg25_usd": 48.46, "jumbo_vnd": 1260000, "jumbo_usd": 48.46, "exw_vnd_cn": 1150000, "exw_usd_cn": 44.23, "comm_vnd_cn": 16000, "comm_usd_cn": 0.62, "pkg25_vnd_cn": 1260000, "pkg25_usd_cn": 48.46, "jumbo_vnd_cn": 1260000, "jumbo_usd_cn": 48.46, "exw_vnd_other": 1150000, "exw_usd_other": 44.23, "comm_vnd_other": 16000, "comm_usd_other": 0.62, "pkg25_vnd_other": 1260000, "pkg25_usd_other": 48.46, "jumbo_vnd_other": 1260000, "jumbo_usd_other": 48.46},
+  {"code": "E70A1", "size": "70±3 µm", "standard": "A1", "machine": "1300", "exw_vnd": 1180000, "exw_usd": 45.38, "comm_vnd": 17000, "comm_usd": 0.65, "pkg25_vnd": 1290000, "pkg25_usd": 49.62, "jumbo_vnd": 1290000, "jumbo_usd": 49.62, "exw_vnd_cn": 1180000, "exw_usd_cn": 45.38, "comm_vnd_cn": 17000, "comm_usd_cn": 0.65, "pkg25_vnd_cn": 1290000, "pkg25_usd_cn": 49.62, "jumbo_vnd_cn": 1290000, "jumbo_usd_cn": 49.62, "exw_vnd_other": 1180000, "exw_usd_other": 45.38, "comm_vnd_other": 17000, "comm_usd_other": 0.65, "pkg25_vnd_other": 1290000, "pkg25_usd_other": 49.62, "jumbo_vnd_other": 1290000, "jumbo_usd_other": 49.62},
   {"code": "S55A1", "size": "55 Mesh", "standard": "A1", "machine": "Sand", "exw_vnd": 900000, "exw_usd": 34.62, "comm_vnd": 13000, "comm_usd": 0.5, "pkg25_vnd": 1010000, "pkg25_usd": 38.85, "jumbo_vnd": 1010000, "jumbo_usd": 38.85, "exw_vnd_cn": 900000, "exw_usd_cn": 34.62, "comm_vnd_cn": 13000, "comm_usd_cn": 0.5, "pkg25_vnd_cn": 1010000, "pkg25_usd_cn": 38.85, "jumbo_vnd_cn": 1010000, "jumbo_usd_cn": 38.85, "exw_vnd_other": 920000, "exw_usd_other": 35.38, "comm_vnd_other": 13000, "comm_usd_other": 0.5, "pkg25_vnd_other": 1030000, "pkg25_usd_other": 39.62, "jumbo_vnd_other": 1030000, "jumbo_usd_other": 39.62},
   {"code": "S30A1", "size": "30 Mesh", "standard": "A1", "machine": "Sand", "exw_vnd": 900000, "exw_usd": 34.62, "comm_vnd": 13000, "comm_usd": 0.5, "pkg25_vnd": 1010000, "pkg25_usd": 38.85, "jumbo_vnd": 1010000, "jumbo_usd": 38.85, "exw_vnd_cn": 900000, "exw_usd_cn": 34.62, "comm_vnd_cn": 13000, "comm_usd_cn": 0.5, "pkg25_vnd_cn": 1010000, "pkg25_usd_cn": 38.85, "jumbo_vnd_cn": 1010000, "jumbo_usd_cn": 38.85, "exw_vnd_other": 920000, "exw_usd_other": 35.38, "comm_vnd_other": 13000, "comm_usd_other": 0.5, "pkg25_vnd_other": 1030000, "pkg25_usd_other": 39.62, "jumbo_vnd_other": 1030000, "jumbo_usd_other": 39.62},
   {"code": "S40A1", "size": "40 Mesh", "standard": "A1", "machine": "Sand", "exw_vnd": 900000, "exw_usd": 34.62, "comm_vnd": 13000, "comm_usd": 0.5, "pkg25_vnd": 1010000, "pkg25_usd": 38.85, "jumbo_vnd": 1010000, "jumbo_usd": 38.85, "exw_vnd_cn": 900000, "exw_usd_cn": 34.62, "comm_vnd_cn": 13000, "comm_usd_cn": 0.5, "pkg25_vnd_cn": 1010000, "pkg25_usd_cn": 38.85, "jumbo_vnd_cn": 1010000, "jumbo_usd_cn": 38.85, "exw_vnd_other": 920000, "exw_usd_other": 35.38, "comm_vnd_other": 13000, "comm_usd_other": 0.5, "pkg25_vnd_other": 1030000, "pkg25_usd_other": 39.62, "jumbo_vnd_other": 1030000, "jumbo_usd_other": 39.62},
@@ -390,9 +390,9 @@ function importProducts(arr) {
     var obj = {};
     obj.code = r.code || r.Code || r["Code SP"] || r["Prod Code"] || r["Code product"] || r["Code"] || "";
     if (!obj.code) return;
-    obj.size = r.size || r.Size || r["Cá»¡ háº¡t"] || r["Co hat"] || r["Size"] || "";
+    obj.size = r.size || r.Size || r["Cỡ hạt"] || r["Co hat"] || r["Size"] || "";
     obj.standard = r.standard || r.Standard || r["Standard"] || r["Tieu chuan"] || r["Standard"] || "";
-    obj.machine = r.machine || r.Machine || r["Machine cháº¡y"] || r["May chay"] || r["Machine"] || r["May"] || "";
+    obj.machine = r.machine || r.Machine || r["Machine chạy"] || r["May chay"] || r["Machine"] || r["May"] || "";
     var vndFields = {
       exw_vnd: ["EXW (VND)","EXW(VND)","exw_vnd","EXW_VND","exw vnd","EXW VND","Exw(VND)"],
       exw_usd: ["EXW (USD)","EXW(USD)","exw_usd","EXW_USD","exw usd","EXW USD","Exw(USD)"],
@@ -451,7 +451,7 @@ function importProducts(arr) {
   });
 }
 
-var DATA_BAGS = [{"code": "NVL-BB-PP-K55X85", "cost": 4562, "spec": "25KG", "qty": 18000, "price": 220528, "profit": 0.1}, {"code": "NVL-BB-JB-92X92X125", "cost": 127750, "spec": "Jumbo", "qty": 3000, "price": 143825, "profit": 0.1}, {"code": "NVL-BB-JB-95X95X125", "cost": 131250, "spec": "Jumbo", "qty": 3000, "price": 147675, "profit": 0.1}, {"code": "NVL-BB-25KG-52X78", "cost": 3990, "spec": "25KG", "qty": 18000, "price": 195360, "profit": 0.1}, {"code": "NVL-BB-25KG-52X75", "cost": 3800, "spec": "25KG", "qty": 18000, "price": 187000, "profit": 0.1}, {"code": "NVL-BB-25KG-52X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}, {"code": "NVL-BB-34KG-50X78-KOTR", "cost": 3100, "spec": "34KG", "qty": 18000, "price": 156200, "profit": 0.1}, {"code": "50KG-NHUATAICHE-55X85", "cost": 2650, "spec": "50KG", "qty": 18000, "price": 78100, "profit": 0.1}, {"code": "NVL-BB-25KG-50X72-KOTR", "cost": 3000, "spec": "25KG", "qty": 18000, "price": 151800, "profit": 0.1}, {"code": "Bao jumbo cá»§a khÃ¡ch", "cost": 0, "spec": "Jumbo", "qty": 3000, "price": 3300, "profit": 0.1}, {"code": "BAO 25KG Cá»¦A KHÃCH", "cost": 0, "spec": "25KG", "qty": 18000, "price": 19800, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR", "cost": 127000, "spec": "Jumbo", "qty": 3000, "price": 143000, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR QUAY VÃ’NG", "cost": 43000, "spec": "Jumbo", "qty": 3000, "price": 59800, "profit": 0.3}, {"code": "NVL-BB-25KG-50X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}];
+var DATA_BAGS = [{"code": "NVL-BB-PP-K55X85", "cost": 4562, "spec": "25KG", "qty": 18000, "price": 220528, "profit": 0.1}, {"code": "NVL-BB-JB-92X92X125", "cost": 127750, "spec": "Jumbo", "qty": 3000, "price": 143825, "profit": 0.1}, {"code": "NVL-BB-JB-95X95X125", "cost": 131250, "spec": "Jumbo", "qty": 3000, "price": 147675, "profit": 0.1}, {"code": "NVL-BB-25KG-52X78", "cost": 3990, "spec": "25KG", "qty": 18000, "price": 195360, "profit": 0.1}, {"code": "NVL-BB-25KG-52X75", "cost": 3800, "spec": "25KG", "qty": 18000, "price": 187000, "profit": 0.1}, {"code": "NVL-BB-25KG-52X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}, {"code": "NVL-BB-34KG-50X78-KOTR", "cost": 3100, "spec": "34KG", "qty": 18000, "price": 156200, "profit": 0.1}, {"code": "50KG-NHUATAICHE-55X85", "cost": 2650, "spec": "50KG", "qty": 18000, "price": 78100, "profit": 0.1}, {"code": "NVL-BB-25KG-50X72-KOTR", "cost": 3000, "spec": "25KG", "qty": 18000, "price": 151800, "profit": 0.1}, {"code": "Bao jumbo của khách", "cost": 0, "spec": "Jumbo", "qty": 3000, "price": 3300, "profit": 0.1}, {"code": "BAO 25KG CỦA KHÁCH", "cost": 0, "spec": "25KG", "qty": 18000, "price": 19800, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR", "cost": 127000, "spec": "Jumbo", "qty": 3000, "price": 143000, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR QUAY VÒNG", "cost": 43000, "spec": "Jumbo", "qty": 3000, "price": 59800, "profit": 0.3}, {"code": "NVL-BB-25KG-50X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}];
 
 
 // Market switching
@@ -492,7 +492,7 @@ function setMarket(mkt) {
   applyMarket();
 }
 
-var DATA_OTHERS = [{"code": "PALLET TÃI Sá»¬ Dá»¤NG", "cost": 70000, "price": 77000, "profit": 0.1}, {"code": "PALLET Má»šI", "cost": 120000, "price": 132000, "profit": 0.1}, {"code": "Náº¸P ÄAI", "cost": 5000, "price": 5500, "profit": 0.1}, {"code": "QUáº¤N MÃ€NG", "cost": 18000, "price": 19800, "profit": 0.1}, {"code": "PALLET TRÃNG PHá»¦", "cost": 160000, "price": 176000, "profit": 0.1}, {"code": "JUMBO Má»ž Náº®P (QtyING)", "cost": 95000, "price": 104500, "profit": 0.1}, {"code": "PALLET Má»šI + Náº¸P ÄAI + QUáº¤N MÃ€NG", "cost": 143000, "price": 157300, "profit": 0.1}, {"code": "JUMBO Má»ž Náº®P (QtyING) Cá»¦A KHÃCH", "cost": 35000, "price": 38500, "profit": 0.1}];
+var DATA_OTHERS = [{"code": "PALLET TÁI SỬ DỤNG", "cost": 70000, "price": 77000, "profit": 0.1}, {"code": "PALLET MỚI", "cost": 120000, "price": 132000, "profit": 0.1}, {"code": "NẸP ĐAI", "cost": 5000, "price": 5500, "profit": 0.1}, {"code": "QUẤN MÀNG", "cost": 18000, "price": 19800, "profit": 0.1}, {"code": "PALLET TRÁNG PHỦ", "cost": 160000, "price": 176000, "profit": 0.1}, {"code": "JUMBO MỞ NẮP (QtyING)", "cost": 95000, "price": 104500, "profit": 0.1}, {"code": "PALLET MỚI + NẸP ĐAI + QUẤN MÀNG", "cost": 143000, "price": 157300, "profit": 0.1}, {"code": "JUMBO MỞ NẮP (QtyING) CỦA KHÁCH", "cost": 35000, "price": 38500, "profit": 0.1}];
 var DATA_MAX_LOADING = {}; // Empty - removed from pricelist table
 var DATA_COST_FOB = {14:{no:974600,sub:1263900},20:{no:682000,sub:884400},22:{no:620400,sub:804100},24:{no:568700,sub:737000},25:{no:545600,sub:707300},26:{no:524700,sub:680900},27:{no:504900,sub:655600},28:{no:487300,sub:632500}};
 
@@ -653,11 +653,11 @@ function switchTab(tab) {
 // ====== RENDER PRICE TAB ======
 function formatMaxLoading(v) {
   if (v && v > 0) return '<span style="font-weight:600;color:#0f766e">' + v + ' t</span>';
-  return 'â€”';
+  return '—';
 }
 function formatMaxLoading(v) {
   if (v && v > 0) return '<span style="font-weight:600;color:#0f766e">' + v + ' t</span>';
-  return 'â€”';
+  return '—';
 }
 function renderPriceTab() {
   var search = (document.getElementById("searchInput") && document.getElementById("searchInput").value || "").toLowerCase();
@@ -762,45 +762,45 @@ function renderCalcTab() {
   h += '<div class="calc-left">';
 
   // --- Section: Products ---
-  h += '<div class="calc-section-title"><span class="badge blue">ðŸ“¦</span><span class="title-text">Select Product</span></div>';
+  h += '<div class="calc-section-title"><span class="badge blue">📦</span><span class="title-text">Select Product</span></div>';
 
   // Machine + Standard side by side
   var machines = {};
   DATA_PRODUCTS.forEach(function(p) { machines[p.machine] = true; });
   var machineKeys = Object.keys(machines).sort();
   h += '<div class="calc-form-group"><div class="calc-row-inline">';
-  h += '<div><label class="calc-form-label">ðŸ­ Machine</label>';
-  h += '<select class="calc-select" id="calcMachine" onchange="filterCalcProducts()"><option value="">â€” -- Select Machine -- â€”</option>';
+  h += '<div><label class="calc-form-label">🏭 Machine</label>';
+  h += '<select class="calc-select" id="calcMachine" onchange="filterCalcProducts()"><option value="">— -- Select Machine -- —</option>';
   for (var i = 0; i < machineKeys.length; i++) {
     h += '<option value="' + machineKeys[i].replace(/"/g, '&quot;') + '">' + machineKeys[i] + '</option>';
   }
   h += '</select></div>';
-  h += '<div><label class="calc-form-label">ðŸ“‹ Standard</label>';
-  h += '<select class="calc-select" id="calcStandard" onchange="filterCalcProducts()"><option value="">â€” -- Select Standard -- â€”</option></select></div>';
+  h += '<div><label class="calc-form-label">📋 Standard</label>';
+  h += '<select class="calc-select" id="calcStandard" onchange="filterCalcProducts()"><option value="">— -- Select Standard -- —</option></select></div>';
   h += '</div></div>';
 
-  h += '<div class="calc-form-group"><label class="calc-form-label">ðŸ”– Product</label>';
-  h += '<select class="calc-select" id="calcProduct" onchange="onCalcProductChange()"><option value="">â€” Select Product â€”</option></select></div>';
+  h += '<div class="calc-form-group"><label class="calc-form-label">🔖 Product</label>';
+  h += '<select class="calc-select" id="calcProduct" onchange="onCalcProductChange()"><option value="">— Select Product —</option></select></div>';
   // Max loading dropdown (shown only in FOB/CIF mode)
   h += '<div class="calc-form-group" id="calcMaxLoadRow" style="display:none">';
-  h += '<label class="calc-form-label">âš–ï¸ Max loading</label>';
-  h += '<select class="calc-select" id="calcMaxLoad" onchange="calcPrice()"><option value="">â€” -- Auto -- â€”</option></select></div>';
+  h += '<label class="calc-form-label">⚖️ Max loading</label>';
+  h += '<select class="calc-select" id="calcMaxLoad" onchange="calcPrice()"><option value="">— -- Auto -- —</option></select></div>';
 
   // --- Section: Packaging ---
-  h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge green">ðŸ›ï¸</span><span class="title-text">Bag Options</span></div>';
+  h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge green">🛍️</span><span class="title-text">Bag Options</span></div>';
 
   // Bag spec + Bag select side by side
   h += '<div class="calc-form-group"><div class="calc-row-inline">';
-  h += '<div><label class="calc-form-label">ðŸ“ Bag Spec</label>';
+  h += '<div><label class="calc-form-label">📏 Bag Spec</label>';
   h += '<select class="calc-select" id="calcBagSpec" onchange="filterBagSpec()"><option value="25KG">25KG</option><option value="34KG">34KG</option><option value="50KG">50KG</option><option value="Jumbo">Jumbo</option></select></div>';
-  h += '<div><label class="calc-form-label">ðŸ›ï¸ Bag Type</label>';
-  h += '<select class="calc-select" id="calcBag" onchange="calcPrice()"><option value="">â€” -- None -- â€”</option>';
+  h += '<div><label class="calc-form-label">🛍️ Bag Type</label>';
+  h += '<select class="calc-select" id="calcBag" onchange="calcPrice()"><option value="">— -- None -- —</option>';
   h += '</select></div>';
   h += '</div></div>';
 
   // Jumbo tonnage (hidden by default)
   h += '<div class="calc-form-group" id="calcTonnageRow" style="display:none">';
-  h += '<label class="calc-form-label">âš–ï¸ Tons / Jumbo Bag</label>';
+  h += '<label class="calc-form-label">⚖️ Tons / Jumbo Bag</label>';
   h += '<select class="calc-select" id="calcTonnage" onchange="calcPrice()">';
   var jumboTons = ["0.5","0.7","1","1.1","1.2","1.25","1.3","1.35","1.375","1.38","1.4","1.5"];
   for (var i = 0; i < jumboTons.length; i++) {
@@ -809,16 +809,16 @@ function renderCalcTab() {
   h += '</select></div>';
 
   // --- Section: Other Specs ---
-  h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge purple">ðŸ“¦</span><span class="title-text">Other Specs</span></div>';
+  h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge purple">📦</span><span class="title-text">Other Specs</span></div>';
 
   h += '<div class="calc-form-group"><div class="calc-row-inline">';
-  h += '<div><label class="calc-form-label">ðŸ“‹ Spec Type</label>';
-  h += '<select class="calc-select" id="calcOther" onchange="calcPrice()"><option value="">â€” -- None -- â€”</option>';
+  h += '<div><label class="calc-form-label">📋 Spec Type</label>';
+  h += '<select class="calc-select" id="calcOther" onchange="calcPrice()"><option value="">— -- None -- —</option>';
   for (var i = 0; i < DATA_OTHERS.length; i++) {
     h += '<option value="' + DATA_OTHERS[i].code + '">' + DATA_OTHERS[i].code + '</option>';
   }
   h += '</select></div>';
-  h += '<div id="calcOtherTonnageRow"><label class="calc-form-label">âš–ï¸ Tons</label>';
+  h += '<div id="calcOtherTonnageRow"><label class="calc-form-label">⚖️ Tons</label>';
   h += '<select class="calc-select" id="calcOtherTonnage" onchange="calcPrice()">';
   var otherTons = ["0.5","0.7","1","1.1","1.2","1.25","1.3","1.35","1.375","1.38","1.4","1.5","1.53","1.6"];
   for (var i = 0; i < otherTons.length; i++) {
@@ -832,7 +832,7 @@ function renderCalcTab() {
   // ===== RIGHT PANEL =====
   h += '<div class="calc-right">';
   h += '<div class="calc-right-header">';
-  h += '<span class="icon">ðŸ’°</span>';
+  h += '<span class="icon">💰</span>';
   h += '<span>Calculation Result</span>';
   h += '</div>';
   // Price mode bar for calc tab
@@ -848,15 +848,15 @@ function renderCalcTab() {
   h += '<button class="lcc-btn" data-lcc="sub" onclick="setCalcLccType(\'sub\')">Sub LCC</button>';
   h += '</div>';
   h += '<div id="calcFreightGroup" style="display:none">';
-  h += '<span class="ext-label">ðŸš‚ Freight:</span>';
+  h += '<span class="ext-label">🚂 Freight:</span>';
   h += '<input type="number" class="ext-input" id="calcFreightInput" value="0" min="0" step="100" oninput="setCalcFreight(this.value)" style="width:100px">';
   h += '<span class="ext-label">USD</span>;';
-  h += '<button class="ext-label" onclick="showFreightPopup()" style="background:var(--primary);color:white;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;font-weight:600">ðŸ“¡ Look Up</button>';
+  h += '<button class="ext-label" onclick="showFreightPopup()" style="background:var(--primary);color:white;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;font-weight:600">📡 Look Up</button>';
   h += '</div>';
   h += '</div>';
       // Currency toggle for calc tab 
   h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:4px 0">';
-  h += '<span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">ðŸ’± Currency:</span>';
+  h += '<span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">💱 Currency:</span>';
   h += '<div class="calc-currency-bar">';
   h += '<button class="mode-btn active" id="calcCcyVnd" onclick="setCalcCurrency(\'VND\')">VND</button>';
   h += '<button class="mode-btn" id="calcCcyUsd" onclick="setCalcCurrency(\'USD\')">USD</button>';
@@ -864,7 +864,7 @@ function renderCalcTab() {
   h += '</div>';
 h += '<div class="calc-result" id="calcResult">';
   h += '<div class="calc-empty">';
-  h += '<div class="calc-empty-icon">ðŸ“Š</div>';
+  h += '<div class="calc-empty-icon">📊</div>';
   h += '<div class="calc-empty-text">Select product & packaging to start</div>';
   h += '</div>';
   h += '</div>';
@@ -885,13 +885,13 @@ function filterCalcProducts() {
   });
   // Populate machines (if standard is selected, filter)
   var prevMach = me.value;
-  me.innerHTML = '<option value="">â€” -- Select Machine -- â€”</option>';
+  me.innerHTML = '<option value="">— -- Select Machine -- —</option>';
   var mk = Object.keys(machinesByStd).sort();
   for (var i = 0; i < mk.length; i++) me.innerHTML += '<option value="' + mk[i].replace(/"/g, '&quot;') + '">' + mk[i] + '</option>';
   me.value = prevMach && mk.indexOf(prevMach) >= 0 ? prevMach : "";
   // Populate standards (if machine is selected, filter)
   var prevStd = se.value;
-  se.innerHTML = '<option value="">â€” -- Select Standard -- â€”</option>';
+  se.innerHTML = '<option value="">— -- Select Standard -- —</option>';
   var sk = Object.keys(standardsByMach).sort();
   for (var i = 0; i < sk.length; i++) se.innerHTML += '<option value="' + sk[i].replace(/"/g, '&quot;') + '">' + sk[i] + '</option>';
   se.value = prevStd && sk.indexOf(prevStd) >= 0 ? prevStd : "";
@@ -902,8 +902,8 @@ function filterCalcProducts_products() {
   if (!me || !se || !pe) return;
   var m = me.value, s = se.value;
   var prevProd = pe.value;
-  pe.innerHTML = '<option value="">â€” Select Product â€”</option>';
-  DATA_PRODUCTS.forEach(function(p) { if ((!m || p.machine === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' â€” ' + p.size + '</option>'; });
+  pe.innerHTML = '<option value="">— Select Product —</option>';
+  DATA_PRODUCTS.forEach(function(p) { if ((!m || p.machine === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
   pe.value = prevProd;
 }
 function onCalcProductChange() { populateCalcMaxLoad(); calcPrice(); }
@@ -911,7 +911,7 @@ function populateCalcMaxLoad() {
   var psel = document.getElementById("calcProduct"), mlsel = document.getElementById("calcMaxLoad");
   if (!psel || !mlsel) return;
   var pcode = psel.value;
-  mlsel.innerHTML = '<option value="">â€” -- Auto (per bag spec) -- â€”</option>';
+  mlsel.innerHTML = '<option value="">— -- Auto (per bag spec) -- —</option>';
   if (!pcode) return;
   // Collect all unique max loading values from DATA_MAX_LOADING
   var allVals = {};
@@ -937,7 +937,7 @@ function filterBagSpec() {
   var bsel = document.getElementById("calcBag");
   if (bsel) {
     var curVal = bsel.value;
-    bsel.innerHTML = '<option value="">â€” -- No bag selected -- â€”</option>';
+    bsel.innerHTML = '<option value="">— -- No bag selected -- —</option>';
     for (var i = 0; i < DATA_BAGS.length; i++) {
       if (DATA_BAGS[i].spec === bagSpec) {
         bsel.innerHTML += '<option value="' + DATA_BAGS[i].code + '">' + DATA_BAGS[i].code + '</option>';
@@ -1072,10 +1072,10 @@ function calcPrice() {
   if (!res) return;
   var psel = document.getElementById("calcProduct"), bsel = document.getElementById("calcBag"), tnsel = document.getElementById("calcTonnage"), otnsel = document.getElementById("calcOtherTonnage"), osel = document.getElementById("calcOther"), bagSpecSel = document.getElementById("calcBagSpec");
   var isUsd = currency === "USD", pcode = psel ? psel.value : "";
-  if (!pcode) { res.innerHTML = '<div class="calc-empty">ðŸ‘ˆ Please select a product</div>'; return; }
+  if (!pcode) { res.innerHTML = '<div class="calc-empty">👈 Please select a product</div>'; return; }
   var prod = null;
   for (var i = 0; i < DATA_PRODUCTS.length; i++) { if (DATA_PRODUCTS[i].code === pcode) { prod = DATA_PRODUCTS[i]; break; } }
-  if (!prod) { res.innerHTML = '<div class="calc-empty">âŒ Product not found</div>'; return; }
+  if (!prod) { res.innerHTML = '<div class="calc-empty">❌ Product not found</div>'; return; }
   var bs = bagSpecSel ? bagSpecSel.value : "25KG";
   var isJumbo = bs === "Jumbo";
   // Determine base price: EXW or FOB or CIF
@@ -1141,36 +1141,36 @@ var total = 0;
   }
   var cc = isUsd ? "USD" : "VND";
     var h = '<div class="calc-result-summary">';
-  h += '<div class="calc-result-item"><span class="calc-rl">ðŸ“¦ Products</span><span class="calc-rv">' + prod.code + '</span></div>';
-  h += '<div class="calc-result-item"><span class="calc-rl">âš™ï¸ Machine / Standard</span><span class="calc-rv">' + prod.machine + ' Â· ' + prod.standard + '</span></div>';
-  h += '<div class="calc-result-item"><span class="calc-rl">ðŸ“ Size</span><span class="calc-rv">' + prod.size + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">📦 Products</span><span class="calc-rv">' + prod.code + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">⚙️ Machine / Standard</span><span class="calc-rv">' + prod.machine + ' · ' + prod.standard + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">📐 Size</span><span class="calc-rv">' + prod.size + '</span></div>';
   var modeLabel = calcPriceMode.toUpperCase();
   if (isFobMode) modeLabel += " (" + (calcLccType === "sub" ? "Sub LCC" : "No LCC") + ")";
   if (isCifMode) modeLabel += " (LCC:" + (calcLccType === "sub" ? "Sub" : "No") + " F:" + calcFreightUSD + "USD)";
-  h += '<div class="calc-result-item"><span class="calc-rl">ðŸ’° ' + 'EXW' + (hasBag ? ' no packaging' : ' with packaging') + '</span><span class="calc-rv exw">' + fmtNum(exwMin, isUsd) + ' ' + cc + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">💰 ' + 'EXW' + (hasBag ? ' no packaging' : ' with packaging') + '</span><span class="calc-rv exw">' + fmtNum(exwMin, isUsd) + ' ' + cc + '</span></div>';
   if (isFobMode && maxLoad) {
-    h += '<div class="calc-result-item"><span class="calc-rl">âš–ï¸ Max loading</span><span class="calc-rv other">' + maxLoad + ' tons</span></div>';
-    h += '<div class="calc-result-item"><span class="calc-rl">ðŸš› FOB Cost / ton</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
+    h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tons</span></div>';
+    h += '<div class="calc-result-item"><span class="calc-rl">🚛 FOB Cost / ton</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
   }
   if (isCifMode) {
     if (maxLoad > 0) {
-      h += '<div class="calc-result-item"><span class="calc-rl">âš–ï¸ Max loading</span><span class="calc-rv other">' + maxLoad + ' tons</span></div>';
-      h += '<div class="calc-result-item"><span class="calc-rl">ðŸš› FOB Cost / ton</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
+      h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tons</span></div>';
+      h += '<div class="calc-result-item"><span class="calc-rl">🚛 FOB Cost / ton</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
       var cifFreightPerTon = isUsd ? (calcFreightUSD + 10) / maxLoad : (calcFreightUSD + 10) * EXCHANGE_RATE / maxLoad;
-      h += '<div class="calc-result-item"><span class="calc-rl">ðŸš¢ Freight / ton</span><span class="calc-rv other">' + fmtNum(cifFreightPerTon, isUsd) + ' ' + cc + '</span></div>';
+      h += '<div class="calc-result-item"><span class="calc-rl">🚢 Freight / ton</span><span class="calc-rv other">' + fmtNum(cifFreightPerTon, isUsd) + ' ' + cc + '</span></div>';
     }
   }
-  var bd = ""; if (bcode || isDefaultBag) { if (hasBag) { bd = bagCode; } else { bd = bagCode; } if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tons"; h += '<div class="calc-result-item"><span class="calc-rl">ðŸ›ï¸ Packaging (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; if (!hasBag) h += '<div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">âš ï¸ Using standard packaging price. If bag is different, please select correctly!</span></div>'; }
-  if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " tons"; h += '<div class="calc-result-item"><span class="calc-rl">ðŸ“¦ Other Specs (' + od + ')</span><span class="calc-rv other">' + fmtNum(otherPrice, isUsd) + ' ' + cc + '</span></div>'; }
+  var bd = ""; if (bcode || isDefaultBag) { if (hasBag) { bd = bagCode; } else { bd = bagCode; } if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tons"; h += '<div class="calc-result-item"><span class="calc-rl">🛍️ Packaging (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; if (!hasBag) h += '<div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">⚠️ Using standard packaging price. If bag is different, please select correctly!</span></div>'; }
+  if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " tons"; h += '<div class="calc-result-item"><span class="calc-rl">📦 Other Specs (' + od + ')</span><span class="calc-rv other">' + fmtNum(otherPrice, isUsd) + ' ' + cc + '</span></div>'; }
   h += '<div class="calc-result-total-row">';
-  h += '<span class="calc-rl">ðŸ·ï¸ Total Cost (' + modeLabel + ')</span>';
+  h += '<span class="calc-rl">🏷️ Total Cost (' + modeLabel + ')</span>';
   h += '<span class="calc-rv total">' + fmtNum(total, isUsd) + ' ' + cc + '</span>';
   h += '</div>';
   h += '</div>';
   h += '<div class="calc-commission-wrap">';
-  h += '<div class="calc-sell-input"><span>ðŸ’° Sell Price</span><input type="number" id="calcSellPrice" placeholder="Enter sell price..." oninput="calcCommission()"></div>';
+  h += '<div class="calc-sell-input"><span>💰 Sell Price</span><input type="number" id="calcSellPrice" placeholder="Enter sell price..." oninput="calcCommission()"></div>';
   h += '<div class="calc-comm-result" id="calcCommissionResult"></div>';
-  h += '<div style="margin-top:12px;text-align:center"><button onclick="showQuotationPopup()" style="background:var(--primary);color:white;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.3)">ðŸ“„ Create Quote</button></div>';
+  h += '<div style="margin-top:12px;text-align:center"><button onclick="showQuotationPopup()" style="background:var(--primary);color:white;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.3)">📄 Create Quote</button></div>';
   h += '</div>';
   res.innerHTML = h;
 }
@@ -1242,7 +1242,7 @@ function downloadTemplate(type) {
     headers = ["code","name","cost","qty","price","profit"];
   } else if (type === 3) {
     fn = "Mau_max_tai.xlsx";
-    headers = ["Sáº¢N PHáº¨M","Max Loading 25KG","Max Loading Jumbo"];
+    headers = ["SẢN PHẨM","Max Loading 25KG","Max Loading Jumbo"];
   }
   var ws = XLSX.utils.aoa_to_sheet([headers]);
   var wb = XLSX.utils.book_new();
@@ -1285,7 +1285,7 @@ function downloadFile(type) {
     var mlArr = [];
     if (DATA_MAX_LOADING && Object.keys(DATA_MAX_LOADING).length > 0) {
       Object.keys(DATA_MAX_LOADING).forEach(function(k) {
-        var o = {"Sáº¢N PHáº¨M": k};
+        var o = {"SẢN PHẨM": k};
         if (DATA_MAX_LOADING[k].max25 !== undefined) o["Max Loading 25KG"] = DATA_MAX_LOADING[k].max25;
         if (DATA_MAX_LOADING[k].maxJumbo !== undefined) o["Max Loading Jumbo"] = DATA_MAX_LOADING[k].maxJumbo;
         mlArr.push(o);
@@ -1370,11 +1370,11 @@ function handleManageFile(file) {
   status.style.display = "block";
   if (!file.name.match(/.xlsx?$/i)) {
     status.className = "manage-status-sm err";
-    status.textContent = "âŒ Only supports Excel files (.xlsx)";
+    status.textContent = "❌ Only supports Excel files (.xlsx)";
     return;
   }
   status.className = "manage-status-sm loading";
-  status.textContent = "â³ Processing file...";
+  status.textContent = "⏳ Processing file...";
   var reader = new FileReader();
   reader.onload = function(e) {
     try {
@@ -1435,10 +1435,10 @@ function handleManageFile(file) {
             saveToServer();
       saveToServer();
 status.className = "manage-status-sm ok";
-      status.textContent = "âœ… Updated " + updated + " data tables!";
+      status.textContent = "✅ Updated " + updated + " data tables!";
     } catch(err) {
       status.className = "manage-status-sm err";
-      status.textContent = "âŒ Error: " + err.message;
+      status.textContent = "❌ Error: " + err.message;
     }
   };
   reader.readAsArrayBuffer(file);
@@ -1446,7 +1446,7 @@ status.className = "manage-status-sm ok";
   DATA_MAX_LOADING = {};
   arr.forEach(function(r) {
     // Support Vietnamese column names from Max_loadding.xlsx
-    var code = r.code || r.Code || r.CodeSP || r.CodeSP_Standard || r["Sáº¢N PHáº¨M"] || r["SAN PHAM"] || "";
+    var code = r.code || r.Code || r.CodeSP || r.CodeSP_Standard || r["SẢN PHẨM"] || r["SAN PHAM"] || "";
     if (!code) return;
     var obj = {};
     var v25 = r.max25 || r["Max Loading 25KG"] || r["Max Loading 25kg"] || r["max25"] || r["Max25"];
@@ -1613,7 +1613,7 @@ function render() {
 function updateDataInfo() {
   var el = document.getElementById("dataInfo");
   if (!el) return;
-  el.textContent = "ðŸ“Š " + DATA_PRODUCTS.length + " SP Â· " + DATA_BAGS.length + " BB Â· " + DATA_OTHERS.length + " QC";
+  el.textContent = "📊 " + DATA_PRODUCTS.length + " SP · " + DATA_BAGS.length + " BB · " + DATA_OTHERS.length + " QC";
 }
 
 // Language switch (i18n stub - keeps layout functional)
@@ -1820,7 +1820,7 @@ function updateQuotationPreview() {
   var yy=now.getFullYear();
   var dateStr=dd+"/"+mm+"/"+yy;
   var h="";
-  h+="<p style=\"text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px\">ðŸ“„ QUOTATION</p>";
+  h+="<p style=\"text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px\">📄 QUOTATION</p>";
   h+="<div class=\"q-row\"><strong>Customer:</strong><span>"+customer+"</span></div>";
   if (contact) h+="<div class=\"q-row\"><strong>Contact:</strong><span>"+contact+"</span></div>";
   if (assigned) h+="<div class=\"q-row\"><strong>PIC:</strong><span>"+assigned+"</span></div>";
@@ -1871,15 +1871,15 @@ function getQuotationText() {
   t+=ADDR+"\n";
   t+="Email: "+EMAIL+" - "+WEBSITE+"\n";
   t+="Tel: "+PHONE+" Ext: "+EXT+" - MST: "+MST+"\n";
-  t+="â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n";
-  t+="ðŸ“„ QUOTATION\n";
-  t+="â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n";
+  t+="──────────────────────────────────────────────────\n";
+  t+="📄 QUOTATION\n";
+  t+="──────────────────────────────────────────────────\n";
   t+="Customer: "+customer+"\n";
   if (contact) t+="Contact: "+contact+"\n";
   if (assigned) t+="PIC: "+assigned+"\n";
   if (custEmail) t+="Email: "+custEmail+"\n";
   t+="Date: "+dateStr+"\n";
-  t+="â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n";
+  t+="──────────────────────────────────────────────────\n";
   t+="Products: "+data.product+"\n";
   t+="Spec: "+data.spec+"\n";
   t+="Bag Spec: "+data.bagSpec+"\n";
@@ -1887,9 +1887,9 @@ function getQuotationText() {
   t+="Condition: "+data.mode+"\n";
   if (port) t+="Port of Loading: "+port+"\n";
   t+="Delivery Terms: "+delivery+"\n";
-  t+="â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n";
+  t+="──────────────────────────────────────────────────\n";
   t+="Sell Price: "+totalFmt+" "+data.cc+" / ton\n";
-  t+="â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n";
+  t+="──────────────────────────────────────────────────\n";
   t+="Validity: "+valid+"\n";
   t+="Payment: "+payment+"\n";
   if (note) t+="Note: "+note+"\n";
@@ -1901,7 +1901,7 @@ function getQuotationText() {
 }
 function copyQuotation() {
   var txt=getQuotationText();
-  if (navigator.clipboard) { navigator.clipboard.writeText(txt).then(function(){alert("âœ… Quote copied to clipboard");}); }
+  if (navigator.clipboard) { navigator.clipboard.writeText(txt).then(function(){alert("✅ Quote copied to clipboard");}); }
   else { prompt("Copy the text below:",txt); }
 }
 function printQuotation() {
@@ -1929,7 +1929,7 @@ function printQuotation() {
   w.document.write('<h1>'+COMPANY+'</h1>');
   w.document.write('<p class="sub">'+ADDR+'<br>Email: '+EMAIL+' - '+WEBSITE+'<br>Tel: '+PHONE+' Ext: '+EXT+' - MST: '+MST+'</p>');
   w.document.write('<div class="divider"></div>');
-  w.document.write('<p class="title">ðŸ“„ QUOTATION</p>');
+  w.document.write('<p class="title">📄 QUOTATION</p>');
   w.document.write('<div class="row"><strong>Customer:</strong><span>'+customer+'</span></div>');
   if (contact) w.document.write('<div class="row"><strong>Contact:</strong><span>'+contact+'</span></div>');
   if (assigned) w.document.write('<div class="row"><strong>PIC:</strong><span>'+assigned+'</span></div>');
@@ -2005,11 +2005,11 @@ function saveToServer() {
 <div class="freight-overlay" id="freightPopup">
   <div class="freight-modal">
     <div class="freight-modal-header">
-      <h3>ðŸ“¡ Freight Lookup</h3>
-      <button class="freight-modal-close" onclick="closeFreightPopup()">âœ•</button>
+      <h3>📡 Freight Lookup</h3>
+      <button class="freight-modal-close" onclick="closeFreightPopup()">✕</button>
     </div>
     <div class="freight-modal-search">
-      <input type="text" id="freightSearch" placeholder="ðŸ” Search port..." oninput="filterFreightRoutes()">
+      <input type="text" id="freightSearch" placeholder="🔍 Search port..." oninput="filterFreightRoutes()">
     </div>
     <div class="freight-modal-filters">
       <select id="freightCountryFilter" onchange="filterFreightRoutes()"><option value="">All Countries</option></select>
@@ -2025,7 +2025,7 @@ function saveToServer() {
     <div class="freight-modal-footer">
       <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="freightCount"></span>
       <button class="btn-cancel" onclick="closeFreightPopup()">Close</button>
-      <button class="btn-confirm" onclick="selectFreightRoute()">âœ… Select Route</button>
+      <button class="btn-confirm" onclick="selectFreightRoute()">✅ Select Route</button>
     </div>
   </div>
 </div>
@@ -2035,34 +2035,34 @@ function saveToServer() {
 <div class="q-overlay" id="quotationPopup">
   <div class="q-modal">
     <div class="q-modal-header">
-      <h3>ðŸ“„ Create Quote</h3>
-      <button class="q-modal-close" onclick="closeQuotationPopup()">âœ•</button>
+      <h3>📄 Create Quote</h3>
+      <button class="q-modal-close" onclick="closeQuotationPopup()">✕</button>
     </div>
     <div class="q-modal-form">
-      <div><label>ðŸ‘¤ Customer</label><input type="text" id="qCustomer" placeholder="Customer name..." oninput="updateQuotationPreview()"></div>
-      <div><label>ðŸ“ž Contact</label><input type="text" id="qContact" placeholder="Contact Person..." oninput="updateQuotationPreview()"></div>
-      <div><label>ðŸ‘¤ Person in Charge</label><input type="text" id="qAssigned" placeholder="Person in charge..." oninput="updateQuotationPreview()"></div>
-      <div><label>âœ‰ï¸ Email KH</label><input type="email" id="qCustEmail" placeholder="Email customer..." oninput="updateQuotationPreview()"></div>
-      <div><label>ðŸ“¦ Qty (tons)</label><input type="number" id="qQty" value="1" min="1" step="0.5" oninput="updateQuotationPreview()"></div>
-      <div><label>ðŸ“… Validity</label><select id="qValid" onchange="updateQuotationPreview()"><option value="15 days">15 days</option><option value="30 days">30 days</option><option value="7 days">7 days</option><option value="from signing date">From signing date</option></select></div>
-      <div><label>ðŸ’µ Payment Condition</label><select id="qPayment" onchange="updateQuotationPreview()"><option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option><option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div>
-      <div><label>ðŸŒŠ Port of Loading</label><input type="text" id="qPort" placeholder="Port of Loading (if any)..." oninput="updateQuotationPreview()"></div>
-      <div><label>ðŸšš Delivery</label><input type="text" id="qDelivery" placeholder="Delivery Condition..." oninput="updateQuotationPreview()"></div>
-      <div style="grid-column:1/-1"><label>ðŸ“ Note</label><input type="text" id="qNote" placeholder="Note additional..." oninput="updateQuotationPreview()" style="width:100%"></div>
+      <div><label>👤 Customer</label><input type="text" id="qCustomer" placeholder="Customer name..." oninput="updateQuotationPreview()"></div>
+      <div><label>📞 Contact</label><input type="text" id="qContact" placeholder="Contact Person..." oninput="updateQuotationPreview()"></div>
+      <div><label>👤 Person in Charge</label><input type="text" id="qAssigned" placeholder="Person in charge..." oninput="updateQuotationPreview()"></div>
+      <div><label>✉️ Email KH</label><input type="email" id="qCustEmail" placeholder="Email customer..." oninput="updateQuotationPreview()"></div>
+      <div><label>📦 Qty (tons)</label><input type="number" id="qQty" value="1" min="1" step="0.5" oninput="updateQuotationPreview()"></div>
+      <div><label>📅 Validity</label><select id="qValid" onchange="updateQuotationPreview()"><option value="15 days">15 days</option><option value="30 days">30 days</option><option value="7 days">7 days</option><option value="from signing date">From signing date</option></select></div>
+      <div><label>💵 Payment Condition</label><select id="qPayment" onchange="updateQuotationPreview()"><option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option><option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div>
+      <div><label>🌊 Port of Loading</label><input type="text" id="qPort" placeholder="Port of Loading (if any)..." oninput="updateQuotationPreview()"></div>
+      <div><label>🚚 Delivery</label><input type="text" id="qDelivery" placeholder="Delivery Condition..." oninput="updateQuotationPreview()"></div>
+      <div style="grid-column:1/-1"><label>📝 Note</label><input type="text" id="qNote" placeholder="Note additional..." oninput="updateQuotationPreview()" style="width:100%"></div>
     </div>
     <div class="q-modal-body" id="qPreviewBody">
       <div class="q-preview" id="qPreview">
         <h1>DUC THINH NEW MATERIALS TECHNOLOGY CO., LTD.</h1>
         <p class="q-sub">ADDR: NGHIA DAN IP, NGHE AN, VIETNAM<br>Email: sales@ducthinh.com - https://ducthinhmaterials.com<br>Tel: +84 382 666 000 Ext: 106 - MST: 2902085037<br>MST: 2902085037</p>
         <div class="q-divider"></div>
-        <p style="text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px">ðŸ“„ QUOTATION</p>
+        <p style="text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px">📄 QUOTATION</p>
         <div id="qPreviewContent"><p style="text-align:center;color:#94a3b8;font-size:13px">Select product & calculate price first</p></div>
       </div>
     </div>
     <div class="q-modal-footer">
       <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="qDateSpan"></span>
-      <button class="q-btn-copy" onclick="copyQuotation()">ðŸ“‹ Copy</button>
-      <button class="q-btn-print" onclick="printQuotation()">ðŸ–¨ In / PDF</button>
+      <button class="q-btn-copy" onclick="copyQuotation()">📋 Copy</button>
+      <button class="q-btn-print" onclick="printQuotation()">🖨 In / PDF</button>
     </div>
   </div>
 </div>

@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ä»·æ ¼æŸ¥è¯¢å·¥å…· - å¾·ç››æ–°ææ–™</title>
+<title>价格查询工具 - 德盛新材料</title>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>:root{--primary:#1a56db;--primary-dark:#1e40af;--primary-glow:rgba(26,86,219,.2);--green:#059669;--green-light:#d1fae5;--amber:#d97706;--red:#dc2626;--bg:#f0f2f5;--card:#ffffff;--text:#0f172a;--text-secondary:#475569;--muted:#94a3b8;--border:#e2e8f0;--radius-sm:8px;--radius:12px;--radius-lg:16px;--shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);--shadow-md:0 4px 6px -1px rgba(0,0,0,.07),0 2px 4px -1px rgba(0,0,0,.04);--shadow-lg:0 10px 25px -3px rgba(0,0,0,.08),0 4px 8px -2px rgba(0,0,0,.04);--font:"Inter","SF Pro Display","Segoe UI",sans-serif}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -212,33 +212,33 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 
 <header>
 <div>
-<h1>ä»·æ ¼æŸ¥è¯¢å·¥å…· <span>ðŸ”</span></h1>
-<div class="sub" style="margin-top:6px;font-size:13px;opacity:.8;">å¾·ç››æ–°ææ–™ - ä»·æ ¼è¡¨ 06/2026</div>
+<h1>价格查询工具 <span>🔍</span></h1>
+<div class="sub" style="margin-top:6px;font-size:13px;opacity:.8;">德盛新材料 - 价格表 06/2026</div>
 </div>
-<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><div class="lang-switcher"><a href="vi.html" onclick="localStorage.setItem('preferred_lang','vi')" title="VI">ðŸ‡»ðŸ‡³</a><a href="en.html" onclick="localStorage.setItem('preferred_lang','en')" title="EN">ðŸ‡¬ðŸ‡§</a><a class="active" href="zh.html" onclick="localStorage.setItem('preferred_lang','zh')" title="ZH">ðŸ‡¨ðŸ‡³</a></div><span class="badge">ðŸ­ å¾·ç››æ–°ææ–™ç§‘æŠ€æœ‰é™å…¬å¸</span><span class="badge" id="dataInfo">ðŸ“Š 0 SP</span></div>
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><div class="lang-switcher"><a href="vi.html" onclick="localStorage.setItem('preferred_lang','vi')" title="VI">🇻🇳</a><a href="en.html" onclick="localStorage.setItem('preferred_lang','en')" title="EN">🇬🇧</a><a class="active" href="zh.html" onclick="localStorage.setItem('preferred_lang','zh')" title="ZH">🇨🇳</a></div><span class="badge">🏭 德盛新材料科技有限公司</span><span class="badge" id="dataInfo">📊 0 SP</span></div>
 </header>
 
 <div class="tabs" id="tabs">
-<button class="tab-btn active" data-tab="pricelist" onclick="switchTab('pricelist')"><span>ðŸ“‹ å”®ä»·</span><br><small style="font-weight:400;font-size:10px;opacity:.7">ä»·æ ¼è¡¨</small></button>
-<button class="tab-btn" data-tab="bags" onclick="switchTab('bags')"><span>ðŸ“¦ åŒ…è£…</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Surcharge</small></button>
-<button class="tab-btn" data-tab="others" onclick="switchTab('others')"><span>ðŸ“ å…¶ä»–è§„æ ¼</span><br><small style="font-weight:400;font-size:10px;opacity:.7">é™„åŠ è´¹</small></button>
-<button class="tab-btn" data-tab="calc" onclick="switchTab('calc')"><span>ðŸ“ è®¡ç®—å™¨</span><br><small style="font-weight:400;font-size:10px;opacity:.7">è®¡ç®—å™¨ thÃ nh</small></button>
-<button class="tab-btn" data-tab="manage" onclick="switchTab('manage')"><span>âš™ï¸ ç®¡ç†</span><br><small style="font-weight:400;font-size:10px;opacity:.7">ä¸Šä¼ æ•°æ®</small></button>
+<button class="tab-btn active" data-tab="pricelist" onclick="switchTab('pricelist')"><span>📋 售价</span><br><small style="font-weight:400;font-size:10px;opacity:.7">价格表</small></button>
+<button class="tab-btn" data-tab="bags" onclick="switchTab('bags')"><span>📦 包装</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Surcharge</small></button>
+<button class="tab-btn" data-tab="others" onclick="switchTab('others')"><span>📐 其他规格</span><br><small style="font-weight:400;font-size:10px;opacity:.7">附加费</small></button>
+<button class="tab-btn" data-tab="calc" onclick="switchTab('calc')"><span>📝 计算器</span><br><small style="font-weight:400;font-size:10px;opacity:.7">计算器 thành</small></button>
+<button class="tab-btn" data-tab="manage" onclick="switchTab('manage')"><span>⚙️ 管理</span><br><small style="font-weight:400;font-size:10px;opacity:.7">上传数据</small></button>
 </div>
 
 <div class="controls" id="controlBar">
-<input type="text" id="searchInput" placeholder="ðŸ” æœç´¢äº§å“..." oninput="globalSearch()">
-<select id="specFilter" onchange="render()"><option value="">æ‰€æœ‰æ ‡å‡†</option></select>
-<select id="machineFilter" onchange="render()"><option value="">æ‰€æœ‰æœºå™¨</option></select>
+<input type="text" id="searchInput" placeholder="🔍 搜索产品..." oninput="globalSearch()">
+<select id="specFilter" onchange="render()"><option value="">所有标准</option></select>
+<select id="machineFilter" onchange="render()"><option value="">所有机器</option></select>
 <div class="currency-toggle">
 <button class="active" data-currency="VND" onclick="toggleCurrency(this)">VND</button>
 <button data-currency="USD" onclick="toggleCurrency(this)">USD</button>
 </div>
 </div>
 <div class="btn-group" id="marketGroup" style="display:inline-flex;margin-left:6px;gap:3px">
-<span class="ext-label">ðŸŒ å¸‚åœº:</span>
-<button class="btn-sm active" id="marketCn" onclick="setMarket('cn')" style="padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid #d0d5dd;background:#1a56db;color:#fff;cursor:pointer;transition:all .15s ease">ðŸ‡¨ðŸ‡³ TQ</button>
-<button class="btn-sm" id="marketOther" onclick="setMarket('other')" style="padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid #d0d5dd;background:#fff;color:#333;cursor:pointer;transition:all .15s ease">å…¶ä»–</button>
+<span class="ext-label">🌏 市场:</span>
+<button class="btn-sm active" id="marketCn" onclick="setMarket('cn')" style="padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid #d0d5dd;background:#1a56db;color:#fff;cursor:pointer;transition:all .15s ease">🇨🇳 TQ</button>
+<button class="btn-sm" id="marketOther" onclick="setMarket('other')" style="padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid #d0d5dd;background:#fff;color:#333;cursor:pointer;transition:all .15s ease">其他</button>
 </div>
 
 <div class="price-mode-bar" id="priceModeBar" style="display:none">
@@ -248,12 +248,12 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 <button class="mode-btn" data-mode="cif" onclick="setPriceMode('cif')">CIF</button>
 </div>
 <div class="lcc-group" id="lccGroup" style="display:none">
-<span class="ext-label">LCCç±»åž‹:</span>
-<button class="lcc-btn active" data-lcc="no" onclick="setLccType('no')">æ— LCC</button>
-<button class="lcc-btn" data-lcc="sub" onclick="setLccType('sub')">å­LCC</button>
+<span class="ext-label">LCC类型:</span>
+<button class="lcc-btn active" data-lcc="no" onclick="setLccType('no')">无LCC</button>
+<button class="lcc-btn" data-lcc="sub" onclick="setLccType('sub')">子LCC</button>
 </div>
 <div id="freightGroup" style="display:none">
-<span class="ext-label">ðŸš‚ æµ·è¿è´¹:</span>
+<span class="ext-label">🚂 海运费:</span>
 <input type="number" class="ext-input" id="freightInput" value="0" min="0" step="100" oninput="onFreightChange()" style="width:100px">
 <span class="ext-label">USD</span>
 </div>
@@ -263,41 +263,41 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 
 <div class="manage-panel" id="managePanel">
 <div class="manage-login" id="manageLogin">
-<h3>âš™ï¸ æ•°æ®ç®¡ç†</h3>
-<p>ðŸ”’ è¾“å…¥å¯†ç ä»¥åŠ è½½/ä¸Šä¼ /æ›´æ–°æ•°æ®</p>
-<input type="password" id="managePass" placeholder="ðŸ”‘ è¾“å…¥å¯†ç ..." onkeydown="if(event.key==='Enter')manageLogin()" autocomplete="off">
-<button onclick="manageLogin()">ðŸ”‘ ç™»å½•</button>
+<h3>⚙️ 数据管理</h3>
+<p>🔒 输入密码以加载/上传/更新数据</p>
+<input type="password" id="managePass" placeholder="🔑 输入密码..." onkeydown="if(event.key==='Enter')manageLogin()" autocomplete="off">
+<button onclick="manageLogin()">🔑 登录</button>
 <div class="manage-error" id="manageError"></div>
 </div>
 <div class="manage-dashboard" id="manageDashboard">
 <div class="manage-grid">
-<div class="manage-card"><div class="num" id="mProdCnt">0</div><div class="lbl">äº§å“</div></div>
-<div class="manage-card"><div class="num" id="mBagCnt">0</div><div class="lbl">åŒ…è£…</div></div>
-<div class="manage-card"><div class="num" id="mOtherCnt">0</div><div class="lbl">å…¶ä»–è§„æ ¼</div></div>
-<div class="manage-card"><div class="num" id="mUptd">06/2026</div><div class="lbl">æ›´æ–°</div></div>
+<div class="manage-card"><div class="num" id="mProdCnt">0</div><div class="lbl">产品</div></div>
+<div class="manage-card"><div class="num" id="mBagCnt">0</div><div class="lbl">包装</div></div>
+<div class="manage-card"><div class="num" id="mOtherCnt">0</div><div class="lbl">其他规格</div></div>
+<div class="manage-card"><div class="num" id="mUptd">06/2026</div><div class="lbl">更新</div></div>
 </div>
 <div class="manage-actions">
-<h3>â¬‡ åŠ è½½æ•°æ®</h3>
+<h3>⬇ 加载数据</h3>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:10px">
-<button class="btn-confirm" onclick="downloadFile(0)">ðŸ“‹ å”®ä»·</button>
-<button class="btn-confirm" onclick="downloadFile(1)">ðŸ“¦ åŒ…è£…</button>
-<button class="btn-confirm" onclick="downloadFile(2)">ðŸ“ å…¶ä»–è§„æ ¼</button>
-<button class="btn-cancel" onclick="downloadTemplate(0)">ðŸ“„ ä»·æ ¼è¡¨æ¨¡æ¿</button>
-<button class="btn-cancel" onclick="downloadTemplate(1)">ðŸ“„ è¢‹å­æ¨¡æ¿</button>
-<button class="btn-cancel" onclick="downloadTemplate(2)">ðŸ“„ å…¶ä»–è§„æ ¼æ¨¡æ¿</button>
-<button class="btn-confirm" onclick="downloadFile(3)">âš–ï¸ æœ€å¤§è´Ÿè½½</button>
-<button class="btn-cancel" onclick="downloadTemplate(3)">ðŸ“„ æœ€å¤§è´Ÿè½½æ¨¡æ¿</button>
+<button class="btn-confirm" onclick="downloadFile(0)">📋 售价</button>
+<button class="btn-confirm" onclick="downloadFile(1)">📦 包装</button>
+<button class="btn-confirm" onclick="downloadFile(2)">📐 其他规格</button>
+<button class="btn-cancel" onclick="downloadTemplate(0)">📄 价格表模板</button>
+<button class="btn-cancel" onclick="downloadTemplate(1)">📄 袋子模板</button>
+<button class="btn-cancel" onclick="downloadTemplate(2)">📄 其他规格模板</button>
+<button class="btn-confirm" onclick="downloadFile(3)">⚖️ 最大负载</button>
+<button class="btn-cancel" onclick="downloadTemplate(3)">📄 最大负载模板</button>
 </div>
 <div class="btn-row">
-<button class="btn-confirm" onclick="downloadAsExcel()">ðŸ“Š Excel</button>
-<button class="btn-cancel" onclick="downloadAsJSON()">ðŸ“‹ JS</button>
-<button class="btn-confirm" onclick="downloadFullTemplate()">ðŸ“Š å…¨éƒ¨æ¨¡æ¿</button>
+<button class="btn-confirm" onclick="downloadAsExcel()">📊 Excel</button>
+<button class="btn-cancel" onclick="downloadAsJSON()">📋 JS</button>
+<button class="btn-confirm" onclick="downloadFullTemplate()">📊 全部模板</button>
 </div>
 </div>
 <div class="manage-actions">
-<h3>ðŸ“¤ ä¸Šä¼ æ•°æ® má»›i</h3>
+<h3>📤 上传数据 mới</h3>
 <p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">Upload file Excel (.xlsx)</p>
-<div class="upload-sm" id="manageDropZone" style="border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;background:#fafbfc"><div style="font-size:1.5rem;margin-bottom:6px">ðŸ“‚</div><div><strong>æ‹–æ”¾æ–‡ä»¶åˆ°æ­¤å¤„</strong><br>æˆ–ç‚¹å‡»é€‰æ‹©</div></div>
+<div class="upload-sm" id="manageDropZone" style="border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;background:#fafbfc"><div style="font-size:1.5rem;margin-bottom:6px">📂</div><div><strong>拖放文件到此处</strong><br>或点击选择</div></div>
 <input type="file" id="manageFileInput" accept=".xlsx,.xls" style="display:none">
 <div class="manage-status-sm" id="manageUploadStatus" style="margin-top:10px;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;display:none"></div>
 </div>
@@ -310,27 +310,27 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 <!-- Save to Server Button -->
 <div class="manage-actions" style="margin-top:8px">
 <h3>&#128190; Server Sync</h3>
-<p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">å°†å½“å‰æ•°æ®ä¿å­˜åˆ°æœåŠ¡å™¨ä»¥åŒæ­¥æ‰€æœ‰è¯­è¨€ç‰ˆæœ¬ï¼ˆvi/en/zhï¼‰</p>
-<button class="btn-confirm" id="saveServerBtn" onclick="saveToServer()">&#128190; ä¿å­˜åˆ°æœåŠ¡å™¨</button>
+<p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">将当前数据保存到服务器以同步所有语言版本（vi/en/zh）</p>
+<button class="btn-confirm" id="saveServerBtn" onclick="saveToServer()">&#128190; 保存到服务器</button>
 </div>
 
 
 <!-- Save to Server Button -->
 <div class="manage-actions" style="margin-top:8px">
 <h3>&#128190; Server Sync</h3>
-<p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">å°†å½“å‰æ•°æ®ä¿å­˜åˆ°æœåŠ¡å™¨ä»¥åŒæ­¥æ‰€æœ‰è¯­è¨€ç‰ˆæœ¬ï¼ˆvi/en/zhï¼‰</p>
-<button class="btn-confirm" id="saveServerBtn" onclick="saveToServer()">&#128190; ä¿å­˜åˆ°æœåŠ¡å™¨</button>
+<p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">将当前数据保存到服务器以同步所有语言版本（vi/en/zh）</p>
+<button class="btn-confirm" id="saveServerBtn" onclick="saveToServer()">&#128190; 保存到服务器</button>
 </div>
 
 id="pwModal">
 <div class="modal-box">
-<h3>ðŸ” è¾“å…¥å¯†ç </h3>
-<p>ðŸ”’ ç®¡ç†åŠŸèƒ½éœ€è¦å¯†ç </p>
-<input type="password" id="pwInput" placeholder="ðŸ”‘ è¾“å…¥å¯†ç ..." onkeydown="if(event.key==='Enter')checkPassword()" autocomplete="off">
-<div class="pw-error" id="pwError">âŒ å¯†ç é”™è¯¯ï¼</div>
+<h3>🔐 输入密码</h3>
+<p>🔒 管理功能需要密码</p>
+<input type="password" id="pwInput" placeholder="🔑 输入密码..." onkeydown="if(event.key==='Enter')checkPassword()" autocomplete="off">
+<div class="pw-error" id="pwError">❌ 密码错误！</div>
 <div class="btn-row">
-<button class="btn-cancel" onclick="closePwModal()">å–æ¶ˆ</button>
-<button class="btn-confirm" onclick="checkPassword()">ç¡®è®¤</button>
+<button class="btn-cancel" onclick="closePwModal()">取消</button>
+<button class="btn-confirm" onclick="checkPassword()">确认</button>
 </div>
 </div>
 </div>
@@ -338,45 +338,45 @@ id="pwModal">
 <script>
 // Data
 var DATA_PRODUCTS = [
-  {"code": "H4A1", "size": "4Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 2380000, "exw_usd": 91.54, "comm_vnd": 32000, "comm_usd": 1.23, "pkg25_vnd": 2601000, "pkg25_usd": 100.04, "jumbo_vnd": 2591000, "jumbo_usd": 99.65, "exw_vnd_cn": 2380000, "exw_usd_cn": 91.54, "comm_vnd_cn": 32000, "comm_usd_cn": 1.23, "pkg25_vnd_cn": 2601000, "pkg25_usd_cn": 100.04, "jumbo_vnd_cn": 2591000, "jumbo_usd_cn": 99.65, "exw_vnd_other": 2380000, "exw_usd_other": 91.54, "comm_vnd_other": 32000, "comm_usd_other": 1.23, "pkg25_vnd_other": 2601000, "pkg25_usd_other": 100.04, "jumbo_vnd_other": 2591000, "jumbo_usd_other": 99.65},
-  {"code": "H5A1", "size": "5Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 1850000, "exw_usd": 71.15, "comm_vnd": 26000, "comm_usd": 1, "pkg25_vnd": 2046000, "pkg25_usd": 78.69, "jumbo_vnd": 2061000, "jumbo_usd": 79.27, "exw_vnd_cn": 1850000, "exw_usd_cn": 71.15, "comm_vnd_cn": 26000, "comm_usd_cn": 1, "pkg25_vnd_cn": 2046000, "pkg25_usd_cn": 78.69, "jumbo_vnd_cn": 2061000, "jumbo_usd_cn": 79.27, "exw_vnd_other": 1850000, "exw_usd_other": 71.15, "comm_vnd_other": 26000, "comm_usd_other": 1, "pkg25_vnd_other": 2046000, "pkg25_usd_other": 78.69, "jumbo_vnd_other": 2061000, "jumbo_usd_other": 79.27},
-  {"code": "H6A1", "size": "6Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 1470000, "exw_usd": 56.54, "comm_vnd": 21000, "comm_usd": 0.81, "pkg25_vnd": 1666000, "pkg25_usd": 64.08, "jumbo_vnd": 1681000, "jumbo_usd": 64.65, "exw_vnd_cn": 1470000, "exw_usd_cn": 56.54, "comm_vnd_cn": 21000, "comm_usd_cn": 0.81, "pkg25_vnd_cn": 1666000, "pkg25_usd_cn": 64.08, "jumbo_vnd_cn": 1681000, "jumbo_usd_cn": 64.65, "exw_vnd_other": 1470000, "exw_usd_other": 56.54, "comm_vnd_other": 21000, "comm_usd_other": 0.81, "pkg25_vnd_other": 1666000, "pkg25_usd_other": 64.08, "jumbo_vnd_other": 1681000, "jumbo_usd_other": 64.65},
-  {"code": "H8A1", "size": "8Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 1060000, "exw_usd": 40.77, "comm_vnd": 15000, "comm_usd": 0.58, "pkg25_vnd": 1247000, "pkg25_usd": 47.96, "jumbo_vnd": 1208000, "jumbo_usd": 46.46, "exw_vnd_cn": 1060000, "exw_usd_cn": 40.77, "comm_vnd_cn": 15000, "comm_usd_cn": 0.58, "pkg25_vnd_cn": 1247000, "pkg25_usd_cn": 47.96, "jumbo_vnd_cn": 1208000, "jumbo_usd_cn": 46.46, "exw_vnd_other": 1090000, "exw_usd_other": 41.92, "comm_vnd_other": 16000, "comm_usd_other": 0.62, "pkg25_vnd_other": 1277000, "pkg25_usd_other": 49.12, "jumbo_vnd_other": 1238000, "jumbo_usd_other": 47.62},
-  {"code": "H8RA1", "size": "8Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 1340000, "exw_usd": 51.54, "comm_vnd": 19000, "comm_usd": 0.73, "pkg25_vnd": 1527000, "pkg25_usd": 58.73, "jumbo_vnd": 1488000, "jumbo_usd": 57.23, "exw_vnd_cn": 1340000, "exw_usd_cn": 51.54, "comm_vnd_cn": 19000, "comm_usd_cn": 0.73, "pkg25_vnd_cn": 1527000, "pkg25_usd_cn": 58.73, "jumbo_vnd_cn": 1488000, "jumbo_usd_cn": 57.23, "exw_vnd_other": 1340000, "exw_usd_other": 51.54, "comm_vnd_other": 19000, "comm_usd_other": 0.73, "pkg25_vnd_other": 1527000, "pkg25_usd_other": 58.73, "jumbo_vnd_other": 1488000, "jumbo_usd_other": 57.23},
-  {"code": "H10A1", "size": "10Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 920000, "exw_usd": 35.38, "comm_vnd": 13000, "comm_usd": 0.5, "pkg25_vnd": 1107000, "pkg25_usd": 42.58, "jumbo_vnd": 1055000, "jumbo_usd": 40.58, "exw_vnd_cn": 920000, "exw_usd_cn": 35.38, "comm_vnd_cn": 13000, "comm_usd_cn": 0.5, "pkg25_vnd_cn": 1107000, "pkg25_usd_cn": 42.58, "jumbo_vnd_cn": 1055000, "jumbo_usd_cn": 40.58, "exw_vnd_other": 920000, "exw_usd_other": 35.38, "comm_vnd_other": 13000, "comm_usd_other": 0.5, "pkg25_vnd_other": 1107000, "pkg25_usd_other": 42.58, "jumbo_vnd_other": 1055000, "jumbo_usd_other": 40.58},
-  {"code": "H12A1", "size": "12Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 900000, "exw_usd": 34.62, "comm_vnd": 13000, "comm_usd": 0.5, "pkg25_vnd": 1087000, "pkg25_usd": 41.81, "jumbo_vnd": 1024000, "jumbo_usd": 39.38, "exw_vnd_cn": 900000, "exw_usd_cn": 34.62, "comm_vnd_cn": 13000, "comm_usd_cn": 0.5, "pkg25_vnd_cn": 1087000, "pkg25_usd_cn": 41.81, "jumbo_vnd_cn": 1024000, "jumbo_usd_cn": 39.38, "exw_vnd_other": 900000, "exw_usd_other": 34.62, "comm_vnd_other": 13000, "comm_usd_other": 0.5, "pkg25_vnd_other": 1087000, "pkg25_usd_other": 41.81, "jumbo_vnd_other": 1024000, "jumbo_usd_other": 39.38},
-  {"code": "H15A1", "size": "15Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 820000, "exw_usd": 31.54, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 998000, "pkg25_usd": 38.38, "jumbo_vnd": 939000, "jumbo_usd": 36.12, "exw_vnd_cn": 820000, "exw_usd_cn": 31.54, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 998000, "pkg25_usd_cn": 38.38, "jumbo_vnd_cn": 939000, "jumbo_usd_cn": 36.12, "exw_vnd_other": 820000, "exw_usd_other": 31.54, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 998000, "pkg25_usd_other": 38.38, "jumbo_vnd_other": 939000, "jumbo_usd_other": 36.12},
-  {"code": "H17A1", "size": "17Â±1 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 810000, "exw_usd": 31.15, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 988000, "pkg25_usd": 38, "jumbo_vnd": 929000, "jumbo_usd": 35.73, "exw_vnd_cn": 810000, "exw_usd_cn": 31.15, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 988000, "pkg25_usd_cn": 38, "jumbo_vnd_cn": 929000, "jumbo_usd_cn": 35.73, "exw_vnd_other": 810000, "exw_usd_other": 31.15, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 988000, "pkg25_usd_other": 38, "jumbo_vnd_other": 929000, "jumbo_usd_other": 35.73},
-  {"code": "H20A1", "size": "20Â±2 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 790000, "exw_usd": 30.38, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 968000, "pkg25_usd": 37.23, "jumbo_vnd": 900000, "jumbo_usd": 34.62, "exw_vnd_cn": 790000, "exw_usd_cn": 30.38, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 968000, "pkg25_usd_cn": 37.23, "jumbo_vnd_cn": 900000, "jumbo_usd_cn": 34.62, "exw_vnd_other": 790000, "exw_usd_other": 30.38, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 968000, "pkg25_usd_other": 37.23, "jumbo_vnd_other": 900000, "jumbo_usd_other": 34.62},
-  {"code": "H25A1", "size": "25Â±2 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 750000, "exw_usd": 28.85, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 928000, "pkg25_usd": 35.69, "jumbo_vnd": 860000, "jumbo_usd": 33.08, "exw_vnd_cn": 750000, "exw_usd_cn": 28.85, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 928000, "pkg25_usd_cn": 35.69, "jumbo_vnd_cn": 860000, "jumbo_usd_cn": 33.08, "exw_vnd_other": 750000, "exw_usd_other": 28.85, "comm_vnd_other": 11000, "comm_usd_other": 0.42, "pkg25_vnd_other": 928000, "pkg25_usd_other": 35.69, "jumbo_vnd_other": 860000, "jumbo_usd_other": 33.08},
-  {"code": "H30A1", "size": "30Â±3 Âµm", "standard": "A1", "machine": "1700", "exw_vnd": 700000, "exw_usd": 26.92, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 878000, "pkg25_usd": 33.77, "jumbo_vnd": 810000, "jumbo_usd": 31.15, "exw_vnd_cn": 700000, "exw_usd_cn": 26.92, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 878000, "pkg25_usd_cn": 33.77, "jumbo_vnd_cn": 810000, "jumbo_usd_cn": 31.15, "exw_vnd_other": 700000, "exw_usd_other": 26.92, "comm_vnd_other": 11000, "comm_usd_other": 0.42, "pkg25_vnd_other": 878000, "pkg25_usd_other": 33.77, "jumbo_vnd_other": 810000, "jumbo_usd_other": 31.15},
-  {"code": "F15A1", "size": "15Â±1 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 750000, "exw_usd": 28.85, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 928000, "pkg25_usd": 35.69, "jumbo_vnd": 860000, "jumbo_usd": 33.08, "exw_vnd_cn": 750000, "exw_usd_cn": 28.85, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 928000, "pkg25_usd_cn": 35.69, "jumbo_vnd_cn": 860000, "jumbo_usd_cn": 33.08, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 948000, "pkg25_usd_other": 36.46, "jumbo_vnd_other": 880000, "jumbo_usd_other": 33.85},
-  {"code": "F17A1", "size": "17Â±1 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 740000, "exw_usd": 28.46, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 918000, "pkg25_usd": 35.31, "jumbo_vnd": 859000, "jumbo_usd": 33.04, "exw_vnd_cn": 740000, "exw_usd_cn": 28.46, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 918000, "pkg25_usd_cn": 35.31, "jumbo_vnd_cn": 859000, "jumbo_usd_cn": 33.04, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 948000, "pkg25_usd_other": 36.46, "jumbo_vnd_other": 889000, "jumbo_usd_other": 34.19},
-  {"code": "F20A1", "size": "20Â±2 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 690000, "exw_usd": 26.54, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 868000, "pkg25_usd": 33.38, "jumbo_vnd": 800000, "jumbo_usd": 30.77, "exw_vnd_cn": 690000, "exw_usd_cn": 26.54, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 868000, "pkg25_usd_cn": 33.38, "jumbo_vnd_cn": 800000, "jumbo_usd_cn": 30.77, "exw_vnd_other": 700000, "exw_usd_other": 26.92, "comm_vnd_other": 11000, "comm_usd_other": 0.42, "pkg25_vnd_other": 878000, "pkg25_usd_other": 33.77, "jumbo_vnd_other": 810000, "jumbo_usd_other": 31.15},
-  {"code": "F25A1", "size": "25Â±2 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 660000, "exw_usd": 25.38, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 838000, "pkg25_usd": 32.23, "jumbo_vnd": 770000, "jumbo_usd": 29.62, "exw_vnd_cn": 660000, "exw_usd_cn": 25.38, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 838000, "pkg25_usd_cn": 32.23, "jumbo_vnd_cn": 770000, "jumbo_usd_cn": 29.62, "exw_vnd_other": 670000, "exw_usd_other": 25.77, "comm_vnd_other": 10000, "comm_usd_other": 0.38, "pkg25_vnd_other": 848000, "pkg25_usd_other": 32.62, "jumbo_vnd_other": 780000, "jumbo_usd_other": 30},
-  {"code": "F30A1", "size": "30Â±3 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 630000, "exw_usd": 24.23, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 808000, "pkg25_usd": 31.08, "jumbo_vnd": 740000, "jumbo_usd": 28.46, "exw_vnd_cn": 630000, "exw_usd_cn": 24.23, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 808000, "pkg25_usd_cn": 31.08, "jumbo_vnd_cn": 740000, "jumbo_usd_cn": 28.46, "exw_vnd_other": 650000, "exw_usd_other": 25, "comm_vnd_other": 10000, "comm_usd_other": 0.38, "pkg25_vnd_other": 828000, "pkg25_usd_other": 31.85, "jumbo_vnd_other": 760000, "jumbo_usd_other": 29.23},
-  {"code": "F35A1", "size": "35Â±3 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 620000, "exw_usd": 23.85, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 798000, "pkg25_usd": 30.69, "jumbo_vnd": 730000, "jumbo_usd": 28.08, "exw_vnd_cn": 620000, "exw_usd_cn": 23.85, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 798000, "pkg25_usd_cn": 30.69, "jumbo_vnd_cn": 730000, "jumbo_usd_cn": 28.08, "exw_vnd_other": 640000, "exw_usd_other": 24.62, "comm_vnd_other": 10000, "comm_usd_other": 0.38, "pkg25_vnd_other": 818000, "pkg25_usd_other": 31.46, "jumbo_vnd_other": 750000, "jumbo_usd_other": 28.85},
-  {"code": "F40A1", "size": "40Â±3 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 740000, "exw_usd": 28.46, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 918000, "pkg25_usd": 35.31, "jumbo_vnd": 850000, "jumbo_usd": 32.69, "exw_vnd_cn": 740000, "exw_usd_cn": 28.46, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 918000, "pkg25_usd_cn": 35.31, "jumbo_vnd_cn": 850000, "jumbo_usd_cn": 32.69, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 948000, "pkg25_usd_other": 36.46, "jumbo_vnd_other": 880000, "jumbo_usd_other": 33.85},
-  {"code": "F45A1", "size": "45Â±3 Âµm", "standard": "A1", "machine": "318", "exw_vnd": 590000, "exw_usd": 22.69, "comm_vnd": 9000, "comm_usd": 0.35, "pkg25_vnd": 768000, "pkg25_usd": 29.54, "jumbo_vnd": 700000, "jumbo_usd": 26.92, "exw_vnd_cn": 590000, "exw_usd_cn": 22.69, "comm_vnd_cn": 9000, "comm_usd_cn": 0.35, "pkg25_vnd_cn": 768000, "pkg25_usd_cn": 29.54, "jumbo_vnd_cn": 700000, "jumbo_usd_cn": 26.92, "exw_vnd_other": 600000, "exw_usd_other": 23.08, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 778000, "pkg25_usd_other": 29.92, "jumbo_vnd_other": 710000, "jumbo_usd_other": 27.31},
-  {"code": "F15A2", "size": "15Â±1 Âµm", "standard": "A2-", "machine": "318", "exw_vnd": 530000, "exw_usd": 20.38, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 708000, "pkg25_usd": 27.23, "jumbo_vnd": 640000, "jumbo_usd": 24.62, "exw_vnd_cn": 530000, "exw_usd_cn": 20.38, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 708000, "pkg25_usd_cn": 27.23, "jumbo_vnd_cn": 640000, "jumbo_usd_cn": 24.62, "exw_vnd_other": 550000, "exw_usd_other": 21.15, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 728000, "pkg25_usd_other": 28, "jumbo_vnd_other": 660000, "jumbo_usd_other": 25.38},
-  {"code": "F17A2", "size": "17Â±1 Âµm", "standard": "A2-", "machine": "318", "exw_vnd": 490000, "exw_usd": 18.85, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 668000, "pkg25_usd": 25.69, "jumbo_vnd": 609000, "jumbo_usd": 23.42, "exw_vnd_cn": 490000, "exw_usd_cn": 18.85, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 668000, "pkg25_usd_cn": 25.69, "jumbo_vnd_cn": 609000, "jumbo_usd_cn": 23.42, "exw_vnd_other": 500000, "exw_usd_other": 19.23, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 678000, "pkg25_usd_other": 26.08, "jumbo_vnd_other": 619000, "jumbo_usd_other": 23.81},
-  {"code": "F20A2", "size": "20Â±2 Âµm", "standard": "A2-", "machine": "318", "exw_vnd": 460000, "exw_usd": 17.69, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 638000, "pkg25_usd": 24.54, "jumbo_vnd": 570000, "jumbo_usd": 21.92, "exw_vnd_cn": 460000, "exw_usd_cn": 17.69, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 638000, "pkg25_usd_cn": 24.54, "jumbo_vnd_cn": 570000, "jumbo_usd_cn": 21.92, "exw_vnd_other": 480000, "exw_usd_other": 18.46, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 658000, "pkg25_usd_other": 25.31, "jumbo_vnd_other": 590000, "jumbo_usd_other": 22.69},
-  {"code": "F25A2", "size": "25Â±2 Âµm", "standard": "A2-", "machine": "318", "exw_vnd": 430000, "exw_usd": 16.54, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 608000, "pkg25_usd": 23.38, "jumbo_vnd": 540000, "jumbo_usd": 20.77, "exw_vnd_cn": 430000, "exw_usd_cn": 16.54, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 608000, "pkg25_usd_cn": 23.38, "jumbo_vnd_cn": 540000, "jumbo_usd_cn": 20.77, "exw_vnd_other": 450000, "exw_usd_other": 17.31, "comm_vnd_other": 7000, "comm_usd_other": 0.27, "pkg25_vnd_other": 628000, "pkg25_usd_other": 24.15, "jumbo_vnd_other": 560000, "jumbo_usd_other": 21.54},
-  {"code": "F30A2", "size": "30Â±3 Âµm", "standard": "A2-", "machine": "318", "exw_vnd": 410000, "exw_usd": 15.77, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 588000, "pkg25_usd": 22.62, "jumbo_vnd": 520000, "jumbo_usd": 20, "exw_vnd_cn": 410000, "exw_usd_cn": 15.77, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 588000, "pkg25_usd_cn": 22.62, "jumbo_vnd_cn": 520000, "jumbo_usd_cn": 20, "exw_vnd_other": 420000, "exw_usd_other": 16.15, "comm_vnd_other": 7000, "comm_usd_other": 0.27, "pkg25_vnd_other": 598000, "pkg25_usd_other": 23, "jumbo_vnd_other": 530000, "jumbo_usd_other": 20.38},
-  {"code": "F35A2", "size": "35Â±3 Âµm", "standard": "A2-", "machine": "318", "exw_vnd": 400000, "exw_usd": 15.38, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 578000, "pkg25_usd": 22.23, "jumbo_vnd": 510000, "jumbo_usd": 19.62, "exw_vnd_cn": 400000, "exw_usd_cn": 15.38, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 578000, "pkg25_usd_cn": 22.23, "jumbo_vnd_cn": 510000, "jumbo_usd_cn": 19.62, "exw_vnd_other": 410000, "exw_usd_other": 15.77, "comm_vnd_other": 7000, "comm_usd_other": 0.27, "pkg25_vnd_other": 588000, "pkg25_usd_other": 22.62, "jumbo_vnd_other": 520000, "jumbo_usd_other": 20},
-  {"code": "F45A2", "size": "45Â±3 Âµm", "standard": "A2-", "machine": "318", "exw_vnd": 360000, "exw_usd": 13.85, "comm_vnd": 6000, "comm_usd": 0.23, "pkg25_vnd": 538000, "pkg25_usd": 20.69, "jumbo_vnd": 470000, "jumbo_usd": 18.08, "exw_vnd_cn": 360000, "exw_usd_cn": 13.85, "comm_vnd_cn": 6000, "comm_usd_cn": 0.23, "pkg25_vnd_cn": 538000, "pkg25_usd_cn": 20.69, "jumbo_vnd_cn": 470000, "jumbo_usd_cn": 18.08, "exw_vnd_other": 370000, "exw_usd_other": 14.23, "comm_vnd_other": 6000, "comm_usd_other": 0.23, "pkg25_vnd_other": 548000, "pkg25_usd_other": 21.08, "jumbo_vnd_other": 480000, "jumbo_usd_other": 18.46},
-  {"code": "F15A2", "size": "15Â±1 Âµm", "standard": "A2", "machine": "318", "exw_vnd": 600000, "exw_usd": 23.08, "comm_vnd": 9000, "comm_usd": 0.35, "pkg25_vnd": 778000, "pkg25_usd": 29.92, "jumbo_vnd": 710000, "jumbo_usd": 27.31, "exw_vnd_cn": 600000, "exw_usd_cn": 23.08, "comm_vnd_cn": 9000, "comm_usd_cn": 0.35, "pkg25_vnd_cn": 778000, "pkg25_usd_cn": 29.92, "jumbo_vnd_cn": 710000, "jumbo_usd_cn": 27.31, "exw_vnd_other": 610000, "exw_usd_other": 23.46, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 788000, "pkg25_usd_other": 30.31, "jumbo_vnd_other": 720000, "jumbo_usd_other": 27.69},
-  {"code": "F17A2", "size": "17Â±1 Âµm", "standard": "A2", "machine": "318", "exw_vnd": 550000, "exw_usd": 21.15, "comm_vnd": 9000, "comm_usd": 0.35, "pkg25_vnd": 728000, "pkg25_usd": 28, "jumbo_vnd": 660000, "jumbo_usd": 25.38, "exw_vnd_cn": 550000, "exw_usd_cn": 21.15, "comm_vnd_cn": 9000, "comm_usd_cn": 0.35, "pkg25_vnd_cn": 728000, "pkg25_usd_cn": 28, "jumbo_vnd_cn": 660000, "jumbo_usd_cn": 25.38, "exw_vnd_other": 560000, "exw_usd_other": 21.54, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 738000, "pkg25_usd_other": 28.38, "jumbo_vnd_other": 670000, "jumbo_usd_other": 25.77},
-  {"code": "F20A2", "size": "20Â±2 Âµm", "standard": "A2", "machine": "318", "exw_vnd": 530000, "exw_usd": 20.38, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 708000, "pkg25_usd": 27.23, "jumbo_vnd": 649000, "jumbo_usd": 24.96, "exw_vnd_cn": 530000, "exw_usd_cn": 20.38, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 708000, "pkg25_usd_cn": 27.23, "jumbo_vnd_cn": 649000, "jumbo_usd_cn": 24.96, "exw_vnd_other": 540000, "exw_usd_other": 20.77, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 718000, "pkg25_usd_other": 27.62, "jumbo_vnd_other": 659000, "jumbo_usd_other": 25.35},
-  {"code": "F25A2", "size": "25Â±2 Âµm", "standard": "A2", "machine": "318", "exw_vnd": 500000, "exw_usd": 19.23, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 678000, "pkg25_usd": 26.08, "jumbo_vnd": 610000, "jumbo_usd": 23.46, "exw_vnd_cn": 500000, "exw_usd_cn": 19.23, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 678000, "pkg25_usd_cn": 26.08, "jumbo_vnd_cn": 610000, "jumbo_usd_cn": 23.46, "exw_vnd_other": 510000, "exw_usd_other": 19.62, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 688000, "pkg25_usd_other": 26.46, "jumbo_vnd_other": 620000, "jumbo_usd_other": 23.85},
-  {"code": "F30A2", "size": "30Â±3 Âµm", "standard": "A2", "machine": "318", "exw_vnd": 470000, "exw_usd": 18.08, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 648000, "pkg25_usd": 24.92, "jumbo_vnd": 580000, "jumbo_usd": 22.31, "exw_vnd_cn": 470000, "exw_usd_cn": 18.08, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 648000, "pkg25_usd_cn": 24.92, "jumbo_vnd_cn": 580000, "jumbo_usd_cn": 22.31, "exw_vnd_other": 490000, "exw_usd_other": 18.85, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 668000, "pkg25_usd_other": 25.69, "jumbo_vnd_other": 600000, "jumbo_usd_other": 23.08},
-  {"code": "K45A2", "size": "45Â±3 Âµm", "standard": "A2-", "machine": "1500", "exw_vnd": 350000, "exw_usd": 13.46, "comm_vnd": 6000, "comm_usd": 0.23, "pkg25_vnd": 528000, "pkg25_usd": 20.31, "jumbo_vnd": 460000, "jumbo_usd": 17.69, "exw_vnd_cn": 350000, "exw_usd_cn": 13.46, "comm_vnd_cn": 6000, "comm_usd_cn": 0.23, "pkg25_vnd_cn": 528000, "pkg25_usd_cn": 20.31, "jumbo_vnd_cn": 460000, "jumbo_usd_cn": 17.69, "exw_vnd_other": 350000, "exw_usd_other": 13.46, "comm_vnd_other": 6000, "comm_usd_other": 0.23, "pkg25_vnd_other": 528000, "pkg25_usd_other": 20.31, "jumbo_vnd_other": 460000, "jumbo_usd_other": 17.69},
-  {"code": "K65A2", "size": "65Â±3 Âµm", "standard": "A2-", "machine": "1500", "exw_vnd": 330000, "exw_usd": 12.69, "comm_vnd": 6000, "comm_usd": 0.23, "pkg25_vnd": 508000, "pkg25_usd": 19.54, "jumbo_vnd": 440000, "jumbo_usd": 16.92, "exw_vnd_cn": 330000, "exw_usd_cn": 12.69, "comm_vnd_cn": 6000, "comm_usd_cn": 0.23, "pkg25_vnd_cn": 508000, "pkg25_usd_cn": 19.54, "jumbo_vnd_cn": 440000, "jumbo_usd_cn": 16.92, "exw_vnd_other": 330000, "exw_usd_other": 12.69, "comm_vnd_other": 6000, "comm_usd_other": 0.23, "pkg25_vnd_other": 508000, "pkg25_usd_other": 19.54, "jumbo_vnd_other": 440000, "jumbo_usd_other": 16.92},
-  {"code": "K45A3", "size": "45Â±3 Âµm", "standard": "A3", "machine": "1500", "exw_vnd": 260000, "exw_usd": 10, "comm_vnd": 5000, "comm_usd": 0.19, "pkg25_vnd": 438000, "pkg25_usd": 16.85, "jumbo_vnd": 370000, "jumbo_usd": 14.23, "exw_vnd_cn": 260000, "exw_usd_cn": 10, "comm_vnd_cn": 5000, "comm_usd_cn": 0.19, "pkg25_vnd_cn": 438000, "pkg25_usd_cn": 16.85, "jumbo_vnd_cn": 370000, "jumbo_usd_cn": 14.23, "exw_vnd_other": 260000, "exw_usd_other": 10, "comm_vnd_other": 5000, "comm_usd_other": 0.19, "pkg25_vnd_other": 438000, "pkg25_usd_other": 16.85, "jumbo_vnd_other": 370000, "jumbo_usd_other": 14.23},
-  {"code": "K65A3", "size": "65Â±3 Âµm", "standard": "A3", "machine": "1500", "exw_vnd": 240000, "exw_usd": 9.23, "comm_vnd": 5000, "comm_usd": 0.19, "pkg25_vnd": 418000, "pkg25_usd": 16.08, "jumbo_vnd": 350000, "jumbo_usd": 13.46, "exw_vnd_cn": 240000, "exw_usd_cn": 9.23, "comm_vnd_cn": 5000, "comm_usd_cn": 0.19, "pkg25_vnd_cn": 418000, "pkg25_usd_cn": 16.08, "jumbo_vnd_cn": 350000, "jumbo_usd_cn": 13.46, "exw_vnd_other": 240000, "exw_usd_other": 9.23, "comm_vnd_other": 5000, "comm_usd_other": 0.19, "pkg25_vnd_other": 418000, "pkg25_usd_other": 16.08, "jumbo_vnd_other": 350000, "jumbo_usd_other": 13.46},
-  {"code": "E80A2", "size": "80Â±3 Âµm", "standard": "A2", "machine": "1300", "exw_vnd": 770000, "exw_usd": 29.62, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 880000, "pkg25_usd": 33.85, "jumbo_vnd": 880000, "jumbo_usd": 33.85, "exw_vnd_cn": 770000, "exw_usd_cn": 29.62, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 880000, "pkg25_usd_cn": 33.85, "jumbo_vnd_cn": 880000, "jumbo_usd_cn": 33.85, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 880000, "pkg25_usd_other": 33.85, "jumbo_vnd_other": 880000, "jumbo_usd_other": 33.85},
-  {"code": "E125A1", "size": "70Â±3 Âµm", "standard": "A1", "machine": "1300", "exw_vnd": 1150000, "exw_usd": 44.23, "comm_vnd": 16000, "comm_usd": 0.62, "pkg25_vnd": 1260000, "pkg25_usd": 48.46, "jumbo_vnd": 1260000, "jumbo_usd": 48.46, "exw_vnd_cn": 1150000, "exw_usd_cn": 44.23, "comm_vnd_cn": 16000, "comm_usd_cn": 0.62, "pkg25_vnd_cn": 1260000, "pkg25_usd_cn": 48.46, "jumbo_vnd_cn": 1260000, "jumbo_usd_cn": 48.46, "exw_vnd_other": 1150000, "exw_usd_other": 44.23, "comm_vnd_other": 16000, "comm_usd_other": 0.62, "pkg25_vnd_other": 1260000, "pkg25_usd_other": 48.46, "jumbo_vnd_other": 1260000, "jumbo_usd_other": 48.46},
-  {"code": "E70A1", "size": "70Â±3 Âµm", "standard": "A1", "machine": "1300", "exw_vnd": 1180000, "exw_usd": 45.38, "comm_vnd": 17000, "comm_usd": 0.65, "pkg25_vnd": 1290000, "pkg25_usd": 49.62, "jumbo_vnd": 1290000, "jumbo_usd": 49.62, "exw_vnd_cn": 1180000, "exw_usd_cn": 45.38, "comm_vnd_cn": 17000, "comm_usd_cn": 0.65, "pkg25_vnd_cn": 1290000, "pkg25_usd_cn": 49.62, "jumbo_vnd_cn": 1290000, "jumbo_usd_cn": 49.62, "exw_vnd_other": 1180000, "exw_usd_other": 45.38, "comm_vnd_other": 17000, "comm_usd_other": 0.65, "pkg25_vnd_other": 1290000, "pkg25_usd_other": 49.62, "jumbo_vnd_other": 1290000, "jumbo_usd_other": 49.62},
+  {"code": "H4A1", "size": "4±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 2380000, "exw_usd": 91.54, "comm_vnd": 32000, "comm_usd": 1.23, "pkg25_vnd": 2601000, "pkg25_usd": 100.04, "jumbo_vnd": 2591000, "jumbo_usd": 99.65, "exw_vnd_cn": 2380000, "exw_usd_cn": 91.54, "comm_vnd_cn": 32000, "comm_usd_cn": 1.23, "pkg25_vnd_cn": 2601000, "pkg25_usd_cn": 100.04, "jumbo_vnd_cn": 2591000, "jumbo_usd_cn": 99.65, "exw_vnd_other": 2380000, "exw_usd_other": 91.54, "comm_vnd_other": 32000, "comm_usd_other": 1.23, "pkg25_vnd_other": 2601000, "pkg25_usd_other": 100.04, "jumbo_vnd_other": 2591000, "jumbo_usd_other": 99.65},
+  {"code": "H5A1", "size": "5±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 1850000, "exw_usd": 71.15, "comm_vnd": 26000, "comm_usd": 1, "pkg25_vnd": 2046000, "pkg25_usd": 78.69, "jumbo_vnd": 2061000, "jumbo_usd": 79.27, "exw_vnd_cn": 1850000, "exw_usd_cn": 71.15, "comm_vnd_cn": 26000, "comm_usd_cn": 1, "pkg25_vnd_cn": 2046000, "pkg25_usd_cn": 78.69, "jumbo_vnd_cn": 2061000, "jumbo_usd_cn": 79.27, "exw_vnd_other": 1850000, "exw_usd_other": 71.15, "comm_vnd_other": 26000, "comm_usd_other": 1, "pkg25_vnd_other": 2046000, "pkg25_usd_other": 78.69, "jumbo_vnd_other": 2061000, "jumbo_usd_other": 79.27},
+  {"code": "H6A1", "size": "6±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 1470000, "exw_usd": 56.54, "comm_vnd": 21000, "comm_usd": 0.81, "pkg25_vnd": 1666000, "pkg25_usd": 64.08, "jumbo_vnd": 1681000, "jumbo_usd": 64.65, "exw_vnd_cn": 1470000, "exw_usd_cn": 56.54, "comm_vnd_cn": 21000, "comm_usd_cn": 0.81, "pkg25_vnd_cn": 1666000, "pkg25_usd_cn": 64.08, "jumbo_vnd_cn": 1681000, "jumbo_usd_cn": 64.65, "exw_vnd_other": 1470000, "exw_usd_other": 56.54, "comm_vnd_other": 21000, "comm_usd_other": 0.81, "pkg25_vnd_other": 1666000, "pkg25_usd_other": 64.08, "jumbo_vnd_other": 1681000, "jumbo_usd_other": 64.65},
+  {"code": "H8A1", "size": "8±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 1060000, "exw_usd": 40.77, "comm_vnd": 15000, "comm_usd": 0.58, "pkg25_vnd": 1247000, "pkg25_usd": 47.96, "jumbo_vnd": 1208000, "jumbo_usd": 46.46, "exw_vnd_cn": 1060000, "exw_usd_cn": 40.77, "comm_vnd_cn": 15000, "comm_usd_cn": 0.58, "pkg25_vnd_cn": 1247000, "pkg25_usd_cn": 47.96, "jumbo_vnd_cn": 1208000, "jumbo_usd_cn": 46.46, "exw_vnd_other": 1090000, "exw_usd_other": 41.92, "comm_vnd_other": 16000, "comm_usd_other": 0.62, "pkg25_vnd_other": 1277000, "pkg25_usd_other": 49.12, "jumbo_vnd_other": 1238000, "jumbo_usd_other": 47.62},
+  {"code": "H8RA1", "size": "8±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 1340000, "exw_usd": 51.54, "comm_vnd": 19000, "comm_usd": 0.73, "pkg25_vnd": 1527000, "pkg25_usd": 58.73, "jumbo_vnd": 1488000, "jumbo_usd": 57.23, "exw_vnd_cn": 1340000, "exw_usd_cn": 51.54, "comm_vnd_cn": 19000, "comm_usd_cn": 0.73, "pkg25_vnd_cn": 1527000, "pkg25_usd_cn": 58.73, "jumbo_vnd_cn": 1488000, "jumbo_usd_cn": 57.23, "exw_vnd_other": 1340000, "exw_usd_other": 51.54, "comm_vnd_other": 19000, "comm_usd_other": 0.73, "pkg25_vnd_other": 1527000, "pkg25_usd_other": 58.73, "jumbo_vnd_other": 1488000, "jumbo_usd_other": 57.23},
+  {"code": "H10A1", "size": "10±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 920000, "exw_usd": 35.38, "comm_vnd": 13000, "comm_usd": 0.5, "pkg25_vnd": 1107000, "pkg25_usd": 42.58, "jumbo_vnd": 1055000, "jumbo_usd": 40.58, "exw_vnd_cn": 920000, "exw_usd_cn": 35.38, "comm_vnd_cn": 13000, "comm_usd_cn": 0.5, "pkg25_vnd_cn": 1107000, "pkg25_usd_cn": 42.58, "jumbo_vnd_cn": 1055000, "jumbo_usd_cn": 40.58, "exw_vnd_other": 920000, "exw_usd_other": 35.38, "comm_vnd_other": 13000, "comm_usd_other": 0.5, "pkg25_vnd_other": 1107000, "pkg25_usd_other": 42.58, "jumbo_vnd_other": 1055000, "jumbo_usd_other": 40.58},
+  {"code": "H12A1", "size": "12±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 900000, "exw_usd": 34.62, "comm_vnd": 13000, "comm_usd": 0.5, "pkg25_vnd": 1087000, "pkg25_usd": 41.81, "jumbo_vnd": 1024000, "jumbo_usd": 39.38, "exw_vnd_cn": 900000, "exw_usd_cn": 34.62, "comm_vnd_cn": 13000, "comm_usd_cn": 0.5, "pkg25_vnd_cn": 1087000, "pkg25_usd_cn": 41.81, "jumbo_vnd_cn": 1024000, "jumbo_usd_cn": 39.38, "exw_vnd_other": 900000, "exw_usd_other": 34.62, "comm_vnd_other": 13000, "comm_usd_other": 0.5, "pkg25_vnd_other": 1087000, "pkg25_usd_other": 41.81, "jumbo_vnd_other": 1024000, "jumbo_usd_other": 39.38},
+  {"code": "H15A1", "size": "15±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 820000, "exw_usd": 31.54, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 998000, "pkg25_usd": 38.38, "jumbo_vnd": 939000, "jumbo_usd": 36.12, "exw_vnd_cn": 820000, "exw_usd_cn": 31.54, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 998000, "pkg25_usd_cn": 38.38, "jumbo_vnd_cn": 939000, "jumbo_usd_cn": 36.12, "exw_vnd_other": 820000, "exw_usd_other": 31.54, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 998000, "pkg25_usd_other": 38.38, "jumbo_vnd_other": 939000, "jumbo_usd_other": 36.12},
+  {"code": "H17A1", "size": "17±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 810000, "exw_usd": 31.15, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 988000, "pkg25_usd": 38, "jumbo_vnd": 929000, "jumbo_usd": 35.73, "exw_vnd_cn": 810000, "exw_usd_cn": 31.15, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 988000, "pkg25_usd_cn": 38, "jumbo_vnd_cn": 929000, "jumbo_usd_cn": 35.73, "exw_vnd_other": 810000, "exw_usd_other": 31.15, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 988000, "pkg25_usd_other": 38, "jumbo_vnd_other": 929000, "jumbo_usd_other": 35.73},
+  {"code": "H20A1", "size": "20±2 µm", "standard": "A1", "machine": "1700", "exw_vnd": 790000, "exw_usd": 30.38, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 968000, "pkg25_usd": 37.23, "jumbo_vnd": 900000, "jumbo_usd": 34.62, "exw_vnd_cn": 790000, "exw_usd_cn": 30.38, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 968000, "pkg25_usd_cn": 37.23, "jumbo_vnd_cn": 900000, "jumbo_usd_cn": 34.62, "exw_vnd_other": 790000, "exw_usd_other": 30.38, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 968000, "pkg25_usd_other": 37.23, "jumbo_vnd_other": 900000, "jumbo_usd_other": 34.62},
+  {"code": "H25A1", "size": "25±2 µm", "standard": "A1", "machine": "1700", "exw_vnd": 750000, "exw_usd": 28.85, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 928000, "pkg25_usd": 35.69, "jumbo_vnd": 860000, "jumbo_usd": 33.08, "exw_vnd_cn": 750000, "exw_usd_cn": 28.85, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 928000, "pkg25_usd_cn": 35.69, "jumbo_vnd_cn": 860000, "jumbo_usd_cn": 33.08, "exw_vnd_other": 750000, "exw_usd_other": 28.85, "comm_vnd_other": 11000, "comm_usd_other": 0.42, "pkg25_vnd_other": 928000, "pkg25_usd_other": 35.69, "jumbo_vnd_other": 860000, "jumbo_usd_other": 33.08},
+  {"code": "H30A1", "size": "30±3 µm", "standard": "A1", "machine": "1700", "exw_vnd": 700000, "exw_usd": 26.92, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 878000, "pkg25_usd": 33.77, "jumbo_vnd": 810000, "jumbo_usd": 31.15, "exw_vnd_cn": 700000, "exw_usd_cn": 26.92, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 878000, "pkg25_usd_cn": 33.77, "jumbo_vnd_cn": 810000, "jumbo_usd_cn": 31.15, "exw_vnd_other": 700000, "exw_usd_other": 26.92, "comm_vnd_other": 11000, "comm_usd_other": 0.42, "pkg25_vnd_other": 878000, "pkg25_usd_other": 33.77, "jumbo_vnd_other": 810000, "jumbo_usd_other": 31.15},
+  {"code": "F15A1", "size": "15±1 µm", "standard": "A1", "machine": "318", "exw_vnd": 750000, "exw_usd": 28.85, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 928000, "pkg25_usd": 35.69, "jumbo_vnd": 860000, "jumbo_usd": 33.08, "exw_vnd_cn": 750000, "exw_usd_cn": 28.85, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 928000, "pkg25_usd_cn": 35.69, "jumbo_vnd_cn": 860000, "jumbo_usd_cn": 33.08, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 948000, "pkg25_usd_other": 36.46, "jumbo_vnd_other": 880000, "jumbo_usd_other": 33.85},
+  {"code": "F17A1", "size": "17±1 µm", "standard": "A1", "machine": "318", "exw_vnd": 740000, "exw_usd": 28.46, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 918000, "pkg25_usd": 35.31, "jumbo_vnd": 859000, "jumbo_usd": 33.04, "exw_vnd_cn": 740000, "exw_usd_cn": 28.46, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 918000, "pkg25_usd_cn": 35.31, "jumbo_vnd_cn": 859000, "jumbo_usd_cn": 33.04, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 948000, "pkg25_usd_other": 36.46, "jumbo_vnd_other": 889000, "jumbo_usd_other": 34.19},
+  {"code": "F20A1", "size": "20±2 µm", "standard": "A1", "machine": "318", "exw_vnd": 690000, "exw_usd": 26.54, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 868000, "pkg25_usd": 33.38, "jumbo_vnd": 800000, "jumbo_usd": 30.77, "exw_vnd_cn": 690000, "exw_usd_cn": 26.54, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 868000, "pkg25_usd_cn": 33.38, "jumbo_vnd_cn": 800000, "jumbo_usd_cn": 30.77, "exw_vnd_other": 700000, "exw_usd_other": 26.92, "comm_vnd_other": 11000, "comm_usd_other": 0.42, "pkg25_vnd_other": 878000, "pkg25_usd_other": 33.77, "jumbo_vnd_other": 810000, "jumbo_usd_other": 31.15},
+  {"code": "F25A1", "size": "25±2 µm", "standard": "A1", "machine": "318", "exw_vnd": 660000, "exw_usd": 25.38, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 838000, "pkg25_usd": 32.23, "jumbo_vnd": 770000, "jumbo_usd": 29.62, "exw_vnd_cn": 660000, "exw_usd_cn": 25.38, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 838000, "pkg25_usd_cn": 32.23, "jumbo_vnd_cn": 770000, "jumbo_usd_cn": 29.62, "exw_vnd_other": 670000, "exw_usd_other": 25.77, "comm_vnd_other": 10000, "comm_usd_other": 0.38, "pkg25_vnd_other": 848000, "pkg25_usd_other": 32.62, "jumbo_vnd_other": 780000, "jumbo_usd_other": 30},
+  {"code": "F30A1", "size": "30±3 µm", "standard": "A1", "machine": "318", "exw_vnd": 630000, "exw_usd": 24.23, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 808000, "pkg25_usd": 31.08, "jumbo_vnd": 740000, "jumbo_usd": 28.46, "exw_vnd_cn": 630000, "exw_usd_cn": 24.23, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 808000, "pkg25_usd_cn": 31.08, "jumbo_vnd_cn": 740000, "jumbo_usd_cn": 28.46, "exw_vnd_other": 650000, "exw_usd_other": 25, "comm_vnd_other": 10000, "comm_usd_other": 0.38, "pkg25_vnd_other": 828000, "pkg25_usd_other": 31.85, "jumbo_vnd_other": 760000, "jumbo_usd_other": 29.23},
+  {"code": "F35A1", "size": "35±3 µm", "standard": "A1", "machine": "318", "exw_vnd": 620000, "exw_usd": 23.85, "comm_vnd": 10000, "comm_usd": 0.38, "pkg25_vnd": 798000, "pkg25_usd": 30.69, "jumbo_vnd": 730000, "jumbo_usd": 28.08, "exw_vnd_cn": 620000, "exw_usd_cn": 23.85, "comm_vnd_cn": 10000, "comm_usd_cn": 0.38, "pkg25_vnd_cn": 798000, "pkg25_usd_cn": 30.69, "jumbo_vnd_cn": 730000, "jumbo_usd_cn": 28.08, "exw_vnd_other": 640000, "exw_usd_other": 24.62, "comm_vnd_other": 10000, "comm_usd_other": 0.38, "pkg25_vnd_other": 818000, "pkg25_usd_other": 31.46, "jumbo_vnd_other": 750000, "jumbo_usd_other": 28.85},
+  {"code": "F40A1", "size": "40±3 µm", "standard": "A1", "machine": "318", "exw_vnd": 740000, "exw_usd": 28.46, "comm_vnd": 11000, "comm_usd": 0.42, "pkg25_vnd": 918000, "pkg25_usd": 35.31, "jumbo_vnd": 850000, "jumbo_usd": 32.69, "exw_vnd_cn": 740000, "exw_usd_cn": 28.46, "comm_vnd_cn": 11000, "comm_usd_cn": 0.42, "pkg25_vnd_cn": 918000, "pkg25_usd_cn": 35.31, "jumbo_vnd_cn": 850000, "jumbo_usd_cn": 32.69, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 948000, "pkg25_usd_other": 36.46, "jumbo_vnd_other": 880000, "jumbo_usd_other": 33.85},
+  {"code": "F45A1", "size": "45±3 µm", "standard": "A1", "machine": "318", "exw_vnd": 590000, "exw_usd": 22.69, "comm_vnd": 9000, "comm_usd": 0.35, "pkg25_vnd": 768000, "pkg25_usd": 29.54, "jumbo_vnd": 700000, "jumbo_usd": 26.92, "exw_vnd_cn": 590000, "exw_usd_cn": 22.69, "comm_vnd_cn": 9000, "comm_usd_cn": 0.35, "pkg25_vnd_cn": 768000, "pkg25_usd_cn": 29.54, "jumbo_vnd_cn": 700000, "jumbo_usd_cn": 26.92, "exw_vnd_other": 600000, "exw_usd_other": 23.08, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 778000, "pkg25_usd_other": 29.92, "jumbo_vnd_other": 710000, "jumbo_usd_other": 27.31},
+  {"code": "F15A2", "size": "15±1 µm", "standard": "A2-", "machine": "318", "exw_vnd": 530000, "exw_usd": 20.38, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 708000, "pkg25_usd": 27.23, "jumbo_vnd": 640000, "jumbo_usd": 24.62, "exw_vnd_cn": 530000, "exw_usd_cn": 20.38, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 708000, "pkg25_usd_cn": 27.23, "jumbo_vnd_cn": 640000, "jumbo_usd_cn": 24.62, "exw_vnd_other": 550000, "exw_usd_other": 21.15, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 728000, "pkg25_usd_other": 28, "jumbo_vnd_other": 660000, "jumbo_usd_other": 25.38},
+  {"code": "F17A2", "size": "17±1 µm", "standard": "A2-", "machine": "318", "exw_vnd": 490000, "exw_usd": 18.85, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 668000, "pkg25_usd": 25.69, "jumbo_vnd": 609000, "jumbo_usd": 23.42, "exw_vnd_cn": 490000, "exw_usd_cn": 18.85, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 668000, "pkg25_usd_cn": 25.69, "jumbo_vnd_cn": 609000, "jumbo_usd_cn": 23.42, "exw_vnd_other": 500000, "exw_usd_other": 19.23, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 678000, "pkg25_usd_other": 26.08, "jumbo_vnd_other": 619000, "jumbo_usd_other": 23.81},
+  {"code": "F20A2", "size": "20±2 µm", "standard": "A2-", "machine": "318", "exw_vnd": 460000, "exw_usd": 17.69, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 638000, "pkg25_usd": 24.54, "jumbo_vnd": 570000, "jumbo_usd": 21.92, "exw_vnd_cn": 460000, "exw_usd_cn": 17.69, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 638000, "pkg25_usd_cn": 24.54, "jumbo_vnd_cn": 570000, "jumbo_usd_cn": 21.92, "exw_vnd_other": 480000, "exw_usd_other": 18.46, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 658000, "pkg25_usd_other": 25.31, "jumbo_vnd_other": 590000, "jumbo_usd_other": 22.69},
+  {"code": "F25A2", "size": "25±2 µm", "standard": "A2-", "machine": "318", "exw_vnd": 430000, "exw_usd": 16.54, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 608000, "pkg25_usd": 23.38, "jumbo_vnd": 540000, "jumbo_usd": 20.77, "exw_vnd_cn": 430000, "exw_usd_cn": 16.54, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 608000, "pkg25_usd_cn": 23.38, "jumbo_vnd_cn": 540000, "jumbo_usd_cn": 20.77, "exw_vnd_other": 450000, "exw_usd_other": 17.31, "comm_vnd_other": 7000, "comm_usd_other": 0.27, "pkg25_vnd_other": 628000, "pkg25_usd_other": 24.15, "jumbo_vnd_other": 560000, "jumbo_usd_other": 21.54},
+  {"code": "F30A2", "size": "30±3 µm", "standard": "A2-", "machine": "318", "exw_vnd": 410000, "exw_usd": 15.77, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 588000, "pkg25_usd": 22.62, "jumbo_vnd": 520000, "jumbo_usd": 20, "exw_vnd_cn": 410000, "exw_usd_cn": 15.77, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 588000, "pkg25_usd_cn": 22.62, "jumbo_vnd_cn": 520000, "jumbo_usd_cn": 20, "exw_vnd_other": 420000, "exw_usd_other": 16.15, "comm_vnd_other": 7000, "comm_usd_other": 0.27, "pkg25_vnd_other": 598000, "pkg25_usd_other": 23, "jumbo_vnd_other": 530000, "jumbo_usd_other": 20.38},
+  {"code": "F35A2", "size": "35±3 µm", "standard": "A2-", "machine": "318", "exw_vnd": 400000, "exw_usd": 15.38, "comm_vnd": 7000, "comm_usd": 0.27, "pkg25_vnd": 578000, "pkg25_usd": 22.23, "jumbo_vnd": 510000, "jumbo_usd": 19.62, "exw_vnd_cn": 400000, "exw_usd_cn": 15.38, "comm_vnd_cn": 7000, "comm_usd_cn": 0.27, "pkg25_vnd_cn": 578000, "pkg25_usd_cn": 22.23, "jumbo_vnd_cn": 510000, "jumbo_usd_cn": 19.62, "exw_vnd_other": 410000, "exw_usd_other": 15.77, "comm_vnd_other": 7000, "comm_usd_other": 0.27, "pkg25_vnd_other": 588000, "pkg25_usd_other": 22.62, "jumbo_vnd_other": 520000, "jumbo_usd_other": 20},
+  {"code": "F45A2", "size": "45±3 µm", "standard": "A2-", "machine": "318", "exw_vnd": 360000, "exw_usd": 13.85, "comm_vnd": 6000, "comm_usd": 0.23, "pkg25_vnd": 538000, "pkg25_usd": 20.69, "jumbo_vnd": 470000, "jumbo_usd": 18.08, "exw_vnd_cn": 360000, "exw_usd_cn": 13.85, "comm_vnd_cn": 6000, "comm_usd_cn": 0.23, "pkg25_vnd_cn": 538000, "pkg25_usd_cn": 20.69, "jumbo_vnd_cn": 470000, "jumbo_usd_cn": 18.08, "exw_vnd_other": 370000, "exw_usd_other": 14.23, "comm_vnd_other": 6000, "comm_usd_other": 0.23, "pkg25_vnd_other": 548000, "pkg25_usd_other": 21.08, "jumbo_vnd_other": 480000, "jumbo_usd_other": 18.46},
+  {"code": "F15A2", "size": "15±1 µm", "standard": "A2", "machine": "318", "exw_vnd": 600000, "exw_usd": 23.08, "comm_vnd": 9000, "comm_usd": 0.35, "pkg25_vnd": 778000, "pkg25_usd": 29.92, "jumbo_vnd": 710000, "jumbo_usd": 27.31, "exw_vnd_cn": 600000, "exw_usd_cn": 23.08, "comm_vnd_cn": 9000, "comm_usd_cn": 0.35, "pkg25_vnd_cn": 778000, "pkg25_usd_cn": 29.92, "jumbo_vnd_cn": 710000, "jumbo_usd_cn": 27.31, "exw_vnd_other": 610000, "exw_usd_other": 23.46, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 788000, "pkg25_usd_other": 30.31, "jumbo_vnd_other": 720000, "jumbo_usd_other": 27.69},
+  {"code": "F17A2", "size": "17±1 µm", "standard": "A2", "machine": "318", "exw_vnd": 550000, "exw_usd": 21.15, "comm_vnd": 9000, "comm_usd": 0.35, "pkg25_vnd": 728000, "pkg25_usd": 28, "jumbo_vnd": 660000, "jumbo_usd": 25.38, "exw_vnd_cn": 550000, "exw_usd_cn": 21.15, "comm_vnd_cn": 9000, "comm_usd_cn": 0.35, "pkg25_vnd_cn": 728000, "pkg25_usd_cn": 28, "jumbo_vnd_cn": 660000, "jumbo_usd_cn": 25.38, "exw_vnd_other": 560000, "exw_usd_other": 21.54, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 738000, "pkg25_usd_other": 28.38, "jumbo_vnd_other": 670000, "jumbo_usd_other": 25.77},
+  {"code": "F20A2", "size": "20±2 µm", "standard": "A2", "machine": "318", "exw_vnd": 530000, "exw_usd": 20.38, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 708000, "pkg25_usd": 27.23, "jumbo_vnd": 649000, "jumbo_usd": 24.96, "exw_vnd_cn": 530000, "exw_usd_cn": 20.38, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 708000, "pkg25_usd_cn": 27.23, "jumbo_vnd_cn": 649000, "jumbo_usd_cn": 24.96, "exw_vnd_other": 540000, "exw_usd_other": 20.77, "comm_vnd_other": 9000, "comm_usd_other": 0.35, "pkg25_vnd_other": 718000, "pkg25_usd_other": 27.62, "jumbo_vnd_other": 659000, "jumbo_usd_other": 25.35},
+  {"code": "F25A2", "size": "25±2 µm", "standard": "A2", "machine": "318", "exw_vnd": 500000, "exw_usd": 19.23, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 678000, "pkg25_usd": 26.08, "jumbo_vnd": 610000, "jumbo_usd": 23.46, "exw_vnd_cn": 500000, "exw_usd_cn": 19.23, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 678000, "pkg25_usd_cn": 26.08, "jumbo_vnd_cn": 610000, "jumbo_usd_cn": 23.46, "exw_vnd_other": 510000, "exw_usd_other": 19.62, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 688000, "pkg25_usd_other": 26.46, "jumbo_vnd_other": 620000, "jumbo_usd_other": 23.85},
+  {"code": "F30A2", "size": "30±3 µm", "standard": "A2", "machine": "318", "exw_vnd": 470000, "exw_usd": 18.08, "comm_vnd": 8000, "comm_usd": 0.31, "pkg25_vnd": 648000, "pkg25_usd": 24.92, "jumbo_vnd": 580000, "jumbo_usd": 22.31, "exw_vnd_cn": 470000, "exw_usd_cn": 18.08, "comm_vnd_cn": 8000, "comm_usd_cn": 0.31, "pkg25_vnd_cn": 648000, "pkg25_usd_cn": 24.92, "jumbo_vnd_cn": 580000, "jumbo_usd_cn": 22.31, "exw_vnd_other": 490000, "exw_usd_other": 18.85, "comm_vnd_other": 8000, "comm_usd_other": 0.31, "pkg25_vnd_other": 668000, "pkg25_usd_other": 25.69, "jumbo_vnd_other": 600000, "jumbo_usd_other": 23.08},
+  {"code": "K45A2", "size": "45±3 µm", "standard": "A2-", "machine": "1500", "exw_vnd": 350000, "exw_usd": 13.46, "comm_vnd": 6000, "comm_usd": 0.23, "pkg25_vnd": 528000, "pkg25_usd": 20.31, "jumbo_vnd": 460000, "jumbo_usd": 17.69, "exw_vnd_cn": 350000, "exw_usd_cn": 13.46, "comm_vnd_cn": 6000, "comm_usd_cn": 0.23, "pkg25_vnd_cn": 528000, "pkg25_usd_cn": 20.31, "jumbo_vnd_cn": 460000, "jumbo_usd_cn": 17.69, "exw_vnd_other": 350000, "exw_usd_other": 13.46, "comm_vnd_other": 6000, "comm_usd_other": 0.23, "pkg25_vnd_other": 528000, "pkg25_usd_other": 20.31, "jumbo_vnd_other": 460000, "jumbo_usd_other": 17.69},
+  {"code": "K65A2", "size": "65±3 µm", "standard": "A2-", "machine": "1500", "exw_vnd": 330000, "exw_usd": 12.69, "comm_vnd": 6000, "comm_usd": 0.23, "pkg25_vnd": 508000, "pkg25_usd": 19.54, "jumbo_vnd": 440000, "jumbo_usd": 16.92, "exw_vnd_cn": 330000, "exw_usd_cn": 12.69, "comm_vnd_cn": 6000, "comm_usd_cn": 0.23, "pkg25_vnd_cn": 508000, "pkg25_usd_cn": 19.54, "jumbo_vnd_cn": 440000, "jumbo_usd_cn": 16.92, "exw_vnd_other": 330000, "exw_usd_other": 12.69, "comm_vnd_other": 6000, "comm_usd_other": 0.23, "pkg25_vnd_other": 508000, "pkg25_usd_other": 19.54, "jumbo_vnd_other": 440000, "jumbo_usd_other": 16.92},
+  {"code": "K45A3", "size": "45±3 µm", "standard": "A3", "machine": "1500", "exw_vnd": 260000, "exw_usd": 10, "comm_vnd": 5000, "comm_usd": 0.19, "pkg25_vnd": 438000, "pkg25_usd": 16.85, "jumbo_vnd": 370000, "jumbo_usd": 14.23, "exw_vnd_cn": 260000, "exw_usd_cn": 10, "comm_vnd_cn": 5000, "comm_usd_cn": 0.19, "pkg25_vnd_cn": 438000, "pkg25_usd_cn": 16.85, "jumbo_vnd_cn": 370000, "jumbo_usd_cn": 14.23, "exw_vnd_other": 260000, "exw_usd_other": 10, "comm_vnd_other": 5000, "comm_usd_other": 0.19, "pkg25_vnd_other": 438000, "pkg25_usd_other": 16.85, "jumbo_vnd_other": 370000, "jumbo_usd_other": 14.23},
+  {"code": "K65A3", "size": "65±3 µm", "standard": "A3", "machine": "1500", "exw_vnd": 240000, "exw_usd": 9.23, "comm_vnd": 5000, "comm_usd": 0.19, "pkg25_vnd": 418000, "pkg25_usd": 16.08, "jumbo_vnd": 350000, "jumbo_usd": 13.46, "exw_vnd_cn": 240000, "exw_usd_cn": 9.23, "comm_vnd_cn": 5000, "comm_usd_cn": 0.19, "pkg25_vnd_cn": 418000, "pkg25_usd_cn": 16.08, "jumbo_vnd_cn": 350000, "jumbo_usd_cn": 13.46, "exw_vnd_other": 240000, "exw_usd_other": 9.23, "comm_vnd_other": 5000, "comm_usd_other": 0.19, "pkg25_vnd_other": 418000, "pkg25_usd_other": 16.08, "jumbo_vnd_other": 350000, "jumbo_usd_other": 13.46},
+  {"code": "E80A2", "size": "80±3 µm", "standard": "A2", "machine": "1300", "exw_vnd": 770000, "exw_usd": 29.62, "comm_vnd": 12000, "comm_usd": 0.46, "pkg25_vnd": 880000, "pkg25_usd": 33.85, "jumbo_vnd": 880000, "jumbo_usd": 33.85, "exw_vnd_cn": 770000, "exw_usd_cn": 29.62, "comm_vnd_cn": 12000, "comm_usd_cn": 0.46, "pkg25_vnd_cn": 880000, "pkg25_usd_cn": 33.85, "jumbo_vnd_cn": 880000, "jumbo_usd_cn": 33.85, "exw_vnd_other": 770000, "exw_usd_other": 29.62, "comm_vnd_other": 12000, "comm_usd_other": 0.46, "pkg25_vnd_other": 880000, "pkg25_usd_other": 33.85, "jumbo_vnd_other": 880000, "jumbo_usd_other": 33.85},
+  {"code": "E125A1", "size": "70±3 µm", "standard": "A1", "machine": "1300", "exw_vnd": 1150000, "exw_usd": 44.23, "comm_vnd": 16000, "comm_usd": 0.62, "pkg25_vnd": 1260000, "pkg25_usd": 48.46, "jumbo_vnd": 1260000, "jumbo_usd": 48.46, "exw_vnd_cn": 1150000, "exw_usd_cn": 44.23, "comm_vnd_cn": 16000, "comm_usd_cn": 0.62, "pkg25_vnd_cn": 1260000, "pkg25_usd_cn": 48.46, "jumbo_vnd_cn": 1260000, "jumbo_usd_cn": 48.46, "exw_vnd_other": 1150000, "exw_usd_other": 44.23, "comm_vnd_other": 16000, "comm_usd_other": 0.62, "pkg25_vnd_other": 1260000, "pkg25_usd_other": 48.46, "jumbo_vnd_other": 1260000, "jumbo_usd_other": 48.46},
+  {"code": "E70A1", "size": "70±3 µm", "standard": "A1", "machine": "1300", "exw_vnd": 1180000, "exw_usd": 45.38, "comm_vnd": 17000, "comm_usd": 0.65, "pkg25_vnd": 1290000, "pkg25_usd": 49.62, "jumbo_vnd": 1290000, "jumbo_usd": 49.62, "exw_vnd_cn": 1180000, "exw_usd_cn": 45.38, "comm_vnd_cn": 17000, "comm_usd_cn": 0.65, "pkg25_vnd_cn": 1290000, "pkg25_usd_cn": 49.62, "jumbo_vnd_cn": 1290000, "jumbo_usd_cn": 49.62, "exw_vnd_other": 1180000, "exw_usd_other": 45.38, "comm_vnd_other": 17000, "comm_usd_other": 0.65, "pkg25_vnd_other": 1290000, "pkg25_usd_other": 49.62, "jumbo_vnd_other": 1290000, "jumbo_usd_other": 49.62},
   {"code": "S55A1", "size": "55 Mesh", "standard": "A1", "machine": "Sand", "exw_vnd": 900000, "exw_usd": 34.62, "comm_vnd": 13000, "comm_usd": 0.5, "pkg25_vnd": 1010000, "pkg25_usd": 38.85, "jumbo_vnd": 1010000, "jumbo_usd": 38.85, "exw_vnd_cn": 900000, "exw_usd_cn": 34.62, "comm_vnd_cn": 13000, "comm_usd_cn": 0.5, "pkg25_vnd_cn": 1010000, "pkg25_usd_cn": 38.85, "jumbo_vnd_cn": 1010000, "jumbo_usd_cn": 38.85, "exw_vnd_other": 920000, "exw_usd_other": 35.38, "comm_vnd_other": 13000, "comm_usd_other": 0.5, "pkg25_vnd_other": 1030000, "pkg25_usd_other": 39.62, "jumbo_vnd_other": 1030000, "jumbo_usd_other": 39.62},
   {"code": "S30A1", "size": "30 Mesh", "standard": "A1", "machine": "Sand", "exw_vnd": 900000, "exw_usd": 34.62, "comm_vnd": 13000, "comm_usd": 0.5, "pkg25_vnd": 1010000, "pkg25_usd": 38.85, "jumbo_vnd": 1010000, "jumbo_usd": 38.85, "exw_vnd_cn": 900000, "exw_usd_cn": 34.62, "comm_vnd_cn": 13000, "comm_usd_cn": 0.5, "pkg25_vnd_cn": 1010000, "pkg25_usd_cn": 38.85, "jumbo_vnd_cn": 1010000, "jumbo_usd_cn": 38.85, "exw_vnd_other": 920000, "exw_usd_other": 35.38, "comm_vnd_other": 13000, "comm_usd_other": 0.5, "pkg25_vnd_other": 1030000, "pkg25_usd_other": 39.62, "jumbo_vnd_other": 1030000, "jumbo_usd_other": 39.62},
   {"code": "S40A1", "size": "40 Mesh", "standard": "A1", "machine": "Sand", "exw_vnd": 900000, "exw_usd": 34.62, "comm_vnd": 13000, "comm_usd": 0.5, "pkg25_vnd": 1010000, "pkg25_usd": 38.85, "jumbo_vnd": 1010000, "jumbo_usd": 38.85, "exw_vnd_cn": 900000, "exw_usd_cn": 34.62, "comm_vnd_cn": 13000, "comm_usd_cn": 0.5, "pkg25_vnd_cn": 1010000, "pkg25_usd_cn": 38.85, "jumbo_vnd_cn": 1010000, "jumbo_usd_cn": 38.85, "exw_vnd_other": 920000, "exw_usd_other": 35.38, "comm_vnd_other": 13000, "comm_usd_other": 0.5, "pkg25_vnd_other": 1030000, "pkg25_usd_other": 39.62, "jumbo_vnd_other": 1030000, "jumbo_usd_other": 39.62},
@@ -388,16 +388,16 @@ function importProducts(arr) {
   DATA_PRODUCTS = [];
   arr.forEach(function(r) {
     var obj = {};
-    obj.code = r.code || r.Code || r["ä»£ç  SP"] || r["äº§å“ä»£ç "] || r["ä»£ç  äº§å“"] || r["ä»£ç "] || "";
+    obj.code = r.code || r.Code || r["代码 SP"] || r["产品代码"] || r["代码 产品"] || r["代码"] || "";
     if (!obj.code) return;
-    obj.size = r.size || r.Size || r["Cá»¡ háº¡t"] || r["Co hat"] || r["Size"] || "";
-    obj.standard = r.standard || r.Standard || r["æ ‡å‡†"] || r["Tieu chuan"] || r["Standard"] || "";
-    obj.machine = r.machine || r.Machine || r["æœºå™¨ cháº¡y"] || r["May chay"] || r["æœºå™¨"] || r["May"] || "";
+    obj.size = r.size || r.Size || r["Cỡ hạt"] || r["Co hat"] || r["Size"] || "";
+    obj.standard = r.standard || r.Standard || r["标准"] || r["Tieu chuan"] || r["Standard"] || "";
+    obj.machine = r.machine || r.Machine || r["机器 chạy"] || r["May chay"] || r["机器"] || r["May"] || "";
     var vndFields = {
       exw_vnd: ["EXW (VND)","EXW(VND)","exw_vnd","EXW_VND","exw vnd","EXW VND","Exw(VND)"],
       exw_usd: ["EXW (USD)","EXW(USD)","exw_usd","EXW_USD","exw usd","EXW USD","Exw(USD)"],
-      comm_vnd: ["ä½£é‡‘ (VND)","Hoa hong (VND)","ä½£é‡‘(VND)","comm_vnd","comm vnd"],
-      comm_usd: ["ä½£é‡‘ (USD)","Hoa hong (USD)","ä½£é‡‘(USD)","comm_usd","comm usd"],
+      comm_vnd: ["佣金 (VND)","Hoa hong (VND)","佣金(VND)","comm_vnd","comm vnd"],
+      comm_usd: ["佣金 (USD)","Hoa hong (USD)","佣金(USD)","comm_usd","comm usd"],
       pkg25_vnd: ["25kg (VND)","25kg(VND)","25KG (VND)","25KG(VND)","pkg25_vnd","25kg_vnd"],
       pkg25_usd: ["25kg (USD)","25kg(USD)","25KG (USD)","25KG(USD)","pkg25_usd","25kg_usd"],
       jumbo_vnd: ["Jumbo (VND)","Jumbo(VND)","jumbo_vnd","jumbo vnd"],
@@ -418,8 +418,8 @@ function importProducts(arr) {
     if (r.whiteness !== undefined) obj.whiteness = Number(r.whiteness);
     if (r.brightness !== undefined) obj.brightness = Number(r.brightness);
     // Read max loading from product row if available
-    var max25 = r.max25 || r["Max Loading 25KG"] || r["Max Loading 25kg"] || r["Max25"] || r["æœ€å¤§25KG"];
-    var maxJb = r.maxJumbo || r["Max Loading Jumbo"] || r["Max Loading jumbo"] || r["MaxJumbo"] || r["æœ€å¤§Jumbo"];
+    var max25 = r.max25 || r["Max Loading 25KG"] || r["Max Loading 25kg"] || r["Max25"] || r["最大25KG"];
+    var maxJb = r.maxJumbo || r["Max Loading Jumbo"] || r["Max Loading jumbo"] || r["MaxJumbo"] || r["最大Jumbo"];
     if (max25 !== undefined && max25 !== null && max25 !== "") {
       obj.max25 = Number(max25);
       DATA_MAX_LOADING[obj.code] = DATA_MAX_LOADING[obj.code] || {};
@@ -451,7 +451,7 @@ function importProducts(arr) {
   });
 }
 
-var DATA_BAGS = [{"code": "NVL-BB-PP-K55X85", "cost": 4562, "spec": "25KG", "qty": 18000, "price": 220528, "profit": 0.1}, {"code": "NVL-BB-JB-92X92X125", "cost": 127750, "spec": "Jumbo", "qty": 3000, "price": 143825, "profit": 0.1}, {"code": "NVL-BB-JB-95X95X125", "cost": 131250, "spec": "Jumbo", "qty": 3000, "price": 147675, "profit": 0.1}, {"code": "NVL-BB-25KG-52X78", "cost": 3990, "spec": "25KG", "qty": 18000, "price": 195360, "profit": 0.1}, {"code": "NVL-BB-25KG-52X75", "cost": 3800, "spec": "25KG", "qty": 18000, "price": 187000, "profit": 0.1}, {"code": "NVL-BB-25KG-52X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}, {"code": "NVL-BB-34KG-50X78-KOTR", "cost": 3100, "spec": "34KG", "qty": 18000, "price": 156200, "profit": 0.1}, {"code": "50KG-NHUATAICHE-55X85", "cost": 2650, "spec": "50KG", "qty": 18000, "price": 78100, "profit": 0.1}, {"code": "NVL-BB-25KG-50X72-KOTR", "cost": 3000, "spec": "25KG", "qty": 18000, "price": 151800, "profit": 0.1}, {"code": "Bao jumbo cá»§a khÃ¡ch", "cost": 0, "spec": "Jumbo", "qty": 3000, "price": 3300, "profit": 0.1}, {"code": "BAO 25KG Cá»¦A KHÃCH", "cost": 0, "spec": "25KG", "qty": 18000, "price": 19800, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR", "cost": 127000, "spec": "Jumbo", "qty": 3000, "price": 143000, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR QUAY VÃ’NG", "cost": 43000, "spec": "Jumbo", "qty": 3000, "price": 59800, "profit": 0.3}, {"code": "NVL-BB-25KG-50X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}];
+var DATA_BAGS = [{"code": "NVL-BB-PP-K55X85", "cost": 4562, "spec": "25KG", "qty": 18000, "price": 220528, "profit": 0.1}, {"code": "NVL-BB-JB-92X92X125", "cost": 127750, "spec": "Jumbo", "qty": 3000, "price": 143825, "profit": 0.1}, {"code": "NVL-BB-JB-95X95X125", "cost": 131250, "spec": "Jumbo", "qty": 3000, "price": 147675, "profit": 0.1}, {"code": "NVL-BB-25KG-52X78", "cost": 3990, "spec": "25KG", "qty": 18000, "price": 195360, "profit": 0.1}, {"code": "NVL-BB-25KG-52X75", "cost": 3800, "spec": "25KG", "qty": 18000, "price": 187000, "profit": 0.1}, {"code": "NVL-BB-25KG-52X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}, {"code": "NVL-BB-34KG-50X78-KOTR", "cost": 3100, "spec": "34KG", "qty": 18000, "price": 156200, "profit": 0.1}, {"code": "50KG-NHUATAICHE-55X85", "cost": 2650, "spec": "50KG", "qty": 18000, "price": 78100, "profit": 0.1}, {"code": "NVL-BB-25KG-50X72-KOTR", "cost": 3000, "spec": "25KG", "qty": 18000, "price": 151800, "profit": 0.1}, {"code": "Bao jumbo của khách", "cost": 0, "spec": "Jumbo", "qty": 3000, "price": 3300, "profit": 0.1}, {"code": "BAO 25KG CỦA KHÁCH", "cost": 0, "spec": "25KG", "qty": 18000, "price": 19800, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR", "cost": 127000, "spec": "Jumbo", "qty": 3000, "price": 143000, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR QUAY VÒNG", "cost": 43000, "spec": "Jumbo", "qty": 3000, "price": 59800, "profit": 0.3}, {"code": "NVL-BB-25KG-50X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}];
 
 
 // Market switching
@@ -492,7 +492,7 @@ function setMarket(mkt) {
   applyMarket();
 }
 
-var DATA_OTHERS = [{"code": "PALLET TÃI Sá»¬ Dá»¤NG", "cost": 70000, "price": 77000, "profit": 0.1}, {"code": "PALLET Má»šI", "cost": 120000, "price": 132000, "profit": 0.1}, {"code": "Náº¸P ÄAI", "cost": 5000, "price": 5500, "profit": 0.1}, {"code": "QUáº¤N MÃ€NG", "cost": 18000, "price": 19800, "profit": 0.1}, {"code": "PALLET TRÃNG PHá»¦", "cost": 160000, "price": 176000, "profit": 0.1}, {"code": "JUMBO Má»ž Náº®P (æ•°é‡ING)", "cost": 95000, "price": 104500, "profit": 0.1}, {"code": "PALLET Má»šI + Náº¸P ÄAI + QUáº¤N MÃ€NG", "cost": 143000, "price": 157300, "profit": 0.1}, {"code": "JUMBO Má»ž Náº®P (æ•°é‡ING) Cá»¦A KHÃCH", "cost": 35000, "price": 38500, "profit": 0.1}];
+var DATA_OTHERS = [{"code": "PALLET TÁI SỬ DỤNG", "cost": 70000, "price": 77000, "profit": 0.1}, {"code": "PALLET MỚI", "cost": 120000, "price": 132000, "profit": 0.1}, {"code": "NẸP ĐAI", "cost": 5000, "price": 5500, "profit": 0.1}, {"code": "QUẤN MÀNG", "cost": 18000, "price": 19800, "profit": 0.1}, {"code": "PALLET TRÁNG PHỦ", "cost": 160000, "price": 176000, "profit": 0.1}, {"code": "JUMBO MỞ NẮP (数量ING)", "cost": 95000, "price": 104500, "profit": 0.1}, {"code": "PALLET MỚI + NẸP ĐAI + QUẤN MÀNG", "cost": 143000, "price": 157300, "profit": 0.1}, {"code": "JUMBO MỞ NẮP (数量ING) CỦA KHÁCH", "cost": 35000, "price": 38500, "profit": 0.1}];
 var DATA_MAX_LOADING = {}; // Empty - removed from pricelist table
 var DATA_COST_FOB = {14:{no:974600,sub:1263900},20:{no:682000,sub:884400},22:{no:620400,sub:804100},24:{no:568700,sub:737000},25:{no:545600,sub:707300},26:{no:524700,sub:680900},27:{no:504900,sub:655600},28:{no:487300,sub:632500}};
 
@@ -653,11 +653,11 @@ function switchTab(tab) {
 // ====== RENDER PRICE TAB ======
 function formatMaxLoading(v) {
   if (v && v > 0) return '<span style="font-weight:600;color:#0f766e">' + v + ' t</span>';
-  return 'â€”';
+  return '—';
 }
 function formatMaxLoading(v) {
   if (v && v > 0) return '<span style="font-weight:600;color:#0f766e">' + v + ' t</span>';
-  return 'â€”';
+  return '—';
 }
 function renderPriceTab() {
   var search = (document.getElementById("searchInput") && document.getElementById("searchInput").value || "").toLowerCase();
@@ -696,29 +696,29 @@ function renderPriceTab() {
   });
   var fmt = function(v) { return (v || 0).toLocaleString('vi-VN'); };
   h += '<div class="summary-bar">';
-  h += '<div class="summary-card"><div class="lbl">äº§å“</div><div class="val">' + filtered.length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">æ ‡å‡†</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">æœºå™¨</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">æ—¥æœŸ</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
+  h += '<div class="summary-card"><div class="lbl">产品</div><div class="val">' + filtered.length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">标准</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">机器</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">日期</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
   h += '</div>';
   h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">\ud83d\udccb Hi\u1ec7n max t\u1ea3i</button>';
   h += '<div class="summary-bar" style="margin-top:4px;gap:6px">';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">å¹³å‡25KG</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
+  h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">平均25KG</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
   h += '<div class="summary-card" style="padding:8px 12px;background:#fef2f2;border-color:#fecaca"><div class="lbl" style="font-size:10px">C.nh\u1ea5t 25KG</div><div class="val" style="font-size:15px">' + fmt(max25) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#f0fdf4;border-color:#bbf7d0"><div class="lbl" style="font-size:10px">å¹³å‡Jumbo</div><div class="val" style="font-size:15px">' + fmt(cntJ?Math.round(sumJ/cntJ):0) + '</div></div>';
+  h += '<div class="summary-card" style="padding:8px 12px;background:#f0fdf4;border-color:#bbf7d0"><div class="lbl" style="font-size:10px">平均Jumbo</div><div class="val" style="font-size:15px">' + fmt(cntJ?Math.round(sumJ/cntJ):0) + '</div></div>';
   h += '<div class="summary-card" style="padding:8px 12px;background:#fefce8;border-color:#fde68a"><div class="lbl" style="font-size:10px">C.nh\u1ea5t Jumbo</div><div class="val" style="font-size:15px">' + fmt(maxJ) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#f5f3ff;border-color:#ddd6fe"><div class="lbl" style="font-size:10px">å¹³å‡EXW</div><div class="val" style="font-size:15px">' + fmt(cntExw?Math.round(sumExw/cntExw):0) + '</div></div>';
+  h += '<div class="summary-card" style="padding:8px 12px;background:#f5f3ff;border-color:#ddd6fe"><div class="lbl" style="font-size:10px">平均EXW</div><div class="val" style="font-size:15px">' + fmt(cntExw?Math.round(sumExw/cntExw):0) + '</div></div>';
   h += '<div class="summary-card" style="padding:8px 12px;background:#fff1f2;border-color:#fecdd3"><div class="lbl" style="font-size:10px">C.nh\u1ea5t EXW</div><div class="val" style="font-size:15px">' + fmt(maxExw) + '</div></div>';
   h += '</div>';
 
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
-  h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2" class="ml-toggle">æœ€å¤§è£…è½½</th><th colspan="2">' + (priceMode==="exw"?"é”€å”®ä»·æ ¼(EXW)":"ä»·æ ¼å«åŒ…è£…") + '</th>';
-  if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"ä¸å«åŒ…è£…EXW":"GiÃ¡ bÃ¡n (EXW)") + '</th>';
+  h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2" class="ml-toggle">最大装载</th><th colspan="2">' + (priceMode==="exw"?"销售价格(EXW)":"价格含包装") + '</th>';
+  if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"不含包装EXW":"Giá bán (EXW)") + '</th>';
   h += '</tr>';
-  h += '<tr><th>M\u00e3</th><th>å°ºå¯¸</th><th>æ ‡å‡†</th><th>æœºå™¨</th><th class="ml-toggle">æœ€å¤§25KG <span class="info-row">(å¨)</span></th><th class="ml-toggle">æœ€å¤§Jumbo <span class="info-row">(å¨)</span></th><th>' + (priceMode==="exw"?"EXW 25KG æ ‡å‡†è¢‹":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW å¨è¢‹ æ ‡å‡†è¢‹":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
+  h += '<tr><th>M\u00e3</th><th>尺寸</th><th>标准</th><th>机器</th><th class="ml-toggle">最大25KG <span class="info-row">(吨)</span></th><th class="ml-toggle">最大Jumbo <span class="info-row">(吨)</span></th><th>' + (priceMode==="exw"?"EXW 25KG 标准袋":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW 吨袋 标准袋":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
   if (!showFobCif) {
-    h += '<th>' + (priceMode==="exw"?"ä¸å«åŒ…è£…EXW":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"åŸºæœ¬ä½£é‡‘":"ä½£é‡‘") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
+    h += '<th>' + (priceMode==="exw"?"不含包装EXW":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"基本佣金":"佣金") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   }
   h += '</tr></thead><tbody>';
 
@@ -761,68 +761,68 @@ function renderCalcTab() {
   // ===== LEFT PANEL =====
   h += '<div class="calc-left">';
 
-  // --- Section: äº§å“ ---
-  h += '<div class="calc-section-title"><span class="badge blue">ðŸ“¦</span><span class="title-text">é€‰æ‹©äº§å“</span></div>';
+  // --- Section: 产品 ---
+  h += '<div class="calc-section-title"><span class="badge blue">📦</span><span class="title-text">选择产品</span></div>';
 
   // Machine + Standard side by side
   var machines = {};
   DATA_PRODUCTS.forEach(function(p) { machines[p.machine] = true; });
   var machineKeys = Object.keys(machines).sort();
   h += '<div class="calc-form-group"><div class="calc-row-inline">';
-  h += '<div><label class="calc-form-label">ðŸ­ æœºå™¨</label>';
-  h += '<select class="calc-select" id="calcMachine" onchange="filterCalcProducts()"><option value="">â€” -- é€‰æ‹©æœºå™¨ -- â€”</option>';
+  h += '<div><label class="calc-form-label">🏭 机器</label>';
+  h += '<select class="calc-select" id="calcMachine" onchange="filterCalcProducts()"><option value="">— -- 选择机器 -- —</option>';
   for (var i = 0; i < machineKeys.length; i++) {
     h += '<option value="' + machineKeys[i].replace(/"/g, '&quot;') + '">' + machineKeys[i] + '</option>';
   }
   h += '</select></div>';
-  h += '<div><label class="calc-form-label">ðŸ“‹ æ ‡å‡†</label>';
-  h += '<select class="calc-select" id="calcStandard" onchange="filterCalcProducts()"><option value="">â€” -- é€‰æ‹©æ ‡å‡† -- â€”</option></select></div>';
+  h += '<div><label class="calc-form-label">📋 标准</label>';
+  h += '<select class="calc-select" id="calcStandard" onchange="filterCalcProducts()"><option value="">— -- 选择标准 -- —</option></select></div>';
   h += '</div></div>';
 
-  h += '<div class="calc-form-group"><label class="calc-form-label">ðŸ”– äº§å“</label>';
-  h += '<select class="calc-select" id="calcProduct" onchange="onCalcProductChange()"><option value="">â€” é€‰æ‹©äº§å“ â€”</option></select></div>';
+  h += '<div class="calc-form-group"><label class="calc-form-label">🔖 产品</label>';
+  h += '<select class="calc-select" id="calcProduct" onchange="onCalcProductChange()"><option value="">— 选择产品 —</option></select></div>';
   // Max loading dropdown (shown only in FOB/CIF mode)
   h += '<div class="calc-form-group" id="calcMaxLoadRow" style="display:none">';
-  h += '<label class="calc-form-label">âš–ï¸ æœ€å¤§è´Ÿè½½</label>';
-  h += '<select class="calc-select" id="calcMaxLoad" onchange="calcPrice()"><option value="">â€” -- è‡ªåŠ¨ -- â€”</option></select></div>';
+  h += '<label class="calc-form-label">⚖️ 最大负载</label>';
+  h += '<select class="calc-select" id="calcMaxLoad" onchange="calcPrice()"><option value="">— -- 自动 -- —</option></select></div>';
 
-  // --- Section: åŒ…è£… ---
-  h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge green">ðŸ›ï¸</span><span class="title-text">è¢‹å­é€‰é¡¹</span></div>';
+  // --- Section: 包装 ---
+  h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge green">🛍️</span><span class="title-text">袋子选项</span></div>';
 
   // Bag spec + Bag select side by side
   h += '<div class="calc-form-group"><div class="calc-row-inline">';
-  h += '<div><label class="calc-form-label">ðŸ“ è¢‹å­è§„æ ¼</label>';
+  h += '<div><label class="calc-form-label">📏 袋子规格</label>';
   h += '<select class="calc-select" id="calcBagSpec" onchange="filterBagSpec()"><option value="25KG">25KG</option><option value="34KG">34KG</option><option value="50KG">50KG</option><option value="Jumbo">Jumbo</option></select></div>';
-  h += '<div><label class="calc-form-label">ðŸ›ï¸ è¢‹å­ç±»åž‹</label>';
-  h += '<select class="calc-select" id="calcBag" onchange="calcPrice()"><option value="">â€” -- ä¸é€‰ -- â€”</option>';
+  h += '<div><label class="calc-form-label">🛍️ 袋子类型</label>';
+  h += '<select class="calc-select" id="calcBag" onchange="calcPrice()"><option value="">— -- 不选 -- —</option>';
   h += '</select></div>';
   h += '</div></div>';
 
   // Jumbo tonnage (hidden by default)
   h += '<div class="calc-form-group" id="calcTonnageRow" style="display:none">';
-  h += '<label class="calc-form-label">âš–ï¸ å¨/å¤§è¢‹</label>';
+  h += '<label class="calc-form-label">⚖️ 吨/大袋</label>';
   h += '<select class="calc-select" id="calcTonnage" onchange="calcPrice()">';
   var jumboTons = ["0.5","0.7","1","1.1","1.2","1.25","1.3","1.35","1.375","1.38","1.4","1.5"];
   for (var i = 0; i < jumboTons.length; i++) {
-    h += '<option value="' + jumboTons[i] + '">' + jumboTons[i] + ' å¨</option>';
+    h += '<option value="' + jumboTons[i] + '">' + jumboTons[i] + ' 吨</option>';
   }
   h += '</select></div>';
 
-  // --- Section: å…¶ä»–è§„æ ¼ ---
-  h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge purple">ðŸ“¦</span><span class="title-text">å…¶ä»–è§„æ ¼</span></div>';
+  // --- Section: 其他规格 ---
+  h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge purple">📦</span><span class="title-text">其他规格</span></div>';
 
   h += '<div class="calc-form-group"><div class="calc-row-inline">';
-  h += '<div><label class="calc-form-label">ðŸ“‹ è§„æ ¼ç±»åž‹</label>';
-  h += '<select class="calc-select" id="calcOther" onchange="calcPrice()"><option value="">â€” -- ä¸é€‰ -- â€”</option>';
+  h += '<div><label class="calc-form-label">📋 规格类型</label>';
+  h += '<select class="calc-select" id="calcOther" onchange="calcPrice()"><option value="">— -- 不选 -- —</option>';
   for (var i = 0; i < DATA_OTHERS.length; i++) {
     h += '<option value="' + DATA_OTHERS[i].code + '">' + DATA_OTHERS[i].code + '</option>';
   }
   h += '</select></div>';
-  h += '<div id="calcOtherTonnageRow"><label class="calc-form-label">âš–ï¸ å¨æ•°</label>';
+  h += '<div id="calcOtherTonnageRow"><label class="calc-form-label">⚖️ 吨数</label>';
   h += '<select class="calc-select" id="calcOtherTonnage" onchange="calcPrice()">';
   var otherTons = ["0.5","0.7","1","1.1","1.2","1.25","1.3","1.35","1.375","1.38","1.4","1.5","1.53","1.6"];
   for (var i = 0; i < otherTons.length; i++) {
-    h += '<option value="' + otherTons[i] + '">' + otherTons[i] + ' å¨</option>';
+    h += '<option value="' + otherTons[i] + '">' + otherTons[i] + ' 吨</option>';
   }
   h += '</select></div>';
   h += '</div></div>';
@@ -832,8 +832,8 @@ function renderCalcTab() {
   // ===== RIGHT PANEL =====
   h += '<div class="calc-right">';
   h += '<div class="calc-right-header">';
-  h += '<span class="icon">ðŸ’°</span>';
-  h += '<span>è®¡ç®—ç»“æžœ</span>';
+  h += '<span class="icon">💰</span>';
+  h += '<span>计算结果</span>';
   h += '</div>';
   // Price mode bar for calc tab
   h += '<div class="price-mode-bar" id="calcPriceModeBar" style="margin-bottom:12px;padding:8px 14px">';
@@ -843,20 +843,20 @@ function renderCalcTab() {
   h += '<button class="mode-btn" data-mode="cif" onclick="setCalcPriceMode(\'cif\')">CIF</button>';
   h += '</div>';
   h += '<div class="lcc-group" id="calcLccGroup" style="display:none">';
-  h += '<span class="ext-label">LCCç±»åž‹:</span>';
-  h += '<button class="lcc-btn active" data-lcc="no" onclick="setCalcLccType(\'no\')">æ— LCC</button>';
-  h += '<button class="lcc-btn" data-lcc="sub" onclick="setCalcLccType(\'sub\')">å­LCC</button>';
+  h += '<span class="ext-label">LCC类型:</span>';
+  h += '<button class="lcc-btn active" data-lcc="no" onclick="setCalcLccType(\'no\')">无LCC</button>';
+  h += '<button class="lcc-btn" data-lcc="sub" onclick="setCalcLccType(\'sub\')">子LCC</button>';
   h += '</div>';
   h += '<div id="calcFreightGroup" style="display:none">';
-  h += '<span class="ext-label">ðŸš‚ æµ·è¿è´¹:</span>';
+  h += '<span class="ext-label">🚂 海运费:</span>';
   h += '<input type="number" class="ext-input" id="calcFreightInput" value="0" min="0" step="100" oninput="setCalcFreight(this.value)" style="width:100px">';
   h += '<span class="ext-label">USD</span>;';
-  h += '<button class="ext-label" onclick="showFreightPopup()" style="background:var(--primary);color:white;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;font-weight:600">ðŸ“¡ æŸ¥è¯¢è¿è´¹</button>';
+  h += '<button class="ext-label" onclick="showFreightPopup()" style="background:var(--primary);color:white;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;font-weight:600">📡 查询运费</button>';
   h += '</div>';
   h += '</div>';
       // Currency toggle for calc tab 
   h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:4px 0">';
-  h += '<span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">ðŸ’± è´§å¸:</span>';
+  h += '<span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">💱 货币:</span>';
   h += '<div class="calc-currency-bar">';
   h += '<button class="mode-btn active" id="calcCcyVnd" onclick="setCalcCurrency(\'VND\')">VND</button>';
   h += '<button class="mode-btn" id="calcCcyUsd" onclick="setCalcCurrency(\'USD\')">USD</button>';
@@ -864,8 +864,8 @@ function renderCalcTab() {
   h += '</div>';
 h += '<div class="calc-result" id="calcResult">';
   h += '<div class="calc-empty">';
-  h += '<div class="calc-empty-icon">ðŸ“Š</div>';
-  h += '<div class="calc-empty-text">è¯·é€‰æ‹©äº§å“å’ŒåŒ…è£…å¼€å§‹</div>';
+  h += '<div class="calc-empty-icon">📊</div>';
+  h += '<div class="calc-empty-text">请选择产品和包装开始</div>';
   h += '</div>';
   h += '</div>';
   h += '</div>';
@@ -885,13 +885,13 @@ function filterCalcProducts() {
   });
   // Populate machines (if standard is selected, filter)
   var prevMach = me.value;
-  me.innerHTML = '<option value="">â€” -- é€‰æ‹©æœºå™¨ -- â€”</option>';
+  me.innerHTML = '<option value="">— -- 选择机器 -- —</option>';
   var mk = Object.keys(machinesByStd).sort();
   for (var i = 0; i < mk.length; i++) me.innerHTML += '<option value="' + mk[i].replace(/"/g, '&quot;') + '">' + mk[i] + '</option>';
   me.value = prevMach && mk.indexOf(prevMach) >= 0 ? prevMach : "";
   // Populate standards (if machine is selected, filter)
   var prevStd = se.value;
-  se.innerHTML = '<option value="">â€” -- é€‰æ‹©æ ‡å‡† -- â€”</option>';
+  se.innerHTML = '<option value="">— -- 选择标准 -- —</option>';
   var sk = Object.keys(standardsByMach).sort();
   for (var i = 0; i < sk.length; i++) se.innerHTML += '<option value="' + sk[i].replace(/"/g, '&quot;') + '">' + sk[i] + '</option>';
   se.value = prevStd && sk.indexOf(prevStd) >= 0 ? prevStd : "";
@@ -902,8 +902,8 @@ function filterCalcProducts_products() {
   if (!me || !se || !pe) return;
   var m = me.value, s = se.value;
   var prevProd = pe.value;
-  pe.innerHTML = '<option value="">â€” é€‰æ‹©äº§å“ â€”</option>';
-  DATA_PRODUCTS.forEach(function(p) { if ((!m || p.machine === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' â€” ' + p.size + '</option>'; });
+  pe.innerHTML = '<option value="">— 选择产品 —</option>';
+  DATA_PRODUCTS.forEach(function(p) { if ((!m || p.machine === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
   pe.value = prevProd;
 }
 function onCalcProductChange() { populateCalcMaxLoad(); calcPrice(); }
@@ -911,7 +911,7 @@ function populateCalcMaxLoad() {
   var psel = document.getElementById("calcProduct"), mlsel = document.getElementById("calcMaxLoad");
   if (!psel || !mlsel) return;
   var pcode = psel.value;
-  mlsel.innerHTML = '<option value="">â€” -- è‡ªåŠ¨(æŒ‰è¢‹åž‹) -- â€”</option>';
+  mlsel.innerHTML = '<option value="">— -- 自动(按袋型) -- —</option>';
   if (!pcode) return;
   // Collect all unique max loading values from DATA_MAX_LOADING
   var allVals = {};
@@ -928,7 +928,7 @@ function populateCalcMaxLoad() {
   // Sort numeric ascending
   var sorted = Object.keys(allVals).map(Number).sort(function(a,b){return a-b;});
   for (var i = 0; i < sorted.length; i++) {
-    mlsel.innerHTML += '<option value="' + sorted[i] + '">' + sorted[i] + ' å¨</option>';
+    mlsel.innerHTML += '<option value="' + sorted[i] + '">' + sorted[i] + ' 吨</option>';
   }
 }
 // ====== FILTER HELPERS ======
@@ -937,7 +937,7 @@ function filterBagSpec() {
   var bsel = document.getElementById("calcBag");
   if (bsel) {
     var curVal = bsel.value;
-    bsel.innerHTML = '<option value="">â€” -- æœªé€‰æ‹©è¢‹å­ -- â€”</option>';
+    bsel.innerHTML = '<option value="">— -- 未选择袋子 -- —</option>';
     for (var i = 0; i < DATA_BAGS.length; i++) {
       if (DATA_BAGS[i].spec === bagSpec) {
         bsel.innerHTML += '<option value="' + DATA_BAGS[i].code + '">' + DATA_BAGS[i].code + '</option>';
@@ -1001,7 +1001,7 @@ function calcCommission() {
   var sellPrice = parseFloat(sp.value);
   if (isNaN(sellPrice) || sellPrice <= 0) { cr.innerHTML = ""; return; }
   var psel = document.getElementById("calcProduct");
-  if (!psel || !psel.value) { cr.innerHTML = '<div style="color:var(--muted);font-size:12px">è¯·å…ˆé€‰æ‹©äº§å“</div>'; return; }
+  if (!psel || !psel.value) { cr.innerHTML = '<div style="color:var(--muted);font-size:12px">请先选择产品</div>'; return; }
   var prod = null;
   for (var i = 0; i < DATA_PRODUCTS.length; i++) { if (DATA_PRODUCTS[i].code === psel.value) { prod = DATA_PRODUCTS[i]; break; } }
   if (!prod) { cr.innerHTML = ""; return; }
@@ -1061,10 +1061,10 @@ function calcCommission() {
     var effCommBase = sellPrice < totalCost ? 0 : commBase;
     var totalComm = effCommBase + commissionVar;
   }
-  var h = '<div class="calc-comm-row"><span>åŸºæœ¬ä½£é‡‘</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>å·®é¢(30%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>æ€»æˆæœ¬</span><strong>' + fmtNum(totalCost, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
-  h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>æ€»ä½£é‡‘</span><strong style="color:var(--primary);font-size:16px">' + fmtNum(totalComm, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  var h = '<div class="calc-comm-row"><span>基本佣金</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>差额(30%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>总成本</span><strong>' + fmtNum(totalCost, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>总佣金</span><strong style="color:var(--primary);font-size:16px">' + fmtNum(totalComm, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   cr.innerHTML = h;
 }
 function calcPrice() {
@@ -1072,10 +1072,10 @@ function calcPrice() {
   if (!res) return;
   var psel = document.getElementById("calcProduct"), bsel = document.getElementById("calcBag"), tnsel = document.getElementById("calcTonnage"), otnsel = document.getElementById("calcOtherTonnage"), osel = document.getElementById("calcOther"), bagSpecSel = document.getElementById("calcBagSpec");
   var isUsd = currency === "USD", pcode = psel ? psel.value : "";
-  if (!pcode) { res.innerHTML = '<div class="calc-empty">ðŸ‘ˆ è¯·é€‰æ‹©äº§å“</div>'; return; }
+  if (!pcode) { res.innerHTML = '<div class="calc-empty">👈 请选择产品</div>'; return; }
   var prod = null;
   for (var i = 0; i < DATA_PRODUCTS.length; i++) { if (DATA_PRODUCTS[i].code === pcode) { prod = DATA_PRODUCTS[i]; break; } }
-  if (!prod) { res.innerHTML = '<div class="calc-empty">âŒ æœªæ‰¾åˆ°äº§å“</div>'; return; }
+  if (!prod) { res.innerHTML = '<div class="calc-empty">❌ 未找到产品</div>'; return; }
   var bs = bagSpecSel ? bagSpecSel.value : "25KG";
   var isJumbo = bs === "Jumbo";
   // Determine base price: EXW or FOB or CIF
@@ -1115,7 +1115,7 @@ function calcPrice() {
     // No bag selected -> use pkg price (already includes bag)
     exwMin = isUsd ? (isJumbo ? prod.jumbo_usd : prod.pkg25_usd) : (isJumbo ? prod.jumbo_vnd : prod.pkg25_vnd);
     bagPrice = 0;
-    bagCode = "æ ‡å‡† " + bs;
+    bagCode = "标准 " + bs;
   }
   var otherPrice = 0, otherCode = "";
   if (ocode) { for (var i = 0; i < DATA_OTHERS.length; i++) { if (DATA_OTHERS[i].code === ocode) { otherPrice = DATA_OTHERS[i].price; otherCode = DATA_OTHERS[i].code; break; } } if (otherTons > 0) otherPrice = otherPrice / otherTons; }
@@ -1141,36 +1141,36 @@ var total = 0;
   }
   var cc = isUsd ? "USD" : "VND";
     var h = '<div class="calc-result-summary">';
-  h += '<div class="calc-result-item"><span class="calc-rl">ðŸ“¦ äº§å“</span><span class="calc-rv">' + prod.code + '</span></div>';
-  h += '<div class="calc-result-item"><span class="calc-rl">âš™ï¸ æœºå™¨ / æ ‡å‡†</span><span class="calc-rv">' + prod.machine + ' Â· ' + prod.standard + '</span></div>';
-  h += '<div class="calc-result-item"><span class="calc-rl">ðŸ“ å°ºå¯¸</span><span class="calc-rv">' + prod.size + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">📦 产品</span><span class="calc-rv">' + prod.code + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">⚙️ 机器 / 标准</span><span class="calc-rv">' + prod.machine + ' · ' + prod.standard + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">📐 尺寸</span><span class="calc-rv">' + prod.size + '</span></div>';
   var modeLabel = calcPriceMode.toUpperCase();
   if (isFobMode) modeLabel += " (" + (calcLccType === "sub" ? "Sub LCC" : "No LCC") + ")";
   if (isCifMode) modeLabel += " (LCC:" + (calcLccType === "sub" ? "Sub" : "No") + " F:" + calcFreightUSD + "USD)";
-  h += '<div class="calc-result-item"><span class="calc-rl">ðŸ’° ' + 'EXW' + (hasBag ? ' æ— åŒ…è£…' : ' æœ‰åŒ…è£…') + '</span><span class="calc-rv exw">' + fmtNum(exwMin, isUsd) + ' ' + cc + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">💰 ' + 'EXW' + (hasBag ? ' 无包装' : ' 有包装') + '</span><span class="calc-rv exw">' + fmtNum(exwMin, isUsd) + ' ' + cc + '</span></div>';
   if (isFobMode && maxLoad) {
-    h += '<div class="calc-result-item"><span class="calc-rl">âš–ï¸ æœ€å¤§è´Ÿè½½</span><span class="calc-rv other">' + maxLoad + ' å¨</span></div>';
-    h += '<div class="calc-result-item"><span class="calc-rl">ðŸš› PhÃ­ FOB /å¨</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
+    h += '<div class="calc-result-item"><span class="calc-rl">⚖️ 最大负载</span><span class="calc-rv other">' + maxLoad + ' 吨</span></div>';
+    h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB /吨</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
   }
   if (isCifMode) {
     if (maxLoad > 0) {
-      h += '<div class="calc-result-item"><span class="calc-rl">âš–ï¸ æœ€å¤§è´Ÿè½½</span><span class="calc-rv other">' + maxLoad + ' å¨</span></div>';
-      h += '<div class="calc-result-item"><span class="calc-rl">ðŸš› PhÃ­ FOB /å¨</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
+      h += '<div class="calc-result-item"><span class="calc-rl">⚖️ 最大负载</span><span class="calc-rv other">' + maxLoad + ' 吨</span></div>';
+      h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB /吨</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
       var cifFreightPerTon = isUsd ? (calcFreightUSD + 10) / maxLoad : (calcFreightUSD + 10) * EXCHANGE_RATE / maxLoad;
-      h += '<div class="calc-result-item"><span class="calc-rl">ðŸš¢ Freight /å¨</span><span class="calc-rv other">' + fmtNum(cifFreightPerTon, isUsd) + ' ' + cc + '</span></div>';
+      h += '<div class="calc-result-item"><span class="calc-rl">🚢 Freight /吨</span><span class="calc-rv other">' + fmtNum(cifFreightPerTon, isUsd) + ' ' + cc + '</span></div>';
     }
   }
-  var bd = ""; if (bcode || isDefaultBag) { if (hasBag) { bd = bagCode; } else { bd = bagCode; } if (isJumbo && bagTons > 0) bd += " / " + bagTons + " å¨"; h += '<div class="calc-result-item"><span class="calc-rl">ðŸ›ï¸ åŒ…è£… (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; if (!hasBag) h += '<div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">âš ï¸ æ­£åœ¨ä½¿ç”¨æ ‡å‡†åŒ…è£…ä»·æ ¼ã€‚ å¦‚æžœè¢‹å­ä¸åŒè¯·å‡†ç¡®é€‰æ‹©!</span></div>'; }
-  if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " å¨"; h += '<div class="calc-result-item"><span class="calc-rl">ðŸ“¦ å…¶ä»–è§„æ ¼ (' + od + ')</span><span class="calc-rv other">' + fmtNum(otherPrice, isUsd) + ' ' + cc + '</span></div>'; }
+  var bd = ""; if (bcode || isDefaultBag) { if (hasBag) { bd = bagCode; } else { bd = bagCode; } if (isJumbo && bagTons > 0) bd += " / " + bagTons + " 吨"; h += '<div class="calc-result-item"><span class="calc-rl">🛍️ 包装 (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; if (!hasBag) h += '<div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">⚠️ 正在使用标准包装价格。 如果袋子不同请准确选择!</span></div>'; }
+  if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " 吨"; h += '<div class="calc-result-item"><span class="calc-rl">📦 其他规格 (' + od + ')</span><span class="calc-rv other">' + fmtNum(otherPrice, isUsd) + ' ' + cc + '</span></div>'; }
   h += '<div class="calc-result-total-row">';
-  h += '<span class="calc-rl">ðŸ·ï¸ æ€»æˆæœ¬(' + modeLabel + ')</span>';
+  h += '<span class="calc-rl">🏷️ 总成本(' + modeLabel + ')</span>';
   h += '<span class="calc-rv total">' + fmtNum(total, isUsd) + ' ' + cc + '</span>';
   h += '</div>';
   h += '</div>';
   h += '<div class="calc-commission-wrap">';
-  h += '<div class="calc-sell-input"><span>ðŸ’° å”®ä»·</span><input type="number" id="calcSellPrice" placeholder="è¾“å…¥å”®ä»·..." oninput="calcCommission()"></div>';
+  h += '<div class="calc-sell-input"><span>💰 售价</span><input type="number" id="calcSellPrice" placeholder="输入售价..." oninput="calcCommission()"></div>';
   h += '<div class="calc-comm-result" id="calcCommissionResult"></div>';
-  h += '<div style="margin-top:12px;text-align:center"><button onclick="showQuotationPopup()" style="background:var(--primary);color:white;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.3)">ðŸ“„ ç”ŸæˆæŠ¥ä»·</button></div>';
+  h += '<div style="margin-top:12px;text-align:center"><button onclick="showQuotationPopup()" style="background:var(--primary);color:white;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.3)">📄 生成报价</button></div>';
   h += '</div>';
   res.innerHTML = h;
 }
@@ -1184,7 +1184,7 @@ function exportToExcel() {
   if (priceMode === "fob" || priceMode === "cif") modeLabel += " (" + (lccType === "sub" ? "Sub LCC" : "No LCC") + ")";
   var fn = "DT-PriceList-" + dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate() + ".xlsx";
 
-  var rows = [["M\u00e3","å°ºå¯¸","æ ‡å‡†","æœºå™¨","25KG (VND)","Jumbo (VND)","Gi\u00e1 b\u00e1n (" + modeLabel + ", " + (isUsd ? "USD" : "VND") + ")","Hoa h\u1ed3ng (" + (isUsd ? "USD" : "VND") + ")"]];
+  var rows = [["M\u00e3","尺寸","标准","机器","25KG (VND)","Jumbo (VND)","Gi\u00e1 b\u00e1n (" + modeLabel + ", " + (isUsd ? "USD" : "VND") + ")","Hoa h\u1ed3ng (" + (isUsd ? "USD" : "VND") + ")"]];
 
   for (var i = 0; i < DATA_PRODUCTS.length; i++) {
     var p = DATA_PRODUCTS[i];
@@ -1242,7 +1242,7 @@ function downloadTemplate(type) {
     headers = ["code","name","cost","qty","price","profit"];
   } else if (type === 3) {
     fn = "Mau_max_tai.xlsx";
-    headers = ["Sáº¢N PHáº¨M","Max Loading 25KG","Max Loading Jumbo"];
+    headers = ["SẢN PHẨM","Max Loading 25KG","Max Loading Jumbo"];
   }
   var ws = XLSX.utils.aoa_to_sheet([headers]);
   var wb = XLSX.utils.book_new();
@@ -1285,7 +1285,7 @@ function downloadFile(type) {
     var mlArr = [];
     if (DATA_MAX_LOADING && Object.keys(DATA_MAX_LOADING).length > 0) {
       Object.keys(DATA_MAX_LOADING).forEach(function(k) {
-        var o = {"Sáº¢N PHáº¨M": k};
+        var o = {"SẢN PHẨM": k};
         if (DATA_MAX_LOADING[k].max25 !== undefined) o["Max Loading 25KG"] = DATA_MAX_LOADING[k].max25;
         if (DATA_MAX_LOADING[k].maxJumbo !== undefined) o["Max Loading Jumbo"] = DATA_MAX_LOADING[k].maxJumbo;
         mlArr.push(o);
@@ -1370,11 +1370,11 @@ function handleManageFile(file) {
   status.style.display = "block";
   if (!file.name.match(/.xlsx?$/i)) {
     status.className = "manage-status-sm err";
-    status.textContent = "âŒ ä»…æ”¯æŒExcelæ–‡ä»¶(.xlsx)";
+    status.textContent = "❌ 仅支持Excel文件(.xlsx)";
     return;
   }
   status.className = "manage-status-sm loading";
-  status.textContent = "â³ æ­£åœ¨å¤„ç†æ–‡ä»¶...";
+  status.textContent = "⏳ 正在处理文件...";
   var reader = new FileReader();
   reader.onload = function(e) {
     try {
@@ -1391,25 +1391,25 @@ function handleManageFile(file) {
         return null;
       }
       
-      var prodSheet = hasSheet(["Products", "products", "äº§å“", "äº§å“", "Product", "product", "Template", "æœ€ä½Žå”®ä»·", "æœ€ä½Žå”®ä»·", "å”®ä»·", "å”®ä»·", "ä»·æ ¼"]);
+      var prodSheet = hasSheet(["Products", "products", "产品", "产品", "Product", "product", "Template", "最低售价", "最低售价", "售价", "售价", "价格"]);
       if (prodSheet) {
         var s = XLSX.utils.sheet_to_json(wb.Sheets[prodSheet]);
         if (s.length > 0) { importProducts(s); updated++; }
       }
       
-      var bagSheet = hasSheet(["Bags", "bags", "åŒ…è£…", "åŒ…è£…", "Bao", "bao", "Bag"]);
+      var bagSheet = hasSheet(["Bags", "bags", "包装", "包装", "Bao", "bao", "Bag"]);
       if (bagSheet) {
         var s = XLSX.utils.sheet_to_json(wb.Sheets[bagSheet]);
         if (s.length > 0) { DATA_BAGS = s; updated++; }
       }
       
-      var otherSheet = hasSheet(["Others", "others", "å…¶ä»–è§„æ ¼", "Other", "other"]);
+      var otherSheet = hasSheet(["Others", "others", "其他规格", "Other", "other"]);
       if (otherSheet) {
         var s = XLSX.utils.sheet_to_json(wb.Sheets[otherSheet]);
         if (s.length > 0) { DATA_OTHERS = s; updated++; }
       }
       
-      var mlSheet = hasSheet(["MaxLoading", "maxloading", "Max Load", "max_load", "æœ€å¤§è´Ÿè½½", "æœ€å¤§è´Ÿè½½"]);
+      var mlSheet = hasSheet(["MaxLoading", "maxloading", "Max Load", "max_load", "最大负载", "最大负载"]);
       if (mlSheet) {
         var s = XLSX.utils.sheet_to_json(wb.Sheets[mlSheet]);
         if (s.length > 0) { importMaxLoading(s); updated++; }
@@ -1435,10 +1435,10 @@ function handleManageFile(file) {
             saveToServer();
       saveToServer();
 status.className = "manage-status-sm ok";
-      status.textContent = "âœ… å·²æ›´æ–° " + updated + " æ•°æ®è¡¨ï¼";
+      status.textContent = "✅ 已更新 " + updated + " 数据表！";
     } catch(err) {
       status.className = "manage-status-sm err";
-      status.textContent = "âŒ é”™è¯¯ï¼š " + err.message;
+      status.textContent = "❌ 错误： " + err.message;
     }
   };
   reader.readAsArrayBuffer(file);
@@ -1446,11 +1446,11 @@ status.className = "manage-status-sm ok";
   DATA_MAX_LOADING = {};
   arr.forEach(function(r) {
     // Support Vietnamese column names from Max_loadding.xlsx
-    var code = r.code || r.Code || r.CodeSP || r.CodeSP_Standard || r["Sáº¢N PHáº¨M"] || r["SAN PHAM"] || "";
+    var code = r.code || r.Code || r.CodeSP || r.CodeSP_Standard || r["SẢN PHẨM"] || r["SAN PHAM"] || "";
     if (!code) return;
     var obj = {};
     var v25 = r.max25 || r["Max Loading 25KG"] || r["Max Loading 25kg"] || r["max25"] || r["Max25"];
-    var vJb = r.maxJumbo || r["Max Loading Jumbo"] || r["Max Loading jumbo"] || r["maxJumbo"] || r["MaxJumbo"] || r["æœ€å¤§Jumbo"];
+    var vJb = r.maxJumbo || r["Max Loading Jumbo"] || r["Max Loading jumbo"] || r["maxJumbo"] || r["MaxJumbo"] || r["最大Jumbo"];
     if (v25 !== undefined && v25 !== null && v25 !== "") obj.max25 = Number(v25);
     if (vJb !== undefined && vJb !== null && vJb !== "") obj.maxJumbo = Number(vJb);
     if (Object.keys(obj).length > 0) DATA_MAX_LOADING[code] = obj;
@@ -1460,7 +1460,7 @@ status.className = "manage-status-sm ok";
 function importCostFOB(arr) {
   DATA_COST_FOB = {};
   arr.forEach(function(r) {
-    var load = Number(r.maxLoading || r.MaxLoading || r.load || r.Load || r.tan || r.Tan || r["å¨"] || r["Max loadding"] || r["Max Loadding"]);
+    var load = Number(r.maxLoading || r.MaxLoading || r.load || r.Load || r.tan || r.Tan || r["吨"] || r["Max loadding"] || r["Max Loadding"]);
     if (!load) return;
     var obj = {};
     var vNo = r.no !== undefined ? r.no : r["No LCC"] || r["No lcc"];
@@ -1500,12 +1500,12 @@ function populateFilters() {
     machSet[p.machine] = true;
   });
   var curSpec = sf.value, curMach = mf.value;
-  sf.innerHTML = '<option value="">æ‰€æœ‰æ ‡å‡†</option>';
+  sf.innerHTML = '<option value="">所有标准</option>';
   Object.keys(specSet).sort().forEach(function(s) {
     sf.innerHTML += '<option value="' + s.replace(/"/g, '&quot;') + '">' + s + '</option>';
   });
   sf.value = curSpec;
-  mf.innerHTML = '<option value="">æ‰€æœ‰æœºå™¨</option>';
+  mf.innerHTML = '<option value="">所有机器</option>';
   Object.keys(machSet).sort().forEach(function(m) {
     mf.innerHTML += '<option value="' + m.replace(/"/g, '&quot;') + '">' + m + '</option>';
   });
@@ -1524,8 +1524,8 @@ function toggleMaxLoad() {
 
 function renderBagsTab() {
   var h = '<div class="table-wrap" style="margin-top:0"><table><thead>';
-  h += '<tr><th colspan="4">åŒ…è£…ä¿¡æ¯</th><th colspan="2">ä»·æ ¼</th></tr>';
-  h += '<tr><th>è¢‹å­ä»£ç </th><th>è§„æ ¼</th><th>æ•°é‡</th><th>æˆæœ¬ä»·</th><th>å”®ä»·</th><th>åˆ©æ¶¦</th></tr>';
+  h += '<tr><th colspan="4">包装信息</th><th colspan="2">价格</th></tr>';
+  h += '<tr><th>袋子代码</th><th>规格</th><th>数量</th><th>成本价</th><th>售价</th><th>利润</th></tr>';
   h += '</thead><tbody>';
   for (var i = 0; i < DATA_BAGS.length; i++) {
     var b = DATA_BAGS[i];
@@ -1540,11 +1540,11 @@ function renderBagsTab() {
   }
   h += '</tbody></table></div>';
   h += '<div class="summary-bar" style="margin-top:12px">';
-  h += '<div class="summary-card"><div class="lbl">è¢‹å­æ€»æ•°</div><div class="val">' + DATA_BAGS.length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">袋子总数</div><div class="val">' + DATA_BAGS.length + '</div></div>';
   var bag25 = DATA_BAGS.filter(function(b) { return b.spec === '25KG'; }).length;
   var bagJumbo = DATA_BAGS.filter(function(b) { return b.spec === 'Jumbo'; }).length;
-  h += '<div class="summary-card"><div class="lbl">25KGè¢‹</div><div class="val">' + bag25 + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">Jumboè¢‹</div><div class="val">' + bagJumbo + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">25KG袋</div><div class="val">' + bag25 + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Jumbo袋</div><div class="val">' + bagJumbo + '</div></div>';
   h += '</div>';
   return h;
 }
@@ -1552,7 +1552,7 @@ function renderBagsTab() {
 // ====== RENDER OTHERS TAB ======
 function renderOthersTab() {
   var h = '<div class="table-wrap" style="margin-top:0"><table><thead>';
-  h += '<tr><th>å…¶ä»–è§„æ ¼</th><th>æˆæœ¬ä»·</th><th>å”®ä»·</th><th>åˆ©æ¶¦</th></tr>';
+  h += '<tr><th>其他规格</th><th>成本价</th><th>售价</th><th>利润</th></tr>';
   h += '</thead><tbody>';
   for (var i = 0; i < DATA_OTHERS.length; i++) {
     var o = DATA_OTHERS[i];
@@ -1565,7 +1565,7 @@ function renderOthersTab() {
   }
   h += '</tbody></table></div>';
   h += '<div class="summary-bar" style="margin-top:12px">';
-  h += '<div class="summary-card"><div class="lbl">è§„æ ¼æ€»æ•°</div><div class="val">' + DATA_OTHERS.length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">规格总数</div><div class="val">' + DATA_OTHERS.length + '</div></div>';
   h += '</div>';
   return h;
 }
@@ -1613,7 +1613,7 @@ function render() {
 function updateDataInfo() {
   var el = document.getElementById("dataInfo");
   if (!el) return;
-  el.textContent = "ðŸ“Š " + DATA_PRODUCTS.length + " SP Â· " + DATA_BAGS.length + " BB Â· " + DATA_OTHERS.length + " QC";
+  el.textContent = "📊 " + DATA_PRODUCTS.length + " SP · " + DATA_BAGS.length + " BB · " + DATA_OTHERS.length + " QC";
 }
 
 // Language switch (i18n stub - keeps layout functional)
@@ -1661,19 +1661,19 @@ function showFreightPopup() {
   
   if (cf) {
     var cur = cf.value;
-    cf.innerHTML = '<option value="">æ‰€æœ‰å›½å®¶</option>';
+    cf.innerHTML = '<option value="">所有国家</option>';
     Object.keys(countries).sort().forEach(function(c) { cf.innerHTML += '<option value="' + c + '">' + c + '</option>'; });
     cf.value = cur;
   }
   if (ff) {
     var cur = ff.value;
-    ff.innerHTML = '<option value="">æ‰€æœ‰è´§ä»£</option>';
+    ff.innerHTML = '<option value="">所有货代</option>';
     Object.keys(forwarders).sort().forEach(function(f) { ff.innerHTML += '<option value="' + f + '">' + f + '</option>'; });
     ff.value = cur;
   }
   if (vf) {
     var cur = vf.value;
-    vf.innerHTML = '<option value="">æ‰€æœ‰ç±»åž‹</option>';
+    vf.innerHTML = '<option value="">所有类型</option>';
     Object.keys(vias).sort().forEach(function(v) { vf.innerHTML += '<option value="' + v + '">' + v + '</option>'; });
     vf.value = cur;
   }
@@ -1704,7 +1704,7 @@ function filterFreightRoutes() {
   
   var tbody = document.getElementById("freightTableBody");
   var count = document.getElementById("freightCount");
-  if (count) count.textContent = filtered.length + " èˆªçº¿";
+  if (count) count.textContent = filtered.length + " 航线";
   if (!tbody) return;
   
   tbody.innerHTML = "";
@@ -1735,7 +1735,7 @@ function selectFreightRoute() {
 function showQuotationPopup() {
   var data = getCalcPriceData();
   if (!data) {
-    alert("è¯·å…ˆé€‰æ‹©äº§å“å¹¶è®¡ç®—ä»·æ ¼ï¼");
+    alert("请先选择产品并计算价格！");
     return;
   }
   document.getElementById("quotationPopup").classList.add("open");
@@ -1750,7 +1750,7 @@ function showQuotationPopup() {
   var code = dd+mm+yy+hh+min+rand;
   var qn = parseInt(localStorage.getItem("dq_quote_num")||"0")+1;
   localStorage.setItem("dq_quote_num",String(qn));
-  document.getElementById("qDateSpan").textContent = "ä»£ç : "+code+" | ç¼–å·: "+qn+" | "+dd+"/"+mm+"/"+yy;
+  document.getElementById("qDateSpan").textContent = "代码: "+code+" | 编号: "+qn+" | "+dd+"/"+mm+"/"+yy;
   document.getElementById("qPreviewBody").scrollTop = 0;
 }
 function closeQuotationPopup() {
@@ -1810,7 +1810,7 @@ function updateQuotationPreview() {
   var delivery=document.getElementById("qDelivery").value;
   var note=document.getElementById("qNote").value;
   if (!data) {
-    content.innerHTML="<p style=\"text-align:center;color:#94a3b8;font-size:13px\">è¯·å…ˆé€‰æ‹©äº§å“å¹¶è®¡ç®—ä»·æ ¼</p>";
+    content.innerHTML="<p style=\"text-align:center;color:#94a3b8;font-size:13px\">请先选择产品并计算价格</p>";
     return;
   }
   var totalFmt=data.totalPrice>0?data.totalPrice.toLocaleString("en-US",data.isUsd?{minimumFractionDigits:0,maximumFractionDigits:2}:{}):"__________";
@@ -1820,37 +1820,37 @@ function updateQuotationPreview() {
   var yy=now.getFullYear();
   var dateStr=dd+"/"+mm+"/"+yy;
   var h="";
-  h+="<p style=\"text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px\">ðŸ“„ æŠ¥ä»·å•</p>";
-  h+="<div class=\"q-row\"><strong>å®¢æˆ·:</strong><span>"+customer+"</span></div>";
-  if (contact) h+="<div class=\"q-row\"><strong>è”ç³»äºº:</strong><span>"+contact+"</span></div>";
-  if (assigned) h+="<div class=\"q-row\"><strong>è´Ÿè´£äºº:</strong><span>"+assigned+"</span></div>";
-  if (custEmail) h+="<div class=\"q-row\"><strong>é‚®ç®±:</strong><span>"+custEmail+"</span></div>";
-  h+="<div class=\"q-row\"><strong>æ—¥æœŸ:</strong><span>"+dateStr+"</span></div>";
-  if (port) h+="<div class=\"q-row\"><strong>è£…è¿æ¸¯:</strong><span>"+port+"</span></div>";
+  h+="<p style=\"text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px\">📄 报价单</p>";
+  h+="<div class=\"q-row\"><strong>客户:</strong><span>"+customer+"</span></div>";
+  if (contact) h+="<div class=\"q-row\"><strong>联系人:</strong><span>"+contact+"</span></div>";
+  if (assigned) h+="<div class=\"q-row\"><strong>负责人:</strong><span>"+assigned+"</span></div>";
+  if (custEmail) h+="<div class=\"q-row\"><strong>邮箱:</strong><span>"+custEmail+"</span></div>";
+  h+="<div class=\"q-row\"><strong>日期:</strong><span>"+dateStr+"</span></div>";
+  if (port) h+="<div class=\"q-row\"><strong>装运港:</strong><span>"+port+"</span></div>";
   h+="<table class=\"q-table\">";
-  h+="<thead><tr><th>åºå·</th><th>Code</th><th>äº§å“åç§°</th><th>Spec</th><th>è¢‹å­è§„æ ¼</th><th>å•ä½</th><th>æ•°é‡</th><th>ä»·æ ¼</th><th>è´§å¸</th></tr></thead>";
+  h+="<thead><tr><th>序号</th><th>Code</th><th>产品名称</th><th>Spec</th><th>袋子规格</th><th>单位</th><th>数量</th><th>价格</th><th>货币</th></tr></thead>";
   h+="<tbody>";
-  h+="<tr><td>1</td><td>"+data.code+"</td><td>"+data.size+"</td><td style=\"font-size:11px\">"+data.spec+"</td><td>"+data.bagSpec+"</td><td>å¨</td><td>"+qty+"</td><td style=\"font-weight:700\">"+totalFmt+"</td><td>"+data.cc+"</td></tr>";
+  h+="<tr><td>1</td><td>"+data.code+"</td><td>"+data.size+"</td><td style=\"font-size:11px\">"+data.spec+"</td><td>"+data.bagSpec+"</td><td>吨</td><td>"+qty+"</td><td style=\"font-weight:700\">"+totalFmt+"</td><td>"+data.cc+"</td></tr>";
   h+="</tbody></table>";
   h+="<div class=\"q-terms\">";
   h+="<div class=\"q-row\"><strong>Delivery Terms:</strong><span>"+delivery+"</span></div>";
-  if (port&&(delivery==="FOB"||delivery==="CIF")) h+="<div class=\"q-row\"><strong>è£…è¿æ¸¯:</strong><span>"+port+"</span></div>";
-  h+="<div class=\"q-row\"><strong>æ¡ä»¶:</strong><span>"+data.mode+"</span></div>";
-  h+="<div class=\"q-row\"><strong>æœ‰æ•ˆæœŸ:</strong><span>"+valid+"</span></div>";
-  h+="<div class=\"q-row\"><strong>ä»˜æ¬¾:</strong><span>"+payment+"</span></div>";
-  if (note) h+="<div class=\"q-row\"><strong>å¤‡æ³¨:</strong><span>"+note+"</span></div>";
+  if (port&&(delivery==="FOB"||delivery==="CIF")) h+="<div class=\"q-row\"><strong>装运港:</strong><span>"+port+"</span></div>";
+  h+="<div class=\"q-row\"><strong>条件:</strong><span>"+data.mode+"</span></div>";
+  h+="<div class=\"q-row\"><strong>有效期:</strong><span>"+valid+"</span></div>";
+  h+="<div class=\"q-row\"><strong>付款:</strong><span>"+payment+"</span></div>";
+  if (note) h+="<div class=\"q-row\"><strong>备注:</strong><span>"+note+"</span></div>";
   h+="</div>";
   h+="<div class=\"q-footer\">";
-  h+="- ä»·æ ¼ä¸å«å¢žå€¼ç¨Ž<br>";
-  h+="- "+(delivery==="å¾·ç››å·¥åŽ‚"?"ä»·æ ¼ä¸å«ä¹°æ–¹ä»“åº“è¿è¾“è´¹":"ä»·æ ¼å«ä¹°æ–¹ä»“åº“è¿è¾“è´¹")+"<br>";
-  h+="- æ­¤æŠ¥ä»·æœ‰æ•ˆæœŸ "+valid+"<br>";
-  h+="- æœ€å°èµ·è®¢é‡: 1ä¸ª20å°ºæŸœ(çº¦21å¨)";
+  h+="- 价格不含增值税<br>";
+  h+="- "+(delivery==="德盛工厂"?"价格不含买方仓库运输费":"价格含买方仓库运输费")+"<br>";
+  h+="- 此报价有效期 "+valid+"<br>";
+  h+="- 最小起订量: 1个20尺柜(约21吨)";
   h+="</div>";
   content.innerHTML=h;
 }
 function getQuotationText() {
   var data=getCalcPriceData();
-  if (!data) return "æ²¡æœ‰äº§å“æ•°æ®";
+  if (!data) return "没有产品数据";
   var customer=document.getElementById("qCustomer").value||"______________________";
   var contact=document.getElementById("qContact").value||"";
   var assigned=document.getElementById("qAssigned").value||"";
@@ -1869,44 +1869,44 @@ function getQuotationText() {
   var dateStr=dd+"/"+mm+"/"+yy;
   var t=COMPANY+"\n";
   t+=ADDR+"\n";
-  t+="é‚®ç®±: "+EMAIL+" - "+WEBSITE+"\n";
+  t+="邮箱: "+EMAIL+" - "+WEBSITE+"\n";
   t+="Tel: "+PHONE+" Ext: "+EXT+" - MST: "+MST+"\n";
-  t+="â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n";
-  t+="ðŸ“„ æŠ¥ä»·å•\n";
-  t+="â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n";
-  t+="å®¢æˆ·: "+customer+"\n";
-  if (contact) t+="è”ç³»äºº: "+contact+"\n";
-  if (assigned) t+="è´Ÿè´£äºº: "+assigned+"\n";
-  if (custEmail) t+="é‚®ç®±: "+custEmail+"\n";
-  t+="æ—¥æœŸ: "+dateStr+"\n";
-  t+="â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n";
-  t+="äº§å“æ•°: "+data.product+"\n";
+  t+="──────────────────────────────────────────────────\n";
+  t+="📄 报价单\n";
+  t+="──────────────────────────────────────────────────\n";
+  t+="客户: "+customer+"\n";
+  if (contact) t+="联系人: "+contact+"\n";
+  if (assigned) t+="负责人: "+assigned+"\n";
+  if (custEmail) t+="邮箱: "+custEmail+"\n";
+  t+="日期: "+dateStr+"\n";
+  t+="──────────────────────────────────────────────────\n";
+  t+="产品数: "+data.product+"\n";
   t+="Spec: "+data.spec+"\n";
-  t+="è¢‹å­è§„æ ¼: "+data.bagSpec+"\n";
-  t+="æ•°é‡: "+qty+" å¨\n";
-  t+="æ¡ä»¶: "+data.mode+"\n";
-  if (port) t+="è£…è¿æ¸¯: "+port+"\n";
+  t+="袋子规格: "+data.bagSpec+"\n";
+  t+="数量: "+qty+" 吨\n";
+  t+="条件: "+data.mode+"\n";
+  if (port) t+="装运港: "+port+"\n";
   t+="Delivery Terms: "+delivery+"\n";
-  t+="â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n";
-  t+="å”®ä»·: "+totalFmt+" "+data.cc+" /å¨\n";
-  t+="â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n";
-  t+="æœ‰æ•ˆæœŸ: "+valid+"\n";
-  t+="ä»˜æ¬¾: "+payment+"\n";
-  if (note) t+="å¤‡æ³¨: "+note+"\n";
+  t+="──────────────────────────────────────────────────\n";
+  t+="售价: "+totalFmt+" "+data.cc+" /吨\n";
+  t+="──────────────────────────────────────────────────\n";
+  t+="有效期: "+valid+"\n";
+  t+="付款: "+payment+"\n";
+  if (note) t+="备注: "+note+"\n";
   t+="\n";
-  t+="- ä»·æ ¼ä¸å«å¢žå€¼ç¨Ž\n";
-  t+="- "+(delivery==="å¾·ç››å·¥åŽ‚"?"ä»·æ ¼ ä¸å«è¿è¾“è´¹":"ä»·æ ¼ å«è¿è¾“è´¹")+"\n";
-  t+="- æ­¤æŠ¥ä»·æœ‰æ•ˆæœŸ "+valid+"\n";
+  t+="- 价格不含增值税\n";
+  t+="- "+(delivery==="德盛工厂"?"价格 不含运输费":"价格 含运输费")+"\n";
+  t+="- 此报价有效期 "+valid+"\n";
   return t;
 }
 function copyQuotation() {
   var txt=getQuotationText();
-  if (navigator.clipboard) { navigator.clipboard.writeText(txt).then(function(){alert("âœ… å·²å¤åˆ¶æŠ¥ä»·åˆ°å‰ªè´´æ¿");}); }
-  else { prompt("Copy ä»¥ä¸‹æ–‡æœ¬ï¼š",txt); }
+  if (navigator.clipboard) { navigator.clipboard.writeText(txt).then(function(){alert("✅ 已复制报价到剪贴板");}); }
+  else { prompt("Copy 以下文本：",txt); }
 }
 function printQuotation() {
   var data=getCalcPriceData();
-  if (!data) return alert("é€‰æ‹©äº§å“ å¹¶å…ˆè®¡ç®—ä»·æ ¼ï¼");
+  if (!data) return alert("选择产品 并先计算价格！");
   var customer=document.getElementById("qCustomer").value||"______________________";
   var contact=document.getElementById("qContact").value||"";
   var assigned=document.getElementById("qAssigned").value||"";
@@ -1924,27 +1924,27 @@ function printQuotation() {
   var yy=now.getFullYear();
   var dateStr=dd+"/"+mm+"/"+yy;
   var w=window.open("","_blank");
-  w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>æŠ¥ä»· - '+data.product+'</title>');
+  w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>报价 - '+data.product+'</title>');
   w.document.write('<style>body{font-family:"Arial",sans-serif;padding:40px;max-width:780px;margin:0 auto;color:#1e293b}h1{font-size:22px;text-align:center;margin:0 0 4px;text-transform:uppercase;letter-spacing:.05em}.sub{text-align:center;color:#64748b;font-size:12px;margin:0 0 20px;line-height:1.5}.divider{height:2px;background:#2563eb;margin:0 0 16px}.title{text-align:center;font-weight:700;font-size:15px;margin:0 0 20px}table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px}th{background:#f1f5f9;text-align:left;padding:8px 6px;font-size:11px;text-transform:uppercase;color:#475569;border:1px solid #e2e8f0}td{padding:8px 6px;border:1px solid #e2e8f0}.row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid #f1f5f9}.row strong{color:#1e293b}.row span{color:#475569}.footer{margin-top:20px;font-size:11px;color:#94a3b8;line-height:1.6}@media print{body{padding:20px}}</style></head><body>');
   w.document.write('<h1>'+COMPANY+'</h1>');
-  w.document.write('<p class="sub">'+ADDR+'<br>é‚®ç®±: '+EMAIL+' - '+WEBSITE+'<br>Tel: '+PHONE+' Ext: '+EXT+' - MST: '+MST+'</p>');
+  w.document.write('<p class="sub">'+ADDR+'<br>邮箱: '+EMAIL+' - '+WEBSITE+'<br>Tel: '+PHONE+' Ext: '+EXT+' - MST: '+MST+'</p>');
   w.document.write('<div class="divider"></div>');
-  w.document.write('<p class="title">ðŸ“„ æŠ¥ä»·å•</p>');
-  w.document.write('<div class="row"><strong>å®¢æˆ·:</strong><span>'+customer+'</span></div>');
-  if (contact) w.document.write('<div class="row"><strong>è”ç³»äºº:</strong><span>'+contact+'</span></div>');
-  if (assigned) w.document.write('<div class="row"><strong>è´Ÿè´£äºº:</strong><span>'+assigned+'</span></div>');
-  if (custEmail) w.document.write('<div class="row"><strong>é‚®ç®±:</strong><span>'+custEmail+'</span></div>');
-  w.document.write('<div class="row"><strong>æ—¥æœŸ:</strong><span>'+dateStr+'</span></div>');
-  if (port) w.document.write('<div class="row"><strong>è£…è¿æ¸¯:</strong><span>'+port+'</span></div>');
-  w.document.write('<table><thead><tr><th>åºå·</th><th>Code</th><th>äº§å“åç§°</th><th>Spec</th><th>è¢‹å­è§„æ ¼</th><th>å•ä½</th><th>æ•°é‡</th><th>ä»·æ ¼</th><th>è´§å¸</th></tr></thead><tbody>');
-  w.document.write('<tr><td>1</td><td>'+data.code+'</td><td>'+data.size+'</td><td style="font-size:11px">'+data.spec+'</td><td>'+data.bagSpec+'</td><td>å¨</td><td>'+qty+'</td><td><strong>'+totalFmt+'</strong></td><td>'+data.cc+'</td></tr>');
+  w.document.write('<p class="title">📄 报价单</p>');
+  w.document.write('<div class="row"><strong>客户:</strong><span>'+customer+'</span></div>');
+  if (contact) w.document.write('<div class="row"><strong>联系人:</strong><span>'+contact+'</span></div>');
+  if (assigned) w.document.write('<div class="row"><strong>负责人:</strong><span>'+assigned+'</span></div>');
+  if (custEmail) w.document.write('<div class="row"><strong>邮箱:</strong><span>'+custEmail+'</span></div>');
+  w.document.write('<div class="row"><strong>日期:</strong><span>'+dateStr+'</span></div>');
+  if (port) w.document.write('<div class="row"><strong>装运港:</strong><span>'+port+'</span></div>');
+  w.document.write('<table><thead><tr><th>序号</th><th>Code</th><th>产品名称</th><th>Spec</th><th>袋子规格</th><th>单位</th><th>数量</th><th>价格</th><th>货币</th></tr></thead><tbody>');
+  w.document.write('<tr><td>1</td><td>'+data.code+'</td><td>'+data.size+'</td><td style="font-size:11px">'+data.spec+'</td><td>'+data.bagSpec+'</td><td>吨</td><td>'+qty+'</td><td><strong>'+totalFmt+'</strong></td><td>'+data.cc+'</td></tr>');
   w.document.write('</tbody></table>');
   w.document.write('<div class="row"><strong>Delivery Terms:</strong><span>'+delivery+'</span></div>');
-  w.document.write('<div class="row"><strong>æ¡ä»¶:</strong><span>'+data.mode+'</span></div>');
-  w.document.write('<div class="row"><strong>æœ‰æ•ˆæœŸ:</strong><span>'+valid+'</span></div>');
-  w.document.write('<div class="row"><strong>ä»˜æ¬¾:</strong><span>'+payment+'</span></div>');
-  if (note) w.document.write('<div class="row"><strong>å¤‡æ³¨:</strong><span>'+note+'</span></div>');
-  w.document.write('<div class="footer">- ä»·æ ¼ä¸å«å¢žå€¼ç¨Ž<br>- '+(delivery==="å¾·ç››å·¥åŽ‚"?"ä»·æ ¼ä¸å«ä¹°æ–¹ä»“åº“è¿è¾“è´¹":"ä»·æ ¼å«ä¹°æ–¹ä»“åº“è¿è¾“è´¹")+'<br>- æ­¤æŠ¥ä»·æœ‰æ•ˆæœŸ '+valid+'<br>- æœ€å°èµ·è®¢é‡: 1ä¸ª20å°ºæŸœ(çº¦21å¨)<br><br><strong>'+COMPANY_EN+'</strong></div>');
+  w.document.write('<div class="row"><strong>条件:</strong><span>'+data.mode+'</span></div>');
+  w.document.write('<div class="row"><strong>有效期:</strong><span>'+valid+'</span></div>');
+  w.document.write('<div class="row"><strong>付款:</strong><span>'+payment+'</span></div>');
+  if (note) w.document.write('<div class="row"><strong>备注:</strong><span>'+note+'</span></div>');
+  w.document.write('<div class="footer">- 价格不含增值税<br>- '+(delivery==="德盛工厂"?"价格不含买方仓库运输费":"价格含买方仓库运输费")+'<br>- 此报价有效期 '+valid+'<br>- 最小起订量: 1个20尺柜(约21吨)<br><br><strong>'+COMPANY_EN+'</strong></div>');
   w.document.write('</body></html>');
   w.document.close();
   setTimeout(function(){w.print();},500);
@@ -2005,27 +2005,27 @@ function saveToServer() {
 <div class="freight-overlay" id="freightPopup">
   <div class="freight-modal">
     <div class="freight-modal-header">
-      <h3>ðŸ“¡ æŸ¥è¯¢è¿è´¹ biá»ƒn</h3>
-      <button class="freight-modal-close" onclick="closeFreightPopup()">âœ•</button>
+      <h3>📡 查询运费 biển</h3>
+      <button class="freight-modal-close" onclick="closeFreightPopup()">✕</button>
     </div>
     <div class="freight-modal-search">
-      <input type="text" id="freightSearch" placeholder="ðŸ” æœç´¢æ¸¯å£..." oninput="filterFreightRoutes()">
+      <input type="text" id="freightSearch" placeholder="🔍 搜索港口..." oninput="filterFreightRoutes()">
     </div>
     <div class="freight-modal-filters">
-      <select id="freightCountryFilter" onchange="filterFreightRoutes()"><option value="">æ‰€æœ‰å›½å®¶</option></select>
-      <select id="freightForwarderFilter" onchange="filterFreightRoutes()"><option value="">æ‰€æœ‰è´§ä»£</option></select>
-      <select id="freightViaFilter" onchange="filterFreightRoutes()"><option value="">æ‰€æœ‰ç±»åž‹</option></select>
+      <select id="freightCountryFilter" onchange="filterFreightRoutes()"><option value="">所有国家</option></select>
+      <select id="freightForwarderFilter" onchange="filterFreightRoutes()"><option value="">所有货代</option></select>
+      <select id="freightViaFilter" onchange="filterFreightRoutes()"><option value="">所有类型</option></select>
     </div>
     <div class="freight-modal-body">
       <table>
-        <thead><tr><th>è£…è¿æ¸¯</th><th>ç›®çš„å›½</th><th>è¿è´¹(ç¾Žå…ƒ)</th><th>è´§ä»£</th><th>ç±»åž‹</th></tr></thead>
+        <thead><tr><th>装运港</th><th>目的国</th><th>运费(美元)</th><th>货代</th><th>类型</th></tr></thead>
         <tbody id="freightTableBody"></tbody>
       </table>
     </div>
     <div class="freight-modal-footer">
       <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="freightCount"></span>
-      <button class="btn-cancel" onclick="closeFreightPopup()">å…³é—­</button>
-      <button class="btn-confirm" onclick="selectFreightRoute()">âœ… é€‰æ‹©èˆªçº¿</button>
+      <button class="btn-cancel" onclick="closeFreightPopup()">关闭</button>
+      <button class="btn-confirm" onclick="selectFreightRoute()">✅ 选择航线</button>
     </div>
   </div>
 </div>
@@ -2035,34 +2035,34 @@ function saveToServer() {
 <div class="q-overlay" id="quotationPopup">
   <div class="q-modal">
     <div class="q-modal-header">
-      <h3>ðŸ“„ ç”ŸæˆæŠ¥ä»·</h3>
-      <button class="q-modal-close" onclick="closeQuotationPopup()">âœ•</button>
+      <h3>📄 生成报价</h3>
+      <button class="q-modal-close" onclick="closeQuotationPopup()">✕</button>
     </div>
     <div class="q-modal-form">
-      <div><label>ðŸ‘¤ å®¢æˆ·</label><input type="text" id="qCustomer" placeholder="å®¢æˆ·åç§°..." oninput="updateQuotationPreview()"></div>
-      <div><label>ðŸ“ž è”ç³»äºº</label><input type="text" id="qContact" placeholder="è”ç³»äºº..." oninput="updateQuotationPreview()"></div>
-      <div><label>ðŸ‘¤ è´Ÿè´£äºº</label><input type="text" id="qAssigned" placeholder="è´Ÿè´£äºº..." oninput="updateQuotationPreview()"></div>
-      <div><label>âœ‰ï¸ Email KH</label><input type="email" id="qCustEmail" placeholder="Email å®¢æˆ·..." oninput="updateQuotationPreview()"></div>
-      <div><label>ðŸ“¦ æ•°é‡ (å¨)</label><input type="number" id="qQty" value="1" min="1" step="0.5" oninput="updateQuotationPreview()"></div>
-      <div><label>ðŸ“… æœ‰æ•ˆæœŸ</label><select id="qValid" onchange="updateQuotationPreview()"><option value="15å¤©">15å¤©</option><option value="30å¤©">30å¤©</option><option value="7 å¤©">7 å¤©</option><option value="è‡ªç­¾ç½²ä¹‹æ—¥èµ·">è‡ªç­¾ç½²ä¹‹æ—¥èµ·</option></select></div>
-      <div><label>ðŸ’µ æ¡ä»¶ thanh toÃ¡n</label><select id="qPayment" onchange="updateQuotationPreview()"><option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option><option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div>
-      <div><label>ðŸŒŠ è£…è¿æ¸¯</label><input type="text" id="qPort" placeholder="è£…è¿æ¸¯ (å¦‚æœ‰)..." oninput="updateQuotationPreview()"></div>
-      <div><label>ðŸšš äº¤è´§</label><input type="text" id="qDelivery" placeholder="æ¡ä»¶ giao hÃ ng..." oninput="updateQuotationPreview()"></div>
-      <div style="grid-column:1/-1"><label>ðŸ“ å¤‡æ³¨</label><input type="text" id="qNote" placeholder="å¤‡æ³¨ é¢å¤–..." oninput="updateQuotationPreview()" style="width:100%"></div>
+      <div><label>👤 客户</label><input type="text" id="qCustomer" placeholder="客户名称..." oninput="updateQuotationPreview()"></div>
+      <div><label>📞 联系人</label><input type="text" id="qContact" placeholder="联系人..." oninput="updateQuotationPreview()"></div>
+      <div><label>👤 负责人</label><input type="text" id="qAssigned" placeholder="负责人..." oninput="updateQuotationPreview()"></div>
+      <div><label>✉️ Email KH</label><input type="email" id="qCustEmail" placeholder="Email 客户..." oninput="updateQuotationPreview()"></div>
+      <div><label>📦 数量 (吨)</label><input type="number" id="qQty" value="1" min="1" step="0.5" oninput="updateQuotationPreview()"></div>
+      <div><label>📅 有效期</label><select id="qValid" onchange="updateQuotationPreview()"><option value="15天">15天</option><option value="30天">30天</option><option value="7 天">7 天</option><option value="自签署之日起">自签署之日起</option></select></div>
+      <div><label>💵 条件 thanh toán</label><select id="qPayment" onchange="updateQuotationPreview()"><option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option><option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div>
+      <div><label>🌊 装运港</label><input type="text" id="qPort" placeholder="装运港 (如有)..." oninput="updateQuotationPreview()"></div>
+      <div><label>🚚 交货</label><input type="text" id="qDelivery" placeholder="条件 giao hàng..." oninput="updateQuotationPreview()"></div>
+      <div style="grid-column:1/-1"><label>📝 备注</label><input type="text" id="qNote" placeholder="备注 额外..." oninput="updateQuotationPreview()" style="width:100%"></div>
     </div>
     <div class="q-modal-body" id="qPreviewBody">
       <div class="q-preview" id="qPreview">
-        <h1>å¾·ç››æ–°ææ–™ç§‘æŠ€æœ‰é™å…¬å¸</h1>
-        <p class="q-sub">åœ°å€ï¼šä¹‰å›å·¥ä¸šåŒºï¼Œä¹‰å®‰çœï¼Œè¶Šå—<br>é‚®ç®±: sales@ducthinh.com - https://ducthinhmaterials.com<br>Tel: +84 382 666 000 Ext: 106 - MST: 2902085037<br>MST: 2902085037</p>
+        <h1>德盛新材料科技有限公司</h1>
+        <p class="q-sub">地址：义坛工业区，义安省，越南<br>邮箱: sales@ducthinh.com - https://ducthinhmaterials.com<br>Tel: +84 382 666 000 Ext: 106 - MST: 2902085037<br>MST: 2902085037</p>
         <div class="q-divider"></div>
-        <p style="text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px">ðŸ“„ æŠ¥ä»·å•</p>
-        <div id="qPreviewContent"><p style="text-align:center;color:#94a3b8;font-size:13px">è¯·å…ˆé€‰æ‹©äº§å“å¹¶è®¡ç®—ä»·æ ¼</p></div>
+        <p style="text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px">📄 报价单</p>
+        <div id="qPreviewContent"><p style="text-align:center;color:#94a3b8;font-size:13px">请先选择产品并计算价格</p></div>
       </div>
     </div>
     <div class="q-modal-footer">
       <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="qDateSpan"></span>
-      <button class="q-btn-copy" onclick="copyQuotation()">ðŸ“‹ Copy</button>
-      <button class="q-btn-print" onclick="printQuotation()">ðŸ–¨ In / PDF</button>
+      <button class="q-btn-copy" onclick="copyQuotation()">📋 Copy</button>
+      <button class="q-btn-print" onclick="printQuotation()">🖨 In / PDF</button>
     </div>
   </div>
 </div>
