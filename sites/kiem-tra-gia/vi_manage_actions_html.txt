@@ -1,0 +1,9 @@
+<div class="lbl">Cập nhật</div></div>
+</div>
+<div class="manage-actions">
+<h3>⬇ Tải dữ liệu</h3>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:10px">
+<button class="btn-confirm" onclick="downloadFile(0)">📋 Giá bán</button>
+<button class="btn-confirm" onclick="downloadFile(1)">📦 Bao bì</button>
+<button class="btn-confirm" onclick="downloadFile(2)">📐 Quy cách khác</button>
+<button class="bt

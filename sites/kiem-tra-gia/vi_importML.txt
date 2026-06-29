@@ -1,0 +1,14 @@
+function importMaxLoading(arr) {
+  DATA_MAX_LOADING = {};
+  arr.forEach(function(r) {
+    // Support Vietnamese column names from Max_loadding.xlsx
+    var code = r.code || r.Code || r.CodeSP || r.CodeSP_Standard || r["SẢN PHẨM"] || r["SAN PHAM"] || "";
+    if (!code) return;
+    var obj = {};
+    var v25 = r.max25 || r["Max Loading 25KG"] || r["Max Loading 25kg"] || r["max25"] || r["Max25"];
+    var vJb = r.maxJumbo || r["Max Loading Jumbo"] || r["Max Loading jumbo"] || r["maxJumbo"] || r["MaxJumbo"] || r["Max Jumbo"];
+    if (v25 !== undefined && v25 !== null && v25 !== "") obj.max25 = Number(v25);
+    if (vJb !== undefined && vJb !== null && vJb !== "") obj.maxJumbo = Number(vJb);
+    if (Object.keys(obj).length > 0) DATA_MAX_LOADING[code] = obj;
+  });
+}

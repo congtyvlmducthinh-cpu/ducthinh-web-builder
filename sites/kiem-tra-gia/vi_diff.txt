@@ -1,0 +1,1512 @@
+Line 6:
+  VI:     if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0) && (!p.machine || p.machine.toLowerCase().indexOf(search) < 0) && (!p.standard || p.standard.toLowerCase().indexOf(search) < 0)) return false;
+  EN:     if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0)) return false;
+
+Line 8:
+  VI:     if (machineFilter && String(p.machine) !== machineFilter) return false;
+  EN:     if (machineFilter && p.machine !== machineFilter) return false;
+
+Line 37:
+  VI:   h += '<div class="summary-card"><div class="lbl">S\u1ea3n ph\u1ea9m</div><div class="val">' + Object.keys(uniqueCodes).length + '</div></div>';
+  EN:   h += '<div class="summary-card"><div class="lbl">Products</div><div class="val">' + Object.keys(uniqueCodes).length + '</div></div>';
+
+Line 38:
+  VI:   h += '<div class="summary-card"><div class="lbl">Ti\u00eau chu\u1ea9n</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
+  EN:   h += '<div class="summary-card"><div class="lbl">Standard</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
+
+Line 39:
+  VI:   h += '<div class="summary-card"><div class="lbl">M\u00e1y</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
+  EN:   h += '<div class="summary-card"><div class="lbl">Machine</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
+
+Line 40:
+  VI:   h += '<div class="summary-card"><div class="lbl">Ng\u00e0y</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
+  EN:   h += '<div class="summary-card"><div class="lbl">Date</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
+
+Line 44:
+  VI:   h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">TB 25KG</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
+  EN:   h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">Avg 25KG</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
+
+Line 46:
+  VI:   h += '<div class="summary-card" style="padding:8px 12px;background:#f0fdf4;border-color:#bbf7d0"><div class="lbl" style="font-size:10px">TB Jumbo</div><div class="val" style="font-size:15px">' + fmt(cntJ?Math.round(sumJ/cntJ):0) + '</div></div>';
+  EN:   h += '<div class="summary-card" style="padding:8px 12px;background:#f0fdf4;border-color:#bbf7d0"><div class="lbl" style="font-size:10px">Avg Jumbo</div><div class="val" style="font-size:15px">' + fmt(cntJ?Math.round(sumJ/cntJ):0) + '</div></div>';
+
+Line 48:
+  VI:   h += '<div class="summary-card" style="padding:8px 12px;background:#f5f3ff;border-color:#ddd6fe"><div class="lbl" style="font-size:10px">TB EXW</div><div class="val" style="font-size:15px">' + fmt(cntExw?Math.round(sumExw/cntExw):0) + '</div></div>';
+  EN:   h += '<div class="summary-card" style="padding:8px 12px;background:#f5f3ff;border-color:#ddd6fe"><div class="lbl" style="font-size:10px">Avg EXW</div><div class="val" style="font-size:15px">' + fmt(cntExw?Math.round(sumExw/cntExw):0) + '</div></div>';
+
+Line 54:
+  VI:   h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2" class="ml-toggle">Max t\u1ea3i</th><th colspan="2">' + (priceMode==="exw"?"Giá bán (EXW)":"Gi\u00e1 bao g\u1ed3m bao b\u00ec") + '</th>';
+  EN:   h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2" class="ml-toggle">Max load</th><th colspan="2">' + (priceMode==="exw"?"Sell Price (EXW)":"Price incl. bag") + '</th>';
+
+Line 55:
+  VI:   if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"EXW chưa bao bì":"Giá bán (EXW)") + '</th>';
+  EN:   if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"Unpacked EXW":"Sell Price (EXW)") + '</th>';
+
+Line 57:
+  VI:   h += '<tr><th>M\u00e3</th><th>K\u00edch th\u01b0\u1edbc</th><th>Ti\u00eau chu\u1ea9n</th><th>M\u00e1y</th><th class="ml-toggle">Max 25KG <span class="info-row">(t\u1ea5n)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(t\u1ea5n)</span></th><th>' + (priceMode==="exw"?"EXW 25KG bao tiêu chuẩn":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW jumbo bao tiêu chuẩn":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
+  EN:   h += '<tr><th>M\u00e3</th><th>Size</th><th>Standard</th><th>Machine</th><th class="ml-toggle">Max 25KG <span class="info-row">(tons)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(tons)</span></th><th>' + (priceMode==="exw"?"EXW 25KG std bag":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW jumbo std bag":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
+
+Line 59:
+  VI:     h += '<th>' + (priceMode==="exw"?"EXW chưa bao bì":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"Hoa hồng cơ bản":"Hoa hồng") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
+  EN:     h += '<th>' + (priceMode==="exw"?"Unpacked EXW":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"Base commission":"Commission") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
+
+Line 102:
+  VI:   // --- Section: Sản phẩm ---
+  EN:   // --- Section: Products ---
+
+Line 103:
+  VI:   h += '<div class="calc-section-title"><span class="badge blue">📦</span><span class="title-text">Chọn sản phẩm</span></div>';
+  EN:   h += '<div class="calc-section-title"><span class="badge blue">📦</span><span class="title-text">Select Product</span></div>';
+
+Line 110:
+  VI:   h += '<div><label class="calc-form-label">🏭 Máy</label>';
+  EN:   h += '<div><label class="calc-form-label">🏭 Machine</label>';
+
+Line 111:
+  VI:   h += '<select class="calc-select" id="calcMachine" onchange="filterCalcProducts()"><option value="">— Chọn máy —</option>';
+  EN:   h += '<select class="calc-select" id="calcMachine" onchange="filterCalcProducts()"><option value="">— -- Select Machine -- —</option>';
+
+Line 116:
+  VI:   h += '<div><label class="calc-form-label">📋 Tiêu chuẩn</label>';
+  EN:   h += '<div><label class="calc-form-label">📋 Standard</label>';
+
+Line 117:
+  VI:   h += '<select class="calc-select" id="calcStandard" onchange="filterCalcProducts()"><option value="">— Chọn tiêu chuẩn —</option></select></div>';
+  EN:   h += '<select class="calc-select" id="calcStandard" onchange="filterCalcProducts()"><option value="">— -- Select Standard -- —</option></select></div>';
+
+Line 120:
+  VI:   h += '<div class="calc-form-group"><label class="calc-form-label">🔖 Sản phẩm</label>';
+  EN:   h += '<div class="calc-form-group"><label class="calc-form-label">🔖 Product</label>';
+
+Line 121:
+  VI:   h += '<select class="calc-select" id="calcProduct" onchange="onCalcProductChange()"><option value="">— Chọn sản phẩm —</option></select></div>';
+  EN:   h += '<select class="calc-select" id="calcProduct" onchange="onCalcProductChange()"><option value="">— Select Product —</option></select></div>';
+
+Line 125:
+  VI:   h += '<select class="calc-select" id="calcMaxLoad" onchange="calcPrice()"><option value="">— Tự động —</option></select></div>';
+  EN:   h += '<select class="calc-select" id="calcMaxLoad" onchange="calcPrice()"><option value="">— -- Auto -- —</option></select></div>';
+
+Line 127:
+  VI:   // --- Section: Bao bì ---
+  EN:   // --- Section: Packaging ---
+
+Line 128:
+  VI:   h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge green">🛍️</span><span class="title-text">Tùy chọn bao bì</span></div>';
+  EN:   h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge green">🛍️</span><span class="title-text">Bag Options</span></div>';
+
+Line 132:
+  VI:   h += '<div><label class="calc-form-label">📏 Quy cách bao</label>';
+  EN:   h += '<div><label class="calc-form-label">📏 Bag Spec</label>';
+
+Line 134:
+  VI:   h += '<div><label class="calc-form-label">🛍️ Loại bao</label>';
+  EN:   h += '<div><label class="calc-form-label">🛍️ Bag Type</label>';
+
+Line 135:
+  VI:   h += '<select class="calc-select" id="calcBag" onchange="calcPrice()"><option value="">— Không chọn —</option>';
+  EN:   h += '<select class="calc-select" id="calcBag" onchange="calcPrice()"><option value="">— -- None -- —</option>';
+
+Line 141:
+  VI:   h += '<label class="calc-form-label">⚖️ Số tấn / bao Jumbo</label>';
+  EN:   h += '<label class="calc-form-label">⚖️ Tons / Jumbo Bag</label>';
+
+Line 145:
+  VI:     h += '<option value="' + jumboTons[i] + '">' + jumboTons[i] + ' tấn</option>';
+  EN:     h += '<option value="' + jumboTons[i] + '">' + jumboTons[i] + ' tons</option>';
+
+Line 149:
+  VI:   // --- Section: Quy cách khác ---
+  EN:   // --- Section: Other Specs ---
+
+Line 150:
+  VI:   h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge purple">📦</span><span class="title-text">Quy cách khác</span></div>';
+  EN:   h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge purple">📦</span><span class="title-text">Other Specs</span></div>';
+
+Line 153:
+  VI:   h += '<div><label class="calc-form-label">📋 Loại quy cách</label>';
+  EN:   h += '<div><label class="calc-form-label">📋 Spec Type</label>';
+
+Line 154:
+  VI:   h += '<select class="calc-select" id="calcOther" onchange="calcPrice()"><option value="">— Không chọn —</option>';
+  EN:   h += '<select class="calc-select" id="calcOther" onchange="calcPrice()"><option value="">— -- None -- —</option>';
+
+Line 159:
+  VI:   h += '<div id="calcOtherTonnageRow"><label class="calc-form-label">⚖️ Số tấn</label>';
+  EN:   h += '<div id="calcOtherTonnageRow"><label class="calc-form-label">⚖️ Tons</label>';
+
+Line 163:
+  VI:     h += '<option value="' + otherTons[i] + '">' + otherTons[i] + ' tấn</option>';
+  EN:     h += '<option value="' + otherTons[i] + '">' + otherTons[i] + ' tons</option>';
+
+Line 174:
+  VI:   h += '<span>Kết quả tính giá</span>';
+  EN:   h += '<span>Calculation Result</span>';
+
+Line 184:
+  VI:   h += '<span class="ext-label">Loại LCC:</span>';
+  EN:   h += '<span class="ext-label">LCC Type:</span>';
+
+Line 185:
+  VI:   h += '<button class="lcc-btn active" data-lcc="no" onclick="setCalcLccType(\'no\')">No Lcc</button>';
+  EN:   h += '<button class="lcc-btn active" data-lcc="no" onclick="setCalcLccType(\'no\')">No LCC</button>';
+
+Line 186:
+  VI:   h += '<button class="lcc-btn" data-lcc="sub" onclick="setCalcLccType(\'sub\')">Sub Lcc</button>';
+  EN:   h += '<button class="lcc-btn" data-lcc="sub" onclick="setCalcLccType(\'sub\')">Sub LCC</button>';
+
+Line 189:
+  VI:   h += '<span class="ext-label">🚂 Cước biển:</span>';
+  EN:   h += '<span class="ext-label">🚂 Freight:</span>';
+
+Line 192:
+  VI:   h += '<button class="ext-label" onclick="showFreightPopup()" style="background:var(--primary);color:white;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;font-weight:600">📡 Tra cước</button>';
+  EN:   h += '<button class="ext-label" onclick="showFreightPopup()" style="background:var(--primary);color:white;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;font-weight:600">📡 Look Up</button>';
+
+Line 197:
+  VI:   h += '<span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">💱 Loại tiền:</span>';
+  EN:   h += '<span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">💱 Currency:</span>';
+
+Line 206:
+  VI:   h += '<div class="calc-empty-text">Chọn sản phẩm và bao bì để bắt đầu</div>';
+  EN:   h += '<div class="calc-empty-text">Select product & packaging to start</div>';
+
+Line 221:
+  VI:     if (!m || String(p.machine) === m) standardsByMach[p.standard] = true;
+  EN:     if (!m || p.machine === m) standardsByMach[p.standard] = true;
+
+Line 226:
+  VI:   me.innerHTML = '<option value="">— Chọn máy —</option>';
+  EN:   me.innerHTML = '<option value="">— -- Select Machine -- —</option>';
+
+Line 232:
+  VI:   se.innerHTML = '<option value="">— Chọn tiêu chuẩn —</option>';
+  EN:   se.innerHTML = '<option value="">— -- Select Standard -- —</option>';
+
+Line 243:
+  VI:   pe.innerHTML = '<option value="">— Chọn sản phẩm —</option>';
+  EN:   pe.innerHTML = '<option value="">— Select Product —</option>';
+
+Line 244:
+  VI:   DATA_PRODUCTS.forEach(function(p) { if ((!m || String(p.machine) === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
+  EN:   DATA_PRODUCTS.forEach(function(p) { if ((!m || p.machine === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
+
+Line 252:
+  VI:   mlsel.innerHTML = '<option value="">— Tự động (theo quy cách bao) —</option>';
+  EN:   mlsel.innerHTML = '<option value="">— -- Auto (per bag spec) -- —</option>';
+
+Line 269:
+  VI:     mlsel.innerHTML += '<option value="' + sorted[i] + '">' + sorted[i] + ' tấn</option>';
+  EN:     mlsel.innerHTML += '<option value="' + sorted[i] + '">' + sorted[i] + ' tons</option>';
+
+Line 278:
+  VI:     bsel.innerHTML = '<option value="">— Không chọn bao bì —</option>';
+  EN:     bsel.innerHTML = '<option value="">— -- No bag selected -- —</option>';
+
+Line 342:
+  VI:   if (!psel || !psel.value) { cr.innerHTML = '<div style="color:var(--muted);font-size:12px">Chọn sản phẩm trước</div>'; return; }
+  EN:   if (!psel || !psel.value) { cr.innerHTML = '<div style="color:var(--muted);font-size:12px">Select product first</div>'; return; }
+
+Line 402:
+  VI:   var h = '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  EN:   var h = '<div class="calc-comm-row"><span>Base Commission</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+
+Line 403:
+  VI:   h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  EN:   h += '<div class="calc-comm-row"><span>Diff (30%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+
+Line 404:
+  VI:   h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + fmtNum(totalCost, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  EN:   h += '<div class="calc-comm-row"><span>Total Cost</span><strong>' + fmtNum(totalCost, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+
+Line 405:
+  VI:   h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + fmtNum(totalComm, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  EN:   h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Total Commission</span><strong style="color:var(--primary);font-size:16px">' + fmtNum(totalComm, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+
+Line 413:
+  VI:   if (!pcode) { res.innerHTML = '<div class="calc-empty">👈 Vui lòng chọn sản phẩm</div>'; return; }
+  EN:   if (!pcode) { res.innerHTML = '<div class="calc-empty">👈 Please select a product</div>'; return; }
+
+Line 416:
+  VI:   if (!prod) { res.innerHTML = '<div class="calc-empty">❌ Không tìm thấy sản phẩm</div>'; return; }
+  EN:   if (!prod) { res.innerHTML = '<div class="calc-empty">❌ Product not found</div>'; return; }
+
+Line 456:
+  VI:     bagCode = "Tiêu chuẩn " + bs;
+  EN:     bagCode = "Standard " + bs;
+
+Line 482:
+  VI:   h += '<div class="calc-result-item"><span class="calc-rl">📦 Sản phẩm</span><span class="calc-rv">' + prod.code + '</span></div>';
+  EN:   h += '<div class="calc-result-item"><span class="calc-rl">📦 Products</span><span class="calc-rv">' + prod.code + '</span></div>';
+
+Line 483:
+  VI:   h += '<div class="calc-result-item"><span class="calc-rl">⚙️ Máy / Tiêu chuẩn</span><span class="calc-rv">' + prod.machine + ' · ' + prod.standard + '</span></div>';
+  EN:   h += '<div class="calc-result-item"><span class="calc-rl">⚙️ Machine / Standard</span><span class="calc-rv">' + prod.machine + ' · ' + prod.standard + '</span></div>';
+
+Line 484:
+  VI:   h += '<div class="calc-result-item"><span class="calc-rl">📐 Kích thước</span><span class="calc-rv">' + prod.size + '</span></div>';
+  EN:   h += '<div class="calc-result-item"><span class="calc-rl">📐 Size</span><span class="calc-rv">' + prod.size + '</span></div>';
+
+Line 488:
+  VI:   h += '<div class="calc-result-item"><span class="calc-rl">💰 ' + 'EXW' + (hasBag ? ' chưa bao bì' : ' có bao bì') + '</span><span class="calc-rv exw">' + fmtNum(exwMin, isUsd) + ' ' + cc + '</span></div>';
+  EN:   h += '<div class="calc-result-item"><span class="calc-rl">💰 ' + 'EXW' + (hasBag ? ' no packaging' : ' with packaging') + '</span><span class="calc-rv exw">' + fmtNum(exwMin, isUsd) + ' ' + cc + '</span></div>';
+
+Line 490:
+  VI:     h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tấn</span></div>';
+  EN:     h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tons</span></div>';
+
+Line 491:
+  VI:     h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
+  EN:     h += '<div class="calc-result-item"><span class="calc-rl">🚛 FOB Cost / ton</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
+
+Line 495:
+  VI:       h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tấn</span></div>';
+  EN:       h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tons</span></div>';
+
+Line 496:
+  VI:       h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
+  EN:       h += '<div class="calc-result-item"><span class="calc-rl">🚛 FOB Cost / ton</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
+
+Line 498:
+  VI:       h += '<div class="calc-result-item"><span class="calc-rl">🚢 Freight / tấn</span><span class="calc-rv other">' + fmtNum(cifFreightPerTon, isUsd) + ' ' + cc + '</span></div>';
+  EN:       h += '<div class="calc-result-item"><span class="calc-rl">🚢 Freight / ton</span><span class="calc-rv other">' + fmtNum(cifFreightPerTon, isUsd) + ' ' + cc + '</span></div>';
+
+Line 501:
+  VI:   var bd = ""; if (bcode || isDefaultBag) { if (hasBag) { bd = bagCode; } else { bd = bagCode; } if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">🛍️ Bao bì (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; if (!hasBag) h += '<div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">⚠️ Đang dùng giá bao gồm bao bì tiêu chuẩn. Nếu bao bì khác vui lòng chọn chính xác!</span></div>'; }
+  EN:   var bd = ""; if (bcode || isDefaultBag) { if (hasBag) { bd = bagCode; } else { bd = bagCode; } if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tons"; h += '<div class="calc-result-item"><span class="calc-rl">🛍️ Packaging (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; if (!hasBag) h += '<div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">⚠️ Using standard packaging price. If bag is different, please select correctly!</span></div>'; }
+
+Line 502:
+  VI:   if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">📦 Quy cách khác (' + od + ')</span><span class="calc-rv other">' + fmtNum(otherPrice, isUsd) + ' ' + cc + '</span></div>'; }
+  EN:   if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " tons"; h += '<div class="calc-result-item"><span class="calc-rl">📦 Other Specs (' + od + ')</span><span class="calc-rv other">' + fmtNum(otherPrice, isUsd) + ' ' + cc + '</span></div>'; }
+
+Line 504:
+  VI:   h += '<span class="calc-rl">🏷️ Tổng giá thành (' + modeLabel + ')</span>';
+  EN:   h += '<span class="calc-rl">🏷️ Total Cost (' + modeLabel + ')</span>';
+
+Line 509:
+  VI:   h += '<div class="calc-sell-input"><span>💰 Giá bán</span><input type="number" id="calcSellPrice" placeholder="Nhập giá bán..." oninput="calcCommission()"></div>';
+  EN:   h += '<div class="calc-sell-input"><span>💰 Sell Price</span><input type="number" id="calcSellPrice" placeholder="Enter sell price..." oninput="calcCommission()"></div>';
+
+Line 511:
+  VI:   h += '<div style="margin-top:12px;text-align:center"><button onclick="showQuotationPopup()" style="background:var(--primary);color:white;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.3)">📄 Lên báo giá</button></div>';
+  EN:   h += '<div style="margin-top:12px;text-align:center"><button onclick="showQuotationPopup()" style="background:var(--primary);color:white;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.3)">📄 Create Quote</button></div>';
+
+Line 525:
+  VI:   var rows = [["M\u00e3","K\u00edch th\u01b0\u1edbc","Ti\u00eau chu\u1ea9n","M\u00e1y","25KG (VND)","Jumbo (VND)","Gi\u00e1 b\u00e1n (" + modeLabel + ", " + (isUsd ? "USD" : "VND") + ")","Hoa h\u1ed3ng (" + (isUsd ? "USD" : "VND") + ")"]];
+  EN:   var rows = [["M\u00e3","Size","Standard","Machine","25KG (VND)","Jumbo (VND)","Gi\u00e1 b\u00e1n (" + modeLabel + ", " + (isUsd ? "USD" : "VND") + ")","Hoa h\u1ed3ng (" + (isUsd ? "USD" : "VND") + ")"]];
+
+Line 711:
+  VI:     status.textContent = "❌ Chỉ hỗ trợ file Excel (.xlsx)";
+  EN:     status.textContent = "❌ Only supports Excel files (.xlsx)";
+
+Line 715:
+  VI:   status.textContent = "⏳ Đang xử lý file...";
+  EN:   status.textContent = "⏳ Processing file...";
+
+Line 732:
+  VI:       var prodSheet = hasSheet(["Products", "products", "Sản phẩm", "sản phẩm", "Product", "product", "Template", "Giá bán tối thiểu", "giá bán tối thiểu", "Giá bán", "Gia ban", "Giá"]);
+  EN:       var prodSheet = hasSheet(["Products", "products", "Products", "product", "Product", "product", "Template", "Minimum Sell Price", "min sell price", "Sell Price", "Sell Price", "Price"]);
+
+Line 738:
+  VI:       var bagSheet = hasSheet(["Bags", "bags", "Bao bì", "bao bì", "Bao", "bao", "Bag"]);
+  EN:       var bagSheet = hasSheet(["Bags", "bags", "Packaging", "packaging", "Bao", "bao", "Bag"]);
+
+Line 744:
+  VI:       var otherSheet = hasSheet(["Others", "others", "Quy cách khác", "Other", "other"]);
+  EN:       var otherSheet = hasSheet(["Others", "others", "Other Specs", "Other", "other"]);
+
+Line 750:
+  VI:       var mlSheet = hasSheet(["MaxLoading", "maxloading", "Max Load", "max_load", "Tải trọng", "tải trọng"]);
+  EN:       var mlSheet = hasSheet(["MaxLoading", "maxloading", "Max Load", "max_load", "Max Load", "max load"]);
+
+Line 774:
+  VI:             saveToServer();
+  EN:       status.textContent = "✅ Updated " + updated + " data tables!";
+
+Line 775:
+  VI:       status.textContent = "✅ Đã cập nhật " + updated + " bảng dữ liệu!";
+  EN:     } catch(err) {
+
+Line 776:
+  VI:     } catch(err) {
+  EN:       status.className = "manage-status-sm err";
+
+Line 777:
+  VI:       status.className = "manage-status-sm err";
+  EN:       status.textContent = "❌ Error: " + err.message;
+
+Line 778:
+  VI:       status.textContent = "❌ Lỗi: " + err.message;
+  EN:     }
+
+Line 779:
+  VI:     }
+  EN:   };
+
+Line 780:
+  VI:   };
+  EN:   reader.readAsArrayBuffer(file);
+
+Line 781:
+  VI:   reader.readAsArrayBuffer(file);
+  EN: }function importMaxLoading(arr) {
+
+Line 782:
+  VI: }function importMaxLoading(arr) {
+  EN:   DATA_MAX_LOADING = {};
+
+Line 783:
+  VI:   DATA_MAX_LOADING = {};
+  EN:   arr.forEach(function(r) {
+
+Line 784:
+  VI:   arr.forEach(function(r) {
+  EN:     // Support Vietnamese column names from Max_loadding.xlsx
+
+Line 785:
+  VI:     // Support Vietnamese column names from Max_loadding.xlsx
+  EN:     var code = r.code || r.Code || r.CodeSP || r.CodeSP_Standard || r["SẢN PHẨM"] || r["SAN PHAM"] || "";
+
+Line 786:
+  VI:     var code = r.code || r.Code || r.CodeSP || r.CodeSP_Standard || r["SẢN PHẨM"] || r["SAN PHAM"] || "";
+  EN:     if (!code) return;
+
+Line 787:
+  VI:     if (!code) return;
+  EN:     var obj = {};
+
+Line 788:
+  VI:     var obj = {};
+  EN:     var v25 = r.max25 || r["Max Loading 25KG"] || r["Max Loading 25kg"] || r["max25"] || r["Max25"];
+
+Line 789:
+  VI:     var v25 = r.max25 || r["Max Loading 25KG"] || r["Max Loading 25kg"] || r["max25"] || r["Max25"];
+  EN:     var vJb = r.maxJumbo || r["Max Loading Jumbo"] || r["Max Loading jumbo"] || r["maxJumbo"] || r["MaxJumbo"] || r["Max Jumbo"];
+
+Line 790:
+  VI:     var vJb = r.maxJumbo || r["Max Loading Jumbo"] || r["Max Loading jumbo"] || r["maxJumbo"] || r["MaxJumbo"] || r["Max Jumbo"];
+  EN:     if (v25 !== undefined && v25 !== null && v25 !== "") obj.max25 = Number(v25);
+
+Line 791:
+  VI:     if (v25 !== undefined && v25 !== null && v25 !== "") obj.max25 = Number(v25);
+  EN:     if (vJb !== undefined && vJb !== null && vJb !== "") obj.maxJumbo = Number(vJb);
+
+Line 792:
+  VI:     if (vJb !== undefined && vJb !== null && vJb !== "") obj.maxJumbo = Number(vJb);
+  EN:     if (Object.keys(obj).length > 0) DATA_MAX_LOADING[code] = obj;
+
+Line 793:
+  VI:     if (Object.keys(obj).length > 0) DATA_MAX_LOADING[code] = obj;
+  EN:   });
+
+Line 794:
+  VI:   });
+  EN: }
+
+Line 795:
+  VI: }
+  EN: 
+
+Line 796:
+  VI: 
+  EN: function importCostFOB(arr) {
+
+Line 797:
+  VI: function importCostFOB(arr) {
+  EN:   DATA_COST_FOB = {};
+
+Line 798:
+  VI:   DATA_COST_FOB = {};
+  EN:   arr.forEach(function(r) {
+
+Line 799:
+  VI:   arr.forEach(function(r) {
+  EN:     var load = Number(r.maxLoading || r.MaxLoading || r.load || r.Load || r.tan || r.Tan || r["Ton"] || r["Max loadding"] || r["Max Loadding"]);
+
+Line 800:
+  VI:     var load = Number(r.maxLoading || r.MaxLoading || r.load || r.Load || r.tan || r.Tan || r["Tấn"] || r["Max loadding"] || r["Max Loadding"]);
+  EN:     if (!load) return;
+
+Line 801:
+  VI:     if (!load) return;
+  EN:     var obj = {};
+
+Line 802:
+  VI:     var obj = {};
+  EN:     var vNo = r.no !== undefined ? r.no : r["No LCC"] || r["No lcc"];
+
+Line 803:
+  VI:     var vNo = r.no !== undefined ? r.no : r["No LCC"] || r["No lcc"];
+  EN:     var vSub = r.sub !== undefined ? r.sub : r["Sub LCC"] || r["Sub lcc"];
+
+Line 804:
+  VI:     var vSub = r.sub !== undefined ? r.sub : r["Sub LCC"] || r["Sub lcc"];
+  EN:     if (vNo !== undefined && vNo !== null && vNo !== "") obj.no = Number(vNo);
+
+Line 805:
+  VI:     if (vNo !== undefined && vNo !== null && vNo !== "") obj.no = Number(vNo);
+  EN:     if (vSub !== undefined && vSub !== null && vSub !== "") obj.sub = Number(vSub);
+
+Line 806:
+  VI:     if (vSub !== undefined && vSub !== null && vSub !== "") obj.sub = Number(vSub);
+  EN:     if (Object.keys(obj).length > 0) DATA_COST_FOB[load] = obj;
+
+Line 807:
+  VI:     if (Object.keys(obj).length > 0) DATA_COST_FOB[load] = obj;
+  EN:   });
+
+Line 808:
+  VI:   });
+  EN: }
+
+Line 809:
+  VI: }
+  EN: // ====== PASSWORD MODAL ======
+
+Line 810:
+  VI: 
+  EN: function showPwModal() {
+
+Line 811:
+  VI: function saveToServer() {
+  EN:   document.getElementById("pwModal").classList.add("open");
+
+Line 812:
+  VI:   var blocks = {};
+  EN:   document.getElementById("pwInput").value = "";
+
+Line 813:
+  VI:   blocks.DATA_PRODUCTS = 'var DATA_PRODUCTS = ' + JSON.stringify(DATA_PRODUCTS, null, 2) + ';';
+  EN:   document.getElementById("pwError").style.display = "none";
+
+Line 814:
+  VI:   blocks.DATA_BAGS = 'var DATA_BAGS = ' + JSON.stringify(DATA_BAGS, null, 2) + ';';
+  EN: }
+
+Line 815:
+  VI:   blocks.DATA_OTHERS = 'var DATA_OTHERS = ' + JSON.stringify(DATA_OTHERS, null, 2) + ';';
+  EN: function closePwModal() {
+
+Line 816:
+  VI:   blocks.DATA_MAX_LOADING = 'var DATA_MAX_LOADING = ' + JSON.stringify(DATA_MAX_LOADING, null, 2) + ';';
+  EN:   document.getElementById("pwModal").classList.remove("open");
+
+Line 817:
+  VI:   blocks.DATA_COST_FOB = 'var DATA_COST_FOB = ' + JSON.stringify(DATA_COST_FOB, null, 2) + ';';
+  EN: }
+
+Line 818:
+  VI:   var xhr = new XMLHttpRequest();
+  EN: function checkPassword() {
+
+Line 819:
+  VI:   xhr.open('POST', '/api/ktg-data', true);
+  EN:   if (document.getElementById("pwInput").value === managePassword) {
+
+Line 820:
+  VI:   xhr.setRequestHeader('Content-Type', 'application/json');
+  EN:     closePwModal();
+
+Line 821:
+  VI:   xhr.onload = function() {
+  EN:     switchTab("manage");
+
+Line 822:
+  VI:     if (xhr.status === 200) {
+  EN:   } else {
+
+Line 823:
+  VI:       console.log('[KTG] Saved to server');
+  EN:     document.getElementById("pwError").style.display = "block";
+
+Line 824:
+  VI:     } else {
+  EN:   }
+
+Line 825:
+  VI:       console.error('[KTG] Server save failed:', xhr.status);
+  EN: }
+
+Line 826:
+  VI:     }
+  EN: function manageFromPwModal() { checkPassword(); }
+
+Line 827:
+  VI:   };
+  EN: 
+
+Line 828:
+  VI:   xhr.onerror = function() { console.error('[KTG] Server save network error'); };
+  EN: // ====== FILTER POPULATOR ======
+
+Line 829:
+  VI:   xhr.send(JSON.stringify({ blocks: blocks }));
+  EN: function populateFilters() {
+
+Line 830:
+  VI: }
+  EN:   var sf = document.getElementById("specFilter");
+
+Line 831:
+  VI: // ====== PASSWORD MODAL ======
+  EN:   var mf = document.getElementById("machineFilter");
+
+Line 832:
+  VI: function showPwModal() {
+  EN:   if (!sf || !mf) return;
+
+Line 833:
+  VI:   document.getElementById("pwModal").classList.add("open");
+  EN:   var specSet = {}, machSet = {};
+
+Line 834:
+  VI:   document.getElementById("pwInput").value = "";
+  EN:   DATA_PRODUCTS.forEach(function(p) {
+
+Line 835:
+  VI:   document.getElementById("pwError").style.display = "none";
+  EN:     specSet[p.standard] = true;
+
+Line 836:
+  VI: }
+  EN:     machSet[p.machine] = true;
+
+Line 837:
+  VI: function closePwModal() {
+  EN:   });
+
+Line 838:
+  VI:   document.getElementById("pwModal").classList.remove("open");
+  EN:   var curSpec = sf.value, curMach = mf.value;
+
+Line 839:
+  VI: }
+  EN:   sf.innerHTML = '<option value="">All Standards</option>';
+
+Line 840:
+  VI: function checkPassword() {
+  EN:   Object.keys(specSet).sort().forEach(function(s) {
+
+Line 841:
+  VI:   if (document.getElementById("pwInput").value === managePassword) {
+  EN:     sf.innerHTML += '<option value="' + s.replace(/"/g, '&quot;') + '">' + s + '</option>';
+
+Line 842:
+  VI:     closePwModal();
+  EN:   });
+
+Line 843:
+  VI:     switchTab("manage");
+  EN:   sf.value = curSpec;
+
+Line 844:
+  VI:   } else {
+  EN:   mf.innerHTML = '<option value="">All Machines</option>';
+
+Line 845:
+  VI:     document.getElementById("pwError").style.display = "block";
+  EN:   Object.keys(machSet).sort().forEach(function(m) {
+
+Line 846:
+  VI:   }
+  EN:     mf.innerHTML += '<option value="' + m.replace(/"/g, '&quot;') + '">' + m + '</option>';
+
+Line 847:
+  VI: }
+  EN:   });
+
+Line 848:
+  VI: function manageFromPwModal() { checkPassword(); }
+  EN:   mf.value = curMach;
+
+Line 849:
+  VI: 
+  EN: }
+
+Line 850:
+  VI: // ====== FILTER POPULATOR ======
+  EN: 
+
+Line 851:
+  VI: function populateFilters() {
+  EN: // ====== RENDER BAGS TAB ======
+
+Line 852:
+  VI:   var sf = document.getElementById("specFilter");
+  EN: 
+
+Line 853:
+  VI:   var mf = document.getElementById("machineFilter");
+  EN: function toggleMaxLoad() {
+
+Line 854:
+  VI:   if (!sf || !mf) return;
+  EN:   var cols = document.querySelectorAll('.ml-toggle');
+
+Line 855:
+  VI:   var curSpec = sf.value, curMach = mf.value;
+  EN:   var btn = document.getElementById('mlToggleBtn');
+
+Line 856:
+  VI:   // Cross-link: when machine is selected, only show related standards; vice versa
+  EN:   var hidden = btn.textContent.indexOf('Hi\u1ec7n') >= 0;
+
+Line 857:
+  VI:   var machinesByStd = {}, standardsByMach = {};
+  EN:   cols.forEach(function(el) { el.classList.toggle('ml-visible', hidden); });
+
+Line 858:
+  VI:   DATA_PRODUCTS.forEach(function(p) {
+  EN:   btn.textContent = hidden ? '\ud83d\udccb \u1ea8n max t\u1ea3i' : '\ud83d\udccb Hi\u1ec7n max t\u1ea3i';
+
+Line 859:
+  VI:     if (!curMach || String(p.machine) === curMach) standardsByMach[p.standard] = true;
+  EN: }
+
+Line 860:
+  VI:     if (!curSpec || p.standard === curSpec) machinesByStd[p.machine] = true;
+  EN: 
+
+Line 861:
+  VI:   });
+  EN: ---
+
+Line 862:
+  VI:   // Rebuild spec filter (standards available for selected machine)
+  EN: ---
+
+Line 863:
+  VI:   sf.innerHTML = '<option value="">Tất cả tiêu chuẩn</option>';
+  EN: ---
+
+Line 864:
+  VI:   var sk = Object.keys(standardsByMach).sort();
+  EN: ---
+
+Line 865:
+  VI:   for (var i = 0; i < sk.length; i++) { sf.innerHTML += '<option value="' + sk[i].replace(/"/g, '&quot;') + '">' + sk[i] + '</option>'; }
+  EN: ---
+
+Line 866:
+  VI:   sf.value = curSpec && sk.indexOf(curSpec) >= 0 ? curSpec : "";
+  EN: ---
+
+Line 867:
+  VI:   // Rebuild machine filter (machines available for selected standard)
+  EN: ---
+
+Line 868:
+  VI:   mf.innerHTML = '<option value="">Tất cả máy</option>';
+  EN: ---
+
+Line 869:
+  VI:   var mk = Object.keys(machinesByStd).sort();
+  EN: ---
+
+Line 870:
+  VI:   for (var i = 0; i < mk.length; i++) { mf.innerHTML += '<option value="' + mk[i].replace(/"/g, '&quot;') + '">' + mk[i] + '</option>'; }
+  EN: ---
+
+Line 871:
+  VI:   mf.value = curMach && mk.indexOf(curMach) >= 0 ? curMach : "";
+  EN: ---
+
+Line 872:
+  VI: }
+  EN: ---
+
+Line 873:
+  VI: // ====== RENDER BAGS TAB ======
+  EN: ---
+
+Line 874:
+  VI: 
+  EN: ---
+
+Line 875:
+  VI: function toggleMaxLoad() {
+  EN: ---
+
+Line 876:
+  VI:   var cols = document.querySelectorAll('.ml-toggle');
+  EN: ---
+
+Line 877:
+  VI:   var btn = document.getElementById('mlToggleBtn');
+  EN: ---
+
+Line 878:
+  VI:   var hidden = btn.textContent.indexOf('Hi\u1ec7n') >= 0;
+  EN: ---
+
+Line 879:
+  VI:   cols.forEach(function(el) { el.classList.toggle('ml-visible', hidden); });
+  EN: ---
+
+Line 880:
+  VI:   btn.textContent = hidden ? '\ud83d\udccb \u1ea8n max t\u1ea3i' : '\ud83d\udccb Hi\u1ec7n max t\u1ea3i';
+  EN: ---
+
+Line 881:
+  VI: }
+  EN: ---
+
+Line 882:
+  VI: 
+  EN: ---
+
+Line 6:
+  VI:     if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0) && (!p.machine || p.machine.toLowerCase().indexOf(search) < 0) && (!p.standard || p.standard.toLowerCase().indexOf(search) < 0)) return false;
+  EN:     if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0)) return false;
+
+Line 8:
+  VI:     if (machineFilter && String(p.machine) !== machineFilter) return false;
+  EN:     if (machineFilter && p.machine !== machineFilter) return false;
+
+Line 37:
+  VI:   h += '<div class="summary-card"><div class="lbl">S\u1ea3n ph\u1ea9m</div><div class="val">' + Object.keys(uniqueCodes).length + '</div></div>';
+  EN:   h += '<div class="summary-card"><div class="lbl">Products</div><div class="val">' + Object.keys(uniqueCodes).length + '</div></div>';
+
+Line 38:
+  VI:   h += '<div class="summary-card"><div class="lbl">Ti\u00eau chu\u1ea9n</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
+  EN:   h += '<div class="summary-card"><div class="lbl">Standard</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
+
+Line 39:
+  VI:   h += '<div class="summary-card"><div class="lbl">M\u00e1y</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
+  EN:   h += '<div class="summary-card"><div class="lbl">Machine</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
+
+Line 40:
+  VI:   h += '<div class="summary-card"><div class="lbl">Ng\u00e0y</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
+  EN:   h += '<div class="summary-card"><div class="lbl">Date</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
+
+Line 44:
+  VI:   h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">TB 25KG</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
+  EN:   h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">Avg 25KG</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
+
+Line 46:
+  VI:   h += '<div class="summary-card" style="padding:8px 12px;background:#f0fdf4;border-color:#bbf7d0"><div class="lbl" style="font-size:10px">TB Jumbo</div><div class="val" style="font-size:15px">' + fmt(cntJ?Math.round(sumJ/cntJ):0) + '</div></div>';
+  EN:   h += '<div class="summary-card" style="padding:8px 12px;background:#f0fdf4;border-color:#bbf7d0"><div class="lbl" style="font-size:10px">Avg Jumbo</div><div class="val" style="font-size:15px">' + fmt(cntJ?Math.round(sumJ/cntJ):0) + '</div></div>';
+
+Line 48:
+  VI:   h += '<div class="summary-card" style="padding:8px 12px;background:#f5f3ff;border-color:#ddd6fe"><div class="lbl" style="font-size:10px">TB EXW</div><div class="val" style="font-size:15px">' + fmt(cntExw?Math.round(sumExw/cntExw):0) + '</div></div>';
+  EN:   h += '<div class="summary-card" style="padding:8px 12px;background:#f5f3ff;border-color:#ddd6fe"><div class="lbl" style="font-size:10px">Avg EXW</div><div class="val" style="font-size:15px">' + fmt(cntExw?Math.round(sumExw/cntExw):0) + '</div></div>';
+
+Line 54:
+  VI:   h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2" class="ml-toggle">Max t\u1ea3i</th><th colspan="2">' + (priceMode==="exw"?"Giá bán (EXW)":"Gi\u00e1 bao g\u1ed3m bao b\u00ec") + '</th>';
+  EN:   h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2" class="ml-toggle">Max load</th><th colspan="2">' + (priceMode==="exw"?"Sell Price (EXW)":"Price incl. bag") + '</th>';
+
+Line 55:
+  VI:   if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"EXW chưa bao bì":"Giá bán (EXW)") + '</th>';
+  EN:   if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"Unpacked EXW":"Sell Price (EXW)") + '</th>';
+
+Line 57:
+  VI:   h += '<tr><th>M\u00e3</th><th>K\u00edch th\u01b0\u1edbc</th><th>Ti\u00eau chu\u1ea9n</th><th>M\u00e1y</th><th class="ml-toggle">Max 25KG <span class="info-row">(t\u1ea5n)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(t\u1ea5n)</span></th><th>' + (priceMode==="exw"?"EXW 25KG bao tiêu chuẩn":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW jumbo bao tiêu chuẩn":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
+  EN:   h += '<tr><th>M\u00e3</th><th>Size</th><th>Standard</th><th>Machine</th><th class="ml-toggle">Max 25KG <span class="info-row">(tons)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(tons)</span></th><th>' + (priceMode==="exw"?"EXW 25KG std bag":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW jumbo std bag":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
+
+Line 59:
+  VI:     h += '<th>' + (priceMode==="exw"?"EXW chưa bao bì":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"Hoa hồng cơ bản":"Hoa hồng") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
+  EN:     h += '<th>' + (priceMode==="exw"?"Unpacked EXW":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"Base commission":"Commission") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
+
+Line 102:
+  VI:   // --- Section: Sản phẩm ---
+  EN:   // --- Section: Products ---
+
+Line 103:
+  VI:   h += '<div class="calc-section-title"><span class="badge blue">📦</span><span class="title-text">Chọn sản phẩm</span></div>';
+  EN:   h += '<div class="calc-section-title"><span class="badge blue">📦</span><span class="title-text">Select Product</span></div>';
+
+Line 110:
+  VI:   h += '<div><label class="calc-form-label">🏭 Máy</label>';
+  EN:   h += '<div><label class="calc-form-label">🏭 Machine</label>';
+
+Line 111:
+  VI:   h += '<select class="calc-select" id="calcMachine" onchange="filterCalcProducts()"><option value="">— Chọn máy —</option>';
+  EN:   h += '<select class="calc-select" id="calcMachine" onchange="filterCalcProducts()"><option value="">— -- Select Machine -- —</option>';
+
+Line 116:
+  VI:   h += '<div><label class="calc-form-label">📋 Tiêu chuẩn</label>';
+  EN:   h += '<div><label class="calc-form-label">📋 Standard</label>';
+
+Line 117:
+  VI:   h += '<select class="calc-select" id="calcStandard" onchange="filterCalcProducts()"><option value="">— Chọn tiêu chuẩn —</option></select></div>';
+  EN:   h += '<select class="calc-select" id="calcStandard" onchange="filterCalcProducts()"><option value="">— -- Select Standard -- —</option></select></div>';
+
+Line 120:
+  VI:   h += '<div class="calc-form-group"><label class="calc-form-label">🔖 Sản phẩm</label>';
+  EN:   h += '<div class="calc-form-group"><label class="calc-form-label">🔖 Product</label>';
+
+Line 121:
+  VI:   h += '<select class="calc-select" id="calcProduct" onchange="onCalcProductChange()"><option value="">— Chọn sản phẩm —</option></select></div>';
+  EN:   h += '<select class="calc-select" id="calcProduct" onchange="onCalcProductChange()"><option value="">— Select Product —</option></select></div>';
+
+Line 125:
+  VI:   h += '<select class="calc-select" id="calcMaxLoad" onchange="calcPrice()"><option value="">— Tự động —</option></select></div>';
+  EN:   h += '<select class="calc-select" id="calcMaxLoad" onchange="calcPrice()"><option value="">— -- Auto -- —</option></select></div>';
+
+Line 127:
+  VI:   // --- Section: Bao bì ---
+  EN:   // --- Section: Packaging ---
+
+Line 128:
+  VI:   h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge green">🛍️</span><span class="title-text">Tùy chọn bao bì</span></div>';
+  EN:   h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge green">🛍️</span><span class="title-text">Bag Options</span></div>';
+
+Line 132:
+  VI:   h += '<div><label class="calc-form-label">📏 Quy cách bao</label>';
+  EN:   h += '<div><label class="calc-form-label">📏 Bag Spec</label>';
+
+Line 134:
+  VI:   h += '<div><label class="calc-form-label">🛍️ Loại bao</label>';
+  EN:   h += '<div><label class="calc-form-label">🛍️ Bag Type</label>';
+
+Line 135:
+  VI:   h += '<select class="calc-select" id="calcBag" onchange="calcPrice()"><option value="">— Không chọn —</option>';
+  EN:   h += '<select class="calc-select" id="calcBag" onchange="calcPrice()"><option value="">— -- None -- —</option>';
+
+Line 141:
+  VI:   h += '<label class="calc-form-label">⚖️ Số tấn / bao Jumbo</label>';
+  EN:   h += '<label class="calc-form-label">⚖️ Tons / Jumbo Bag</label>';
+
+Line 145:
+  VI:     h += '<option value="' + jumboTons[i] + '">' + jumboTons[i] + ' tấn</option>';
+  EN:     h += '<option value="' + jumboTons[i] + '">' + jumboTons[i] + ' tons</option>';
+
+Line 149:
+  VI:   // --- Section: Quy cách khác ---
+  EN:   // --- Section: Other Specs ---
+
+Line 150:
+  VI:   h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge purple">📦</span><span class="title-text">Quy cách khác</span></div>';
+  EN:   h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge purple">📦</span><span class="title-text">Other Specs</span></div>';
+
+Line 153:
+  VI:   h += '<div><label class="calc-form-label">📋 Loại quy cách</label>';
+  EN:   h += '<div><label class="calc-form-label">📋 Spec Type</label>';
+
+Line 154:
+  VI:   h += '<select class="calc-select" id="calcOther" onchange="calcPrice()"><option value="">— Không chọn —</option>';
+  EN:   h += '<select class="calc-select" id="calcOther" onchange="calcPrice()"><option value="">— -- None -- —</option>';
+
+Line 159:
+  VI:   h += '<div id="calcOtherTonnageRow"><label class="calc-form-label">⚖️ Số tấn</label>';
+  EN:   h += '<div id="calcOtherTonnageRow"><label class="calc-form-label">⚖️ Tons</label>';
+
+Line 163:
+  VI:     h += '<option value="' + otherTons[i] + '">' + otherTons[i] + ' tấn</option>';
+  EN:     h += '<option value="' + otherTons[i] + '">' + otherTons[i] + ' tons</option>';
+
+Line 174:
+  VI:   h += '<span>Kết quả tính giá</span>';
+  EN:   h += '<span>Calculation Result</span>';
+
+Line 184:
+  VI:   h += '<span class="ext-label">Loại LCC:</span>';
+  EN:   h += '<span class="ext-label">LCC Type:</span>';
+
+Line 185:
+  VI:   h += '<button class="lcc-btn active" data-lcc="no" onclick="setCalcLccType(\'no\')">No Lcc</button>';
+  EN:   h += '<button class="lcc-btn active" data-lcc="no" onclick="setCalcLccType(\'no\')">No LCC</button>';
+
+Line 186:
+  VI:   h += '<button class="lcc-btn" data-lcc="sub" onclick="setCalcLccType(\'sub\')">Sub Lcc</button>';
+  EN:   h += '<button class="lcc-btn" data-lcc="sub" onclick="setCalcLccType(\'sub\')">Sub LCC</button>';
+
+Line 189:
+  VI:   h += '<span class="ext-label">🚂 Cước biển:</span>';
+  EN:   h += '<span class="ext-label">🚂 Freight:</span>';
+
+Line 192:
+  VI:   h += '<button class="ext-label" onclick="showFreightPopup()" style="background:var(--primary);color:white;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;font-weight:600">📡 Tra cước</button>';
+  EN:   h += '<button class="ext-label" onclick="showFreightPopup()" style="background:var(--primary);color:white;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;font-weight:600">📡 Look Up</button>';
+
+Line 197:
+  VI:   h += '<span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">💱 Loại tiền:</span>';
+  EN:   h += '<span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">💱 Currency:</span>';
+
+Line 206:
+  VI:   h += '<div class="calc-empty-text">Chọn sản phẩm và bao bì để bắt đầu</div>';
+  EN:   h += '<div class="calc-empty-text">Select product & packaging to start</div>';
+
+Line 221:
+  VI:     if (!m || String(p.machine) === m) standardsByMach[p.standard] = true;
+  EN:     if (!m || p.machine === m) standardsByMach[p.standard] = true;
+
+Line 226:
+  VI:   me.innerHTML = '<option value="">— Chọn máy —</option>';
+  EN:   me.innerHTML = '<option value="">— -- Select Machine -- —</option>';
+
+Line 232:
+  VI:   se.innerHTML = '<option value="">— Chọn tiêu chuẩn —</option>';
+  EN:   se.innerHTML = '<option value="">— -- Select Standard -- —</option>';
+
+Line 243:
+  VI:   pe.innerHTML = '<option value="">— Chọn sản phẩm —</option>';
+  EN:   pe.innerHTML = '<option value="">— Select Product —</option>';
+
+Line 244:
+  VI:   DATA_PRODUCTS.forEach(function(p) { if ((!m || String(p.machine) === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
+  EN:   DATA_PRODUCTS.forEach(function(p) { if ((!m || p.machine === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
+
+Line 252:
+  VI:   mlsel.innerHTML = '<option value="">— Tự động (theo quy cách bao) —</option>';
+  EN:   mlsel.innerHTML = '<option value="">— -- Auto (per bag spec) -- —</option>';
+
+Line 269:
+  VI:     mlsel.innerHTML += '<option value="' + sorted[i] + '">' + sorted[i] + ' tấn</option>';
+  EN:     mlsel.innerHTML += '<option value="' + sorted[i] + '">' + sorted[i] + ' tons</option>';
+
+Line 278:
+  VI:     bsel.innerHTML = '<option value="">— Không chọn bao bì —</option>';
+  EN:     bsel.innerHTML = '<option value="">— -- No bag selected -- —</option>';
+
+Line 342:
+  VI:   if (!psel || !psel.value) { cr.innerHTML = '<div style="color:var(--muted);font-size:12px">Chọn sản phẩm trước</div>'; return; }
+  EN:   if (!psel || !psel.value) { cr.innerHTML = '<div style="color:var(--muted);font-size:12px">Select product first</div>'; return; }
+
+Line 402:
+  VI:   var h = '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  EN:   var h = '<div class="calc-comm-row"><span>Base Commission</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+
+Line 403:
+  VI:   h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  EN:   h += '<div class="calc-comm-row"><span>Diff (30%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+
+Line 404:
+  VI:   h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + fmtNum(totalCost, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  EN:   h += '<div class="calc-comm-row"><span>Total Cost</span><strong>' + fmtNum(totalCost, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+
+Line 405:
+  VI:   h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + fmtNum(totalComm, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  EN:   h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Total Commission</span><strong style="color:var(--primary);font-size:16px">' + fmtNum(totalComm, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+
+Line 413:
+  VI:   if (!pcode) { res.innerHTML = '<div class="calc-empty">👈 Vui lòng chọn sản phẩm</div>'; return; }
+  EN:   if (!pcode) { res.innerHTML = '<div class="calc-empty">👈 Please select a product</div>'; return; }
+
+Line 416:
+  VI:   if (!prod) { res.innerHTML = '<div class="calc-empty">❌ Không tìm thấy sản phẩm</div>'; return; }
+  EN:   if (!prod) { res.innerHTML = '<div class="calc-empty">❌ Product not found</div>'; return; }
+
+Line 456:
+  VI:     bagCode = "Tiêu chuẩn " + bs;
+  EN:     bagCode = "Standard " + bs;
+
+Line 482:
+  VI:   h += '<div class="calc-result-item"><span class="calc-rl">📦 Sản phẩm</span><span class="calc-rv">' + prod.code + '</span></div>';
+  EN:   h += '<div class="calc-result-item"><span class="calc-rl">📦 Products</span><span class="calc-rv">' + prod.code + '</span></div>';
+
+Line 483:
+  VI:   h += '<div class="calc-result-item"><span class="calc-rl">⚙️ Máy / Tiêu chuẩn</span><span class="calc-rv">' + prod.machine + ' · ' + prod.standard + '</span></div>';
+  EN:   h += '<div class="calc-result-item"><span class="calc-rl">⚙️ Machine / Standard</span><span class="calc-rv">' + prod.machine + ' · ' + prod.standard + '</span></div>';
+
+Line 484:
+  VI:   h += '<div class="calc-result-item"><span class="calc-rl">📐 Kích thước</span><span class="calc-rv">' + prod.size + '</span></div>';
+  EN:   h += '<div class="calc-result-item"><span class="calc-rl">📐 Size</span><span class="calc-rv">' + prod.size + '</span></div>';
+
+Line 488:
+  VI:   h += '<div class="calc-result-item"><span class="calc-rl">💰 ' + 'EXW' + (hasBag ? ' chưa bao bì' : ' có bao bì') + '</span><span class="calc-rv exw">' + fmtNum(exwMin, isUsd) + ' ' + cc + '</span></div>';
+  EN:   h += '<div class="calc-result-item"><span class="calc-rl">💰 ' + 'EXW' + (hasBag ? ' no packaging' : ' with packaging') + '</span><span class="calc-rv exw">' + fmtNum(exwMin, isUsd) + ' ' + cc + '</span></div>';
+
+Line 490:
+  VI:     h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tấn</span></div>';
+  EN:     h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tons</span></div>';
+
+Line 491:
+  VI:     h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
+  EN:     h += '<div class="calc-result-item"><span class="calc-rl">🚛 FOB Cost / ton</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
+
+Line 495:
+  VI:       h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tấn</span></div>';
+  EN:       h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tons</span></div>';
+
+Line 496:
+  VI:       h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
+  EN:       h += '<div class="calc-result-item"><span class="calc-rl">🚛 FOB Cost / ton</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
+
+Line 498:
+  VI:       h += '<div class="calc-result-item"><span class="calc-rl">🚢 Freight / tấn</span><span class="calc-rv other">' + fmtNum(cifFreightPerTon, isUsd) + ' ' + cc + '</span></div>';
+  EN:       h += '<div class="calc-result-item"><span class="calc-rl">🚢 Freight / ton</span><span class="calc-rv other">' + fmtNum(cifFreightPerTon, isUsd) + ' ' + cc + '</span></div>';
+
+Line 501:
+  VI:   var bd = ""; if (bcode || isDefaultBag) { if (hasBag) { bd = bagCode; } else { bd = bagCode; } if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">🛍️ Bao bì (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; if (!hasBag) h += '<div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">⚠️ Đang dùng giá bao gồm bao bì tiêu chuẩn. Nếu bao bì khác vui lòng chọn chính xác!</span></div>'; }
+  EN:   var bd = ""; if (bcode || isDefaultBag) { if (hasBag) { bd = bagCode; } else { bd = bagCode; } if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tons"; h += '<div class="calc-result-item"><span class="calc-rl">🛍️ Packaging (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; if (!hasBag) h += '<div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">⚠️ Using standard packaging price. If bag is different, please select correctly!</span></div>'; }
+
+Line 502:
+  VI:   if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">📦 Quy cách khác (' + od + ')</span><span class="calc-rv other">' + fmtNum(otherPrice, isUsd) + ' ' + cc + '</span></div>'; }
+  EN:   if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " tons"; h += '<div class="calc-result-item"><span class="calc-rl">📦 Other Specs (' + od + ')</span><span class="calc-rv other">' + fmtNum(otherPrice, isUsd) + ' ' + cc + '</span></div>'; }
+
+Line 504:
+  VI:   h += '<span class="calc-rl">🏷️ Tổng giá thành (' + modeLabel + ')</span>';
+  EN:   h += '<span class="calc-rl">🏷️ Total Cost (' + modeLabel + ')</span>';
+
+Line 509:
+  VI:   h += '<div class="calc-sell-input"><span>💰 Giá bán</span><input type="number" id="calcSellPrice" placeholder="Nhập giá bán..." oninput="calcCommission()"></div>';
+  EN:   h += '<div class="calc-sell-input"><span>💰 Sell Price</span><input type="number" id="calcSellPrice" placeholder="Enter sell price..." oninput="calcCommission()"></div>';
+
+Line 511:
+  VI:   h += '<div style="margin-top:12px;text-align:center"><button onclick="showQuotationPopup()" style="background:var(--primary);color:white;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.3)">📄 Lên báo giá</button></div>';
+  EN:   h += '<div style="margin-top:12px;text-align:center"><button onclick="showQuotationPopup()" style="background:var(--primary);color:white;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.3)">📄 Create Quote</button></div>';
+
+Line 525:
+  VI:   var rows = [["M\u00e3","K\u00edch th\u01b0\u1edbc","Ti\u00eau chu\u1ea9n","M\u00e1y","25KG (VND)","Jumbo (VND)","Gi\u00e1 b\u00e1n (" + modeLabel + ", " + (isUsd ? "USD" : "VND") + ")","Hoa h\u1ed3ng (" + (isUsd ? "USD" : "VND") + ")"]];
+  EN:   var rows = [["M\u00e3","Size","Standard","Machine","25KG (VND)","Jumbo (VND)","Gi\u00e1 b\u00e1n (" + modeLabel + ", " + (isUsd ? "USD" : "VND") + ")","Hoa h\u1ed3ng (" + (isUsd ? "USD" : "VND") + ")"]];
+
+Line 711:
+  VI:     status.textContent = "❌ Chỉ hỗ trợ file Excel (.xlsx)";
+  EN:     status.textContent = "❌ Only supports Excel files (.xlsx)";
+
+Line 715:
+  VI:   status.textContent = "⏳ Đang xử lý file...";
+  EN:   status.textContent = "⏳ Processing file...";
+
+Line 732:
+  VI:       var prodSheet = hasSheet(["Products", "products", "Sản phẩm", "sản phẩm", "Product", "product", "Template", "Giá bán tối thiểu", "giá bán tối thiểu", "Giá bán", "Gia ban", "Giá"]);
+  EN:       var prodSheet = hasSheet(["Products", "products", "Products", "product", "Product", "product", "Template", "Minimum Sell Price", "min sell price", "Sell Price", "Sell Price", "Price"]);
+
+Line 738:
+  VI:       var bagSheet = hasSheet(["Bags", "bags", "Bao bì", "bao bì", "Bao", "bao", "Bag"]);
+  EN:       var bagSheet = hasSheet(["Bags", "bags", "Packaging", "packaging", "Bao", "bao", "Bag"]);
+
+Line 744:
+  VI:       var otherSheet = hasSheet(["Others", "others", "Quy cách khác", "Other", "other"]);
+  EN:       var otherSheet = hasSheet(["Others", "others", "Other Specs", "Other", "other"]);
+
+Line 750:
+  VI:       var mlSheet = hasSheet(["MaxLoading", "maxloading", "Max Load", "max_load", "Tải trọng", "tải trọng"]);
+  EN:       var mlSheet = hasSheet(["MaxLoading", "maxloading", "Max Load", "max_load", "Max Load", "max load"]);
+
+Line 774:
+  VI:             saveToServer();
+  EN:       status.textContent = "✅ Updated " + updated + " data tables!";
+
+Line 775:
+  VI:       status.textContent = "✅ Đã cập nhật " + updated + " bảng dữ liệu!";
+  EN:     } catch(err) {
+
+Line 776:
+  VI:     } catch(err) {
+  EN:       status.className = "manage-status-sm err";
+
+Line 777:
+  VI:       status.className = "manage-status-sm err";
+  EN:       status.textContent = "❌ Error: " + err.message;
+
+Line 778:
+  VI:       status.textContent = "❌ Lỗi: " + err.message;
+  EN:     }
+
+Line 779:
+  VI:     }
+  EN:   };
+
+Line 780:
+  VI:   };
+  EN:   reader.readAsArrayBuffer(file);
+
+Line 781:
+  VI:   reader.readAsArrayBuffer(file);
+  EN: }function importMaxLoading(arr) {
+
+Line 782:
+  VI: }function importMaxLoading(arr) {
+  EN:   DATA_MAX_LOADING = {};
+
+Line 783:
+  VI:   DATA_MAX_LOADING = {};
+  EN:   arr.forEach(function(r) {
+
+Line 784:
+  VI:   arr.forEach(function(r) {
+  EN:     // Support Vietnamese column names from Max_loadding.xlsx
+
+Line 785:
+  VI:     // Support Vietnamese column names from Max_loadding.xlsx
+  EN:     var code = r.code || r.Code || r.CodeSP || r.CodeSP_Standard || r["SẢN PHẨM"] || r["SAN PHAM"] || "";
+
+Line 786:
+  VI:     var code = r.code || r.Code || r.CodeSP || r.CodeSP_Standard || r["SẢN PHẨM"] || r["SAN PHAM"] || "";
+  EN:     if (!code) return;
+
+Line 787:
+  VI:     if (!code) return;
+  EN:     var obj = {};
+
+Line 788:
+  VI:     var obj = {};
+  EN:     var v25 = r.max25 || r["Max Loading 25KG"] || r["Max Loading 25kg"] || r["max25"] || r["Max25"];
+
+Line 789:
+  VI:     var v25 = r.max25 || r["Max Loading 25KG"] || r["Max Loading 25kg"] || r["max25"] || r["Max25"];
+  EN:     var vJb = r.maxJumbo || r["Max Loading Jumbo"] || r["Max Loading jumbo"] || r["maxJumbo"] || r["MaxJumbo"] || r["Max Jumbo"];
+
+Line 790:
+  VI:     var vJb = r.maxJumbo || r["Max Loading Jumbo"] || r["Max Loading jumbo"] || r["maxJumbo"] || r["MaxJumbo"] || r["Max Jumbo"];
+  EN:     if (v25 !== undefined && v25 !== null && v25 !== "") obj.max25 = Number(v25);
+
+Line 791:
+  VI:     if (v25 !== undefined && v25 !== null && v25 !== "") obj.max25 = Number(v25);
+  EN:     if (vJb !== undefined && vJb !== null && vJb !== "") obj.maxJumbo = Number(vJb);
+
+Line 792:
+  VI:     if (vJb !== undefined && vJb !== null && vJb !== "") obj.maxJumbo = Number(vJb);
+  EN:     if (Object.keys(obj).length > 0) DATA_MAX_LOADING[code] = obj;
+
+Line 793:
+  VI:     if (Object.keys(obj).length > 0) DATA_MAX_LOADING[code] = obj;
+  EN:   });
+
+Line 794:
+  VI:   });
+  EN: }
+
+Line 795:
+  VI: }
+  EN: 
+
+Line 796:
+  VI: 
+  EN: function importCostFOB(arr) {
+
+Line 797:
+  VI: function importCostFOB(arr) {
+  EN:   DATA_COST_FOB = {};
+
+Line 798:
+  VI:   DATA_COST_FOB = {};
+  EN:   arr.forEach(function(r) {
+
+Line 799:
+  VI:   arr.forEach(function(r) {
+  EN:     var load = Number(r.maxLoading || r.MaxLoading || r.load || r.Load || r.tan || r.Tan || r["Ton"] || r["Max loadding"] || r["Max Loadding"]);
+
+Line 800:
+  VI:     var load = Number(r.maxLoading || r.MaxLoading || r.load || r.Load || r.tan || r.Tan || r["Tấn"] || r["Max loadding"] || r["Max Loadding"]);
+  EN:     if (!load) return;
+
+Line 801:
+  VI:     if (!load) return;
+  EN:     var obj = {};
+
+Line 802:
+  VI:     var obj = {};
+  EN:     var vNo = r.no !== undefined ? r.no : r["No LCC"] || r["No lcc"];
+
+Line 803:
+  VI:     var vNo = r.no !== undefined ? r.no : r["No LCC"] || r["No lcc"];
+  EN:     var vSub = r.sub !== undefined ? r.sub : r["Sub LCC"] || r["Sub lcc"];
+
+Line 804:
+  VI:     var vSub = r.sub !== undefined ? r.sub : r["Sub LCC"] || r["Sub lcc"];
+  EN:     if (vNo !== undefined && vNo !== null && vNo !== "") obj.no = Number(vNo);
+
+Line 805:
+  VI:     if (vNo !== undefined && vNo !== null && vNo !== "") obj.no = Number(vNo);
+  EN:     if (vSub !== undefined && vSub !== null && vSub !== "") obj.sub = Number(vSub);
+
+Line 806:
+  VI:     if (vSub !== undefined && vSub !== null && vSub !== "") obj.sub = Number(vSub);
+  EN:     if (Object.keys(obj).length > 0) DATA_COST_FOB[load] = obj;
+
+Line 807:
+  VI:     if (Object.keys(obj).length > 0) DATA_COST_FOB[load] = obj;
+  EN:   });
+
+Line 808:
+  VI:   });
+  EN: }
+
+Line 809:
+  VI: }
+  EN: // ====== PASSWORD MODAL ======
+
+Line 810:
+  VI: 
+  EN: function showPwModal() {
+
+Line 811:
+  VI: function saveToServer() {
+  EN:   document.getElementById("pwModal").classList.add("open");
+
+Line 812:
+  VI:   var blocks = {};
+  EN:   document.getElementById("pwInput").value = "";
+
+Line 813:
+  VI:   blocks.DATA_PRODUCTS = 'var DATA_PRODUCTS = ' + JSON.stringify(DATA_PRODUCTS, null, 2) + ';';
+  EN:   document.getElementById("pwError").style.display = "none";
+
+Line 814:
+  VI:   blocks.DATA_BAGS = 'var DATA_BAGS = ' + JSON.stringify(DATA_BAGS, null, 2) + ';';
+  EN: }
+
+Line 815:
+  VI:   blocks.DATA_OTHERS = 'var DATA_OTHERS = ' + JSON.stringify(DATA_OTHERS, null, 2) + ';';
+  EN: function closePwModal() {
+
+Line 816:
+  VI:   blocks.DATA_MAX_LOADING = 'var DATA_MAX_LOADING = ' + JSON.stringify(DATA_MAX_LOADING, null, 2) + ';';
+  EN:   document.getElementById("pwModal").classList.remove("open");
+
+Line 817:
+  VI:   blocks.DATA_COST_FOB = 'var DATA_COST_FOB = ' + JSON.stringify(DATA_COST_FOB, null, 2) + ';';
+  EN: }
+
+Line 818:
+  VI:   var xhr = new XMLHttpRequest();
+  EN: function checkPassword() {
+
+Line 819:
+  VI:   xhr.open('POST', '/api/ktg-data', true);
+  EN:   if (document.getElementById("pwInput").value === managePassword) {
+
+Line 820:
+  VI:   xhr.setRequestHeader('Content-Type', 'application/json');
+  EN:     closePwModal();
+
+Line 821:
+  VI:   xhr.onload = function() {
+  EN:     switchTab("manage");
+
+Line 822:
+  VI:     if (xhr.status === 200) {
+  EN:   } else {
+
+Line 823:
+  VI:       console.log('[KTG] Saved to server');
+  EN:     document.getElementById("pwError").style.display = "block";
+
+Line 824:
+  VI:     } else {
+  EN:   }
+
+Line 825:
+  VI:       console.error('[KTG] Server save failed:', xhr.status);
+  EN: }
+
+Line 826:
+  VI:     }
+  EN: function manageFromPwModal() { checkPassword(); }
+
+Line 827:
+  VI:   };
+  EN: 
+
+Line 828:
+  VI:   xhr.onerror = function() { console.error('[KTG] Server save network error'); };
+  EN: // ====== FILTER POPULATOR ======
+
+Line 829:
+  VI:   xhr.send(JSON.stringify({ blocks: blocks }));
+  EN: function populateFilters() {
+
+Line 830:
+  VI: }
+  EN:   var sf = document.getElementById("specFilter");
+
+Line 831:
+  VI: // ====== PASSWORD MODAL ======
+  EN:   var mf = document.getElementById("machineFilter");
+
+Line 832:
+  VI: function showPwModal() {
+  EN:   if (!sf || !mf) return;
+
+Line 833:
+  VI:   document.getElementById("pwModal").classList.add("open");
+  EN:   var specSet = {}, machSet = {};
+
+Line 834:
+  VI:   document.getElementById("pwInput").value = "";
+  EN:   DATA_PRODUCTS.forEach(function(p) {
+
+Line 835:
+  VI:   document.getElementById("pwError").style.display = "none";
+  EN:     specSet[p.standard] = true;
+
+Line 836:
+  VI: }
+  EN:     machSet[p.machine] = true;
+
+Line 837:
+  VI: function closePwModal() {
+  EN:   });
+
+Line 838:
+  VI:   document.getElementById("pwModal").classList.remove("open");
+  EN:   var curSpec = sf.value, curMach = mf.value;
+
+Line 839:
+  VI: }
+  EN:   sf.innerHTML = '<option value="">All Standards</option>';
+
+Line 840:
+  VI: function checkPassword() {
+  EN:   Object.keys(specSet).sort().forEach(function(s) {
+
+Line 841:
+  VI:   if (document.getElementById("pwInput").value === managePassword) {
+  EN:     sf.innerHTML += '<option value="' + s.replace(/"/g, '&quot;') + '">' + s + '</option>';
+
+Line 842:
+  VI:     closePwModal();
+  EN:   });
+
+Line 843:
+  VI:     switchTab("manage");
+  EN:   sf.value = curSpec;
+
+Line 844:
+  VI:   } else {
+  EN:   mf.innerHTML = '<option value="">All Machines</option>';
+
+Line 845:
+  VI:     document.getElementById("pwError").style.display = "block";
+  EN:   Object.keys(machSet).sort().forEach(function(m) {
+
+Line 846:
+  VI:   }
+  EN:     mf.innerHTML += '<option value="' + m.replace(/"/g, '&quot;') + '">' + m + '</option>';
+
+Line 847:
+  VI: }
+  EN:   });
+
+Line 848:
+  VI: function manageFromPwModal() { checkPassword(); }
+  EN:   mf.value = curMach;
+
+Line 849:
+  VI: 
+  EN: }
+
+Line 850:
+  VI: // ====== FILTER POPULATOR ======
+  EN: 
+
+Line 851:
+  VI: function populateFilters() {
+  EN: // ====== RENDER BAGS TAB ======
+
+Line 852:
+  VI:   var sf = document.getElementById("specFilter");
+  EN: 
+
+Line 853:
+  VI:   var mf = document.getElementById("machineFilter");
+  EN: function toggleMaxLoad() {
+
+Line 854:
+  VI:   if (!sf || !mf) return;
+  EN:   var cols = document.querySelectorAll('.ml-toggle');
+
+Line 855:
+  VI:   var curSpec = sf.value, curMach = mf.value;
+  EN:   var btn = document.getElementById('mlToggleBtn');
+
+Line 856:
+  VI:   // Cross-link: when machine is selected, only show related standards; vice versa
+  EN:   var hidden = btn.textContent.indexOf('Hi\u1ec7n') >= 0;
+
+Line 857:
+  VI:   var machinesByStd = {}, standardsByMach = {};
+  EN:   cols.forEach(function(el) { el.classList.toggle('ml-visible', hidden); });
+
+Line 858:
+  VI:   DATA_PRODUCTS.forEach(function(p) {
+  EN:   btn.textContent = hidden ? '\ud83d\udccb \u1ea8n max t\u1ea3i' : '\ud83d\udccb Hi\u1ec7n max t\u1ea3i';
+
+Line 859:
+  VI:     if (!curMach || String(p.machine) === curMach) standardsByMach[p.standard] = true;
+  EN: }
+
+Line 860:
+  VI:     if (!curSpec || p.standard === curSpec) machinesByStd[p.machine] = true;
+  EN: 
+
+Line 861:
+  VI:   });
+  EN: ---
+
+Line 862:
+  VI:   // Rebuild spec filter (standards available for selected machine)
+  EN: ---
+
+Line 863:
+  VI:   sf.innerHTML = '<option value="">Tất cả tiêu chuẩn</option>';
+  EN: ---
+
+Line 864:
+  VI:   var sk = Object.keys(standardsByMach).sort();
+  EN: ---
+
+Line 865:
+  VI:   for (var i = 0; i < sk.length; i++) { sf.innerHTML += '<option value="' + sk[i].replace(/"/g, '&quot;') + '">' + sk[i] + '</option>'; }
+  EN: ---
+
+Line 866:
+  VI:   sf.value = curSpec && sk.indexOf(curSpec) >= 0 ? curSpec : "";
+  EN: ---
+
+Line 867:
+  VI:   // Rebuild machine filter (machines available for selected standard)
+  EN: ---
+
+Line 868:
+  VI:   mf.innerHTML = '<option value="">Tất cả máy</option>';
+  EN: ---
+
+Line 869:
+  VI:   var mk = Object.keys(machinesByStd).sort();
+  EN: ---
+
+Line 870:
+  VI:   for (var i = 0; i < mk.length; i++) { mf.innerHTML += '<option value="' + mk[i].replace(/"/g, '&quot;') + '">' + mk[i] + '</option>'; }
+  EN: ---
+
+Line 871:
+  VI:   mf.value = curMach && mk.indexOf(curMach) >= 0 ? curMach : "";
+  EN: ---
+
+Line 872:
+  VI: }
+  EN: ---
+
+Line 873:
+  VI: // ====== RENDER BAGS TAB ======
+  EN: ---
+
+Line 874:
+  VI: 
+  EN: ---
+
+Line 875:
+  VI: function toggleMaxLoad() {
+  EN: ---
+
+Line 876:
+  VI:   var cols = document.querySelectorAll('.ml-toggle');
+  EN: ---
+
+Line 877:
+  VI:   var btn = document.getElementById('mlToggleBtn');
+  EN: ---
+
+Line 878:
+  VI:   var hidden = btn.textContent.indexOf('Hi\u1ec7n') >= 0;
+  EN: ---
+
+Line 879:
+  VI:   cols.forEach(function(el) { el.classList.toggle('ml-visible', hidden); });
+  EN: ---
+
+Line 880:
+  VI:   btn.textContent = hidden ? '\ud83d\udccb \u1ea8n max t\u1ea3i' : '\ud83d\udccb Hi\u1ec7n max t\u1ea3i';
+  EN: ---
+
+Line 881:
+  VI: }
+  EN: ---
+
+Line 882:
+  VI: 
+  EN: ---
+

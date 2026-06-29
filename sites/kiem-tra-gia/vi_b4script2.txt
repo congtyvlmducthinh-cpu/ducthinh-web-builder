@@ -1,0 +1,9 @@
+="if(event.key==='Enter')checkPassword()" autocomplete="off">
+<div class="pw-error" id="pwError">❌ Sai mật khẩu!</div>
+<div class="btn-row">
+<button class="btn-cancel" onclick="closePwModal()">Hủy</button>
+<button class="btn-confirm" onclick="checkPassword()">Xác nhận</button>
+</div>
+</div>
+</div>
+

@@ -1,0 +1,25 @@
+1296: 
+1297: // ====== MISSING FUNCTIONS ======
+1298: 
+1299: // ====== SAVE DATA TO SERVER ======
+1300: function detectCurrentLang() {
+1301:   var path = window.location.pathname;
+1302:   var m = path.match(//(vi|en|zh)(?:.html)?(?:/|$)/);
+1303:   return m ? m[1] : "vi";
+1304: }
+1305: 
+1306: function saveToServer() {
+1307:   var btn = document.getElementById("saveServerBtn");
+1308:   if (!btn) return;
+1309:   var origText = btn.textContent;
+1310:   btn.textContent = "⏳ Đang lưu...";
+1311:   btn.disabled = true;
+1312:   var status = document.getElementById("manageUploadStatus");
+1313: 
+1314:   var payload = {
+1315:     lang: "__ALL__",
+1316:     blocks: {
+1317:       DATA_PRODUCTS: "var DATA_PRODUCTS = " + JSON.stringify(DATA_PRODUCTS, null, 2) + ";",
+1318:       DATA_BAGS: "var DATA_BAGS = " + JSON.stringify(DATA_BAGS, null, 2) + ";",
+1319:       DATA_OTHERS: "var DATA_OTHERS = " + JSON.stringify(DATA_OTHERS, null, 2) + ";"
+1320:     }

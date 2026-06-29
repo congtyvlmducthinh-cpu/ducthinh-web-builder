@@ -1,0 +1,65 @@
+tEmail=document.getElementById("qCustEmail").value||"";
+  var qty=parseFloat(document.getElementById("qQty").value)||1;
+  var valid=document.getElementById("qValid").value;
+  var payment=document.getElementById("qPayment").value;
+  var port=document.getElementById("qPort").value||"";
+  var delivery=document.getElementById("qDelivery").value;
+  var note=document.getElementById("qNote").value;
+  var totalFmt=data.totalPrice>0?data.totalPrice.toLocaleString("en-US",data.isUsd?{minimumFractionDigits:0,maximumFractionDigits:2}:{}):"__________";
+  var now=new Date();
+  var dd=String(now.getDate()).padStart(2,"0");
+  var mm=String(now.getMonth()+1).padStart(2,"0");
+  var yy=now.getFullYear();
+  var dateStr=dd+"/"+mm+"/"+yy;
+  var w=window.open("","_blank");
+  w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Quotation - '+data.product+'</title>');
+  w.document.write('<style>body{font-family:"Arial",sans-serif;padding:40px;max-width:780px;margin:0 auto;color:#1e293b}h1{font-size:22px;text-align:center;margin:0 0 4px;text-transform:uppercase;letter-spacing:.05em}.sub{text-align:center;color:#64748b;font-size:12px;margin:0 0 20px;line-height:1.5}.divider{height:2px;background:#2563eb;margin:0 0 16px}.title{text-align:center;font-weight:700;font-size:15px;margin:0 0 20px}table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px}th{background:#f1f5f9;text-align:left;padding:8px 6px;font-size:11px;text-transform:uppercase;color:#475569;border:1px solid #e2e8f0}td{padding:8px 6px;border:1px solid #e2e8f0}.row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid #f1f5f9}.row strong{color:#1e293b}.row span{color:#475569}.footer{margin-top:20px;font-size:11px;color:#94a3b8;line-height:1.6}@media print{body{padding:20px}}</style></head><body>');
+  w.document.write('<h1>'+COMPANY+'</h1>');
+  w.document.write('<p class="sub">'+ADDR+'<br>Email: '+EMAIL+' - '+WEBSITE+'<br>Tel: '+PHONE+' Ext: '+EXT+' - MST: '+MST+'</p>');
+  w.document.write('<div class="divider"></div>');
+  w.document.write('<p class="title">📄 QUOTATION</p>');
+  w.document.write('<div class="row"><strong>Customer:</strong><span>'+customer+'</span></div>');
+  if (contact) w.document.write('<div class="row"><strong>Contact:</strong><span>'+contact+'</span></div>');
+  if (assigned) w.document.write('<div class="row"><strong>PIC:</strong><span>'+assigned+'</span></div>');
+  if (custEmail) w.document.write('<div class="row"><strong>Email:</strong><span>'+custEmail+'</span></div>');
+  w.document.write('<div class="row"><strong>Date:</strong><span>'+dateStr+'</span></div>');
+  if (port) w.document.write('<div class="row"><strong>Port of Loading:</strong><span>'+port+'</span></div>');
+  w.document.write('<table><thead><tr><th>No.</th><th>Code</th><th>Product Name</th><th>Spec</th><th>Bag Spec</th><th>Unit</th><th>Qty</th><th>Price</th><th>Currency</th></tr></thead><tbody>');
+  w.document.write('<tr><td>1</td><td>'+data.code+'</td><td>'+data.size+'</td><td style="font-size:11px">'+data.spec+'</td><td>'+data.bagSpec+'</td><td>Ton</td><td>'+qty+'</td><td><strong>'+totalFmt+'</strong></td><td>'+data.cc+'</td></tr>');
+  w.document.write('</tbody></table>');
+  w.document.write('<div class="row"><strong>Delivery Terms:</strong><span>'+delivery+'</span></div>');
+  w.document.write('<div class="row"><strong>Condition:</strong><span>'+data.mode+'</span></div>');
+  w.document.write('<div class="row"><strong>Validity:</strong><span>'+valid+'</span></div>');
+  w.document.write('<div class="row"><strong>Payment:</strong><span>'+payment+'</span></div>');
+  if (note) w.document.write('<div class="row"><strong>Note:</strong><span>'+note+'</span></div>');
+  w.document.write('<div class="footer">- Price excludes VAT<br>- '+(delivery==="At Duc Thinh Factory"?"Price excl. delivery to buyer warehouse":"Price incl. delivery to buyer warehouse")+'<br>- This quotation is valid for '+valid+'<br>- Min qty: 1x20ft container (~21 tons)<br><br><strong>'+COMPANY_EN+'</strong></div>');
+  w.document.write('</body></html>');
+  w.document.close();
+  setTimeout(function(){w.print();},500);
+}
+function fmtNum(n, isUsd) {
+  if (isUsd) return n.toLocaleString('en-US', {minimumFractionDigits:1, maximumFractionDigits:2});
+  return Math.round(n).toLocaleString();
+}
+var saved = localStorage.getItem("dq_products");
+if (saved) {
+  try { DATA_PRODUCTS = JSON.parse(saved); } catch(e) {}
+}
+var savedBags = localStorage.getItem("dq_bags");
+if (savedBags) {
+  try { DATA_BAGS = JSON.parse(savedBags); } catch(e) {}
+}
+var savedOthers = localStorage.getItem("dq_others");
+if (savedOthers) {
+  try { DATA_OTHERS = JSON.parse(savedOthers); } catch(e) {}
+}
+var savedML = localStorage.getItem("dq_maxLoading");
+if (savedML) {
+  try { DATA_MAX_LOADING = JSON.parse(savedML); } catch(e) {}
+}
+var savedCF = localStorage.getItem("dq_costFOB");
+if (savedCF) {
+  try { DATA_COST_FOB = JSON.parse(savedCF); } catch(e) {}
+}
+applyMarket();
+switchTab("pricelist");

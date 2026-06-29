@@ -1,0 +1,11 @@
+Object.keys(vndFields).forEach(function(k) {
+      var names = vndFields[k];
+      for (var i = 0; i < names.length; i++) {
+        if (r[names[i]] !== undefined && r[names[i]] !== null && r[names[i]] !== "") {
+          obj[k] = Number(r[names[i]]);
+          obj[k + "_cn"] = Number(r[names[i]]);
+          obj[k + "_other"] = Number(r[names[i]]);
+          break;
+        }
+      }
+    });

@@ -1,0 +1,18 @@
+
+// Manage file upload
+(function() {
+  var dropZone = document.getElementById("manageDropZone");
+  var fileInput = document.getElementById("manageFileInput");
+  if (!dropZone || !fileInput) return;
+  dropZone.addEventListener("click", function() { fileInput.click(); });
+  dropZone.addEventListener("dragover", function(e) { e.preventDefault(); dropZone.classList.add("dragover"); });
+  dropZone.addEventListener("dragleave", function() { dropZone.classList.remove("dragover"); });
+  dropZone.addEventListener("drop", function(e) {
+    e.preventDefault();
+    dropZone.classList.remove("dragover");
+    if (e.dataTransfer.files.length) handleManageFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener("change", function() {
+    if (fileInput.files.length) handleManageFile(fileInput.files[0]);
+  });
+})();

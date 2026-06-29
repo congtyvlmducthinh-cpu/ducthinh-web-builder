@@ -1,0 +1,23 @@
+Preserve market-specific fields from template files
+    if (r.exw_vnd_cn !== undefined) obj.exw_vnd_cn = Number(r.exw_vnd_cn);
+    if (r.exw_usd_cn !== undefined) obj.exw_usd_cn = Number(r.exw_usd_cn);
+    if (r.comm_vnd_cn !== undefined) obj.comm_vnd_cn = Number(r.comm_vnd_cn);
+    if (r.comm_usd_cn !== undefined) obj.comm_usd_cn = Number(r.comm_usd_cn);
+    if (r.pkg25_vnd_cn !== undefined) obj.pkg25_vnd_cn = Number(r.pkg25_vnd_cn);
+    if (r.pkg25_usd_cn !== undefined) obj.pkg25_usd_cn = Number(r.pkg25_usd_cn);
+    if (r.jumbo_vnd_cn !== undefined) obj.jumbo_vnd_cn = Number(r.jumbo_vnd_cn);
+    if (r.jumbo_usd_cn !== undefined) obj.jumbo_usd_cn = Number(r.jumbo_usd_cn);
+    if (r.exw_vnd_other !== undefined) obj.exw_vnd_other = Number(r.exw_vnd_other);
+    if (r.exw_usd_other !== undefined) obj.exw_usd_other = Number(r.exw_usd_other);
+    if (r.comm_vnd_other !== undefined) obj.comm_vnd_other = Number(r.comm_vnd_other);
+    if (r.comm_usd_other !== undefined) obj.comm_usd_other = Number(r.comm_usd_other);
+    if (r.pkg25_vnd_other !== undefined) obj.pkg25_vnd_other = Number(r.pkg25_vnd_other);
+    if (r.pkg25_usd_other !== undefined) obj.pkg25_usd_other = Number(r.pkg25_usd_other);
+    if (r.jumbo_vnd_other !== undefined) obj.jumbo_vnd_other = Number(r.jumbo_vnd_other);
+    if (r.jumbo_usd_other !== undefined) obj.jumbo_usd_other = Number(r.jumbo_usd_other);
+    DATA_PRODUCTS.push(obj);
+  });
+}
+
+var DATA_BAGS = [{"code": "NVL-BB-PP-K55X85", "cost": 4562, "spec": "25KG", "qty": 18000, "price": 220528, "profit": 0.1}, {"code": "NVL-BB-JB-92X92X125", "cost": 127750, "spec": "Jumbo", "qty": 3000, "price": 143825, "profit": 0.1}, {"code": "NVL-BB-JB-95X95X125", "cost": 131250, "spec": "Jumbo", "qty": 3000, "price": 147675, "profit": 0.1}, {"code": "NVL-BB-25KG-52X78", "cost": 3990, "spec": "25KG", "qty": 18000, "price": 195360, "profit": 0.1}, {"code": "NVL-BB-25KG-52X75", "cost": 3800, "spec": "25KG", "qty": 18000, "price": 187000, "profit": 0.1}, {"code": "NVL-BB-25KG-52X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}, {"code": "NVL-BB-34KG-50X78-KOTR", "cost": 3100, "spec": "34KG", "qty": 18000, "price": 156200, "profit": 0.1}, {"code": "50KG-NHUATAICHE-55X85", "cost": 2650, "spec": "50KG", "qty": 18000, "price": 78100, "profit": 0.1}, {"code": "NVL-BB-25KG-50X72-KOTR", "cost": 3000, "spec": "25KG", "qty": 18000, "price": 151800, "profit": 0.1}, {"code": "Bao jumbo của khách", "cost": 0, "spec": "Jumbo", "qty": 3000, "price": 3300, "profit": 0.1}, {"code": "BAO 25KG CỦA KHÁCH", "cost": 0, "spec": "25KG", "qty": 18000, "price": 19800, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR", "cost": 127000, "spec": "Jumbo", "qty": 3000, "price": 143000, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR QUAY VÒNG", "cost": 43000, "spec": "Jumbo", "qty": 3000, "price": 59800, "profit": 0.3}, {"code": "NVL-BB-25KG-50X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}];
+

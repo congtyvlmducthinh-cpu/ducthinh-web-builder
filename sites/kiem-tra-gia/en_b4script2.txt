@@ -1,0 +1,9 @@
+(event.key==='Enter')checkPassword()" autocomplete="off">
+<div class="pw-error" id="pwError">❌ Wrong password!</div>
+<div class="btn-row">
+<button class="btn-cancel" onclick="closePwModal()">Cancel</button>
+<button class="btn-confirm" onclick="checkPassword()">Confirm</button>
+</div>
+</div>
+</div>
+

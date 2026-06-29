@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service>
+  <id>DoccheckWebServer</id>
+  <name>Doccheck Web Server</name>
+  <description>Serves doccheck.ducthinhmaterials.com and tools.ducthinhmaterials.com on port 8080</description>
+  <executable>C:\Program Files\nodejs\node.exe</executable>
+  <arguments>C:\Users\Admin\.openclaw\workspace-skills\web-builder\sites\_server.js</arguments>
+  <logmode>rotate</logmode>
+  <onfailure action="restart" delay="10 sec"/>
+</service>

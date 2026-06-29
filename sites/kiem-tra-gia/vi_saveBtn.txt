@@ -1,0 +1,14 @@
+>
+<p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">Lưu dữ liệu hiện tại lên server để đồng bộ sang cả 3 ngôn ngữ (vi/en/zh)</p>
+<button class="btn-confirm" id="saveServerBtn" onclick="saveToServer()">💾 Lưu lên server</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="modal-overlay" id="pwModal">
+<div class="modal-box">
+<h3>🔐 Nhập mật khẩu</h3>
+<p>🔒 Chức năng quản lý yêu cầu 

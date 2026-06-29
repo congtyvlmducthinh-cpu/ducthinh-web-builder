@@ -1,0 +1,11 @@
+localStorage.getItem("dq_quote_num")||"0")+1;
+  localStorage.setItem("dq_quote_num",String(qn));
+  document.getElementById("qDateSpan").textContent = "Code: "+code+" | No: "+qn+" | "+dd+"/"+mm+"/"+yy;
+  document.getElementById("qPreviewBody").scrollTop = 0;
+}
+function closeQuotationPopup() {
+  document.getElementById("quotationPopup").classList.remove("open");
+}
+function getCalcPriceData() {
+  var psel=document.getElementById("calcProduct"), bsel=document.getElementById("calcBag");
+  var bagSpec

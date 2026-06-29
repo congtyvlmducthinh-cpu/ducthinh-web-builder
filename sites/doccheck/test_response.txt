@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Directory listing for /</title>
+</head>
+<body>
+<h1>Directory listing for /</h1>
+<hr>
+<ul>
+<li><a href="_download-assets.js">_download-assets.js</a></li>
+<li><a href="_fix-assets.js">_fix-assets.js</a></li>
+<li><a href="_fix-assets2.js">_fix-assets2.js</a></li>
+<li><a href="_fix-assets3.js">_fix-assets3.js</a></li>
+<li><a href="_fix-tailwind.js">_fix-tailwind.js</a></li>
+<li><a href="doccheck/">doccheck/</a></li>
+<li><a href="doccheck-server-service.err.log">doccheck-server-service.err.log</a></li>
+<li><a href="doccheck-server-service.exe">doccheck-server-service.exe</a></li>
+<li><a href="doccheck-server-service.out.log">doccheck-server-service.out.log</a></li>
+<li><a href="doccheck-server-service.wrapper.log">doccheck-server-service.wrapper.log</a></li>
+<li><a href="doccheck-server-service.xml">doccheck-server-service.xml</a></li>
+<li><a href="kiem-tra-gia/">kiem-tra-gia/</a></li>
+<li><a href="ktg-dark.css">ktg-dark.css</a></li>
+<li><a href="portal/">portal/</a></li>
+</ul>
+<hr>
+</body>
+</html>

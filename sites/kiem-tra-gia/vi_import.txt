@@ -1,0 +1,74 @@
+function importProducts(arr) {
+  DATA_PRODUCTS = [];
+  arr.forEach(function(r) {
+    var obj = {};
+    obj.code = r.code || r.Code || r["Mã SP"] || r["Ma SP"] || r["Mã sản phẩm"] || r["Mã"] || "";
+    if (!obj.code) return;
+    obj.size = r.size || r.Size || r["Cỡ hạt"] || r["Co hat"] || r["Size"] || "";
+    obj.standard = r.standard || r.Standard || r["Tiêu chuẩn"] || r["Tieu chuan"] || r["Standard"] || "";
+    obj.machine = r.machine || r.Machine || r["Máy chạy"] || r["May chay"] || r["Máy"] || r["May"] || "";
+    var vndFields = {
+      exw_vnd: ["EXW (VND)","EXW(VND)","exw_vnd","EXW_VND","exw vnd","EXW VND","Exw(VND)"],
+      exw_usd: ["EXW (USD)","EXW(USD)","exw_usd","EXW_USD","exw usd","EXW USD","Exw(USD)"],
+      comm_vnd: ["Hoa hồng (VND)","Hoa hong (VND)","Hoa hồng(VND)","comm_vnd","comm vnd"],
+      comm_usd: ["Hoa hồng (USD)","Hoa hong (USD)","Hoa hồng(USD)","comm_usd","comm usd"],
+      pkg25_vnd: ["25kg (VND)","25kg(VND)","25KG (VND)","25KG(VND)","pkg25_vnd","25kg_vnd"],
+      pkg25_usd: ["25kg (USD)","25kg(USD)","25KG (USD)","25KG(USD)","pkg25_usd","25kg_usd"],
+      jumbo_vnd: ["Jumbo (VND)","Jumbo(VND)","jumbo_vnd","jumbo vnd"],
+      jumbo_usd: ["Jumbo (USD)","Jumbo(USD)","jumbo_usd","jumbo usd"]
+    };
+    Object.keys(vndFields).forEach(function(k) {
+      var names = vndFields[k];
+      for (var i = 0; i < names.length; i++) {
+        if (r[names[i]] !== undefined && r[names[i]] !== null && r[names[i]] !== "") {
+          obj[k] = Number(r[names[i]]);
+          obj[k + "_cn"] = Number(r[names[i]]);
+          obj[k + "_other"] = Number(r[names[i]]);
+          break;
+        }
+      }
+    });
+    // Copy extra fields
+    if (r.d50 !== undefined) obj.d50 = Number(r.d50);
+    if (r.d97 !== undefined) obj.d97 = Number(r.d97);
+    if (r.whiteness !== undefined) obj.whiteness = Number(r.whiteness);
+    if (r.brightness !== undefined) obj.brightness = Number(r.brightness);
+    // Read max loading from product row if available
+    var max25 = r.max25 || r["Max Loading 25KG"] || r["Max Loading 25kg"] || r["Max25"] || r["Max 25KG"];
+    var maxJb = r.maxJumbo || r["Max Loading Jumbo"] || r["Max Loading jumbo"] || r["MaxJumbo"] || r["Max Jumbo"];
+    if (max25 !== undefined && max25 !== null && max25 !== "") {
+      obj.max25 = Number(max25);
+      DATA_MAX_LOADING[obj.code] = DATA_MAX_LOADING[obj.code] || {};
+      DATA_MAX_LOADING[obj.code].max25 = Number(max25);
+    }
+    if (maxJb !== undefined && maxJb !== null && maxJb !== "") {
+      obj.maxJumbo = Number(maxJb);
+      DATA_MAX_LOADING[obj.code] = DATA_MAX_LOADING[obj.code] || {};
+      DATA_MAX_LOADING[obj.code].maxJumbo = Number(maxJb);
+    }
+    // Preserve market-specific fields from template files
+    if (r.exw_vnd_cn !== undefined) obj.exw_vnd_cn = Number(r.exw_vnd_cn);
+    if (r.exw_usd_cn !== undefined) obj.exw_usd_cn = Number(r.exw_usd_cn);
+    if (r.comm_vnd_cn !== undefined) obj.comm_vnd_cn = Number(r.comm_vnd_cn);
+    if (r.comm_usd_cn !== undefined) obj.comm_usd_cn = Number(r.comm_usd_cn);
+    if (r.pkg25_vnd_cn !== undefined) obj.pkg25_vnd_cn = Number(r.pkg25_vnd_cn);
+    if (r.pkg25_usd_cn !== undefined) obj.pkg25_usd_cn = Number(r.pkg25_usd_cn);
+    if (r.jumbo_vnd_cn !== undefined) obj.jumbo_vnd_cn = Number(r.jumbo_vnd_cn);
+    if (r.jumbo_usd_cn !== undefined) obj.jumbo_usd_cn = Number(r.jumbo_usd_cn);
+    if (r.exw_vnd_other !== undefined) obj.exw_vnd_other = Number(r.exw_vnd_other);
+    if (r.exw_usd_other !== undefined) obj.exw_usd_other = Number(r.exw_usd_other);
+    if (r.comm_vnd_other !== undefined) obj.comm_vnd_other = Number(r.comm_vnd_other);
+    if (r.comm_usd_other !== undefined) obj.comm_usd_other = Number(r.comm_usd_other);
+    if (r.pkg25_vnd_other !== undefined) obj.pkg25_vnd_other = Number(r.pkg25_vnd_other);
+    if (r.pkg25_usd_other !== undefined) obj.pkg25_usd_other = Number(r.pkg25_usd_other);
+    if (r.jumbo_vnd_other !== undefined) obj.jumbo_vnd_other = Number(r.jumbo_vnd_other);
+    if (r.jumbo_usd_other !== undefined) obj.jumbo_usd_other = Number(r.jumbo_usd_other);
+    DATA_PRODUCTS.push(obj);
+  });
+}
+
+var DATA_BAGS = [{"code": "NVL-BB-PP-K55X85", "cost": 4562, "spec": "25KG", "qty": 18000, "price": 220528, "profit": 0.1}, {"code": "NVL-BB-JB-92X92X125", "cost": 127750, "spec": "Jumbo", "qty": 3000, "price": 143825, "profit": 0.1}, {"code": "NVL-BB-JB-95X95X125", "cost": 131250, "spec": "Jumbo", "qty": 3000, "price": 147675, "profit": 0.1}, {"code": "NVL-BB-25KG-52X78", "cost": 3990, "spec": "25KG", "qty": 18000, "price": 195360, "profit": 0.1}, {"code": "NVL-BB-25KG-52X75", "cost": 3800, "spec": "25KG", "qty": 18000, "price": 187000, "profit": 0.1}, {"code": "NVL-BB-25KG-52X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}, {"code": "NVL-BB-34KG-50X78-KOTR", "cost": 3100, "spec": "34KG", "qty": 18000, "price": 156200, "profit": 0.1}, {"code": "50KG-NHUATAICHE-55X85", "cost": 2650, "spec": "50KG", "qty": 18000, "price": 78100, "profit": 0.1}, {"code": "NVL-BB-25KG-50X72-KOTR", "cost": 3000, "spec": "25KG", "qty": 18000, "price": 151800, "profit": 0.1}, {"code": "Bao jumbo của khách", "cost": 0, "spec": "Jumbo", "qty": 3000, "price": 3300, "profit": 0.1}, {"code": "BAO 25KG CỦA KHÁCH", "cost": 0, "spec": "25KG", "qty": 18000, "price": 19800, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR", "cost": 127000, "spec": "Jumbo", "qty": 3000, "price": 143000, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR QUAY VÒNG", "cost": 43000, "spec": "Jumbo", "qty": 3000, "price": 59800, "profit": 0.3}, {"code": "NVL-BB-25KG-50X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}];
+
+
+// Market switching
+var currentMarket = "cn";

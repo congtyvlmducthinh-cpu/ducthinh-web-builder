@@ -1,0 +1,4 @@
+detectCurrentLang() {
+  var path = window.location.pathname;
+  var m = path.match(//(vi|en|zh)(?:.html)?(?:/|$)/);
+  ret

@@ -1,0 +1,16 @@
+=== app.js ===
+  handleManageFile: localStorage_save=False, switchTab=False
+  localStorage loading: NOT FOUND
+  saveToServer: FOUND
+=== vi.html ===
+  handleManageFile: localStorage_save=True, switchTab=False
+  localStorage loading: commented=False
+  saveToServer: FOUND
+=== en.html ===
+  handleManageFile: localStorage_save=True, switchTab=False
+  localStorage loading: commented=False
+  saveToServer: NOT FOUND
+=== zh.html ===
+  handleManageFile: localStorage_save=True, switchTab=False
+  localStorage loading: commented=False
+  saveToServer: NOT FOUND

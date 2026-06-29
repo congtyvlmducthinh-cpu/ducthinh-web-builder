@@ -1,0 +1,8 @@
+ai mật khẩu!</div>
+<div class="btn-row">
+<button class="btn-cancel" onclick="closePwModal()">Hủy</button>
+<button class="btn-confirm" onclick="checkPassword()">Xác nhận</button>
+</div>
+</div>
+</div>
+

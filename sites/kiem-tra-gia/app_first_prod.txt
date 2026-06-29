@@ -1,0 +1,1 @@
+var DATA_PRODUCTS = [{"code": "H4A1", "size": "4±1 µm", "standard": "A1", "machine": "1700", "exw_vnd": 2430000, "exw_usd": 93.46, "comm_vnd": 33000, "comm_usd": 1.27, "pkg25_vnd": 2651000, "pkg25_usd": 101.96, "jumbo_vnd": 2641000, "jumbo_usd": 101.58}

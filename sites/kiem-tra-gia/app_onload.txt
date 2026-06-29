@@ -1,0 +1,8 @@
+.onload = function() {
+    btn.textContent = origText;
+    btn.disabled = false;
+    if (status) {
+      status.style.display = "block";
+      status.className = xhr.status === 200 ? "manage-status-sm ok" : "manage-status-sm err";
+      status.textContent = xhr.status === 200
+        ? "✅ Đã lưu lên

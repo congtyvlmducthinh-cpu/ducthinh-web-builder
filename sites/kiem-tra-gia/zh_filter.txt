@@ -1,0 +1,5 @@
+Found: machineFilter && p.machine
+turn false;
+    if (machineFilter && p.machine !== machineFilter) return false;
+    return true;
+  }

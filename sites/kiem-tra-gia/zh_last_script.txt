@@ -1,0 +1,35 @@
+ class="row"><strong>条件:</strong><span>'+data.mode+'</span></div>');
+  w.document.write('<div class="row"><strong>有效期:</strong><span>'+valid+'</span></div>');
+  w.document.write('<div class="row"><strong>付款:</strong><span>'+payment+'</span></div>');
+  if (note) w.document.write('<div class="row"><strong>备注:</strong><span>'+note+'</span></div>');
+  w.document.write('<div class="footer">- 价格不含增值税<br>- '+(delivery==="德盛工厂"?"价格不含买方仓库运输费":"价格含买方仓库运输费")+'<br>- 此报价有效期 '+valid+'<br>- 最小起订量: 1个20尺柜(约21吨)<br><br><strong>'+COMPANY_EN+'</strong></div>');
+  w.document.write('</body></html>');
+  w.document.close();
+  setTimeout(function(){w.print();},500);
+}
+function fmtNum(n, isUsd) {
+  if (isUsd) return n.toLocaleString('en-US', {minimumFractionDigits:1, maximumFractionDigits:2});
+  return Math.round(n).toLocaleString();
+}
+var saved = localStorage.getItem("dq_products");
+if (saved) {
+  try { DATA_PRODUCTS = JSON.parse(saved); } catch(e) {}
+}
+var savedBags = localStorage.getItem("dq_bags");
+if (savedBags) {
+  try { DATA_BAGS = JSON.parse(savedBags); } catch(e) {}
+}
+var savedOthers = localStorage.getItem("dq_others");
+if (savedOthers) {
+  try { DATA_OTHERS = JSON.parse(savedOthers); } catch(e) {}
+}
+var savedML = localStorage.getItem("dq_maxLoading");
+if (savedML) {
+  try { DATA_MAX_LOADING = JSON.parse(savedML); } catch(e) {}
+}
+var savedCF = localStorage.getItem("dq_costFOB");
+if (savedCF) {
+  try { DATA_COST_FOB = JSON.parse(savedCF); } catch(e) {}
+}
+applyMarket();
+switchTab("pricelist");

@@ -1,0 +1,34 @@
+pan>'+valid+'</span></div>');
+  w.document.write('<div class="row"><strong>Payment:</strong><span>'+payment+'</span></div>');
+  if (note) w.document.write('<div class="row"><strong>Note:</strong><span>'+note+'</span></div>');
+  w.document.write('<div class="footer">- Price excludes VAT<br>- '+(delivery==="At Duc Thinh Factory"?"Price excl. delivery to buyer warehouse":"Price incl. delivery to buyer warehouse")+'<br>- This quotation is valid for '+valid+'<br>- Min qty: 1x20ft container (~21 tons)<br><br><strong>'+COMPANY_EN+'</strong></div>');
+  w.document.write('</body></html>');
+  w.document.close();
+  setTimeout(function(){w.print();},500);
+}
+function fmtNum(n, isUsd) {
+  if (isUsd) return n.toLocaleString('en-US', {minimumFractionDigits:1, maximumFractionDigits:2});
+  return Math.round(n).toLocaleString();
+}
+var saved = localStorage.getItem("dq_products");
+if (saved) {
+  try { DATA_PRODUCTS = JSON.parse(saved); } catch(e) {}
+}
+var savedBags = localStorage.getItem("dq_bags");
+if (savedBags) {
+  try { DATA_BAGS = JSON.parse(savedBags); } catch(e) {}
+}
+var savedOthers = localStorage.getItem("dq_others");
+if (savedOthers) {
+  try { DATA_OTHERS = JSON.parse(savedOthers); } catch(e) {}
+}
+var savedML = localStorage.getItem("dq_maxLoading");
+if (savedML) {
+  try { DATA_MAX_LOADING = JSON.parse(savedML); } catch(e) {}
+}
+var savedCF = localStorage.getItem("dq_costFOB");
+if (savedCF) {
+  try { DATA_COST_FOB = JSON.parse(savedCF); } catch(e) {}
+}
+applyMarket();
+switchTab("pricelist");

@@ -1,0 +1,42 @@
+function handleManageFile(file) {
+  var status = document.getElementById("manageUploadStatus");
+  if (!file.name.match(/.xlsx?$/i)) {
+    status.className = "manage-status-sm err";
+    status.textContent = "\u274c Ch\u1ec9 h\u1ed7 tr\u1ee3 file Excel (.xlsx)";
+    return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      var data = new Uint8Array(e.target.result);
+      var wb = XLSX.read(data, {type: "array"});
+      var sheets = wb.SheetNames;
+      var updated = 0;
+      if (sheets.indexOf("Products") >= 0) {
+        var s = XLSX.utils.sheet_to_json(wb.Sheets["Products"]);
+        if (s.length > 0) { DATA_PRODUCTS = s; updated++; }
+      }
+      if (sheets.indexOf("Bags") >= 0) {
+        var s = XLSX.utils.sheet_to_json(wb.Sheets["Bags"]);
+        if (s.length > 0) { DATA_BAGS = s; updated++; }
+      }
+      if (sheets.indexOf("Others") >= 0) {
+        var s = XLSX.utils.sheet_to_json(wb.Sheets["Others"]);
+        if (s.length > 0) { DATA_OTHERS = s; updated++; }
+      }
+      document.getElementById("mProdCnt").textContent = DATA_PRODUCTS.length;
+      document.getElementById("mBagCnt").textContent = DATA_BAGS.length;
+      document.getElementById("mOtherCnt").textContent = DATA_OTHERS.length;
+      populateFilters();
+      render();
+      status.className = "manage-status-sm ok";
+      status.textContent = "\u2705 \u0110\u00e3 c\u1eadp nh\u1eadt " + updated + " b\u1ea3ng d\u1eef li\u1ec7u!";
+    } catch(err) {
+      status.className = "manage-status-sm err";
+      status.textContent = "\u274c L\u1ed7i: " + err.message;
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+// ====== PASSWORD MODAL ======

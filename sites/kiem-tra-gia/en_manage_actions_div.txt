@@ -1,0 +1,12 @@
+<div class="manage-actions">
+<h3>⬇ Load Data</h3>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:10px">
+<button class="btn-confirm" onclick="downloadFile(0)">📋 Sell Price</button>
+<button class="btn-confirm" onclick="downloadFile(1)">📦 Packaging</button>
+<button class="btn-confirm" onclick="downloadFile(2)">📐 Other Specs</button>
+<button class="btn-cancel" onclick="downloadTemplate(0)">📄 Price List Template</button>
+<button class="btn-cancel" onclick="downloadTemplate(1)">📄 Bag Template</button>
+<button class="btn-cancel" onclick="downloadTemplate(2)">📄 Other Spec Template</button>
+<button class="btn-confirm" onclick="downloadFile(3)">⚖️ Max Load</button>
+<button class="btn-cancel" onclick="downloadTemplate(3)">📄 Max Load Template</button>
+</div>

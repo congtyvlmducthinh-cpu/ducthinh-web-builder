@@ -1,0 +1,12 @@
+<div class="manage-actions">
+<h3>⬇ 加载数据</h3>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:10px">
+<button class="btn-confirm" onclick="downloadFile(0)">📋 售价</button>
+<button class="btn-confirm" onclick="downloadFile(1)">📦 包装</button>
+<button class="btn-confirm" onclick="downloadFile(2)">📐 其他规格</button>
+<button class="btn-cancel" onclick="downloadTemplate(0)">📄 价格表模板</button>
+<button class="btn-cancel" onclick="downloadTemplate(1)">📄 袋子模板</button>
+<button class="btn-cancel" onclick="downloadTemplate(2)">📄 其他规格模板</button>
+<button class="btn-confirm" onclick="downloadFile(3)">⚖️ 最大负载</button>
+<button class="btn-cancel" onclick="downloadTemplate(3)">📄 最大负载模板</button>
+</div>
