@@ -696,7 +696,7 @@ function renderPriceTab() {
   });
   var fmt = function(v) { return (v || 0).toLocaleString('vi-VN'); };
   h += '<div class="summary-bar">';
-  h += '<div class="summary-card"><div class="lbl">Products</div><div class="val">' + filtered.length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Products</div><div class="val">' + Object.keys(uniqueCodes).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Standard</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Machine</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Date</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
@@ -880,7 +880,7 @@ function filterCalcProducts() {
   // Collect standards by machine, and machines by standard
   var machinesByStd = {}, standardsByMach = {};
   DATA_PRODUCTS.forEach(function(p) {
-    if (!m || p.machine === m) standardsByMach[p.standard] = true;
+    if (!m || String(p.machine) === m) standardsByMach[p.standard] = true;
     if (!s || p.standard === s) machinesByStd[p.machine] = true;
   });
   // Populate machines (if standard is selected, filter)
@@ -903,7 +903,7 @@ function filterCalcProducts_products() {
   var m = me.value, s = se.value;
   var prevProd = pe.value;
   pe.innerHTML = '<option value="">— Select Product —</option>';
-  DATA_PRODUCTS.forEach(function(p) { if ((!m || p.machine === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
+  DATA_PRODUCTS.forEach(function(p) { if ((!m || String(p.machine) === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
   pe.value = prevProd;
 }
 function onCalcProductChange() { populateCalcMaxLoad(); calcPrice(); }
@@ -1975,7 +1975,26 @@ if (savedCF) {
 }
 applyMarket();
 switchTab("pricelist");
-
+function saveToServer() {
+  var blocks = {};
+  blocks.DATA_PRODUCTS = 'var DATA_PRODUCTS = ' + JSON.stringify(DATA_PRODUCTS, null, 2) + ';';
+  blocks.DATA_BAGS = 'var DATA_BAGS = ' + JSON.stringify(DATA_BAGS, null, 2) + ';';
+  blocks.DATA_OTHERS = 'var DATA_OTHERS = ' + JSON.stringify(DATA_OTHERS, null, 2) + ';';
+  blocks.DATA_MAX_LOADING = 'var DATA_MAX_LOADING = ' + JSON.stringify(DATA_MAX_LOADING, null, 2) + ';';
+  blocks.DATA_COST_FOB = 'var DATA_COST_FOB = ' + JSON.stringify(DATA_COST_FOB, null, 2) + ';';
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/api/ktg-data', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      console.log('[KTG] Saved to server');
+    } else {
+      console.error('[KTG] Server save failed:', xhr.status);
+    }
+  };
+  xhr.onerror = function() { console.error('[KTG] Server save network error'); };
+  xhr.send(JSON.stringify({ blocks: blocks }));
+}
 
 
 function saveToServer() {
