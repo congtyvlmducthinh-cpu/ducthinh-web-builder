@@ -289,8 +289,7 @@ var calcFreightUSD = 0;
 var FREIGHT_DATA = [{"port": "Shanghai", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Ningbo", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Qingdao", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Nansha", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "ShanTou", "country": "CHINA", "freight": 50, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Xiamen", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "RiZhao", "country": "CHINA", "freight": 165, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Changzhou", "country": "CHINA", "freight": 135, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Tianjin Xingang", "country": "CHINA", "freight": 12, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Wuhu", "country": "CHINA", "freight": 95, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "ZhenJiang", "country": "CHINA", "freight": 105, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Wuzhou", "country": "CHINA", "freight": 160, "forwarder": "KTO", "via": "ALL IN"}, {"port": "Fuzhou", "country": "CHINA", "freight": 100, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Jiangyin", "country": "CHINA", "freight": 105, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Wenzhou", "country": "CHINA", "freight": 195, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Yangzhou", "country": "CHINA", "freight": 150, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Zhapu", "country": "CHINA", "freight": 50, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Dalian", "country": "CHINA", "freight": 12, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Nanchang", "country": "CHINA", "freight": 200, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Zhongshan", "country": "CHINA", "freight": 100, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Yangpu", "country": "CHINA", "freight": 65, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "TaiCang", "country": "CHINA", "freight": 25, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Taizhou", "country": "CHINA", "freight": 105, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Jiujiang", "country": "CHINA", "freight": 90, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Nanjing", "country": "CHINA", "freight": 110, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "ShanShan", "country": "CHINA", "freight": 90, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Chongqing", "country": "CHINA", "freight": 225, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "SURABAYA", "country": "INDONEXIA", "freight": 210, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "MEDAN (Belawan)", "country": "INDONEXIA", "freight": 245, "forwarder": "Nagel", "via": "Sub LCC"}, {"port": "JAKARTA", "country": "INDONEXIA", "freight": 310, "forwarder": "KMG", "via": "Sub LCC"}, {"port": "SEMARANG", "country": "INDONEXIA", "freight": 290, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "PORT KLANG", "country": "MALAYSIA", "freight": 250, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "PENANG", "country": "MALAYSIA", "freight": 250, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "YANGON", "country": "MYANMAR", "freight": 480, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "BANGKOK", "country": "THAILAND", "freight": 265, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "LAEM CHABANG", "country": "THAILAND", "freight": 235, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "MANILA", "country": "PHILIPPINE", "freight": 120, "forwarder": "Nagel", "via": "Sub LCC"}, {"port": "CEBU", "country": "PHILIPPINE", "freight": 220, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "DAVAO", "country": "PHILIPPINE", "freight": 220, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "SIHANOUKVILLE", "country": "CAMBODIA", "freight": 150, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "CHITTAGONG", "country": "BANGLADESH", "freight": 950, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "NHAVA SHEVA", "country": "INDIA", "freight": 830, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "MUNDRA", "country": "INDIA", "freight": 830, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "CHENNAI", "country": "INDIA", "freight": 830, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "VIZAG", "country": "INDIA", "freight": 1350, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "KARACHI", "country": "INDIA", "freight": 1250, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "TUTICORIN", "country": "INDIA", "freight": 1350, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "COLOMBO", "country": "INDIA", "freight": 1350, "forwarder": "ITI", "via": "Sub LCC"}];
 var EXCHANGE_RATE = 26000;
 
-
-// ====== 01-utils.js ======
+// 01-utils.js
 ﻿// ====== UTILITY ======
 function formatUsd(v) { var n = Number(v); var dec = Math.round((n - Math.floor(n)) * 10); return Math.floor(n).toLocaleString("vi-VN") + "," + dec; }
 function formatCurrency(v, isUsd) {
@@ -367,8 +366,7 @@ function getCIF25PriceUSD(prod, lccVariant, freight) { return getCIF25PriceVND(p
 function getCIFJumboPriceUSD(prod, lccVariant, freight) { return getCIFJumboPriceVND(prod, lccVariant, freight) / 26000; }
 
 
-
-// ====== 02-pricelist.js ======
+// 02-pricelist.js
 // ====== PRICE MODE CONTROLS (Giá bán tab) ======
 function setPriceMode(mode) {
   priceMode = mode;
@@ -515,8 +513,7 @@ function populateFilters() {
   }
 }
 
-
-// ====== 03-bags.js ======
+// 03-bags.js
 ﻿// ====== RENDER BAGS TAB ======
 
 function toggleMaxLoad() {
@@ -555,8 +552,7 @@ function renderBagsTab() {
 }
 
 
-
-// ====== 04-others.js ======
+// 04-others.js
 ﻿// ====== RENDER OTHERS TAB ======
 function renderOthersTab() {
   var h = '<div class="table-wrap" style="margin-top:0"><table><thead>';
@@ -579,8 +575,7 @@ function renderOthersTab() {
 }
 
 
-
-// ====== 05-calc.js ======
+// 05-calc.js
 ﻿// ====== RENDER CALC TAB ======
 function renderCalcTab() {
   var h = '<div class="calc-grid">';
@@ -1004,8 +999,7 @@ var total = 0;
 
 
 
-
-// ====== 06-manage.js ======
+// 06-manage.js
 ﻿// ====== EXPORT FUNCTIONS ======
 function exportToExcel() {
   var dt = new Date();
@@ -1321,8 +1315,7 @@ function checkPassword() {
 function manageFromPwModal() { checkPassword(); }
 
 
-
-// ====== 07-main.js ======
+// 07-main.js
 ﻿// ====== GLOBAL SEARCH ======
 function globalSearch() { render(); }
 
@@ -1479,8 +1472,7 @@ function setLang(lang) {
 
 
 
-
-// ====== 08-freight.js ======
+// 08-freight.js
 ﻿// ====== FREIGHT LOOKUP POPUP ======
 var selectedFreightRoute = null;
 
@@ -1577,8 +1569,7 @@ function selectFreightRoute() {
 
 
 
-
-// ====== 09-quotation.js ======
+// 09-quotation.js
 ﻿// ====== QUOTATION POPUP ======
 function showQuotationPopup() {
   var data = getCalcPriceData();
@@ -1851,8 +1842,7 @@ loadProductsData().then(function() {
 });</script>
 
 
-
-// ====== 10-market.js ======
+// 10-market.js
 ﻿var DATA_PRODUCTS = [];
 var DATA_LOADED = false;
 
@@ -2013,7 +2003,6 @@ function setMarket(mkt) {
     otherBtn.style.borderColor = mkt === "other" ? "#1a56db" : "#d0d5dd";
   }
   applyMarket();
-
 
 ﻿loadProductsData().then(function() {
   var saved = localStorage.getItem("dq_products");
