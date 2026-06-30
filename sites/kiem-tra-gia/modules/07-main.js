@@ -40,9 +40,13 @@ function switchTab(tab) {
   // Populate filters on pricelist tab
   if (tab === "pricelist") populateFilters();
   
+  // Apps tab - render immediately
+  if (tab === "apps") {
+    setTimeout(function() { renderAppsTabAndSwitch(); }, 0);
+  }
+  
   render();
 }
-
 
 // ====== MAIN RENDER ======
 function render() {
@@ -66,7 +70,6 @@ function render() {
   } else if (activeTab === "calc") {
     container.innerHTML = renderCalcTab();
     setTimeout(function(){ filterCalcProducts(); filterBagSpec();
-    // Sync calc currency toggle with current global currency
     var vndBtn = document.getElementById("calcCcyVnd");
     var usdBtn = document.getElementById("calcCcyUsd");
     if (vndBtn && usdBtn) {
@@ -76,14 +79,14 @@ function render() {
   }, 0);
   } else if (activeTab === "manage") {
     container.innerHTML = "";
+  } else if (activeTab === "apps") {
+    // Rendered via renderAppsTabAndSwitch from switchTab
   } else {
     container.innerHTML = "";
   }
+  
+  updateDataInfo();
 }
-
-
-
-// ====== MISSING FUNCTIONS ======
 
 // ====== SAVE DATA TO SERVER ======
 function detectCurrentLang() {
@@ -107,7 +110,8 @@ function saveToServer() {
       DATA_BAGS: "var DATA_BAGS = " + JSON.stringify(DATA_BAGS, null, 2) + ";",
       DATA_OTHERS: "var DATA_OTHERS = " + JSON.stringify(DATA_OTHERS, null, 2) + ";",
       DATA_MAX_LOADING: "var DATA_MAX_LOADING = " + JSON.stringify(DATA_MAX_LOADING, null, 2) + ";",
-      DATA_COST_FOB: "var DATA_COST_FOB = " + JSON.stringify(DATA_COST_FOB, null, 2) + ";"
+      DATA_COST_FOB: "var DATA_COST_FOB = " + JSON.stringify(DATA_COST_FOB, null, 2) + ";",
+      DATA_APPLICATIONS: "var DATA_APPLICATIONS = " + JSON.stringify(DATA_APPLICATIONS, null, 2) + ";"
     }
   };
 
@@ -136,10 +140,11 @@ function saveToServer() {
   };
   xhr.send(JSON.stringify(payload));
 }
+
 function updateDataInfo() {
   var el = document.getElementById("dataInfo");
   if (!el) return;
-  el.textContent = "📊 " + DATA_PRODUCTS.length + " SP · " + DATA_BAGS.length + " BB · " + DATA_OTHERS.length + " QC";
+  el.textContent = "📊 " + DATA_PRODUCTS.length + " SP · " + DATA_BAGS.length + " BB · " + DATA_OTHERS.length + " QC · " + DATA_APPLICATIONS.length + " APP";
 }
 
 // Language switch (i18n stub - keeps layout functional)
@@ -147,7 +152,6 @@ var currentLang = "vi";
 var i18nStrings = {};
 function setLang(lang) {
   currentLang = lang;
-  // Simple implementation - just updates visible text
   document.querySelectorAll("[data-i18n]").forEach(function(el) {
     var key = el.getAttribute("data-i18n");
     if (i18nStrings[key] && i18nStrings[key][lang]) {
@@ -164,5 +168,3 @@ function setLang(lang) {
     b.classList.toggle("active", b.dataset.lang === lang);
   });
 }
-
-

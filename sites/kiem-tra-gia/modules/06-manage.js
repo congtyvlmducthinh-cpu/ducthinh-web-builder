@@ -44,12 +44,12 @@ function manageLogin() {
     document.getElementById("mProdCnt").textContent = DATA_PRODUCTS.length;
     document.getElementById("mBagCnt").textContent = DATA_BAGS.length;
     document.getElementById("mOtherCnt").textContent = DATA_OTHERS.length;
+    if (document.getElementById("mAppCnt")) document.getElementById("mAppCnt").textContent = DATA_APPLICATIONS.length;
   } else {
     document.getElementById("manageError").textContent = "\u274c Sai m\u1eadt kh\u1ea9u!";
     document.getElementById("manageError").style.display = "block";
   }
 }
-
 
 function downloadTemplate(type) {
   var headers, fn, row;
@@ -115,6 +115,10 @@ function downloadFile(type) {
     }
     data = mlArr;
     sheetName = "MaxLoading";
+  } else if (type === 4) {
+    fn = "Ung_dung.xlsx";
+    data = JSON.parse(JSON.stringify(DATA_APPLICATIONS));
+    sheetName = "Applications";
   }
   if (!data.length) return;
   var ws = XLSX.utils.json_to_sheet(data);
@@ -205,7 +209,6 @@ function handleManageFile(file) {
       var sheets = wb.SheetNames;
       var updated = 0;
       
-      // Try multiple sheet name variants
       function hasSheet(variants) {
         for (var i = 0; i < variants.length; i++) {
           if (sheets.indexOf(variants[i]) >= 0) return variants[i];
@@ -243,19 +246,27 @@ function handleManageFile(file) {
         if (s.length > 0) { importCostFOB(s); updated++; }
       }
       
+      var appSheet = hasSheet(["Applications", "applications", "Ứng dụng", "ứng dụng", "Ung dung", "ung dung", "Ứng Dụng"]);
+      if (appSheet) {
+        var s = XLSX.utils.sheet_to_json(wb.Sheets[appSheet]);
+        if (s.length > 0) { DATA_APPLICATIONS = s; updated++; }
+      }
+      
       applyMarket();
       localStorage.setItem("dq_products", JSON.stringify(DATA_PRODUCTS));
       localStorage.setItem("dq_bags", JSON.stringify(DATA_BAGS));
       localStorage.setItem("dq_others", JSON.stringify(DATA_OTHERS));
       localStorage.setItem("dq_maxLoading", JSON.stringify(DATA_MAX_LOADING));
       localStorage.setItem("dq_costFOB", JSON.stringify(DATA_COST_FOB));
-            document.getElementById("mProdCnt").textContent = DATA_PRODUCTS.length;
+      localStorage.setItem("dq_applications", JSON.stringify(DATA_APPLICATIONS));
+      document.getElementById("mProdCnt").textContent = DATA_PRODUCTS.length;
       document.getElementById("mBagCnt").textContent = DATA_BAGS.length;
       document.getElementById("mOtherCnt").textContent = DATA_OTHERS.length;
+      if (document.getElementById("mAppCnt")) document.getElementById("mAppCnt").textContent = DATA_APPLICATIONS.length;
       populateFilters();
       render();
       status.className = "manage-status-sm ok";
-            saveToServer();
+      saveToServer();
       status.textContent = "✅ Đã cập nhật " + updated + " bảng dữ liệu!";
     } catch(err) {
       status.className = "manage-status-sm err";
@@ -263,10 +274,11 @@ function handleManageFile(file) {
     }
   };
   reader.readAsArrayBuffer(file);
-}function importMaxLoading(arr) {
+}
+
+function importMaxLoading(arr) {
   DATA_MAX_LOADING = {};
   arr.forEach(function(r) {
-    // Support Vietnamese column names from Max_loadding.xlsx
     var code = r.code || r.Code || r.CodeSP || r.CodeSP_Standard || r["SẢN PHẨM"] || r["SAN PHAM"] || "";
     if (!code) return;
     var obj = {};
@@ -292,7 +304,6 @@ function importCostFOB(arr) {
   });
 }
 
-
 // ====== PASSWORD MODAL ======
 function showPwModal() {
   document.getElementById("pwModal").classList.add("open");
@@ -311,4 +322,3 @@ function checkPassword() {
   }
 }
 function manageFromPwModal() { checkPassword(); }
-

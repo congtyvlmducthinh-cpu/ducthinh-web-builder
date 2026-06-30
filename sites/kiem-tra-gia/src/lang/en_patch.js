@@ -1,0 +1,5 @@
+  SEARCH_PLACEHOLDER: "🔍 Search products...",
+  FILTER_ALL_STANDARDS: "All standards",
+  FILTER_ALL_SIZES: "All sizes",
+  FILTER_ALL_MACHINES: "All machines",
+  RESET_FILTERS_TITLE: "Reset filters",

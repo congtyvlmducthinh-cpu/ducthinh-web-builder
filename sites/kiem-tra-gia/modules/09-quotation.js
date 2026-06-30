@@ -35,7 +35,7 @@ function getCalcPriceData() {
   var bs=bagSpecSel?bagSpecSel.value:"25KG";
   var bcode=bsel?bsel.value:"";
   var bagLabel="";
-  if (bcode) { for (var i=0;i<DATA_BAGS.length;i++) { if (DATA_BAGS[i].code===bcode) { bagLabel=DATA_BAGS[i].spec; break; } } }
+  if (bcode) { for (var i=0;i<DATA_BAGS.length;i++) { if (DATA_BAGS[i].code===bcode && DATA_BAGS[i].spec===bs) { bagLabel=DATA_BAGS[i].spec; break; } } }
   else { bagLabel=bs; }
   var sellPrice=sp&&sp.value?parseFloat(sp.value):0;
   var modeStr=calcPriceMode.toUpperCase();

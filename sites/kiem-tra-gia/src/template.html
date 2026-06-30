@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -175,6 +175,24 @@ tbody tr:hover td{background:#eff6ff}
 .footer{font-size:11px;color:#64748b;margin-top:16px;padding-top:10px;border-top:1px solid #e2e8f0;text-align:center}
 #globalSearch{flex:1;padding:10px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;outline:none;font-family:var(--font);min-width:140px;color:var(--text);transition:all .2s;background:var(--card)}#globalSearch:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.15)}#globalSearch::placeholder{color:#94a3b8}#resetFiltersBtn{width:34px;height:34px;padding:0;border:1.5px solid var(--border);border-radius:8px;background:var(--card);color:var(--text-secondary);font-size:16px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}#resetFiltersBtn:hover{background:#f1f5f9;border-color:#94a3b8;color:var(--text)}
 .lang-switcher{display:flex;gap:3px;background:rgba(255,255,255,.1);padding:3px;border-radius:8px;margin-left:8px}.lang-switcher a{display:inline-flex;padding:5px 10px;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;color:rgba(255,255,255,.7);transition:all .2s;cursor:pointer}.lang-switcher a.active{background:rgba(255,255,255,.2);color:#fff;pointer-events:none}.lang-switcher a:hover:not(.active){background:rgba(255,255,255,.15);color:#fff}
+.app-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-bottom:20px}
+.app-card{border-radius:var(--radius-lg);padding:20px 16px;text-align:center;cursor:pointer;border:2px solid transparent;transition:all .25s;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.app-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:inherit;opacity:.9}
+.app-card-icon{font-size:36px;margin-bottom:8px;line-height:1}
+.app-card-name{font-size:12px;font-weight:700;margin-bottom:6px;line-height:1.4;word-break:break-word}
+.app-card-count{font-size:10px;font-weight:600;opacity:.7}
+.apps-detail-header{margin-bottom:16px}
+.apps-detail-title{font-size:18px;font-weight:800;color:var(--primary)}
+.apps-detail-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.apps-spec-cell{white-space:normal;max-width:280px;font-size:12px;line-height:1.5;min-width:200px}
+.apps-spec-cell div{padding:1px 0}
+.apps-price-ref{font-weight:700;font-size:15px;color:var(--primary)}
+.apps-view-price-btn{padding:7px 14px;border:none;border-radius:8px;background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);white-space:nowrap;transition:all .2s}
+.apps-view-price-btn:hover{opacity:.9}
+.apps-sharing-bar{margin-top:20px;padding:16px 20px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:var(--radius);font-size:13px}
+.apps-sharing-label{display:block;font-weight:600;color:#0369a1;margin-bottom:8px}
+.apps-sharing-tag{display:inline-block;padding:5px 14px;margin:3px 4px;background:#e0f2fe;color:#0369a1;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+.apps-sharing-tag:hover{background:#bae6fd}
 </style>
 </head>
 <body>
@@ -182,10 +200,10 @@ tbody tr:hover td{background:#eff6ff}
 
 <header>
 <div>
-<h1>{{TITLE}} <span>🔍</span></h1>
+<h1>{{TITLE}} <span>ðŸ”</span></h1>
 <div class="sub" style="margin-top:6px;font-size:13px;opacity:.8;">{{SUBTITLE}}</div>
 </div>
-<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="badge">🏭 {{BADGE_COMPANY}}</span><span class="badge" id="dataInfo">📊 0 SP</span>
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="badge">ðŸ­ {{BADGE_COMPANY}}</span><span class="badge" id="dataInfo">ðŸ“Š 0 SP</span>
 {{LANG_SWITCHER}}</div>
 </header>
 
@@ -195,6 +213,7 @@ tbody tr:hover td{background:#eff6ff}
 <button class="tab-btn" data-tab="others" onclick="switchTab('others')"><span>{{TAB_OTHERS}}</span><br><small style="font-weight:400;font-size:10px;opacity:.7">{{TAB_OTHERS_SUB}}</small></button>
 <button class="tab-btn" data-tab="calc" onclick="switchTab('calc')"><span>{{TAB_CALC}}</span><br><small style="font-weight:400;font-size:10px;opacity:.7">{{TAB_CALC_SUB}}</small></button>
 <button class="tab-btn" data-tab="manage" onclick="switchTab('manage')"><span>{{TAB_MANAGE}}</span><br><small style="font-weight:400;font-size:10px;opacity:.7">{{TAB_MANAGE_SUB}}</small></button>
+<button class="tab-btn" data-tab="apps" onclick="switchTab('apps')"><span>{{TAB_APPS}}</span><br><small style="font-weight:400;font-size:10px;opacity:.7">{{TAB_APPS_SUB}}</small></button>
 </div>
 
 <div class="controls" id="controlBar">
@@ -202,7 +221,7 @@ tbody tr:hover td{background:#eff6ff}
 <select id="specFilter" onchange="render()"><option value="">{{FILTER_ALL_STANDARDS}}</option></select>
 <select id="sizeFilter" onchange="render()"><option value="">{{FILTER_ALL_SIZES}}</option></select>
 <select id="machineFilter" onchange="render()"><option value="">{{FILTER_ALL_MACHINES}}</option></select>
-<button id="resetFiltersBtn" onclick="resetFilters()" title="{{RESET_FILTERS_TITLE}}">↺</button>
+<button id="resetFiltersBtn" onclick="resetFilters()" title="{{RESET_FILTERS_TITLE}}">â†º</button>
 <div class="currency-toggle">
 <button class="active" data-currency="VND" onclick="toggleCurrency(this)">VND</button>
 <button data-currency="USD" onclick="toggleCurrency(this)">USD</button>
@@ -242,6 +261,7 @@ tbody tr:hover td{background:#eff6ff}
 <div class="manage-card"><div class="num" id="mProdCnt">0</div><div class="lbl">{{MANAGE_CARD_PRODUCTS}}</div></div>
 <div class="manage-card"><div class="num" id="mBagCnt">0</div><div class="lbl">{{MANAGE_CARD_BAGS}}</div></div>
 <div class="manage-card"><div class="num" id="mOtherCnt">0</div><div class="lbl">{{MANAGE_CARD_OTHERS}}</div></div>
+<div class="manage-card"><div class="num" id="mAppCnt">0</div><div class="lbl">{{MANAGE_CARD_APPS}}</div></div>
 <div class="manage-card"><div class="num" id="mUptd">06/2026</div><div class="lbl">{{MANAGE_CARD_UPDATED}}</div></div>
 </div>
 <div class="manage-actions">
@@ -250,18 +270,19 @@ tbody tr:hover td{background:#eff6ff}
 <button class="btn-confirm" onclick="downloadFile(0)">{{MANAGE_DOWNLOAD_PRICE}}</button>
 <button class="btn-confirm" onclick="downloadFile(1)">{{MANAGE_DOWNLOAD_BAGS}}</button>
 <button class="btn-confirm" onclick="downloadFile(2)">{{MANAGE_DOWNLOAD_OTHERS}}</button>
+<button class="btn-confirm" onclick="downloadFile(3)">{{MANAGE_DOWNLOAD_APPS}}</button>
 </div>
 <div class="btn-row">
-<button class="btn-confirm" onclick="downloadAsExcel()">📊 Excel</button>
-<button class="btn-cancel" onclick="downloadAsJSON()">📋 JS</button>
+<button class="btn-confirm" onclick="downloadAsExcel()">ðŸ“Š Excel</button>
+<button class="btn-cancel" onclick="downloadAsJSON()">ðŸ“‹ JS</button>
 </div>
 </div>
 <div class="manage-actions">
 <h3>{{MANAGE_UPLOAD_TITLE}}</h3>
 <p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">Upload file Excel (.xlsx)</p>
-<div class="upload-sm" id="manageDropZone" style="border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;background:#fafbfc"><div style="font-size:1.5rem;margin-bottom:6px">📂</div><div><strong>{{MANAGE_DRAG_TEXT}}</strong><br>{{MANAGE_DRAG_SUB}}</div></div>
+<div class="upload-sm" id="manageDropZone" style="border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;background:#fafbfc"><div style="font-size:1.5rem;margin-bottom:6px">ðŸ“‚</div><div><strong>{{MANAGE_DRAG_TEXT}}</strong><br>{{MANAGE_DRAG_SUB}}</div></div>
 <input type="file" id="manageFileInput" accept=".xlsx,.xls" style="display:none">
-<button id="saveServerBtn" onclick="saveToServer()" style="margin-top:10px;width:100%;padding:12px 18px;border:none;border-radius:10px;background:linear-gradient(135deg,#059669,#10b981);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);transition:opacity.2s">?? Luu l�n server</button>
+<button id="saveServerBtn" onclick="saveToServer()" style="margin-top:10px;width:100%;padding:12px 18px;border:none;border-radius:10px;background:linear-gradient(135deg,#059669,#10b981);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);transition:opacity.2s">💾 Lưu lên server</button>
 <div class="manage-status-sm" id="manageUploadStatus" style="margin-top:10px;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;display:none"></div>
 </div>
 </div>
@@ -287,7 +308,7 @@ tbody tr:hover td{background:#eff6ff}
   <div class="q-modal">
     <div class="q-modal-header">
       <h3>{{QUOTATION_TITLE}}</h3>
-      <button class="q-modal-close" onclick="closeQuotationPopup()">✕</button>
+      <button class="q-modal-close" onclick="closeQuotationPopup()">âœ•</button>
     </div>
     <div class="q-modal-form">
       <div><label>{{Q_CUSTOMER}}</label><input type="text" id="qCustomer" placeholder="{{Q_CUSTOMER_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
@@ -295,7 +316,7 @@ tbody tr:hover td{background:#eff6ff}
       <div><label>{{Q_ASSIGNED}}</label><input type="text" id="qAssigned" placeholder="{{Q_ASSIGNED_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
       <div><label>{{Q_CUST_EMAIL}}</label><input type="email" id="qCustEmail" placeholder="{{Q_CUST_EMAIL_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
       <div><label>{{Q_QTY}}</label><input type="number" id="qQty" value="1" min="1" step="0.5" oninput="updateQuotationPreview()"></div>
-      <div><label>{{Q_VALIDITY}}</label><select id="qValid" onchange="updateQuotationPreview()"><option value="15 ngày">{{Q_VALID_15}}</option><option value="30 ngày">{{Q_VALID_30}}</option><option value="7 ngày">{{Q_VALID_7}}</option><option value="kể từ ngày ký">{{Q_VALID_FROM_SIGN}}</option></select></div>
+      <div><label>{{Q_VALIDITY}}</label><select id="qValid" onchange="updateQuotationPreview()"><option value="15 ngÃ y">{{Q_VALID_15}}</option><option value="30 ngÃ y">{{Q_VALID_30}}</option><option value="7 ngÃ y">{{Q_VALID_7}}</option><option value="ká»ƒ tá»« ngÃ y kÃ½">{{Q_VALID_FROM_SIGN}}</option></select></div>
       <div><label>{{Q_PAYMENT}}</label><select id="qPayment" onchange="updateQuotationPreview()"><option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option><option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div>
       <div><label>{{Q_PORT}}</label><input type="text" id="qPort" placeholder="{{Q_PORT_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
       <div><label>{{Q_DELIVERY}}</label><input type="text" id="qDelivery" placeholder="{{Q_DELIVERY_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
@@ -306,14 +327,14 @@ tbody tr:hover td{background:#eff6ff}
         <h1>{{COMPANY_NAME}}</h1>
         <p class="q-sub">{{COMPANY_ADDR}}<br>Email: sales@ducthinh.com - https://ducthinhmaterials.com<br>Tel: +84 382 666 000 Ext: 106 - MST: 2902085037</p>
         <div class="q-divider"></div>
-        <p style="text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px">📄 BAO GIA</p>
+        <p style="text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px">ðŸ“„ BAO GIA</p>
         <div id="qPreviewContent"><p style="text-align:center;color:#94a3b8;font-size:13px">{{Q_PREVIEW_EMPTY}}</p></div>
       </div>
     </div>
     <div class="q-modal-footer">
       <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="qDateSpan"></span>
-      <button class="q-btn-copy" onclick="copyQuotation()">📋 Copy</button>
-      <button class="q-btn-print" onclick="printQuotation()">🖨 In / PDF</button>
+      <button class="q-btn-copy" onclick="copyQuotation()">ðŸ“‹ Copy</button>
+      <button class="q-btn-print" onclick="printQuotation()">ðŸ–¨ In / PDF</button>
     </div>
   </div>
 </div>
@@ -323,7 +344,7 @@ tbody tr:hover td{background:#eff6ff}
   <div class="freight-modal">
     <div class="freight-modal-header">
       <h3>{{FREIGHT_TITLE}}</h3>
-      <button class="freight-modal-close" onclick="closeFreightPopup()">✕</button>
+      <button class="freight-modal-close" onclick="closeFreightPopup()">âœ•</button>
     </div>
         <div style="padding:0 16px 8px"><input type="text" id="freightSearch" placeholder="{{FREIGHT_SEARCH}}" oninput="filterFreightRoutes()" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;font-family:var(--font);color:var(--text);background:var(--card)"></div>
     <div class="freight-modal-filters">
@@ -351,3 +372,5 @@ tbody tr:hover td{background:#eff6ff}
 
 </body>
 </html>
+
+
