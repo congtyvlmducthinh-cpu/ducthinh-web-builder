@@ -296,7 +296,7 @@ tbody tr:hover td{background:#eff6ff}
         <p class="q-sub">地址：NGHE AN省NGHIA DAN工业区, VIET NAM<br>Email: sales@ducthinh.com - https://ducthinhmaterials.com<br>Tel: +84 382 666 000 Ext: 106 - MST: 2902085037</p>
         <div class="q-divider"></div>
         <p style="text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px">📄 BAO GIA</p>
-        <div id="qPreviewContent"><p style="text-align:center;color:#94a3b8;font-size:13px">Chọn sản phẩm và tính giá trước khi lên báo giá</p></div>
+        <div id="qPreviewContent"><p style="text-align:center;color:#94a3b8;font-size:13px">请先选择产品和计算价格再创建报价</p></div>
       </div>
     </div>
     <div class="q-modal-footer">
@@ -390,7 +390,7 @@ var DATA_PRODUCTS = [
 
 var DATA_BAGS = [{"code": "NVL-BB-PP-K55X85", "cost": 4562, "spec": "25KG", "qty": 18000, "price": 220528, "profit": 0.1}, {"code": "NVL-BB-JB-92X92X125", "cost": 127750, "spec": "Jumbo", "qty": 3000, "price": 143825, "profit": 0.1}, {"code": "NVL-BB-JB-95X95X125", "cost": 131250, "spec": "Jumbo", "qty": 3000, "price": 147675, "profit": 0.1}, {"code": "NVL-BB-25KG-52X78", "cost": 3990, "spec": "25KG", "qty": 18000, "price": 195360, "profit": 0.1}, {"code": "NVL-BB-25KG-52X75", "cost": 3800, "spec": "25KG", "qty": 18000, "price": 187000, "profit": 0.1}, {"code": "NVL-BB-25KG-52X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}, {"code": "NVL-BB-34KG-50X78-KOTR", "cost": 3100, "spec": "34KG", "qty": 18000, "price": 156200, "profit": 0.1}, {"code": "50KG-NHUATAICHE-55X85", "cost": 2650, "spec": "50KG", "qty": 18000, "price": 78100, "profit": 0.1}, {"code": "NVL-BB-25KG-50X72-KOTR", "cost": 3000, "spec": "25KG", "qty": 18000, "price": 151800, "profit": 0.1}, {"code": "Bao jumbo của khách", "cost": 0, "spec": "Jumbo", "qty": 3000, "price": 3300, "profit": 0.1}, {"code": "BAO 25KG CỦA KHÁCH", "cost": 0, "spec": "25KG", "qty": 18000, "price": 19800, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR", "cost": 127000, "spec": "Jumbo", "qty": 3000, "price": 143000, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR QUAY VÒNG", "cost": 43000, "spec": "Jumbo", "qty": 3000, "price": 59800, "profit": 0.3}, {"code": "NVL-BB-25KG-50X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}];
 
-var DATA_OTHERS = [{"code": "PALLET TÁI SỬ DỤNG", "cost": 70000, "price": 77000, "profit": 0.1}, {"code": "PALLET MỚI", "cost": 120000, "price": 132000, "profit": 0.1}, {"code": "NẸP ĐAI", "cost": 5000, "price": 5500, "profit": 0.1}, {"code": "QUẤN MÀNG", "cost": 18000, "price": 19800, "profit": 0.1}, {"code": "PALLET TRÁNG PHỦ", "cost": 160000, "price": 176000, "profit": 0.1}, {"code": "JUMBO MỞ NẮP (数量ING)", "cost": 95000, "price": 104500, "profit": 0.1}, {"code": "PALLET MỚI + NẸP ĐAI + QUẤN MÀNG", "cost": 143000, "price": 157300, "profit": 0.1}, {"code": "JUMBO MỞ NẮP (SLING) CỦA KHÁCH", "cost": 35000, "price": 38500, "profit": 0.1}];
+var DATA_OTHERS = [{"code": "PALLET TÁI SỬ DỤNG", "cost": 70000, "price": 77000, "profit": 0.1}, {"code": "PALLET MỚI", "cost": 120000, "price": 132000, "profit": 0.1}, {"code": "NẸP ĐAI", "cost": 5000, "price": 5500, "profit": 0.1}, {"code": "QUẤN MÀNG", "cost": 18000, "price": 19800, "profit": 0.1}, {"code": "PALLET TRÁNG PHỦ", "cost": 160000, "price": 176000, "profit": 0.1}, {"code": "JUMBO MỞ NẮP (数量ING)", "cost": 95000, "price": 104500, "profit": 0.1}, {"code": "PALLET MỚI + NẸP ĐAI + QUẤN MÀNG", "cost": 143000, "price": 157300, "profit": 0.1}, {"code": "JUMBO MỞ NẮP (数量ING) CỦA KHÁCH", "cost": 35000, "price": 38500, "profit": 0.1}];
 
 var DATA_MAX_LOADING = {};
 
@@ -551,7 +551,7 @@ function renderPriceTab() {
 
   // Summary + thống kê
   var uniqueCodes = {}, unique规格s = {}, uniqueMachines = {};
-  filtered.forEach(function(p) { uniqueCodes[p.code] = true; uniqueSpecs[p.standard] = true; uniqueMachines[p.machine] = true; });
+  filtered.forEach(function(p) { uniqueCodes[p.code] = true; unique规格s[p.standard] = true; uniqueMachines[p.machine] = true; });
   var sum25=0, cnt25=0, max25=0;
   var sumJ=0, cntJ=0, maxJ=0;
   var sumExw=0, cntExw=0, maxExw=0;
@@ -565,7 +565,7 @@ function renderPriceTab() {
   var fmt = function(v) { return (v || 0).toLocaleString('vi-VN'); };
   h += '<div class="summary-bar">';
   h += '<div class="summary-card"><div class="lbl">产品</div><div class="val">' + filtered.length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">标准</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">标准</div><div class="val">' + Object.keys(unique规格s).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">机器</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">日期</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
   h += '</div>';
@@ -582,11 +582,11 @@ function renderPriceTab() {
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
   h += '<tr><th colspan="4">信息</th><th colspan="2" class="ml-toggle">最大装载量</th><th colspan="2">' + (priceMode==="exw"?"售价(EXW)":"含包装价格") + '</th>';
-  if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"EXW不含包装":"Giá bán (EXW)") + '</th>';
+  if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"EXW不含包装":"售价(EXW)") + '</th>';
   h += '</tr>';
-  h += '<tr><th>代码</th><th>尺寸</th><th>Tiêu chuẩn</th><th>Máy</th><th class="ml-toggle">Max 25KG <span class="info-row">(tấn)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(tấn)</span></th><th>' + (priceMode==="exw"?"EXW 25KG标准袋":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW吨袋标准袋":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
+  h += '<tr><th>代码</th><th>尺寸</th><th>标准</th><th>机器</th><th class="ml-toggle">Max 25KG <span class="info-row">(tấn)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(tấn)</span></th><th>' + (priceMode==="exw"?"EXW 25KG标准袋":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW吨袋标准袋":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
   if (!showFobCif) {
-    h += '<th>' + (priceMode==="exw"?"EXW chưa bao bì":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"基本佣金":"佣金") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
+    h += '<th>' + (priceMode==="exw"?"EXW不含包装":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"基本佣金":"佣金") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   }
   h += '</tr></thead><tbody>';
 
@@ -629,10 +629,10 @@ function populateFilters() {
   var sk = Object.keys(standards).sort();
   var sf = document.getElementById("specFilter");
   if (sf) {
-    var curSpec = sf.value;
+    var cur规格 = sf.value;
     sf.innerHTML = '<option value="">Tất cả tiêu chuẩn</option>';
     for (var i = 0; i < sk.length; i++) sf.innerHTML += '<option value="' + sk[i] + '">' + sk[i] + '</option>';
-    sf.value = curSpec && sk.indexOf(curSpec) >= 0 ? curSpec : "";
+    sf.value = cur规格 && sk.indexOf(cur规格) >= 0 ? cur规格 : "";
   }
   var mf = document.getElementById("machineFilter");
   if (mf) {
@@ -656,8 +656,8 @@ function toggleMaxLoad() {
 
 function renderBagsTab() {
   var h = '<div class="table-wrap" style="margin-top:0"><table><thead>';
-  h += '<tr><th colspan="4">袋子信息</th><th colspan="2">Giá</th></tr>';
-  h += '<tr><th>袋代码</th><th>规格</th><th>数量</th><th>成本价</th><th>Giá bán</th><th>利润</th></tr>';
+  h += '<tr><th colspan="4">袋子信息</th><th colspan="2">价格</th></tr>';
+  h += '<tr><th>袋代码</th><th>规格</th><th>数量</th><th>成本价</th><th>售价</th><th>利润</th></tr>';
   h += '</thead><tbody>';
   for (var i = 0; i < DATA_BAGS.length; i++) {
     var b = DATA_BAGS[i];
@@ -686,7 +686,7 @@ function renderBagsTab() {
 // ====== RENDER OTHERS TAB ======
 function renderOthersTab() {
   var h = '<div class="table-wrap" style="margin-top:0"><table><thead>';
-  h += '<tr><th>其他规格</th><th>Giá vốn</th><th>Giá bán</th><th>Lợi nhuận</th></tr>';
+  h += '<tr><th>其他规格</th><th>成本价</th><th>售价</th><th>利润</th></tr>';
   h += '</thead><tbody>';
   for (var i = 0; i < DATA_OTHERS.length; i++) {
     var o = DATA_OTHERS[i];
@@ -713,7 +713,7 @@ function renderCalcTab() {
   // ===== LEFT PANEL =====
   h += '<div class="calc-left">';
 
-  // --- Section: Sản phẩm ---
+  // --- Section: 产品 ---
   h += '<div class="calc-section-title"><span class="badge blue">📦</span><span class="title-text">选择产品</span></div>';
 
   // Machine + Standard side by side
@@ -744,7 +744,7 @@ function renderCalcTab() {
   // Bag spec + Bag select side by side
   h += '<div class="calc-form-group"><div class="calc-row-inline">';
   h += '<div><label class="calc-form-label">📏 袋规格</label>';
-  h += '<select class="calc-select" id="calcBagSpec" onchange="filterBagSpec()"><option value="25KG">25KG</option><option value="34KG">34KG</option><option value="50KG">50KG</option><option value="Jumbo">Jumbo</option></select></div>';
+  h += '<select class="calc-select" id="calcBag规格" onchange="filterBag规格()"><option value="25KG">25KG</option><option value="34KG">34KG</option><option value="50KG">50KG</option><option value="Jumbo">Jumbo</option></select></div>';
   h += '<div><label class="calc-form-label">🛍️ 袋类型</label>';
   h += '<select class="calc-select" id="calcBag" onchange="calcPrice()"><option value="">— 不选 —</option>';
   h += '</select></div>';
@@ -760,12 +760,12 @@ function renderCalcTab() {
   }
   h += '</select></div>';
 
-  // --- Section: Quy cách khác ---
-  h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge purple">📦</span><span class="title-text">Quy cách khác</span></div>';
+  // --- Section: 其他规格 ---
+  h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge purple">📦</span><span class="title-text">其他规格</span></div>';
 
   h += '<div class="calc-form-group"><div class="calc-row-inline">';
   h += '<div><label class="calc-form-label">📋 规格类型</label>';
-  h += '<select class="calc-select" id="calcOther" onchange="calcPrice()"><option value="">— Không chọn —</option>';
+  h += '<select class="calc-select" id="calcOther" onchange="calcPrice()"><option value="">— 不选 —</option>';
   for (var i = 0; i < DATA_OTHERS.length; i++) {
     h += '<option value="' + DATA_OTHERS[i].code + '">' + DATA_OTHERS[i].code + '</option>';
   }
@@ -837,13 +837,13 @@ function filterCalcProducts() {
   });
   // Populate machines (if standard is selected, filter)
   var prevMach = me.value;
-  me.innerHTML = '<option value="">— Chọn máy —</option>';
+  me.innerHTML = '<option value="">— 选择机器 —</option>';
   var mk = Object.keys(machinesByStd).sort();
   for (var i = 0; i < mk.length; i++) me.innerHTML += '<option value="' + mk[i].replace(/"/g, '&quot;') + '">' + mk[i] + '</option>';
   me.value = prevMach && mk.indexOf(prevMach) >= 0 ? prevMach : "";
   // Populate standards (if machine is selected, filter)
   var prevStd = se.value;
-  se.innerHTML = '<option value="">— Chọn tiêu chuẩn —</option>';
+  se.innerHTML = '<option value="">— 选择标准 —</option>';
   var sk = Object.keys(standardsByMach).sort();
   for (var i = 0; i < sk.length; i++) se.innerHTML += '<option value="' + sk[i].replace(/"/g, '&quot;') + '">' + sk[i] + '</option>';
   se.value = prevStd && sk.indexOf(prevStd) >= 0 ? prevStd : "";
@@ -854,7 +854,7 @@ function filterCalcProducts_products() {
   if (!me || !se || !pe) return;
   var m = me.value, s = se.value;
   var prevProd = pe.value;
-  pe.innerHTML = '<option value="">— Chọn sản phẩm —</option>';
+  pe.innerHTML = '<option value="">— 选择产品 —</option>';
   DATA_PRODUCTS.forEach(function(p) { if ((!m || String(p.machine) === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
   pe.value = prevProd;
 }
@@ -884,14 +884,14 @@ function populateCalcMaxLoad() {
   }
 }
 // ====== FILTER HELPERS ======
-function filterBagSpec() {
-  var bagSpec = document.getElementById("calcBagSpec").value;
+function filterBag规格() {
+  var bag规格 = document.getElementById("calcBag规格").value;
   var bsel = document.getElementById("calcBag");
   if (bsel) {
     var curVal = bsel.value;
     bsel.innerHTML = '<option value="">— 不选包装 —</option>';
     for (var i = 0; i < DATA_BAGS.length; i++) {
-      if (DATA_BAGS[i].spec === bagSpec) {
+      if (DATA_BAGS[i].spec === bag规格) {
         bsel.innerHTML += '<option value="' + DATA_BAGS[i].code + '">' + DATA_BAGS[i].code + '</option>';
       }
     }
@@ -899,8 +899,8 @@ function filterBagSpec() {
   }
   var tnRow = document.getElementById("calcTonnageRow");
   var otnRow = document.getElementById("calcOtherTonnageRow");
-  if (tnRow) tnRow.style.display = (bagSpec === "Jumbo") ? "flex" : "none";
-  if (otnRow) otnRow.style.display = (bagSpec === "Jumbo") ? "none" : "flex";
+  if (tnRow) tnRow.style.display = (bag规格 === "Jumbo") ? "flex" : "none";
+  if (otnRow) otnRow.style.display = (bag规格 === "Jumbo") ? "none" : "flex";
   calcPrice();
 }
 // ====== CALC FUNCTIONS ======
@@ -938,12 +938,12 @@ function setCalcFreight(val) {
   calcFreightUSD = parseFloat(val) || 0;
   calcPrice();
 }
-function getCalcBagSpec() {
-  var sel = document.getElementById("calcBagSpec");
+function getCalcBag规格() {
+  var sel = document.getElementById("calcBag规格");
   return sel ? sel.value : "25KG";
 }
 function getCalcMaxLoading(prod) {
-  var bs = getCalcBagSpec();
+  var bs = getCalcBag规格();
   if (bs === "Jumbo") return getMaxLoading(prod.code, "maxJumbo");
   return getMaxLoading(prod.code, "max25");
 }
@@ -959,8 +959,8 @@ function calcCommission() {
   if (!prod) { cr.innerHTML = ""; return; }
   var isUsd = currency === "USD";
   var commBase = isUsd ? prod.comm_usd : prod.comm_vnd;
-  var bsel = document.getElementById("calcBag"), tnsel = document.getElementById("calcTonnage"), otnsel = document.getElementById("calcOtherTonnage"), osel = document.getElementById("calcOther"), bagSpecSel = document.getElementById("calcBagSpec");
-  var bs = bagSpecSel ? bagSpecSel.value : "25KG";
+  var bsel = document.getElementById("calcBag"), tnsel = document.getElementById("calcTonnage"), otnsel = document.getElementById("calcOtherTonnage"), osel = document.getElementById("calcOther"), bag规格Sel = document.getElementById("calcBag规格");
+  var bs = bag规格Sel ? bag规格Sel.value : "25KG";
   var isJumbo = bs === "Jumbo";
   var bagPrice = 0, bcode = bsel ? bsel.value : "", bagTons = 1;
   if (isJumbo && tnsel && tnsel.value && parseFloat(tnsel.value) > 0) bagTons = parseFloat(tnsel.value);
@@ -1013,7 +1013,7 @@ function calcCommission() {
     var effCommBase = sellPrice < totalCost ? 0 : commBase;
     var totalComm = effCommBase + commissionVar;
   }
-  var h = '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  var h = '<div class="calc-comm-row"><span>基本佣金</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   h += '<div class="calc-comm-row"><span>差额(30%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   h += '<div class="calc-comm-row"><span>总成本</span><strong>' + fmtNum(totalCost, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>总佣金</span><strong style="color:var(--primary);font-size:16px">' + fmtNum(totalComm, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
@@ -1022,13 +1022,13 @@ function calcCommission() {
 function calcPrice() {
   var res = document.getElementById("calcResult");
   if (!res) return;
-  var psel = document.getElementById("calcProduct"), bsel = document.getElementById("calcBag"), tnsel = document.getElementById("calcTonnage"), otnsel = document.getElementById("calcOtherTonnage"), osel = document.getElementById("calcOther"), bagSpecSel = document.getElementById("calcBagSpec");
+  var psel = document.getElementById("calcProduct"), bsel = document.getElementById("calcBag"), tnsel = document.getElementById("calcTonnage"), otnsel = document.getElementById("calcOtherTonnage"), osel = document.getElementById("calcOther"), bag规格Sel = document.getElementById("calcBag规格");
   var isUsd = currency === "USD", pcode = psel ? psel.value : "";
   if (!pcode) { res.innerHTML = '<div class="calc-empty">👈 请选择产品</div>'; return; }
   var prod = null;
   for (var i = 0; i < DATA_PRODUCTS.length; i++) { if (DATA_PRODUCTS[i].code === pcode) { prod = DATA_PRODUCTS[i]; break; } }
   if (!prod) { res.innerHTML = '<div class="calc-empty">❌ 未找到产品</div>'; return; }
-  var bs = bagSpecSel ? bagSpecSel.value : "25KG";
+  var bs = bag规格Sel ? bag规格Sel.value : "25KG";
   var isJumbo = bs === "Jumbo";
   // Determine base price: EXW or FOB or CIF
   var exwMin = 0;
@@ -1107,13 +1107,13 @@ var total = 0;
   if (isCifMode) {
     if (maxLoad > 0) {
       h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tấn</span></div>';
-      h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
+      h += '<div class="calc-result-item"><span class="calc-rl">🚛 FOB费用/吨</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
       var cifFreightPerTon = isUsd ? (calcFreightUSD + 10) / maxLoad : (calcFreightUSD + 10) * EXCHANGE_RATE / maxLoad;
       h += '<div class="calc-result-item"><span class="calc-rl">🚢 运费/吨</span><span class="calc-rv other">' + fmtNum(cifFreightPerTon, isUsd) + ' ' + cc + '</span></div>';
     }
   }
   var bd = ""; if (bcode || isDefaultBag) { if (hasBag) { bd = bagCode; } else { bd = bagCode; } if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">🛍️ Bao bì (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; if (!hasBag) h += '<div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">⚠️ Đang dùng giá bao gồm bao bì tiêu chuẩn. Nếu bao bì khác vui lòng chọn chính xác!</span></div>'; }
-  if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">📦 Quy cách khác (' + od + ')</span><span class="calc-rv other">' + fmtNum(otherPrice, isUsd) + ' ' + cc + '</span></div>'; }
+  if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">📦 其他规格 (' + od + ')</span><span class="calc-rv other">' + fmtNum(otherPrice, isUsd) + ' ' + cc + '</span></div>'; }
   h += '<div class="calc-result-total-row">';
   h += '<span class="calc-rl">🏷️ 总成本(' + modeLabel + ')</span>';
   h += '<span class="calc-rv total">' + fmtNum(total, isUsd) + ' ' + cc + '</span>';
@@ -1345,7 +1345,7 @@ function handleManageFile(file) {
         return null;
       }
       
-      var prodSheet = hasSheet(["Products", "products", "Sản phẩm", "sản phẩm", "Product", "product", "Template", "最低售价", "最低售价", "Giá bán", "Gia ban", "Giá"]);
+      var prodSheet = hasSheet(["Products", "products", "产品", "sản phẩm", "Product", "product", "Template", "最低售价", "最低售价", "售价", "Gia ban", "价格"]);
       if (prodSheet) {
         var s = XLSX.utils.sheet_to_json(wb.Sheets[prodSheet]);
         if (s.length > 0) { importProducts(s); updated++; }
@@ -1357,7 +1357,7 @@ function handleManageFile(file) {
         if (s.length > 0) { DATA_BAGS = s; updated++; }
       }
       
-      var otherSheet = hasSheet(["Others", "others", "Quy cách khác", "Other", "other"]);
+      var otherSheet = hasSheet(["Others", "others", "其他规格", "Other", "other"]);
       if (otherSheet) {
         var s = XLSX.utils.sheet_to_json(wb.Sheets[otherSheet]);
         if (s.length > 0) { DATA_OTHERS = s; updated++; }
@@ -1500,7 +1500,7 @@ function render() {
     container.innerHTML = renderOthersTab();
   } else if (activeTab === "calc") {
     container.innerHTML = renderCalcTab();
-    setTimeout(function(){ filterCalcProducts(); filterBagSpec();
+    setTimeout(function(){ filterCalcProducts(); filterBag规格();
     // Sync calc currency toggle with current global currency
     var vndBtn = document.getElementById("calcCcyVnd");
     var usdBtn = document.getElementById("calcCcyUsd");
@@ -1557,7 +1557,7 @@ function saveToServer() {
       status.className = xhr.status === 200 ? "manage-status-sm ok" : "manage-status-sm err";
       status.textContent = xhr.status === 200
         ? "✅ 已保存到服务器！刷新en.html、zh.html可查看新数据。"
-        : "❌ Lỗi: " + xhr.status + " - " + xhr.statusText;
+        : "❌ 错误: " + xhr.status + " - " + xhr.statusText;
     }
   };
   xhr.onerror = function() {
@@ -1723,14 +1723,14 @@ function closeQuotationPopup() {
 }
 function getCalcPriceData() {
   var psel=document.getElementById("calcProduct"), bsel=document.getElementById("calcBag");
-  var bagSpecSel=document.getElementById("calcBagSpec"), sp=document.getElementById("calcSellPrice");
+  var bag规格Sel=document.getElementById("calcBag规格"), sp=document.getElementById("calcSellPrice");
   if (!psel||!psel.value) return null;
   var prod=null;
   for (var i=0;i<DATA_PRODUCTS.length;i++) { if (DATA_PRODUCTS[i].code===psel.value) { prod=DATA_PRODUCTS[i]; break; } }
   if (!prod) return null;
   var isUsd=currency==="USD";
   var cc=isUsd?"USD":"VND";
-  var bs=bagSpecSel?bagSpecSel.value:"25KG";
+  var bs=bag规格Sel?bag规格Sel.value:"25KG";
   var bcode=bsel?bsel.value:"";
   var bagLabel="";
   if (bcode) { for (var i=0;i<DATA_BAGS.length;i++) { if (DATA_BAGS[i].code===bcode) { bagLabel=DATA_BAGS[i].spec; break; } } }
@@ -1751,7 +1751,7 @@ function getCalcPriceData() {
     machine: prod.machine,
     standard: prod.standard,
     spec: spec,
-    bagSpec: bagLabel,
+    bag规格: bagLabel,
     bagCode: bcode||bagLabel,
     isJumbo: bs==="Jumbo",
     mode: modeStr,
@@ -1793,13 +1793,13 @@ function updateQuotationPreview() {
   h+="<div class=\"q-row\"><strong>日期:</strong><span>"+dateStr+"</span></div>";
   if (port) h+="<div class=\"q-row\"><strong>装运港:</strong><span>"+port+"</span></div>";
   h+="<table class=\"q-table\">";
-  h+="<thead><tr><th>STT</th><th>Code</th><th>产品名称</th><th>Spec</th><th>袋规格</th><th>单位</th><th>SL</th><th>Giá</th><th>货币</th></tr></thead>";
+  h+="<thead><tr><th>序号</th><th>Code</th><th>产品名称</th><th>规格</th><th>袋规格</th><th>单位</th><th>数量</th><th>价格</th><th>货币</th></tr></thead>";
   h+="<tbody>";
-  h+="<tr><td>1</td><td>"+data.code+"</td><td>"+data.size+"</td><td style=\"font-size:11px\">"+data.spec+"</td><td>"+data.bagSpec+"</td><td>Tấn</td><td>"+qty+"</td><td style=\"font-weight:700\">"+totalFmt+"</td><td>"+data.cc+"</td></tr>";
+  h+="<tr><td>1</td><td>"+data.code+"</td><td>"+data.size+"</td><td style=\"font-size:11px\">"+data.spec+"</td><td>"+data.bag规格+"</td><td>Tấn</td><td>"+qty+"</td><td style=\"font-weight:700\">"+totalFmt+"</td><td>"+data.cc+"</td></tr>";
   h+="</tbody></table>";
   h+="<div class=\"q-terms\">";
   h+="<div class=\"q-row\"><strong>Delivery Terms:</strong><span>"+delivery+"</span></div>";
-  if (port&&(delivery==="FOB"||delivery==="CIF")) h+="<div class=\"q-row\"><strong>Cảng đi:</strong><span>"+port+"</span></div>";
+  if (port&&(delivery==="FOB"||delivery==="CIF")) h+="<div class=\"q-row\"><strong>装运港:</strong><span>"+port+"</span></div>";
   h+="<div class=\"q-row\"><strong>条件:</strong><span>"+data.mode+"</span></div>";
   h+="<div class=\"q-row\"><strong>有效期:</strong><span>"+valid+"</span></div>";
   h+="<div class=\"q-row\"><strong>付款:</strong><span>"+payment+"</span></div>";
@@ -1843,11 +1843,11 @@ function getQuotationText() {
   if (contact) t+="联系人: "+contact+"\n";
   if (assigned) t+="负责人: "+assigned+"\n";
   if (custEmail) t+="Email: "+custEmail+"\n";
-  t+="Ngày: "+dateStr+"\n";
+  t+="日期: "+dateStr+"\n";
   t+="──────────────────────────────────────────────────\n";
   t+="产品: "+data.product+"\n";
-  t+="Spec: "+data.spec+"\n";
-  t+="袋规格: "+data.bagSpec+"\n";
+  t+="规格: "+data.spec+"\n";
+  t+="袋规格: "+data.bag规格+"\n";
   t+="数量: "+qty+" tấn\n";
   t+="条件: "+data.mode+"\n";
   if (port) t+="装运港: "+port+"\n";
@@ -1859,8 +1859,8 @@ function getQuotationText() {
   t+="付款: "+payment+"\n";
   if (note) t+="备注: "+note+"\n";
   t+="\n";
-  t+="- Giá không bao gồm thuế VAT\n";
-  t+="- "+(delivery==="Tại kho nhà máy Đức Thịnh"?"价格不含运费":"价格含运费")+"\n";
+  t+="- 价格不含增值税\n";
+  t+="- "+(delivery==="在德盛工厂仓库"?"价格不含运费":"价格含运费")+"\n";
   t+="- 此报价有效期 "+valid+"\n";
   return t;
 }
@@ -1895,21 +1895,21 @@ function printQuotation() {
   w.document.write('<p class="sub">'+ADDR+'<br>Email: '+EMAIL+' - '+WEBSITE+'<br>Tel: '+PHONE+' Ext: '+EXT+' - MST: '+MST+'</p>');
   w.document.write('<div class="divider"></div>');
   w.document.write('<p class="title">📄 BÁO GIÁ</p>');
-  w.document.write('<div class="row"><strong>Khách hàng:</strong><span>'+customer+'</span></div>');
-  if (contact) w.document.write('<div class="row"><strong>Người liên hệ:</strong><span>'+contact+'</span></div>');
-  if (assigned) w.document.write('<div class="row"><strong>Người phụ trách:</strong><span>'+assigned+'</span></div>');
+  w.document.write('<div class="row"><strong>客户:</strong><span>'+customer+'</span></div>');
+  if (contact) w.document.write('<div class="row"><strong>联系人:</strong><span>'+contact+'</span></div>');
+  if (assigned) w.document.write('<div class="row"><strong>负责人:</strong><span>'+assigned+'</span></div>');
   if (custEmail) w.document.write('<div class="row"><strong>Email:</strong><span>'+custEmail+'</span></div>');
-  w.document.write('<div class="row"><strong>Ngày:</strong><span>'+dateStr+'</span></div>');
-  if (port) w.document.write('<div class="row"><strong>Cảng đi:</strong><span>'+port+'</span></div>');
-  w.document.write('<table><thead><tr><th>STT</th><th>Code</th><th>Tên sản phẩm</th><th>Spec</th><th>Quy cách bao</th><th>ĐVT</th><th>SL</th><th>Giá</th><th>Tiền tệ</th></tr></thead><tbody>');
-  w.document.write('<tr><td>1</td><td>'+data.code+'</td><td>'+data.size+'</td><td style="font-size:11px">'+data.spec+'</td><td>'+data.bagSpec+'</td><td>Tấn</td><td>'+qty+'</td><td><strong>'+totalFmt+'</strong></td><td>'+data.cc+'</td></tr>');
+  w.document.write('<div class="row"><strong>日期:</strong><span>'+dateStr+'</span></div>');
+  if (port) w.document.write('<div class="row"><strong>装运港:</strong><span>'+port+'</span></div>');
+  w.document.write('<table><thead><tr><th>序号</th><th>Code</th><th>产品名称</th><th>规格</th><th>袋规格</th><th>单位</th><th>数量</th><th>价格</th><th>货币</th></tr></thead><tbody>');
+  w.document.write('<tr><td>1</td><td>'+data.code+'</td><td>'+data.size+'</td><td style="font-size:11px">'+data.spec+'</td><td>'+data.bag规格+'</td><td>Tấn</td><td>'+qty+'</td><td><strong>'+totalFmt+'</strong></td><td>'+data.cc+'</td></tr>');
   w.document.write('</tbody></table>');
   w.document.write('<div class="row"><strong>Delivery Terms:</strong><span>'+delivery+'</span></div>');
-  w.document.write('<div class="row"><strong>Điều kiện:</strong><span>'+data.mode+'</span></div>');
-  w.document.write('<div class="row"><strong>Hiệu lực:</strong><span>'+valid+'</span></div>');
-  w.document.write('<div class="row"><strong>Thanh toán:</strong><span>'+payment+'</span></div>');
-  if (note) w.document.write('<div class="row"><strong>Ghi chú:</strong><span>'+note+'</span></div>');
-  w.document.write('<div class="footer">- 价格不含增值税<br>- '+(delivery==="Tại kho nhà máy Đức Thịnh"?"Giá chưa bao gồm chi phí vận chuyển đến kho người mua":"Giá đã bao gồm chi phí vận chuyển đến kho người mua")+'<br>- 此报价有效期 '+valid+'<br>- 最低数量：1x20英尺集装箱（约21吨）<br><br><strong>'+COMPANY_EN+'</strong></div>');
+  w.document.write('<div class="row"><strong>条件:</strong><span>'+data.mode+'</span></div>');
+  w.document.write('<div class="row"><strong>有效期:</strong><span>'+valid+'</span></div>');
+  w.document.write('<div class="row"><strong>付款:</strong><span>'+payment+'</span></div>');
+  if (note) w.document.write('<div class="row"><strong>备注:</strong><span>'+note+'</span></div>');
+  w.document.write('<div class="footer">- 价格不含增值税<br>- '+(delivery==="在德盛工厂仓库"?"价格不含至买方仓库的运费":"价格含至买方仓库的运费")+'<br>- 此报价有效期 '+valid+'<br>- 最低数量：1x20英尺集装箱（约21吨）<br><br><strong>'+COMPANY_EN+'</strong></div>');
   w.document.write('</body></html>');
   w.document.close();
   setTimeout(function(){w.print();},500);
@@ -1927,11 +1927,11 @@ function importProducts(arr) {
   DATA_PRODUCTS = [];
   arr.forEach(function(r) {
     var obj = {};
-    obj.code = r.code || r.Code || r["产品代码"] || r["Ma SP"] || r["产品代码"] || r["Mã"] || "";
+    obj.code = r.code || r.Code || r["产品代码"] || r["Ma SP"] || r["产品代码"] || r["代码"] || "";
     if (!obj.code) return;
     obj.size = r.size || r.Size || r["粒度"] || r["Co hat"] || r["Size"] || "";
-    obj.standard = r.standard || r.Standard || r["Tiêu chuẩn"] || r["Tieu chuan"] || r["Standard"] || "";
-    obj.machine = r.machine || r.Machine || r["机器"] || r["May chay"] || r["Máy"] || r["May"] || "";
+    obj.standard = r.standard || r.Standard || r["标准"] || r["Tieu chuan"] || r["Standard"] || "";
+    obj.machine = r.machine || r.Machine || r["机器"] || r["May chay"] || r["机器"] || r["May"] || "";
     var vndFields = {
       exw_vnd: ["EXW (VND)","EXW(VND)","exw_vnd","EXW_VND","exw vnd","EXW VND","Exw(VND)"],
       exw_usd: ["EXW (USD)","EXW(USD)","exw_usd","EXW_USD","exw usd","EXW USD","Exw(USD)"],
@@ -1953,7 +1953,7 @@ function importProducts(arr) {
     });
     var marketSuffixes = ["_cn","_other"];
     function readMarketField(r, obj, key, suffix) {
-      var baseNames = ["EXW (VND)","EXW (USD)","Hoa hồng (VND)","Hoa hồng (USD)","25kg (VND)","25kg (USD)","Jumbo (VND)","Jumbo (USD)"];
+      var baseNames = ["EXW (VND)","EXW (USD)","佣金(VND)","佣金(USD)","25kg (VND)","25kg (USD)","Jumbo (VND)","Jumbo (USD)"];
       for (var si = 0; si < baseNames.length; si++) {
         var fullName = baseNames[si] + suffix;
         if (r[fullName] !== undefined && r[fullName] !== null && r[fullName] !== "") {

@@ -281,6 +281,7 @@ function getJSReplMap(lang) {
       'Cảng đi:': '装运港:',
       'Tên sản phẩm': '产品名称',
       'Spec': '规格',
+      'STT': '序号',
       'Quy cách bao': '袋规格',
       'ĐVT': '单位',
       'SL': '数量',
@@ -359,7 +360,7 @@ function build(lang) {
     var sortedKeys = Object.keys(jsRepl).sort(function(a, b) { return b.length - a.length; });
     sortedKeys.forEach(function(vi) {
       var en = jsRepl[vi];
-      fullJs = fullJs.replace(vi, function() { return en; });
+      fullJs = fullJs.split(vi).join(en);
     });
   }
 
