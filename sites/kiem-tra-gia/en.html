@@ -771,7 +771,7 @@ function renderCalcTab() {
   h += '<div class="calc-left">';
 
   // --- Section: Product ---
-  h += '<div class="calc-section-title"><span class="badge blue">📦</span><span class="title-text">Select product</span></div>';
+  h += '<div class="calc-section-title"><span class="badge blue">📦</span><span class="title-text">Select product</span><button id="resetCalcBtn" onclick="resetCalcFilters()" title="Bỏ lọc" style="margin-left:auto;width:28px;height:28px;padding:0;border:1.5px solid var(--border);border-radius:6px;background:var(--card);color:var(--text-secondary);font-size:13px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s">↺</button></div>';
 
   // Machine + Standard side by side
   var machines = {};
@@ -1185,6 +1185,27 @@ var total = 0;
 }
 
 
+
+
+// ====== RESET CALC FILTERS ======
+function resetCalcFilters() {
+  var me = document.getElementById("calcMachine");
+  if (me) me.value = "";
+  var se = document.getElementById("calcStandard");
+  if (se) se.value = "";
+  var pe = document.getElementById("calcProduct");
+  if (pe) pe.value = "";
+  var mlsel = document.getElementById("calcMaxLoad");
+  if (mlsel) mlsel.value = "";
+  filterCalcProducts();
+  var bs = document.getElementById("calcBagSpec");
+  if (bs) bs.value = "25KG";
+  var bg = document.getElementById("calcBag");
+  if (bg) bg.innerHTML = '<option value="">— No packaging —</option>';
+  var ot = document.getElementById("calcOther");
+  if (ot) ot.value = "";
+  calcPrice();
+}
 
 // 06-manage.js
 // ====== EXPORT FUNCTIONS ======
