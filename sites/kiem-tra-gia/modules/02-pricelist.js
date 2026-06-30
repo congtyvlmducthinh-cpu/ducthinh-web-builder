@@ -32,11 +32,13 @@ function renderPriceTab() {
   var search = (document.getElementById("searchInput") && document.getElementById("searchInput").value || "").toLowerCase();
   var specFilter = document.getElementById("specFilter") && document.getElementById("specFilter").value || "";
   var machineFilter = document.getElementById("machineFilter") && document.getElementById("machineFilter").value || "";
+  var sizeFilter = document.getElementById("sizeFilter") && document.getElementById("sizeFilter").value || "";
   var isUsd = currency === "USD";
   var filtered = DATA_PRODUCTS.filter(function(p) {
     if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0) && (!p.machine || p.machine.toLowerCase().indexOf(search) < 0) && (!p.standard || p.standard.toLowerCase().indexOf(search) < 0)) return false;
     if (specFilter && p.standard !== specFilter) return false;
     if (machineFilter && String(p.machine) !== machineFilter) return false;
+    if (sizeFilter && p.size !== sizeFilter) return false;
     return true;
   });
   var isFob = priceMode === "fob";
@@ -124,22 +126,66 @@ function renderPriceTab() {
 
 // ====== FILTER POPULATOR ======
 function populateFilters() {
-  var machines = {}, standards = {};
-  DATA_PRODUCTS.forEach(function(p) { machines[p.machine] = true; standards[p.standard] = true; });
-  var mk = Object.keys(machines).sort(function(a,b) { return a - b; });
-  var sk = Object.keys(standards).sort();
+  // Read current values from all filters
+  var search = (document.getElementById("searchInput") && document.getElementById("searchInput").value || "").toLowerCase();
+  var curSpec = document.getElementById("specFilter") ? document.getElementById("specFilter").value : "";
+  var curMachine = document.getElementById("machineFilter") ? document.getElementById("machineFilter").value : "";
+  var curSize = document.getElementById("sizeFilter") ? document.getElementById("sizeFilter").value : "";
+
+  // Helper: check if a product matches search
+  function matchesSearch(p) {
+    if (!search) return true;
+    return (p.code && p.code.toLowerCase().indexOf(search) >= 0) ||
+           (p.size && p.size.toLowerCase().indexOf(search) >= 0) ||
+           (p.machine && p.machine.toLowerCase().indexOf(search) >= 0) ||
+           (p.standard && p.standard.toLowerCase().indexOf(search) >= 0);
+  }
+
+  // === specFilter: show standards available given search + machine + size ===
   var sf = document.getElementById("specFilter");
   if (sf) {
-    var curSpec = sf.value;
+    var standards = {};
+    DATA_PRODUCTS.forEach(function(p) {
+      if (!matchesSearch(p)) return;
+      if (curMachine && String(p.machine) !== curMachine) return;
+      if (curSize && p.size !== curSize) return;
+      standards[p.standard] = true;
+    });
+    var sk = Object.keys(standards).sort();
     sf.innerHTML = '<option value="">Tất cả tiêu chuẩn</option>';
-    for (var i = 0; i < sk.length; i++) sf.innerHTML += '<option value="' + sk[i] + '">' + sk[i] + '</option>';
+    for (var i = 0; i < sk.length; i++) sf.innerHTML += '<option value="' + sk[i].replace(/"/g, '&quot;') + '">' + sk[i] + '</option>';
     sf.value = curSpec && sk.indexOf(curSpec) >= 0 ? curSpec : "";
   }
+
+  // === machineFilter: show machines available given search + spec + size ===
   var mf = document.getElementById("machineFilter");
   if (mf) {
-    var curMach = mf.value;
+    var machines = {};
+    DATA_PRODUCTS.forEach(function(p) {
+      if (!matchesSearch(p)) return;
+      if (curSpec && p.standard !== curSpec) return;
+      if (curSize && p.size !== curSize) return;
+      machines[p.machine] = true;
+    });
+    var mk = Object.keys(machines).sort(function(a,b) { return Number(a) - Number(b); });
     mf.innerHTML = '<option value="">Tất cả máy</option>';
     for (var i = 0; i < mk.length; i++) mf.innerHTML += '<option value="' + mk[i].replace(/"/g, '&quot;') + '">' + mk[i] + '</option>';
-    mf.value = curMach && mk.indexOf(curMach) >= 0 ? curMach : "";
+    mf.value = curMachine && mk.indexOf(curMachine) >= 0 ? curMachine : "";
+  }
+
+  // === sizeFilter: show sizes available given search + spec + machine ===
+  var szf = document.getElementById("sizeFilter");
+  if (szf) {
+    var sizes = {};
+    DATA_PRODUCTS.forEach(function(p) {
+      if (!matchesSearch(p)) return;
+      if (curSpec && p.standard !== curSpec) return;
+      if (curMachine && String(p.machine) !== curMachine) return;
+      sizes[p.size] = true;
+    });
+    var sk2 = Object.keys(sizes).sort();
+    szf.innerHTML = '<option value="">Tất cả kích thước</option>';
+    for (var i = 0; i < sk2.length; i++) szf.innerHTML += '<option value="' + sk2[i].replace(/"/g, '&quot;') + '">' + sk2[i] + '</option>';
+    szf.value = curSize && sk2.indexOf(curSize) >= 0 ? curSize : "";
   }
 }
