@@ -269,6 +269,7 @@ tbody tr:hover td{background:#eff6ff}
   </div>
 </div>
 
+<script>
 // Data
 var DATA_PRODUCTS = [];
 var DATA_LOADED = false;
@@ -1544,11 +1545,7 @@ function filterFreightRoutes() {
   filtered.forEach(function(r) {
     var tr = document.createElement("tr");
     tr.dataset.index = FREIGHT_DATA.indexOf(r);
-    tr.innerHTML = '<td>' + r.port + '</td><td>' + r.country + '</td><td class="freight-val">
-
-</body>
-</html>
- + r.freight + '</td><td>' + r.forwarder + '</td><td>' + r.via + '</td>';
+    tr.innerHTML = '<td>' + r.port + '</td><td>' + r.country + '</td><td class="freight-val">$' + r.freight + '</td><td>' + r.forwarder + '</td><td>' + r.via + '</td>';
     tr.onclick = function() {
       tbody.querySelectorAll("tr").forEach(function(t) { t.classList.remove("selected"); });
       this.classList.add("selected");
@@ -1839,13 +1836,10 @@ loadProductsData().then(function() {
   }
   applyMarket();
   switchTab("pricelist");
-});</script>
 
+});
 
 // 10-market.js
-﻿var DATA_PRODUCTS = [];
-var DATA_LOADED = false;
-
 function loadProductsData() {
   return fetch('data/products.json')
     .then(function(r) { return r.json(); })
@@ -1892,7 +1886,6 @@ function importProducts(arr) {
     // Read market-specific overrides (cn/other) if present in template
     var marketSuffixes = ["_cn","_other"];
     function readMarketField(r, obj, key, suffix) {
-      // Try suffixed user-friendly names first, then raw key+suffix
       var baseNames = ["EXW (VND)","EXW (USD)","Hoa hồng (VND)","Hoa hồng (USD)","25kg (VND)","25kg (USD)","Jumbo (VND)","Jumbo (USD)"];
       for (var si = 0; si < baseNames.length; si++) {
         var fullName = baseNames[si] + suffix;
@@ -1935,7 +1928,6 @@ function importProducts(arr) {
       DATA_MAX_LOADING[obj.code] = DATA_MAX_LOADING[obj.code] || {};
       DATA_MAX_LOADING[obj.code].maxJumbo = Number(maxJb);
     }
-  
     // CN là base mặc định: ghi đè obj.exw_vnd bằng exw_vnd_cn
     obj.exw_vnd = obj.exw_vnd_cn !== undefined ? obj.exw_vnd_cn : obj.exw_vnd;
     obj.exw_usd = obj.exw_usd_cn !== undefined ? obj.exw_usd_cn : obj.exw_usd;
@@ -1962,10 +1954,10 @@ function importProducts(arr) {
     if (obj.pkg25_vnd_other === undefined) obj.pkg25_vnd_other = obj.pkg25_vnd_cn !== undefined ? obj.pkg25_vnd_cn : 0;
     if (obj.pkg25_usd_other === undefined) obj.pkg25_usd_other = obj.pkg25_usd_cn !== undefined ? obj.pkg25_usd_cn : 0;
     if (obj.jumbo_vnd_other === undefined) obj.jumbo_vnd_other = obj.jumbo_vnd_cn !== undefined ? obj.jumbo_vnd_cn : 0;
-    if (obj.jumbo_usd_other === undefined) obj.jumbo_usd_other = obj.jumbo_usd_cn !== undefined ? obj.jumbo_usd_cn : 0;DATA_PRODUCTS.push(obj);
+    if (obj.jumbo_usd_other === undefined) obj.jumbo_usd_other = obj.jumbo_usd_cn !== undefined ? obj.jumbo_usd_cn : 0;
+    DATA_PRODUCTS.push(obj);
   });
-
-
+}
 
 // Market switching
 var currentMarket = "cn";
@@ -1973,7 +1965,6 @@ var currentMarket = "cn";
 function applyMarket() {
   var suffix = "_" + currentMarket;
   DATA_PRODUCTS.forEach(function(p) {
-    // Use suffix field if available, fall back to base field
     p.exw_vnd = p["exw_vnd" + suffix] !== undefined ? p["exw_vnd" + suffix] : p.exw_vnd;
     p.exw_usd = p["exw_usd" + suffix] !== undefined ? p["exw_usd" + suffix] : p.exw_usd;
     p.comm_vnd = p["comm_vnd" + suffix] !== undefined ? p["comm_vnd" + suffix] : p.comm_vnd;
@@ -1983,13 +1974,11 @@ function applyMarket() {
     p.jumbo_vnd = p["jumbo_vnd" + suffix] !== undefined ? p["jumbo_vnd" + suffix] : p.jumbo_vnd;
     p.jumbo_usd = p["jumbo_usd" + suffix] !== undefined ? p["jumbo_usd" + suffix] : p.jumbo_usd;
   });
-  // Re-render
   render();
 }
 
 function setMarket(mkt) {
   currentMarket = mkt;
-  // Update UI toggle buttons
   var cnBtn = document.getElementById("marketCn");
   var otherBtn = document.getElementById("marketOther");
   if (cnBtn && otherBtn) {
@@ -2002,20 +1991,13 @@ function setMarket(mkt) {
     otherBtn.style.color = mkt === "other" ? "#fff" : "#333";
     otherBtn.style.borderColor = mkt === "other" ? "#1a56db" : "#d0d5dd";
   }
-  applyMarket();
+  applyMarket();
+}
 
-﻿loadProductsData().then(function() {
+loadProductsData().then(function() {
   var saved = localStorage.getItem("dq_products");
   if (saved) {
     try { DATA_PRODUCTS = JSON.parse(saved); } catch(e) {}
-  }
-  var savedBags = localStorage.getItem("dq_bags");
-  if (savedBags) {
-    try { DATA_BAGS = JSON.parse(savedBags); } catch(e) {}
-  }
-  var savedOthers = localStorage.getItem("dq_others");
-  if (savedOthers) {
-    try { DATA_OTHERS = JSON.parse(savedOthers); } catch(e) {}
   }
   var savedML = localStorage.getItem("dq_maxLoading");
   if (savedML) {
@@ -2027,31 +2009,8 @@ function setMarket(mkt) {
   }
   applyMarket();
   switchTab("pricelist");
-}).catch(function(err) {
-  console.error('Error loading data, using localStorage fallback', err);
-  var saved = localStorage.getItem("dq_products");
-  if (saved) {
-    try { DATA_PRODUCTS = JSON.parse(saved); } catch(e) {}  
-  }
-  var savedBags = localStorage.getItem("dq_bags");
-  if (savedBags) {
-    try { DATA_BAGS = JSON.parse(savedBags); } catch(e) {}
-  }
-  var savedOthers = localStorage.getItem("dq_others");
-  if (savedOthers) {
-    try { DATA_OTHERS = JSON.parse(savedOthers); } catch(e) {}
-  }
-  var savedML = localStorage.getItem("dq_maxLoading");
-  if (savedML) {
-    try { DATA_MAX_LOADING = JSON.parse(savedML); } catch(e) {}
-  }
-  var savedCF = localStorage.getItem("dq_costFOB");
-  if (savedCF) {
-    try { DATA_COST_FOB = JSON.parse(savedCF); } catch(e) {}
-  }
-  applyMarket();
-  switchTab("pricelist");
-
+});
+</script>
 
 </body>
 </html>

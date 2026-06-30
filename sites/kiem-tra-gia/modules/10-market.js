@@ -1,6 +1,3 @@
-﻿var DATA_PRODUCTS = [];
-var DATA_LOADED = false;
-
 function loadProductsData() {
   return fetch('data/products.json')
     .then(function(r) { return r.json(); })
@@ -47,7 +44,6 @@ function importProducts(arr) {
     // Read market-specific overrides (cn/other) if present in template
     var marketSuffixes = ["_cn","_other"];
     function readMarketField(r, obj, key, suffix) {
-      // Try suffixed user-friendly names first, then raw key+suffix
       var baseNames = ["EXW (VND)","EXW (USD)","Hoa hồng (VND)","Hoa hồng (USD)","25kg (VND)","25kg (USD)","Jumbo (VND)","Jumbo (USD)"];
       for (var si = 0; si < baseNames.length; si++) {
         var fullName = baseNames[si] + suffix;
@@ -90,7 +86,6 @@ function importProducts(arr) {
       DATA_MAX_LOADING[obj.code] = DATA_MAX_LOADING[obj.code] || {};
       DATA_MAX_LOADING[obj.code].maxJumbo = Number(maxJb);
     }
-  
     // CN là base mặc định: ghi đè obj.exw_vnd bằng exw_vnd_cn
     obj.exw_vnd = obj.exw_vnd_cn !== undefined ? obj.exw_vnd_cn : obj.exw_vnd;
     obj.exw_usd = obj.exw_usd_cn !== undefined ? obj.exw_usd_cn : obj.exw_usd;
@@ -117,10 +112,10 @@ function importProducts(arr) {
     if (obj.pkg25_vnd_other === undefined) obj.pkg25_vnd_other = obj.pkg25_vnd_cn !== undefined ? obj.pkg25_vnd_cn : 0;
     if (obj.pkg25_usd_other === undefined) obj.pkg25_usd_other = obj.pkg25_usd_cn !== undefined ? obj.pkg25_usd_cn : 0;
     if (obj.jumbo_vnd_other === undefined) obj.jumbo_vnd_other = obj.jumbo_vnd_cn !== undefined ? obj.jumbo_vnd_cn : 0;
-    if (obj.jumbo_usd_other === undefined) obj.jumbo_usd_other = obj.jumbo_usd_cn !== undefined ? obj.jumbo_usd_cn : 0;DATA_PRODUCTS.push(obj);
+    if (obj.jumbo_usd_other === undefined) obj.jumbo_usd_other = obj.jumbo_usd_cn !== undefined ? obj.jumbo_usd_cn : 0;
+    DATA_PRODUCTS.push(obj);
   });
-
-
+}
 
 // Market switching
 var currentMarket = "cn";
@@ -128,7 +123,6 @@ var currentMarket = "cn";
 function applyMarket() {
   var suffix = "_" + currentMarket;
   DATA_PRODUCTS.forEach(function(p) {
-    // Use suffix field if available, fall back to base field
     p.exw_vnd = p["exw_vnd" + suffix] !== undefined ? p["exw_vnd" + suffix] : p.exw_vnd;
     p.exw_usd = p["exw_usd" + suffix] !== undefined ? p["exw_usd" + suffix] : p.exw_usd;
     p.comm_vnd = p["comm_vnd" + suffix] !== undefined ? p["comm_vnd" + suffix] : p.comm_vnd;
@@ -138,13 +132,11 @@ function applyMarket() {
     p.jumbo_vnd = p["jumbo_vnd" + suffix] !== undefined ? p["jumbo_vnd" + suffix] : p.jumbo_vnd;
     p.jumbo_usd = p["jumbo_usd" + suffix] !== undefined ? p["jumbo_usd" + suffix] : p.jumbo_usd;
   });
-  // Re-render
   render();
 }
 
 function setMarket(mkt) {
   currentMarket = mkt;
-  // Update UI toggle buttons
   var cnBtn = document.getElementById("marketCn");
   var otherBtn = document.getElementById("marketOther");
   if (cnBtn && otherBtn) {
@@ -157,4 +149,5 @@ function setMarket(mkt) {
     otherBtn.style.color = mkt === "other" ? "#fff" : "#333";
     otherBtn.style.borderColor = mkt === "other" ? "#1a56db" : "#d0d5dd";
   }
-  applyMarket();
+  applyMarket();
+}

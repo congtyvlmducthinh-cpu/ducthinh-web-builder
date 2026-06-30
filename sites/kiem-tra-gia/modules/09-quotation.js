@@ -267,5 +267,5 @@ loadProductsData().then(function() {
   }
   applyMarket();
   switchTab("pricelist");
-});</script>
 
+});

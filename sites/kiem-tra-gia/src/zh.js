@@ -1,4 +1,4 @@
-﻿loadProductsData().then(function() {
+loadProductsData().then(function() {
   var saved = localStorage.getItem("dq_products");
   if (saved) {
     try { DATA_PRODUCTS = JSON.parse(saved); } catch(e) {}
@@ -44,4 +44,5 @@
     try { DATA_COST_FOB = JSON.parse(savedCF); } catch(e) {}
   }
   applyMarket();
-  switchTab("pricelist");
+  switchTab("pricelist");
+});
