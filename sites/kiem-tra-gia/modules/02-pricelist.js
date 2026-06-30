@@ -70,7 +70,7 @@ function renderPriceTab() {
   h += '<div class="summary-card"><div class="lbl">Máy</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Ngày</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
   h += '</div>';
-  h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">📋 Hiện max tải</button>';
+  h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">📋 Hiện max tải</button>'; + '\n<div class="market-group">\n<span class="ext-label">{{MARKET_LABEL}}</span>\n<button class="btn-sm" id="marketCn" onclick="setMarket(\'cn\')">{{MARKET_CN}}</button>\n<button class="btn-sm" id="marketOther" onclick="setMarket(\'other\')">{{MARKET_OTHER}}</button>\n</div>'
   h += '<div class="summary-bar" style="margin-top:4px;gap:6px">';
   h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">TB 25KG</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
   h += '<div class="summary-card" style="padding:8px 12px;background:#fef2f2;border-color:#fecaca"><div class="lbl" style="font-size:10px">C.nhất 25KG</div><div class="val" style="font-size:15px">' + fmt(max25) + '</div></div>';

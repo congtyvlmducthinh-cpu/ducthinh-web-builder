@@ -1,14 +1,14 @@
-<div class="market-group">
-<span class="ext-label">🌏 市场:</span>
-<button class="btn-sm" id="marketCn" onclick="setMarket('cn')">🇨🇳 中国</button>
-<button class="btn-sm" id="marketOther" onclick="setMarket('other')">🌏 其他</button>
-</div>
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>价格查询 - 德盛新材料</title>
+<title>{{HTML_TITLE}
+.market-group{display:inline-flex;gap:3px;align-items:center;margin-left:8px}
+.market-group .btn-sm{background:var(--card);border:1px solid var(--border);padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;cursor:pointer;transition:all .15s ease;color:var(--text-secondary)}
+.market-group .btn-sm.active{background:#1a56db;color:#fff;border-color:#1a56db}
+.market-group .btn-sm:hover:not(.active){background:#f1f5f9;border-color:#94a3b8}}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,10 +17,11 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:var(--font);background:var(--bg);color:var(--text);padding:20px;min-height:100vh;line-height:1.5}
 .container{max-width:1440px;margin:0 auto}
-header{background:linear-gradient(135deg,#0f1b3d,#1a3a8a,#1a56db);color:#fff;border-radius:var(--radius-lg);padding:24px 28px;margin-bottom:20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 4px 20px rgba(26,86,219,.25);position:relative;overflow:hidden}
-header h1{font-size:22px;font-weight:800;letter-spacing:-.3px;z-index:1;position:relative}
-header h1 span{color:#93bbff}
-header .badge{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;z-index:1;position:relative}
+header{background:linear-gradient(135deg,#0f1b3d,#1a3a8a,#1a56db);color:#fff;border-radius:var(--radius-lg);padding:20px 24px;margin-bottom:16px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 4px 20px rgba(26,86,219,.25);position:relative;overflow:hidden}
+header h1{font-size:20px;font-weight:800;letter-spacing:-.5px;z-index:1;position:relative;display:flex;align-items:center;gap:6px}
+header h1 span{color:#60a5fa;font-size:18px}
+header .sub{font-size:12px;opacity:.85;margin-top:2px}
+header .badge{background:rgba(255,255,255,.1);backdrop-filter:blur(8px);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:600;z-index:1;position:relative}
 .tabs{display:flex;gap:3px;background:var(--card);border-radius:var(--radius);padding:4px;margin-bottom:20px;box-shadow:var(--shadow);overflow-x:auto;position:sticky;top:12px;z-index:100;border:1px solid var(--border)}
 .tab-btn{flex-shrink:0;padding:10px 18px;border:none;border-radius:9px;background:0 0;color:var(--text-secondary);font-size:13px;font-weight:600;cursor:pointer;transition:all .25s;white-space:nowrap}
 .tab-btn:hover{background:#f1f5f9;color:var(--text)}
@@ -578,7 +579,7 @@ function renderPriceTab() {
   h += '<div class="summary-card"><div class="lbl">机器</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">日期</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
   h += '</div>';
-  h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">📋 显示最大装载</button>';
+  h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">📋 显示最大装载</button>'; + '\n<div class="market-group">\n<span class="ext-label">🌏 市场:</span>\n<button class="btn-sm" id="marketCn" onclick="setMarket(\'cn\')">🇨🇳 中国</button>\n<button class="btn-sm" id="marketOther" onclick="setMarket(\'other\')">🌏 其他</button>\n</div>'
   h += '<div class="summary-bar" style="margin-top:4px;gap:6px">';
   h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">TB 25KG</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
   h += '<div class="summary-card" style="padding:8px 12px;background:#fef2f2;border-color:#fecaca"><div class="lbl" style="font-size:10px">25KG袋</div><div class="val" style="font-size:15px">' + fmt(max25) + '</div></div>';
