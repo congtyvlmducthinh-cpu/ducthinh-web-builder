@@ -23,6 +23,7 @@ var LANG_TEMPLATE = {
   FILTER_ALL_STANDARDS: "All standards",
   FILTER_ALL_SIZES: "All sizes",
   FILTER_ALL_MACHINES: "All machines",
+  RESET_FILTERS_TITLE: "Reset filters",
 
   PRICE_MODE_EXW: "EXW",
   PRICE_MODE_FOB: "FOB",

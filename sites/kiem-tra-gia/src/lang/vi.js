@@ -25,6 +25,7 @@ var LANG_TEMPLATE = {
   FILTER_ALL_STANDARDS: "Tất cả tiêu chuẩn",
   FILTER_ALL_SIZES: "Tất cả kích thước",
   FILTER_ALL_MACHINES: "Tất cả máy",
+  RESET_FILTERS_TITLE: "Bỏ lọc",
 
   PRICE_MODE_EXW: "EXW",
   PRICE_MODE_FOB: "FOB",

@@ -1,6 +1,19 @@
 // ====== GLOBAL SEARCH ======
 function globalSearch() { render(); }
 
+// ====== RESET FILTERS ======
+function resetFilters() {
+  var si = document.getElementById("searchInput");
+  if (si) si.value = "";
+  var sf = document.getElementById("specFilter");
+  if (sf) sf.value = "";
+  var szf = document.getElementById("sizeFilter");
+  if (szf) szf.value = "";
+  var mf = document.getElementById("machineFilter");
+  if (mf) mf.value = "";
+  render();
+}
+
 // ====== TOGGLE CURRENCY ======
 function toggleCurrency(el) {
   currency = el.dataset.currency;
