@@ -84,7 +84,26 @@ tbody tr:hover td{background:#eff6ff}
 .btn-cancel,.btn-confirm{padding:11px 28px;border-radius:10px;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)}
 .btn-cancel{background:#f1f5f9;color:var(--text-secondary)}
 .btn-confirm{background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff}
-@media(max-width:768px){body{padding:12px}.calc-grid{grid-template-columns:1fr}}</style>
+.q-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,.6);backdrop-filter:blur(4px);display:none;justify-content:center;align-items:center;z-index:2000}
+.q-overlay.open{display:flex}
+.q-modal{background:var(--card);border-radius:var(--radius-lg);max-width:680px;width:95%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.q-modal-header{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid var(--border)}
+.q-modal-header h3{font-size:16px;font-weight:700}
+.q-modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)}
+.q-modal-form{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:18px 24px}
+.q-modal-form label{display:block;font-size:11px;font-weight:700;color:var(--text-secondary);margin-bottom:2px}
+.q-modal-form input,.q-modal-form select{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:var(--font);color:var(--text)}
+.q-modal-body{padding:0 24px 18px}
+.q-preview{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;font-size:12px;color:#334155}
+.q-preview h1{font-size:15px;font-weight:800;text-align:center;color:#0f1b3d;margin-bottom:4px}
+.q-preview .q-sub{text-align:center;color:#64748b;font-size:11px;line-height:1.6;margin-bottom:6px}
+.q-divider{height:2px;background:linear-gradient(90deg,transparent,#1a56db,transparent);margin:10px 0}
+.q-modal-footer{display:flex;justify-content:flex-end;gap:8px;padding:14px 24px;border-top:1px solid var(--border)}
+.q-btn-copy,.q-btn-print{padding:8px 18px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font)}
+.q-btn-copy{background:#f1f5f9;color:var(--text-secondary)}
+.q-btn-print{background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff}
+@media(max-width:768px){body{padding:12px}.calc-grid{grid-template-columns:1fr}.q-modal-form{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <div class="container">
@@ -188,4 +207,69 @@ tbody tr:hover td{background:#eff6ff}
 </div>
 </div>
 
-</body></html>
+<!-- Quotation Popup -->
+<div class="q-overlay" id="quotationPopup">
+  <div class="q-modal">
+    <div class="q-modal-header">
+      <h3>📝 Lên báo giá</h3>
+      <button class="q-modal-close" onclick="closeQuotationPopup()">✕</button>
+    </div>
+    <div class="q-modal-form">
+      <div><label>🏢 Khách hàng</label><input type="text" id="qCustomer" placeholder="Tên khách hàng..." oninput="updateQuotationPreview()"></div>
+      <div><label>📞 Liên hệ</label><input type="text" id="qContact" placeholder="Người liên hệ..." oninput="updateQuotationPreview()"></div>
+      <div><label>👤 Người phụ trách</label><input type="text" id="qAssigned" placeholder="Nhân viên phụ trách..." oninput="updateQuotationPreview()"></div>
+      <div><label>📧 Email KH</label><input type="email" id="qCustEmail" placeholder="Email khách hàng..." oninput="updateQuotationPreview()"></div>
+      <div><label>📦 Số lượng (tấn)</label><input type="number" id="qQty" value="1" min="1" step="0.5" oninput="updateQuotationPreview()"></div>
+      <div><label>⏱ Hiệu lực</label><select id="qValid" onchange="updateQuotationPreview()"><option value="15 ngày">15 ngày</option><option value="30 ngày">30 ngày</option><option value="7 ngày">7 ngày</option><option value="kể từ ngày ký">Kể từ ngày ký</option></select></div>
+      <div><label>💰 Điều kiện thanh toán</label><select id="qPayment" onchange="updateQuotationPreview()"><option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option><option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div>
+      <div><label>🚢 Cảng đi</label><input type="text" id="qPort" placeholder="Cảng đi (nếu có)..." oninput="updateQuotationPreview()"></div>
+      <div><label>📬 Giao hàng</label><input type="text" id="qDelivery" placeholder="Điều kiện giao hàng..." oninput="updateQuotationPreview()"></div>
+      <div style="grid-column:1/-1"><label>📝 Ghi chú</label><input type="text" id="qNote" placeholder="Ghi chú thêm..." oninput="updateQuotationPreview()" style="width:100%"></div>
+    </div>
+    <div class="q-modal-body" id="qPreviewBody">
+      <div class="q-preview" id="qPreview">
+        <h1>CONG TY TNHH CONG NGHỆ VẬT LIỆU MỚI ĐỨC THỊNH</h1>
+        <p class="q-sub">ĐC: KCN NGHIA DAN, XA NGHIA THU, TINH NGHE AN, VIET NAM<br>Email: sales@ducthinh.com - https://ducthinhmaterials.com<br>Tel: +84 382 666 000 Ext: 106 - MST: 2902085037</p>
+        <div class="q-divider"></div>
+        <p style="text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px">📄 BAO GIA</p>
+        <div id="qPreviewContent"><p style="text-align:center;color:#94a3b8;font-size:13px">Chọn sản phẩm và tính giá trước khi lên báo giá</p></div>
+      </div>
+    </div>
+    <div class="q-modal-footer">
+      <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="qDateSpan"></span>
+      <button class="q-btn-copy" onclick="copyQuotation()">📋 Copy</button>
+      <button class="q-btn-print" onclick="printQuotation()">🖨 In / PDF</button>
+    </div>
+  </div>
+</div>
+
+<!-- Freight Popup -->
+<div class="freight-overlay" id="freightPopup">
+  <div class="freight-modal">
+    <div class="freight-modal-header">
+      <h3>🚢 Chọn cước biển</h3>
+      <button class="freight-modal-close" onclick="closeFreightPopup()">✕</button>
+    </div>
+    <div class="freight-modal-filters">
+      <select id="freightCountryFilter" onchange="filterFreightRoutes()"><option value="">Tất cả nước</option></select>
+      <select id="freightForwarderFilter" onchange="filterFreightRoutes()"><option value="">Tất cả hãng</option></select>
+      <select id="freightViaFilter" onchange="filterFreightRoutes()"><option value="">Tất cả loại</option></select>
+    </div>
+    <div class="freight-modal-body">
+      <table>
+        <thead><tr><th>Cảng đi</th><th>Nước đến</th><th>Cước (USD)</th><th>Hãng</th><th>Loại</th></tr></thead>
+        <tbody id="freightTableBody"></tbody>
+      </table>
+    </div>
+    <div class="freight-modal-footer">
+      <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="freightCount"></span>
+      <button class="btn-cancel" onclick="closeFreightPopup()">Đóng</button>
+      <button class="btn-confirm" onclick="selectFreightRoute()">🚢 Chọn tuyến</button>
+    </div>
+  </div>
+</div>
+
+{{JS_INLINE}}
+
+</body>
+</html>

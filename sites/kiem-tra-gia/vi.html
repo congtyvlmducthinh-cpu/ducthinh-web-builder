@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
@@ -25,11 +25,6 @@ header .badge{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);padding
 .price-mode-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:12px 18px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:14px}
 .price-mode-bar .mode-group{display:flex;gap:4px}
 .price-mode-bar .mode-btn{padding:7px 18px;border:1.5px solid var(--border);background:#fff;font-size:13px;font-weight:600;cursor:pointer;border-radius:8px;transition:all .2s;font-family:var(--font);color:var(--text-secondary)}
-/* Calc tab currency toggle */
-.calc-currency-bar{display:flex;gap:4px;background:var(--card);border:1.5px solid var(--border);border-radius:10px;overflow:hidden;padding:3px}
-.calc-currency-bar .mode-btn{padding:6px 20px;border:none;background:transparent;font-size:13px;font-weight:600;cursor:pointer;border-radius:7px;transition:all .2s;font-family:var(--font);color:var(--text-secondary)}
-.calc-currency-bar .mode-btn.active{background:var(--primary);color:#fff;box-shadow:0 2px 6px rgba(26,86,219,.25)}
-
 .price-mode-bar .mode-btn.active{background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;border-color:var(--primary)}
 .price-mode-bar .lcc-group{display:flex;gap:4px;align-items:center}
 .price-mode-bar .lcc-btn{padding:5px 14px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:600;cursor:pointer;border-radius:6px;transition:all .2s;font-family:var(--font);color:var(--text-secondary)}
@@ -37,14 +32,13 @@ header .badge{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);padding
 .price-mode-bar .ext-input{padding:6px 12px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;font-weight:600;width:100px;outline:none;font-family:var(--font);color:var(--text);text-align:right}
 .price-mode-bar .ext-label{font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap}
 .freight-warning{background:#fef3cd;border:1px solid #fbbf24;color:#92400e;padding:12px 16px;border-radius:10px;margin-bottom:16px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:8px}
-.table-wrap{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04),0 0 0 1px rgba(0,0,0,.04);margin-bottom:16px}
-.table-wrap.pricelist{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:800px}
-th{padding:10px 14px;font-weight:700;font-size:12px;border-bottom:1px solid #e2e8f0;white-space:nowrap;text-align:left}
+.table-wrap{background:var(--card);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+th{padding:10px 12px;font-weight:700;font-size:12px;border-bottom:1px solid var(--border);white-space:nowrap;text-align:left}
 thead{position:sticky;top:0;z-index:2}
-thead tr:first-child th{background:linear-gradient(135deg,#f1f5f9,#e2e8f0);font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#64748b;padding:8px 14px}
-thead tr:nth-child(2) th{background:#f8fafc;font-size:12px;color:#0f172a;padding:10px 14px;border-bottom:2px solid #e2e8f0}
-td{padding:9px 14px;border-bottom:1px solid #f1f5f9;white-space:nowrap;font-size:13px}
+thead tr:first-child th{background:linear-gradient(135deg,#f8fafc,#f1f5f9);font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+thead tr:nth-child(2) th{background:#f8fafc;font-size:12px;color:var(--text)}
+td{padding:10px 12px;border-bottom:1px solid #f1f5f9;white-space:nowrap}
 tbody tr:nth-child(even) td{background:#fafbfc}
 tbody tr:hover td{background:#eff6ff}
 .text-right{text-align:right}
@@ -54,67 +48,22 @@ tbody tr:hover td{background:#eff6ff}
 .badge-A2-{background:#fef9c3;color:#a16207}
 .badge-A3{background:#fce7f3;color:#be185d}
 .tag-profit{display:inline-block;padding:2px 8px;border-radius:20px;background:var(--green-light);color:#166534;font-size:11px;font-weight:700}
-.summary-bar{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-.summary-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.summary-card .lbl{font-size:12px;color:#64748b;font-weight:500;white-space:nowrap}
-.summary-card .val{font-size:18px;font-weight:800;color:#0f172a}
-.info-row{font-size:10px;font-weight:400;color:#94a3b8}
-.calc-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:24px;padding:24px;background:#f8fafc}
-.calc-left,.calc-right{background:#fff;border-radius:14px;padding:22px 24px;box-shadow:0 1px 4px rgba(0,0,0,.04),0 0 0 1px rgba(0,0,0,.04)}
-.calc-left{max-height:620px;overflow-y:auto}
-.calc-left::-webkit-scrollbar{width:4px}
-.calc-left::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:2px}
-.calc-section-title{font-size:14px;font-weight:700;color:#0f172a;margin-bottom:14px;display:flex;align-items:center;gap:10px;padding:8px 12px;background:#f8fafc;border-radius:10px;border:1px solid #eef2f6}
-.calc-section-title .badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;font-size:15px;flex-shrink:0}
-.calc-section-title .badge.blue{background:linear-gradient(135deg,#dbeafe,#bfdbfe);box-shadow:0 1px 2px rgba(37,99,235,.15)}
-.calc-section-title .badge.green{background:linear-gradient(135deg,#d1fae5,#a7f3d0);box-shadow:0 1px 2px rgba(5,150,105,.15)}
-.calc-section-title .badge.purple{background:linear-gradient(135deg,#ede9fe,#ddd6fe);box-shadow:0 1px 2px rgba(124,58,237,.15)}
-.calc-section-title .title-text{flex:1}
-.calc-section-title .title-count{font-size:11px;font-weight:600;color:#94a3b8;background:#f1f5f9;padding:2px 10px;border-radius:20px}
-.calc-form-group{margin-bottom:14px}
-.calc-form-group:last-child{margin-bottom:0}
-.calc-form-label{font-size:11px;font-weight:700;color:#64748b;margin-bottom:6px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:4px}
-.calc-row-inline{display:flex;gap:10px}
-.calc-row-inline > *{flex:1}
-.calc-select{width:100%;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;background:#fff;outline:none;transition:all .2s;font-family:var(--font);color:#0f172a;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:32px}
-.calc-select:hover{border-color:#cbd5e1}
-.calc-select:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
-.calc-divider{border:none;height:1px;background:linear-gradient(90deg,transparent,#e2e8f0 20%,#e2e8f0 80%,transparent);margin:16px 0}
-.calc-right-header{font-size:15px;font-weight:800;color:#0f172a;margin-bottom:16px;padding-bottom:12px;display:flex;align-items:center;gap:10px;border-bottom:2px solid #2563eb}
-.calc-right-header .icon{width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#dbeafe,#eff6ff);border-radius:8px;font-size:16px}
-.calc-result{background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-radius:12px;padding:18px;min-height:140px}
-.calc-result .calc-empty{text-align:center;padding:40px 16px}
-.calc-empty-icon{font-size:40px;margin-bottom:10px;opacity:.5}
-.calc-empty-text{font-size:13px;color:#94a3b8;font-weight:500}
-.calc-result-summary{display:flex;flex-direction:column;gap:2px}
-.calc-result-item{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed #e2e8f0}
-.calc-result-item:last-child{border-bottom:none}
-.calc-rl{font-size:12px;color:#64748b;font-weight:500}
-.calc-rv{font-size:13px;font-weight:700;color:#0f172a}
-.calc-rv.exw{color:#d97706}
-.calc-rv.bag{color:#2563eb}
-.calc-rv.other{color:#7c3aed}
-.calc-rv.total{color:#059669;font-size:16px}
-.calc-result-total-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0 2px 0}
-.calc-result-total-row .calc-rl{font-size:14px;font-weight:700;color:#0f172a}
-.calc-result-total-row .calc-rv.total{font-size:18px}
-.calc-commission-wrap{background:#fff;border-radius:10px;padding:14px;margin-top:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.calc-sell-input{display:flex;align-items:center;gap:12px}
-.calc-sell-input span{font-size:13px;font-weight:700;color:#2563eb;white-space:nowrap}
-.calc-sell-input input{flex:1;padding:9px 14px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:14px;font-weight:600;text-align:right;background:#fff;outline:none;font-family:var(--font);min-width:0;transition:all .2s}
-.calc-sell-input input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
-.calc-comm-result{padding-top:10px}
-.calc-comm-row{display:flex;justify-content:space-between;padding:5px 0;font-size:12px}
-.calc-comm-row span{color:#64748b}
-.calc-comm-row strong{font-weight:600;color:#0f172a}
-.calc-comm-row.calc-total{padding:9px 0!important;border-top:2px solid #2563eb!important;margin-top:5px!important}
-.calc-comm-row.calc-total span{font-weight:700;color:#0f172a}
-.calc-comm-row.calc-total strong{color:#2563eb;font-size:15px}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:24px;background:#f8fafc}
+.calc-left,.calc-right{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
+.calc-left h3,.calc-right h3{font-size:15px;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--primary);color:var(--primary);font-weight:700}
+.calc-row{margin-bottom:16px}
+.calc-row label{display:block;font-size:12px;font-weight:700;margin-bottom:5px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.03em}
+.calc-row select,.calc-row input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;background:var(--card);outline:none;transition:all .2s;font-family:var(--font);color:var(--text)}
+.calc-price-mode-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px}
+.calc-price-mode-bar .mode-group{display:flex;gap:4px}
+.calc-price-mode-bar .mode-btn{padding:7px 18px;border:1.5px solid var(--border);background:#fff;font-size:13px;font-weight:600;cursor:pointer;border-radius:8px;font-family:var(--font);color:var(--text-secondary)}
+.calc-price-mode-bar .mode-btn.active{background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;border-color:var(--primary)}
+.calc-result{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1.5px solid #bbf7d0;border-radius:var(--radius);padding:20px;margin-top:0}
+.calc-result h4{font-size:14px;color:var(--green);margin-bottom:14px;font-weight:700}
+.calc-result .line{display:flex;justify-content:space-between;padding:8px 0;font-size:14px;border-bottom:1px dashed #d1fae5}
+.calc-result .line:last-child{font-weight:800;font-size:17px;color:var(--green);border-bottom:none;padding-top:12px}
+.calc-empty{padding:40px 20px;text-align:center;color:var(--muted);font-size:14px}
 .manage-panel{display:none}
-.manage-status-sm.ok{background:#d1fae5;color:#065f46;border:1px solid #6ee7b7}
-.manage-status-sm.err{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
-.manage-status-sm.loading{background:#dbeafe;color:#1e40af;border:1px solid #93c5fd}
-.upload-sm.dragover{border-color:var(--primary) !important;background:#eff6ff !important}
 .manage-panel.open{display:block}
 .manage-login{max-width:400px;margin:40px auto;background:var(--card);border-radius:var(--radius-lg);padding:32px;text-align:center;box-shadow:var(--shadow-md);border:1px solid var(--border)}
 .manage-login input{width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;outline:none;font-family:var(--font);margin-bottom:12px;text-align:center}
@@ -135,76 +84,25 @@ tbody tr:hover td{background:#eff6ff}
 .btn-cancel,.btn-confirm{padding:11px 28px;border-radius:10px;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)}
 .btn-cancel{background:#f1f5f9;color:var(--text-secondary)}
 .btn-confirm{background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff}
-@media(max-width:768px){body{padding:12px}.calc-grid{grid-template-columns:1fr}}
-/* Freight lookup popup */
-.freight-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:999;display:none;align-items:center;justify-content:center}
-.freight-overlay.open{display:flex}
-.freight-modal{background:white;border-radius:var(--radius);width:90%;max-width:680px;max-height:80vh;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.2);display:flex;flex-direction:column}
-.freight-modal-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.freight-modal-header h3{margin:0;font-size:15px;display:flex;align-items:center;gap:8px}
-.freight-modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:#94a3b8;padding:4px 8px;border-radius:6px}
-.freight-modal-close:hover{background:#f1f5f9;color:#334155}
-.freight-modal-search{padding:12px 20px;border-bottom:1px solid var(--border)}
-.freight-modal-search input{width:100%;padding:10px 14px;border:2px solid var(--border);border-radius:8px;font-size:14px;outline:none;box-sizing:border-box}
-.freight-modal-search input:focus{border-color:var(--primary)}
-.freight-modal-filters{padding:8px 20px;display:flex;gap:8px;border-bottom:1px solid #f1f5f9;flex-wrap:wrap}
-.freight-modal-filters select{padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:white;min-width:120px}
-.freight-modal-body{flex:1;overflow-y:auto;padding:0}
-.freight-modal-body table{width:100%;border-collapse:collapse}
-.freight-modal-body th{position:sticky;top:0;background:#f8fafc;padding:10px 16px;font-size:12px;text-align:left;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:.03em;border-bottom:2px solid var(--border)}
-.freight-modal-body td{padding:10px 16px;font-size:13px;border-bottom:1px solid #f1f5f9;cursor:pointer}
-.freight-modal-body tr:hover td{background:#eff6ff}
-.freight-modal-body tr.selected td{background:#dbeafe;font-weight:600}
-.freight-modal-body .freight-val{font-weight:700;color:var(--primary)}
-.freight-modal-footer{padding:12px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
-
-
-/* Quotation popup */
-.q-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:999;display:none;align-items:center;justify-content:center}
+.q-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,.6);backdrop-filter:blur(4px);display:none;justify-content:center;align-items:center;z-index:2000}
 .q-overlay.open{display:flex}
-.q-modal{background:white;border-radius:var(--radius);width:90%;max-width:780px;max-height:90vh;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.2);display:flex;flex-direction:column}
-.q-modal-header{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.q-modal-header h3{margin:0;font-size:16px;display:flex;align-items:center;gap:8px}
-.q-modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:#94a3b8;padding:4px 10px;border-radius:6px}
-.q-modal-close:hover{background:#f1f5f9;color:#334155}
-.q-modal-form{padding:16px 24px;border-bottom:1px solid #f1f5f9;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.q-modal-form label{font-size:12px;font-weight:700;color:#64748b;display:block;margin-bottom:2px}
-.q-modal-form input,.q-modal-form select{width:100%;padding:8px 12px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;outline:none;box-sizing:border-box}
-.q-modal-form input:focus,.q-modal-form select:focus{border-color:var(--primary)}
-.q-modal-body{flex:1;overflow-y:auto;padding:24px}
-.q-preview{font-family:'Arial',sans-serif;max-width:680px;margin:0 auto;padding:30px;background:white;border:1px solid #e2e8f0;border-radius:8px}
-.q-preview h1{font-size:20px;text-align:center;color:#1e293b;margin:0 0 4px;text-transform:uppercase;letter-spacing:.05em}
-.q-preview .q-sub{text-align:center;color:#64748b;font-size:12px;margin:0 0 20px}
-.q-preview .q-divider{height:2px;background:var(--primary);margin:0 0 16px}
-.q-preview .q-row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid #f1f5f9}
-.q-preview .q-row strong{color:#1e293b}
-.q-preview .q-row span{color:#475569}
-.q-preview .q-total{display:flex;justify-content:space-between;padding:12px 0;font-size:15px;border-top:2px solid var(--primary);margin-top:8px}
-.q-preview .q-total strong{color:var(--primary)}
-.q-preview .q-footer{margin-top:20px;font-size:11px;color:#94a3b8;line-height:1.6}
-.q-modal-footer{padding:12px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
-button.q-btn-print{background:var(--primary);color:white;border:none;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600}
-button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border);padding:8px 20px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600}
-
-
-
-.btn-sm{display:inline-block;padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid var(--border);background:var(--card-bg,#fff);color:var(--text,#333);cursor:pointer;transition:all .15s ease}
-.btn-sm.active,.btn-sm.active:hover{background:var(--primary,#1a56db);color:#fff;border-color:var(--primary,#1a56db)}
-.btn-sm:hover{background:var(--hover-bg,#f0f4ff);border-color:var(--primary,#1a56db);color:var(--primary,#1a56db)}
-
-
-.btn-sm{display:inline-block;padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid var(--border);background:var(--card-bg,#fff);color:var(--text,#333);cursor:pointer;transition:all .15s ease}
-.btn-sm.active,.btn-sm.active:hover{background:var(--primary,#1a56db);color:#fff;border-color:var(--primary,#1a56db)}
-.btn-sm:hover{background:var(--hover-bg,#f0f4ff);border-color:var(--primary,#1a56db);color:var(--primary,#1a56db)}
-
-
-/* Max loading toggle */ .ml-toggle { display: none; } .ml-toggle.ml-visible { display: table-cell; }
-
-.lang-switcher{display:flex;gap:4px;align-items:center;margin-left:auto;z-index:1;position:relative}
-.lang-switcher a{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;font-size:15px;text-decoration:none;transition:all .2s;opacity:.55;background:rgba(255,255,255,.08);border:1px solid transparent}
-.lang-switcher a:hover{opacity:1;background:rgba(255,255,255,.18);transform:scale(1.12)}
-.lang-switcher a.active{opacity:1;background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.4);transform:scale(1.08)}
-
+.q-modal{background:var(--card);border-radius:var(--radius-lg);max-width:680px;width:95%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.q-modal-header{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid var(--border)}
+.q-modal-header h3{font-size:16px;font-weight:700}
+.q-modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)}
+.q-modal-form{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:18px 24px}
+.q-modal-form label{display:block;font-size:11px;font-weight:700;color:var(--text-secondary);margin-bottom:2px}
+.q-modal-form input,.q-modal-form select{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:var(--font);color:var(--text)}
+.q-modal-body{padding:0 24px 18px}
+.q-preview{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;font-size:12px;color:#334155}
+.q-preview h1{font-size:15px;font-weight:800;text-align:center;color:#0f1b3d;margin-bottom:4px}
+.q-preview .q-sub{text-align:center;color:#64748b;font-size:11px;line-height:1.6;margin-bottom:6px}
+.q-divider{height:2px;background:linear-gradient(90deg,transparent,#1a56db,transparent);margin:10px 0}
+.q-modal-footer{display:flex;justify-content:flex-end;gap:8px;padding:14px 24px;border-top:1px solid var(--border)}
+.q-btn-copy,.q-btn-print{padding:8px 18px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font)}
+.q-btn-copy{background:#f1f5f9;color:var(--text-secondary)}
+.q-btn-print{background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff}
+@media(max-width:768px){body{padding:12px}.calc-grid{grid-template-columns:1fr}.q-modal-form{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -215,7 +113,7 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 <h1>Kiểm Tra Giá <span>🔍</span></h1>
 <div class="sub" style="margin-top:6px;font-size:13px;opacity:.8;">Vật Liệu Mới Đức Thịnh - Bảng giá tháng 06/2026</div>
 </div>
-<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><div class="lang-switcher"><a class="active" href="vi.html" onclick="localStorage.setItem('preferred_lang','vi')" title="VI">🇻🇳</a><a href="en.html" onclick="localStorage.setItem('preferred_lang','en')" title="EN">🇬🇧</a><a href="zh.html" onclick="localStorage.setItem('preferred_lang','zh')" title="ZH">🇨🇳</a></div><span class="badge">🏭 CÔNG TY TNHH CÔNG NGHỆ VẬT LIỆU MỚI ĐỨC THỊNH</span><span class="badge" id="dataInfo">📊 0 SP</span></div>
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="badge">🏭 VL MỚI ĐỨC THỊNH</span><span class="badge" id="dataInfo">📊 0 SP</span></div>
 </header>
 
 <div class="tabs" id="tabs">
@@ -229,16 +127,12 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 <div class="controls" id="controlBar">
 <input type="text" id="searchInput" placeholder="🔍 Tìm sản phẩm..." oninput="globalSearch()">
 <select id="specFilter" onchange="render()"><option value="">Tất cả tiêu chuẩn</option></select>
+<select id="sizeFilter" onchange="render()"><option value="">Tất cả kích thước</option></select>
 <select id="machineFilter" onchange="render()"><option value="">Tất cả máy</option></select>
 <div class="currency-toggle">
 <button class="active" data-currency="VND" onclick="toggleCurrency(this)">VND</button>
 <button data-currency="USD" onclick="toggleCurrency(this)">USD</button>
 </div>
-</div>
-<div class="btn-group" id="marketGroup" style="display:inline-flex;margin-left:6px;gap:3px">
-<span class="ext-label">🌏 Thị trường:</span>
-<button class="btn-sm active" id="marketCn" onclick="setMarket('cn')" style="padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid #d0d5dd;background:#1a56db;color:#fff;cursor:pointer;transition:all .15s ease">🇨🇳 TQ</button>
-<button class="btn-sm" id="marketOther" onclick="setMarket('other')" style="padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid #d0d5dd;background:#fff;color:#333;cursor:pointer;transition:all .15s ease">🌏 Khác</button>
 </div>
 
 <div class="price-mode-bar" id="priceModeBar" style="display:none">
@@ -282,16 +176,10 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 <button class="btn-confirm" onclick="downloadFile(0)">📋 Giá bán</button>
 <button class="btn-confirm" onclick="downloadFile(1)">📦 Bao bì</button>
 <button class="btn-confirm" onclick="downloadFile(2)">📐 Quy cách khác</button>
-<button class="btn-cancel" onclick="downloadTemplate(0)">📄 Mẫu giá bán</button>
-<button class="btn-cancel" onclick="downloadTemplate(1)">📄 Mẫu bao bì</button>
-<button class="btn-cancel" onclick="downloadTemplate(2)">📄 Mẫu quy cách khác</button>
-<button class="btn-confirm" onclick="downloadFile(3)">⚖️ Max tải</button>
-<button class="btn-cancel" onclick="downloadTemplate(3)">📄 Mẫu max tải</button>
 </div>
 <div class="btn-row">
 <button class="btn-confirm" onclick="downloadAsExcel()">📊 Excel</button>
 <button class="btn-cancel" onclick="downloadAsJSON()">📋 JS</button>
-<button class="btn-confirm" onclick="downloadFullTemplate()">📊 Mẫu đầy đủ</button>
 </div>
 </div>
 <div class="manage-actions">
@@ -300,12 +188,6 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 <div class="upload-sm" id="manageDropZone" style="border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;background:#fafbfc"><div style="font-size:1.5rem;margin-bottom:6px">📂</div><div><strong>Kéo thả file vào đây</strong><br>hoặc bấm để chọn</div></div>
 <input type="file" id="manageFileInput" accept=".xlsx,.xls" style="display:none">
 <div class="manage-status-sm" id="manageUploadStatus" style="margin-top:10px;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;display:none"></div>
-
-<div class="manage-actions">
-<h3>💾 Lưu lên server</h3>
-<p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">Lưu dữ liệu hiện tại lên server để đồng bộ sang cả 3 ngôn ngữ (vi/en/zh)</p>
-<button class="btn-confirm" id="saveServerBtn" onclick="saveToServer()">💾 Lưu lên server</button>
-</div>
 </div>
 </div>
 </div>
@@ -325,181 +207,76 @@ button.q-btn-copy{background:#f1f5f9;color:#334155;border:1px solid var(--border
 </div>
 </div>
 
-<script>
+<!-- Quotation Popup -->
+<div class="q-overlay" id="quotationPopup">
+  <div class="q-modal">
+    <div class="q-modal-header">
+      <h3>📝 Lên báo giá</h3>
+      <button class="q-modal-close" onclick="closeQuotationPopup()">✕</button>
+    </div>
+    <div class="q-modal-form">
+      <div><label>🏢 Khách hàng</label><input type="text" id="qCustomer" placeholder="Tên khách hàng..." oninput="updateQuotationPreview()"></div>
+      <div><label>📞 Liên hệ</label><input type="text" id="qContact" placeholder="Người liên hệ..." oninput="updateQuotationPreview()"></div>
+      <div><label>👤 Người phụ trách</label><input type="text" id="qAssigned" placeholder="Nhân viên phụ trách..." oninput="updateQuotationPreview()"></div>
+      <div><label>📧 Email KH</label><input type="email" id="qCustEmail" placeholder="Email khách hàng..." oninput="updateQuotationPreview()"></div>
+      <div><label>📦 Số lượng (tấn)</label><input type="number" id="qQty" value="1" min="1" step="0.5" oninput="updateQuotationPreview()"></div>
+      <div><label>⏱ Hiệu lực</label><select id="qValid" onchange="updateQuotationPreview()"><option value="15 ngày">15 ngày</option><option value="30 ngày">30 ngày</option><option value="7 ngày">7 ngày</option><option value="kể từ ngày ký">Kể từ ngày ký</option></select></div>
+      <div><label>💰 Điều kiện thanh toán</label><select id="qPayment" onchange="updateQuotationPreview()"><option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option><option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div>
+      <div><label>🚢 Cảng đi</label><input type="text" id="qPort" placeholder="Cảng đi (nếu có)..." oninput="updateQuotationPreview()"></div>
+      <div><label>📬 Giao hàng</label><input type="text" id="qDelivery" placeholder="Điều kiện giao hàng..." oninput="updateQuotationPreview()"></div>
+      <div style="grid-column:1/-1"><label>📝 Ghi chú</label><input type="text" id="qNote" placeholder="Ghi chú thêm..." oninput="updateQuotationPreview()" style="width:100%"></div>
+    </div>
+    <div class="q-modal-body" id="qPreviewBody">
+      <div class="q-preview" id="qPreview">
+        <h1>CONG TY TNHH CONG NGHỆ VẬT LIỆU MỚI ĐỨC THỊNH</h1>
+        <p class="q-sub">ĐC: KCN NGHIA DAN, XA NGHIA THU, TINH NGHE AN, VIET NAM<br>Email: sales@ducthinh.com - https://ducthinhmaterials.com<br>Tel: +84 382 666 000 Ext: 106 - MST: 2902085037</p>
+        <div class="q-divider"></div>
+        <p style="text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px">📄 BAO GIA</p>
+        <div id="qPreviewContent"><p style="text-align:center;color:#94a3b8;font-size:13px">Chọn sản phẩm và tính giá trước khi lên báo giá</p></div>
+      </div>
+    </div>
+    <div class="q-modal-footer">
+      <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="qDateSpan"></span>
+      <button class="q-btn-copy" onclick="copyQuotation()">📋 Copy</button>
+      <button class="q-btn-print" onclick="printQuotation()">🖨 In / PDF</button>
+    </div>
+  </div>
+</div>
+
+<!-- Freight Popup -->
+<div class="freight-overlay" id="freightPopup">
+  <div class="freight-modal">
+    <div class="freight-modal-header">
+      <h3>🚢 Chọn cước biển</h3>
+      <button class="freight-modal-close" onclick="closeFreightPopup()">✕</button>
+    </div>
+    <div class="freight-modal-filters">
+      <select id="freightCountryFilter" onchange="filterFreightRoutes()"><option value="">Tất cả nước</option></select>
+      <select id="freightForwarderFilter" onchange="filterFreightRoutes()"><option value="">Tất cả hãng</option></select>
+      <select id="freightViaFilter" onchange="filterFreightRoutes()"><option value="">Tất cả loại</option></select>
+    </div>
+    <div class="freight-modal-body">
+      <table>
+        <thead><tr><th>Cảng đi</th><th>Nước đến</th><th>Cước (USD)</th><th>Hãng</th><th>Loại</th></tr></thead>
+        <tbody id="freightTableBody"></tbody>
+      </table>
+    </div>
+    <div class="freight-modal-footer">
+      <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="freightCount"></span>
+      <button class="btn-cancel" onclick="closeFreightPopup()">Đóng</button>
+      <button class="btn-confirm" onclick="selectFreightRoute()">🚢 Chọn tuyến</button>
+    </div>
+  </div>
+</div>
+
 // Data
 var DATA_PRODUCTS = [];
 var DATA_LOADED = false;
-
-function loadProductsData() {
-  return fetch('data/products.json')
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      DATA_PRODUCTS = data;
-      DATA_LOADED = true;
-      return data;
-    })
-    .catch(function(err) {
-      console.error('Failed to load products.json:', err);
-      DATA_LOADED = false;
-      return [];
-    });
-}
-
-function importProducts(arr) {
-  DATA_PRODUCTS = [];
-  arr.forEach(function(r) {
-    var obj = {};
-    obj.code = r.code || r.Code || r["Mã SP"] || r["Ma SP"] || r["Mã sản phẩm"] || r["Mã"] || "";
-    if (!obj.code) return;
-    obj.size = r.size || r.Size || r["Cỡ hạt"] || r["Co hat"] || r["Size"] || "";
-    obj.standard = r.standard || r.Standard || r["Tiêu chuẩn"] || r["Tieu chuan"] || r["Standard"] || "";
-    obj.machine = r.machine || r.Machine || r["Máy chạy"] || r["May chay"] || r["Máy"] || r["May"] || "";
-    var vndFields = {
-      exw_vnd: ["EXW (VND)","EXW(VND)","exw_vnd","EXW_VND","exw vnd","EXW VND","Exw(VND)"],
-      exw_usd: ["EXW (USD)","EXW(USD)","exw_usd","EXW_USD","exw usd","EXW USD","Exw(USD)"],
-      comm_vnd: ["Hoa hồng (VND)","Hoa hong (VND)","Hoa hồng(VND)","comm_vnd","comm vnd"],
-      comm_usd: ["Hoa hồng (USD)","Hoa hong (USD)","Hoa hồng(USD)","comm_usd","comm usd"],
-      pkg25_vnd: ["25kg (VND)","25kg(VND)","25KG (VND)","25KG(VND)","pkg25_vnd","25kg_vnd"],
-      pkg25_usd: ["25kg (USD)","25kg(USD)","25KG (USD)","25KG(USD)","pkg25_usd","25kg_usd"],
-      jumbo_vnd: ["Jumbo (VND)","Jumbo(VND)","jumbo_vnd","jumbo vnd"],
-      jumbo_usd: ["Jumbo (USD)","Jumbo(USD)","jumbo_usd","jumbo usd"]
-    };
-    Object.keys(vndFields).forEach(function(k) {
-      var names = vndFields[k];
-      for (var i = 0; i < names.length; i++) {
-        if (r[names[i]] !== undefined && r[names[i]] !== null && r[names[i]] !== "") {
-          obj[k] = Number(r[names[i]]);
-          break;
-        }
-      }
-    });
-    // Read market-specific overrides (cn/other) if present in template
-    var marketSuffixes = ["_cn","_other"];
-    function readMarketField(r, obj, key, suffix) {
-      // Try suffixed user-friendly names first, then raw key+suffix
-      var baseNames = ["EXW (VND)","EXW (USD)","Hoa hồng (VND)","Hoa hồng (USD)","25kg (VND)","25kg (USD)","Jumbo (VND)","Jumbo (USD)"];
-      for (var si = 0; si < baseNames.length; si++) {
-        var fullName = baseNames[si] + suffix;
-        if (r[fullName] !== undefined && r[fullName] !== null && r[fullName] !== "") {
-          obj[key + suffix] = Number(r[fullName]);
-          return true;
-        }
-      }
-      if (r[key + suffix] !== undefined && r[key + suffix] !== null && r[key + suffix] !== "") {
-        obj[key + suffix] = Number(r[key + suffix]);
-        return true;
-      }
-      return false;
-    }
-    marketSuffixes.forEach(function(sfx) {
-      readMarketField(r, obj, "exw_vnd", sfx);
-      readMarketField(r, obj, "exw_usd", sfx);
-      readMarketField(r, obj, "comm_vnd", sfx);
-      readMarketField(r, obj, "comm_usd", sfx);
-      readMarketField(r, obj, "pkg25_vnd", sfx);
-      readMarketField(r, obj, "pkg25_usd", sfx);
-      readMarketField(r, obj, "jumbo_vnd", sfx);
-      readMarketField(r, obj, "jumbo_usd", sfx);
-    });
-    // Copy extra fields
-    if (r.d50 !== undefined) obj.d50 = Number(r.d50);
-    if (r.d97 !== undefined) obj.d97 = Number(r.d97);
-    if (r.whiteness !== undefined) obj.whiteness = Number(r.whiteness);
-    if (r.brightness !== undefined) obj.brightness = Number(r.brightness);
-    // Read max loading from product row if available
-    var max25 = r.max25 || r["Max Loading 25KG"] || r["Max Loading 25kg"] || r["Max25"] || r["Max 25KG"];
-    var maxJb = r.maxJumbo || r["Max Loading Jumbo"] || r["Max Loading jumbo"] || r["MaxJumbo"] || r["Max Jumbo"];
-    if (max25 !== undefined && max25 !== null && max25 !== "") {
-      obj.max25 = Number(max25);
-      DATA_MAX_LOADING[obj.code] = DATA_MAX_LOADING[obj.code] || {};
-      DATA_MAX_LOADING[obj.code].max25 = Number(max25);
-    }
-    if (maxJb !== undefined && maxJb !== null && maxJb !== "") {
-      obj.maxJumbo = Number(maxJb);
-      DATA_MAX_LOADING[obj.code] = DATA_MAX_LOADING[obj.code] || {};
-      DATA_MAX_LOADING[obj.code].maxJumbo = Number(maxJb);
-    }
-  
-    // CN là base mặc định: ghi đè obj.exw_vnd bằng exw_vnd_cn
-    obj.exw_vnd = obj.exw_vnd_cn !== undefined ? obj.exw_vnd_cn : obj.exw_vnd;
-    obj.exw_usd = obj.exw_usd_cn !== undefined ? obj.exw_usd_cn : obj.exw_usd;
-    obj.comm_vnd = obj.comm_vnd_cn !== undefined ? obj.comm_vnd_cn : obj.comm_vnd;
-    obj.comm_usd = obj.comm_usd_cn !== undefined ? obj.comm_usd_cn : obj.comm_usd;
-    obj.pkg25_vnd = obj.pkg25_vnd_cn !== undefined ? obj.pkg25_vnd_cn : obj.pkg25_vnd;
-    obj.pkg25_usd = obj.pkg25_usd_cn !== undefined ? obj.pkg25_usd_cn : obj.pkg25_usd;
-    obj.jumbo_vnd = obj.jumbo_vnd_cn !== undefined ? obj.jumbo_vnd_cn : obj.jumbo_vnd;
-    obj.jumbo_usd = obj.jumbo_usd_cn !== undefined ? obj.jumbo_usd_cn : obj.jumbo_usd;
-    // Fallback CN: nếu vẫn undefined, copy từ base cũ (backward compat với file cũ)
-    if (obj.exw_vnd_cn === undefined) obj.exw_vnd_cn = obj.exw_vnd !== undefined ? obj.exw_vnd : 0;
-    if (obj.exw_usd_cn === undefined) obj.exw_usd_cn = obj.exw_usd !== undefined ? obj.exw_usd : 0;
-    if (obj.comm_vnd_cn === undefined) obj.comm_vnd_cn = obj.comm_vnd !== undefined ? obj.comm_vnd : 0;
-    if (obj.comm_usd_cn === undefined) obj.comm_usd_cn = obj.comm_usd !== undefined ? obj.comm_usd : 0;
-    if (obj.pkg25_vnd_cn === undefined) obj.pkg25_vnd_cn = obj.pkg25_vnd !== undefined ? obj.pkg25_vnd : 0;
-    if (obj.pkg25_usd_cn === undefined) obj.pkg25_usd_cn = obj.pkg25_usd !== undefined ? obj.pkg25_usd : 0;
-    if (obj.jumbo_vnd_cn === undefined) obj.jumbo_vnd_cn = obj.jumbo_vnd !== undefined ? obj.jumbo_vnd : 0;
-    if (obj.jumbo_usd_cn === undefined) obj.jumbo_usd_cn = obj.jumbo_usd !== undefined ? obj.jumbo_usd : 0;
-    // Fallback Other: copy từ CN
-    if (obj.exw_vnd_other === undefined) obj.exw_vnd_other = obj.exw_vnd_cn !== undefined ? obj.exw_vnd_cn : 0;
-    if (obj.exw_usd_other === undefined) obj.exw_usd_other = obj.exw_usd_cn !== undefined ? obj.exw_usd_cn : 0;
-    if (obj.comm_vnd_other === undefined) obj.comm_vnd_other = obj.comm_vnd_cn !== undefined ? obj.comm_vnd_cn : 0;
-    if (obj.comm_usd_other === undefined) obj.comm_usd_other = obj.comm_usd_cn !== undefined ? obj.comm_usd_cn : 0;
-    if (obj.pkg25_vnd_other === undefined) obj.pkg25_vnd_other = obj.pkg25_vnd_cn !== undefined ? obj.pkg25_vnd_cn : 0;
-    if (obj.pkg25_usd_other === undefined) obj.pkg25_usd_other = obj.pkg25_usd_cn !== undefined ? obj.pkg25_usd_cn : 0;
-    if (obj.jumbo_vnd_other === undefined) obj.jumbo_vnd_other = obj.jumbo_vnd_cn !== undefined ? obj.jumbo_vnd_cn : 0;
-    if (obj.jumbo_usd_other === undefined) obj.jumbo_usd_other = obj.jumbo_usd_cn !== undefined ? obj.jumbo_usd_cn : 0;DATA_PRODUCTS.push(obj);
-  });
-}
-
 var DATA_BAGS = [{"code": "NVL-BB-PP-K55X85", "cost": 4562, "spec": "25KG", "qty": 18000, "price": 220528, "profit": 0.1}, {"code": "NVL-BB-JB-92X92X125", "cost": 127750, "spec": "Jumbo", "qty": 3000, "price": 143825, "profit": 0.1}, {"code": "NVL-BB-JB-95X95X125", "cost": 131250, "spec": "Jumbo", "qty": 3000, "price": 147675, "profit": 0.1}, {"code": "NVL-BB-25KG-52X78", "cost": 3990, "spec": "25KG", "qty": 18000, "price": 195360, "profit": 0.1}, {"code": "NVL-BB-25KG-52X75", "cost": 3800, "spec": "25KG", "qty": 18000, "price": 187000, "profit": 0.1}, {"code": "NVL-BB-25KG-52X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}, {"code": "NVL-BB-34KG-50X78-KOTR", "cost": 3100, "spec": "34KG", "qty": 18000, "price": 156200, "profit": 0.1}, {"code": "50KG-NHUATAICHE-55X85", "cost": 2650, "spec": "50KG", "qty": 18000, "price": 78100, "profit": 0.1}, {"code": "NVL-BB-25KG-50X72-KOTR", "cost": 3000, "spec": "25KG", "qty": 18000, "price": 151800, "profit": 0.1}, {"code": "Bao jumbo của khách", "cost": 0, "spec": "Jumbo", "qty": 3000, "price": 3300, "profit": 0.1}, {"code": "BAO 25KG CỦA KHÁCH", "cost": 0, "spec": "25KG", "qty": 18000, "price": 19800, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR", "cost": 127000, "spec": "Jumbo", "qty": 3000, "price": 143000, "profit": 0.1}, {"code": "NVL-BB-JB-90X90X125-TR QUAY VÒNG", "cost": 43000, "spec": "Jumbo", "qty": 3000, "price": 59800, "profit": 0.3}, {"code": "NVL-BB-25KG-50X72", "cost": 3587, "spec": "25KG", "qty": 18000, "price": 177628, "profit": 0.1}];
-
-
-// Market switching
 var currentMarket = "cn";
-
-function applyMarket() {
-  var suffix = "_" + currentMarket;
-  DATA_PRODUCTS.forEach(function(p) {
-    // Use suffix field if available, fall back to base field
-    p.exw_vnd = p["exw_vnd" + suffix] !== undefined ? p["exw_vnd" + suffix] : p.exw_vnd;
-    p.exw_usd = p["exw_usd" + suffix] !== undefined ? p["exw_usd" + suffix] : p.exw_usd;
-    p.comm_vnd = p["comm_vnd" + suffix] !== undefined ? p["comm_vnd" + suffix] : p.comm_vnd;
-    p.comm_usd = p["comm_usd" + suffix] !== undefined ? p["comm_usd" + suffix] : p.comm_usd;
-    p.pkg25_vnd = p["pkg25_vnd" + suffix] !== undefined ? p["pkg25_vnd" + suffix] : p.pkg25_vnd;
-    p.pkg25_usd = p["pkg25_usd" + suffix] !== undefined ? p["pkg25_usd" + suffix] : p.pkg25_usd;
-    p.jumbo_vnd = p["jumbo_vnd" + suffix] !== undefined ? p["jumbo_vnd" + suffix] : p.jumbo_vnd;
-    p.jumbo_usd = p["jumbo_usd" + suffix] !== undefined ? p["jumbo_usd" + suffix] : p.jumbo_usd;
-  });
-  // Re-render
-  render();
-}
-
-function setMarket(mkt) {
-  currentMarket = mkt;
-  // Update UI toggle buttons
-  var cnBtn = document.getElementById("marketCn");
-  var otherBtn = document.getElementById("marketOther");
-  if (cnBtn && otherBtn) {
-    cnBtn.classList.toggle("active", mkt === "cn");
-    otherBtn.classList.toggle("active", mkt === "other");
-    cnBtn.style.background = mkt === "cn" ? "#1a56db" : "#fff";
-    cnBtn.style.color = mkt === "cn" ? "#fff" : "#333";
-    cnBtn.style.borderColor = mkt === "cn" ? "#1a56db" : "#d0d5dd";
-    otherBtn.style.background = mkt === "other" ? "#1a56db" : "#fff";
-    otherBtn.style.color = mkt === "other" ? "#fff" : "#333";
-    otherBtn.style.borderColor = mkt === "other" ? "#1a56db" : "#d0d5dd";
-  }
-  applyMarket();
-}
-
 var DATA_OTHERS = [{"code": "PALLET TÁI SỬ DỤNG", "cost": 70000, "price": 77000, "profit": 0.1}, {"code": "PALLET MỚI", "cost": 120000, "price": 132000, "profit": 0.1}, {"code": "NẸP ĐAI", "cost": 5000, "price": 5500, "profit": 0.1}, {"code": "QUẤN MÀNG", "cost": 18000, "price": 19800, "profit": 0.1}, {"code": "PALLET TRÁNG PHỦ", "cost": 160000, "price": 176000, "profit": 0.1}, {"code": "JUMBO MỞ NẮP (SLING)", "cost": 95000, "price": 104500, "profit": 0.1}, {"code": "PALLET MỚI + NẸP ĐAI + QUẤN MÀNG", "cost": 143000, "price": 157300, "profit": 0.1}, {"code": "JUMBO MỞ NẮP (SLING) CỦA KHÁCH", "cost": 35000, "price": 38500, "profit": 0.1}];
 var DATA_MAX_LOADING = {}; // Empty - removed from pricelist table
-var DATA_COST_FOB = {14:{no:974600,sub:1263900},20:{no:682000,sub:884400},22:{no:620400,sub:804100},24:{no:568700,sub:737000},25:{no:545600,sub:707300},26:{no:524700,sub:680900},27:{no:504900,sub:655600},28:{no:487300,sub:632500}};
-
-
-// App
-
-// App
-// App
+var DATA_COST_FOB = {14:{no:974600,sub:1263900},20:{no:682000,sub:884400},22:{no:620400,sub:804100},24:{no:567900,sub:736100},25:{no:544800,sub:706400},26:{no:522800,sub:677800},27:{no:503000,sub:652500},28:{no:484300,sub:628300}};
 var currency = "VND";
 var activeTab = "pricelist";
 var priceMode = "exw";
@@ -512,7 +289,9 @@ var calcFreightUSD = 0;
 var FREIGHT_DATA = [{"port": "Shanghai", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Ningbo", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Qingdao", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Nansha", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "ShanTou", "country": "CHINA", "freight": 50, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Xiamen", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "RiZhao", "country": "CHINA", "freight": 165, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Changzhou", "country": "CHINA", "freight": 135, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Tianjin Xingang", "country": "CHINA", "freight": 12, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Wuhu", "country": "CHINA", "freight": 95, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "ZhenJiang", "country": "CHINA", "freight": 105, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Wuzhou", "country": "CHINA", "freight": 160, "forwarder": "KTO", "via": "ALL IN"}, {"port": "Fuzhou", "country": "CHINA", "freight": 100, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Jiangyin", "country": "CHINA", "freight": 105, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Wenzhou", "country": "CHINA", "freight": 195, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Yangzhou", "country": "CHINA", "freight": 150, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Zhapu", "country": "CHINA", "freight": 50, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Dalian", "country": "CHINA", "freight": 12, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Nanchang", "country": "CHINA", "freight": 200, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Zhongshan", "country": "CHINA", "freight": 100, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Yangpu", "country": "CHINA", "freight": 65, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "TaiCang", "country": "CHINA", "freight": 25, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Taizhou", "country": "CHINA", "freight": 105, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Jiujiang", "country": "CHINA", "freight": 90, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Nanjing", "country": "CHINA", "freight": 110, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "ShanShan", "country": "CHINA", "freight": 90, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Chongqing", "country": "CHINA", "freight": 225, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "SURABAYA", "country": "INDONEXIA", "freight": 210, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "MEDAN (Belawan)", "country": "INDONEXIA", "freight": 245, "forwarder": "Nagel", "via": "Sub LCC"}, {"port": "JAKARTA", "country": "INDONEXIA", "freight": 310, "forwarder": "KMG", "via": "Sub LCC"}, {"port": "SEMARANG", "country": "INDONEXIA", "freight": 290, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "PORT KLANG", "country": "MALAYSIA", "freight": 250, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "PENANG", "country": "MALAYSIA", "freight": 250, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "YANGON", "country": "MYANMAR", "freight": 480, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "BANGKOK", "country": "THAILAND", "freight": 265, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "LAEM CHABANG", "country": "THAILAND", "freight": 235, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "MANILA", "country": "PHILIPPINE", "freight": 120, "forwarder": "Nagel", "via": "Sub LCC"}, {"port": "CEBU", "country": "PHILIPPINE", "freight": 220, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "DAVAO", "country": "PHILIPPINE", "freight": 220, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "SIHANOUKVILLE", "country": "CAMBODIA", "freight": 150, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "CHITTAGONG", "country": "BANGLADESH", "freight": 950, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "NHAVA SHEVA", "country": "INDIA", "freight": 830, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "MUNDRA", "country": "INDIA", "freight": 830, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "CHENNAI", "country": "INDIA", "freight": 830, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "VIZAG", "country": "INDIA", "freight": 1350, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "KARACHI", "country": "INDIA", "freight": 1250, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "TUTICORIN", "country": "INDIA", "freight": 1350, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "COLOMBO", "country": "INDIA", "freight": 1350, "forwarder": "ITI", "via": "Sub LCC"}];
 var EXCHANGE_RATE = 26000;
 
-// ====== UTILITY ======
+
+// ====== 01-utils.js ======
+﻿// ====== UTILITY ======
 function formatUsd(v) { var n = Number(v); var dec = Math.round((n - Math.floor(n)) * 10); return Math.floor(n).toLocaleString("vi-VN") + "," + dec; }
 function formatCurrency(v, isUsd) {
   if (v === null || v === undefined || isNaN(v)) return "\u2014";
@@ -586,13 +365,15 @@ function getCIFJumboPriceVND(prod, lccVariant, freight) {
 }
 function getCIF25PriceUSD(prod, lccVariant, freight) { return getCIF25PriceVND(prod, lccVariant, freight) / 26000; }
 function getCIFJumboPriceUSD(prod, lccVariant, freight) { return getCIFJumboPriceVND(prod, lccVariant, freight) / 26000; }
+
 
-// ====== PRICE MODE CONTROLS (Gi\u00e1 b\u00e1n tab) ======
+
+// ====== 02-pricelist.js ======
+// ====== PRICE MODE CONTROLS (Giá bán tab) ======
 function setPriceMode(mode) {
   priceMode = mode;
   var bar = document.getElementById("priceModeBar");
   if (!bar) return;
-  bar.style.display = "flex";
   bar.querySelectorAll(".mode-btn").forEach(function(b) { b.classList.toggle("active", b.dataset.mode === mode); });
   var lccGrp = document.getElementById("lccGroup");
   if (lccGrp) lccGrp.style.display = (mode === "fob" || mode === "cif") ? "flex" : "none";
@@ -617,47 +398,7 @@ function onFreightChange() {
   if (fi) setFreight(fi.value);
 }
 
-// ====== GLOBAL SEARCH ======
-function globalSearch() { render(); }
-
-// ====== TOGGLE CURRENCY ======
-function toggleCurrency(el) {
-  currency = el.dataset.currency;
-  document.querySelectorAll(".currency-toggle button").forEach(function(b) { b.classList.toggle("active", b.dataset.currency === currency); });
-  render();
-}
-
-// ====== SWITCH TAB ======
-function switchTab(tab) {
-  activeTab = tab;
-  document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.toggle("active", b.dataset.tab === tab); });
-  
-  // Control bar visibility
-  var cbar = document.getElementById("controlBar");
-  if (cbar) cbar.style.display = (tab === "pricelist") ? "flex" : "none";
-  
-  // Price mode bar only on pricelist
-  var bar = document.getElementById("priceModeBar");
-  if (bar) bar.style.display = (tab === "pricelist") ? "flex" : "none";
-  
-  // Manage panel
-  document.getElementById("managePanel").classList.toggle("open", tab === "manage");
-  
-  // Populate filters on pricelist tab
-  if (tab === "pricelist") populateFilters();
-  
-  render();
-}
-
 // ====== RENDER PRICE TAB ======
-function formatMaxLoading(v) {
-  if (v && v > 0) return '<span style="font-weight:600;color:#0f766e">' + v + ' t</span>';
-  return '—';
-}
-function formatMaxLoading(v) {
-  if (v && v > 0) return '<span style="font-weight:600;color:#0f766e">' + v + ' t</span>';
-  return '—';
-}
 function renderPriceTab() {
   var search = (document.getElementById("searchInput") && document.getElementById("searchInput").value || "").toLowerCase();
   var specFilter = document.getElementById("specFilter") && document.getElementById("specFilter").value || "";
@@ -677,10 +418,10 @@ function renderPriceTab() {
 
   // Freight warning
   if (isCif && (!freightUSD || freightUSD <= 0)) {
-    h += '<div class="freight-warning">\u26a0\ufe0f Ch\u1ebf \u0111\u1ed9 CIF y\u00eau c\u1ea7u nh\u1eadp c\u01b0\u1edbc bi\u1ec3n. Vui l\u00f2ng nh\u1eadp Freight USD \u1edf thanh c\u00f4ng c\u1ee5 b\u00ean tr\u00ean.</div>';
+    h += '<div class="freight-warning">⚠️ Chế độ CIF yêu cầu nhập cước biển. Vui lòng nhập Freight USD ở thanh công cụ bên trên.</div>';
   }
 
-  // Summary + th\u1ed1ng k\u00ea
+  // Summary + thống kê
   var uniqueCodes = {}, uniqueSpecs = {}, uniqueMachines = {};
   filtered.forEach(function(p) { uniqueCodes[p.code] = true; uniqueSpecs[p.standard] = true; uniqueMachines[p.machine] = true; });
   var sum25=0, cnt25=0, max25=0;
@@ -695,27 +436,27 @@ function renderPriceTab() {
   });
   var fmt = function(v) { return (v || 0).toLocaleString('vi-VN'); };
   h += '<div class="summary-bar">';
-  h += '<div class="summary-card"><div class="lbl">S\u1ea3n ph\u1ea9m</div><div class="val">' + filtered.length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">Ti\u00eau chu\u1ea9n</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">M\u00e1y</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">Ng\u00e0y</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Sản phẩm</div><div class="val">' + filtered.length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Tiêu chuẩn</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Máy</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Ngày</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
   h += '</div>';
-  h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">\ud83d\udccb Hi\u1ec7n max t\u1ea3i</button>';
+  h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">📋 Hiện max tải</button>';
   h += '<div class="summary-bar" style="margin-top:4px;gap:6px">';
   h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">TB 25KG</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#fef2f2;border-color:#fecaca"><div class="lbl" style="font-size:10px">C.nh\u1ea5t 25KG</div><div class="val" style="font-size:15px">' + fmt(max25) + '</div></div>';
+  h += '<div class="summary-card" style="padding:8px 12px;background:#fef2f2;border-color:#fecaca"><div class="lbl" style="font-size:10px">C.nhất 25KG</div><div class="val" style="font-size:15px">' + fmt(max25) + '</div></div>';
   h += '<div class="summary-card" style="padding:8px 12px;background:#f0fdf4;border-color:#bbf7d0"><div class="lbl" style="font-size:10px">TB Jumbo</div><div class="val" style="font-size:15px">' + fmt(cntJ?Math.round(sumJ/cntJ):0) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#fefce8;border-color:#fde68a"><div class="lbl" style="font-size:10px">C.nh\u1ea5t Jumbo</div><div class="val" style="font-size:15px">' + fmt(maxJ) + '</div></div>';
+  h += '<div class="summary-card" style="padding:8px 12px;background:#fefce8;border-color:#fde68a"><div class="lbl" style="font-size:10px">C.nhất Jumbo</div><div class="val" style="font-size:15px">' + fmt(maxJ) + '</div></div>';
   h += '<div class="summary-card" style="padding:8px 12px;background:#f5f3ff;border-color:#ddd6fe"><div class="lbl" style="font-size:10px">TB EXW</div><div class="val" style="font-size:15px">' + fmt(cntExw?Math.round(sumExw/cntExw):0) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#fff1f2;border-color:#fecdd3"><div class="lbl" style="font-size:10px">C.nh\u1ea5t EXW</div><div class="val" style="font-size:15px">' + fmt(maxExw) + '</div></div>';
+  h += '<div class="summary-card" style="padding:8px 12px;background:#fff1f2;border-color:#fecdd3"><div class="lbl" style="font-size:10px">C.nhất EXW</div><div class="val" style="font-size:15px">' + fmt(maxExw) + '</div></div>';
   h += '</div>';
 
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
-  h += '<tr><th colspan="4">Th\u00f4ng tin</th><th colspan="2" class="ml-toggle">Max t\u1ea3i</th><th colspan="2">' + (priceMode==="exw"?"Giá bán (EXW)":"Gi\u00e1 bao g\u1ed3m bao b\u00ec") + '</th>';
+  h += '<tr><th colspan="4">Thông tin</th><th colspan="2" class="ml-toggle">Max tải</th><th colspan="2">' + (priceMode==="exw"?"Giá bán (EXW)":"Giá bao gồm bao bì") + '</th>';
   if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"EXW chưa bao bì":"Giá bán (EXW)") + '</th>';
   h += '</tr>';
-  h += '<tr><th>M\u00e3</th><th>K\u00edch th\u01b0\u1edbc</th><th>Ti\u00eau chu\u1ea9n</th><th>M\u00e1y</th><th class="ml-toggle">Max 25KG <span class="info-row">(t\u1ea5n)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(t\u1ea5n)</span></th><th>' + (priceMode==="exw"?"EXW 25KG bao tiêu chuẩn":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW jumbo bao tiêu chuẩn":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
+  h += '<tr><th>Mã</th><th>Kích thước</th><th>Tiêu chuẩn</th><th>Máy</th><th class="ml-toggle">Max 25KG <span class="info-row">(tấn)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(tấn)</span></th><th>' + (priceMode==="exw"?"EXW 25KG bao tiêu chuẩn":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW jumbo bao tiêu chuẩn":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
   if (!showFobCif) {
     h += '<th>' + (priceMode==="exw"?"EXW chưa bao bì":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"Hoa hồng cơ bản":"Hoa hồng") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   }
@@ -738,8 +479,8 @@ function renderPriceTab() {
       h += '<td class="text-right">' + (isUsd ? formatCurrency(getCIF25PriceUSD(p, lccType, freightUSD), true) : formatCurrency(getCIF25PriceVND(p, lccType, freightUSD), false)) + '</td>';
       h += '<td class="text-right">' + (isUsd ? formatCurrency(getCIFJumboPriceUSD(p, lccType, freightUSD), true) : formatCurrency(getCIFJumboPriceVND(p, lccType, freightUSD), false)) + '</td>';
     } else {
-      h += '<td class="text-right">' + (p.pkg25_vnd ? (isUsd ? formatCurrency(p.pkg25_usd, true) : formatCurrency(p.pkg25_vnd, false)) : '\u2014') + '</td>';
-      h += '<td class="text-right">' + (p.jumbo_vnd ? (isUsd ? formatCurrency(p.jumbo_usd, true) : formatCurrency(p.jumbo_vnd, false)) : '\u2014') + '</td>';
+      h += '<td class="text-right">' + (p.pkg25_vnd ? (isUsd ? formatCurrency(p.pkg25_usd, true) : formatCurrency(p.pkg25_vnd, false)) : '—') + '</td>';
+      h += '<td class="text-right">' + (p.jumbo_vnd ? (isUsd ? formatCurrency(p.jumbo_usd, true) : formatCurrency(p.jumbo_vnd, false)) : '—') + '</td>';
     }
     if (!showFobCif) {
       h += '<td class="text-right"><strong>' + formatCurrency(isUsd ? p.exw_usd : p.exw_vnd, isUsd) + '</strong></td>';
@@ -749,11 +490,98 @@ function renderPriceTab() {
   }
   h += '</tbody></table></div>';
 
-
   return h;
 }
 
-// ====== RENDER CALC TAB ======
+// ====== FILTER POPULATOR ======
+function populateFilters() {
+  var machines = {}, standards = {};
+  DATA_PRODUCTS.forEach(function(p) { machines[p.machine] = true; standards[p.standard] = true; });
+  var mk = Object.keys(machines).sort(function(a,b) { return a - b; });
+  var sk = Object.keys(standards).sort();
+  var sf = document.getElementById("specFilter");
+  if (sf) {
+    var curSpec = sf.value;
+    sf.innerHTML = '<option value="">Tất cả tiêu chuẩn</option>';
+    for (var i = 0; i < sk.length; i++) sf.innerHTML += '<option value="' + sk[i] + '">' + sk[i] + '</option>';
+    sf.value = curSpec && sk.indexOf(curSpec) >= 0 ? curSpec : "";
+  }
+  var mf = document.getElementById("machineFilter");
+  if (mf) {
+    var curMach = mf.value;
+    mf.innerHTML = '<option value="">Tất cả máy</option>';
+    for (var i = 0; i < mk.length; i++) mf.innerHTML += '<option value="' + mk[i].replace(/"/g, '&quot;') + '">' + mk[i] + '</option>';
+    mf.value = curMach && mk.indexOf(curMach) >= 0 ? curMach : "";
+  }
+}
+
+
+// ====== 03-bags.js ======
+﻿// ====== RENDER BAGS TAB ======
+
+function toggleMaxLoad() {
+  var cols = document.querySelectorAll('.ml-toggle');
+  var btn = document.getElementById('mlToggleBtn');
+  var hidden = btn.textContent.indexOf('Hi\u1ec7n') >= 0;
+  cols.forEach(function(el) { el.classList.toggle('ml-visible', hidden); });
+  btn.textContent = hidden ? '\ud83d\udccb \u1ea8n max t\u1ea3i' : '\ud83d\udccb Hi\u1ec7n max t\u1ea3i';
+}
+
+function renderBagsTab() {
+  var h = '<div class="table-wrap" style="margin-top:0"><table><thead>';
+  h += '<tr><th colspan="4">Thông tin bao bì</th><th colspan="2">Giá</th></tr>';
+  h += '<tr><th>Mã bao</th><th>Quy cách</th><th>Số lượng</th><th>Giá vốn</th><th>Giá bán</th><th>Lợi nhuận</th></tr>';
+  h += '</thead><tbody>';
+  for (var i = 0; i < DATA_BAGS.length; i++) {
+    var b = DATA_BAGS[i];
+    h += '<tr>';
+    h += '<td><strong>' + b.code + '</strong></td>';
+    h += '<td>' + b.spec + '</td>';
+    h += '<td class="text-right">' + (b.qty || 0).toLocaleString() + '</td>';
+    h += '<td class="text-right">' + (b.cost || 0).toLocaleString() + ' VND</td>';
+    h += '<td class="text-right"><strong>' + (b.price || 0).toLocaleString() + ' VND</strong></td>';
+    h += '<td class="text-right"><span class="tag-profit">' + ((b.profit || 0) * 100).toFixed(0) + '%</span></td>';
+    h += '</tr>';
+  }
+  h += '</tbody></table></div>';
+  h += '<div class="summary-bar" style="margin-top:12px">';
+  h += '<div class="summary-card"><div class="lbl">Tổng loại bao</div><div class="val">' + DATA_BAGS.length + '</div></div>';
+  var bag25 = DATA_BAGS.filter(function(b) { return b.spec === '25KG'; }).length;
+  var bagJumbo = DATA_BAGS.filter(function(b) { return b.spec === 'Jumbo'; }).length;
+  h += '<div class="summary-card"><div class="lbl">Bao 25KG</div><div class="val">' + bag25 + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Bao Jumbo</div><div class="val">' + bagJumbo + '</div></div>';
+  h += '</div>';
+  return h;
+}
+
+
+
+// ====== 04-others.js ======
+﻿// ====== RENDER OTHERS TAB ======
+function renderOthersTab() {
+  var h = '<div class="table-wrap" style="margin-top:0"><table><thead>';
+  h += '<tr><th>Quy cách khác</th><th>Giá vốn</th><th>Giá bán</th><th>Lợi nhuận</th></tr>';
+  h += '</thead><tbody>';
+  for (var i = 0; i < DATA_OTHERS.length; i++) {
+    var o = DATA_OTHERS[i];
+    h += '<tr>';
+    h += '<td><strong>' + o.code + '</strong></td>';
+    h += '<td class="text-right">' + (o.cost || 0).toLocaleString() + ' VND</td>';
+    h += '<td class="text-right"><strong>' + (o.price || 0).toLocaleString() + ' VND</strong></td>';
+    h += '<td class="text-right"><span class="tag-profit">' + ((o.profit || 0) * 100).toFixed(0) + '%</span></td>';
+    h += '</tr>';
+  }
+  h += '</tbody></table></div>';
+  h += '<div class="summary-bar" style="margin-top:12px">';
+  h += '<div class="summary-card"><div class="lbl">Tổng quy cách</div><div class="val">' + DATA_OTHERS.length + '</div></div>';
+  h += '</div>';
+  return h;
+}
+
+
+
+// ====== 05-calc.js ======
+﻿// ====== RENDER CALC TAB ======
 function renderCalcTab() {
   var h = '<div class="calc-grid">';
 
@@ -1174,8 +1002,11 @@ var total = 0;
   res.innerHTML = h;
 }
 
+
 
-// ====== EXPORT FUNCTIONS ======
+
+// ====== 06-manage.js ======
+﻿// ====== EXPORT FUNCTIONS ======
 function exportToExcel() {
   var dt = new Date();
   var isUsd = currency === "USD";
@@ -1488,87 +1319,42 @@ function checkPassword() {
   }
 }
 function manageFromPwModal() { checkPassword(); }
+
 
-// ====== FILTER POPULATOR ======
-function populateFilters() {
-  var sf = document.getElementById("specFilter");
-  var mf = document.getElementById("machineFilter");
-  if (!sf || !mf) return;
-  var curSpec = sf.value, curMach = mf.value;
-  // Cross-link: when machine is selected, only show related standards; vice versa
-  var machinesByStd = {}, standardsByMach = {};
-  DATA_PRODUCTS.forEach(function(p) {
-    if (!curMach || String(p.machine) === curMach) standardsByMach[p.standard] = true;
-    if (!curSpec || p.standard === curSpec) machinesByStd[p.machine] = true;
-  });
-  // Rebuild spec filter (standards available for selected machine)
-  sf.innerHTML = '<option value="">Tất cả tiêu chuẩn</option>';
-  var sk = Object.keys(standardsByMach).sort();
-  for (var i = 0; i < sk.length; i++) { sf.innerHTML += '<option value="' + sk[i].replace(/"/g, '&quot;') + '">' + sk[i] + '</option>'; }
-  sf.value = curSpec && sk.indexOf(curSpec) >= 0 ? curSpec : "";
-  // Rebuild machine filter (machines available for selected standard)
-  mf.innerHTML = '<option value="">Tất cả máy</option>';
-  var mk = Object.keys(machinesByStd).sort();
-  for (var i = 0; i < mk.length; i++) { mf.innerHTML += '<option value="' + mk[i].replace(/"/g, '&quot;') + '">' + mk[i] + '</option>'; }
-  mf.value = curMach && mk.indexOf(curMach) >= 0 ? curMach : "";
-}
-// ====== RENDER BAGS TAB ======
 
-function toggleMaxLoad() {
-  var cols = document.querySelectorAll('.ml-toggle');
-  var btn = document.getElementById('mlToggleBtn');
-  var hidden = btn.textContent.indexOf('Hi\u1ec7n') >= 0;
-  cols.forEach(function(el) { el.classList.toggle('ml-visible', hidden); });
-  btn.textContent = hidden ? '\ud83d\udccb \u1ea8n max t\u1ea3i' : '\ud83d\udccb Hi\u1ec7n max t\u1ea3i';
+// ====== 07-main.js ======
+﻿// ====== GLOBAL SEARCH ======
+function globalSearch() { render(); }
+
+// ====== TOGGLE CURRENCY ======
+function toggleCurrency(el) {
+  currency = el.dataset.currency;
+  document.querySelectorAll(".currency-toggle button").forEach(function(b) { b.classList.toggle("active", b.dataset.currency === currency); });
+  render();
 }
 
-function renderBagsTab() {
-  var h = '<div class="table-wrap" style="margin-top:0"><table><thead>';
-  h += '<tr><th colspan="4">Thông tin bao bì</th><th colspan="2">Giá</th></tr>';
-  h += '<tr><th>Mã bao</th><th>Quy cách</th><th>Số lượng</th><th>Giá vốn</th><th>Giá bán</th><th>Lợi nhuận</th></tr>';
-  h += '</thead><tbody>';
-  for (var i = 0; i < DATA_BAGS.length; i++) {
-    var b = DATA_BAGS[i];
-    h += '<tr>';
-    h += '<td><strong>' + b.code + '</strong></td>';
-    h += '<td>' + b.spec + '</td>';
-    h += '<td class="text-right">' + (b.qty || 0).toLocaleString() + '</td>';
-    h += '<td class="text-right">' + (b.cost || 0).toLocaleString() + ' VND</td>';
-    h += '<td class="text-right"><strong>' + (b.price || 0).toLocaleString() + ' VND</strong></td>';
-    h += '<td class="text-right"><span class="tag-profit">' + ((b.profit || 0) * 100).toFixed(0) + '%</span></td>';
-    h += '</tr>';
-  }
-  h += '</tbody></table></div>';
-  h += '<div class="summary-bar" style="margin-top:12px">';
-  h += '<div class="summary-card"><div class="lbl">Tổng loại bao</div><div class="val">' + DATA_BAGS.length + '</div></div>';
-  var bag25 = DATA_BAGS.filter(function(b) { return b.spec === '25KG'; }).length;
-  var bagJumbo = DATA_BAGS.filter(function(b) { return b.spec === 'Jumbo'; }).length;
-  h += '<div class="summary-card"><div class="lbl">Bao 25KG</div><div class="val">' + bag25 + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">Bao Jumbo</div><div class="val">' + bagJumbo + '</div></div>';
-  h += '</div>';
-  return h;
+// ====== SWITCH TAB ======
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.toggle("active", b.dataset.tab === tab); });
+  
+  // Control bar visibility
+  var cbar = document.getElementById("controlBar");
+  if (cbar) cbar.style.display = (tab === "pricelist") ? "flex" : "none";
+  
+  // Price mode bar only on pricelist
+  var bar = document.getElementById("priceModeBar");
+  if (bar) bar.style.display = (tab === "pricelist") ? "flex" : "none";
+  
+  // Manage panel
+  document.getElementById("managePanel").classList.toggle("open", tab === "manage");
+  
+  // Populate filters on pricelist tab
+  if (tab === "pricelist") populateFilters();
+  
+  render();
 }
 
-// ====== RENDER OTHERS TAB ======
-function renderOthersTab() {
-  var h = '<div class="table-wrap" style="margin-top:0"><table><thead>';
-  h += '<tr><th>Quy cách khác</th><th>Giá vốn</th><th>Giá bán</th><th>Lợi nhuận</th></tr>';
-  h += '</thead><tbody>';
-  for (var i = 0; i < DATA_OTHERS.length; i++) {
-    var o = DATA_OTHERS[i];
-    h += '<tr>';
-    h += '<td><strong>' + o.code + '</strong></td>';
-    h += '<td class="text-right">' + (o.cost || 0).toLocaleString() + ' VND</td>';
-    h += '<td class="text-right"><strong>' + (o.price || 0).toLocaleString() + ' VND</strong></td>';
-    h += '<td class="text-right"><span class="tag-profit">' + ((o.profit || 0) * 100).toFixed(0) + '%</span></td>';
-    h += '</tr>';
-  }
-  h += '</tbody></table></div>';
-  h += '<div class="summary-bar" style="margin-top:12px">';
-  h += '<div class="summary-card"><div class="lbl">Tổng quy cách</div><div class="val">' + DATA_OTHERS.length + '</div></div>';
-  h += '</div>';
-  return h;
-}
 
 // ====== MAIN RENDER ======
 function render() {
@@ -1691,8 +1477,11 @@ function setLang(lang) {
   });
 }
 
+
 
-// ====== FREIGHT LOOKUP POPUP ======
+
+// ====== 08-freight.js ======
+﻿// ====== FREIGHT LOOKUP POPUP ======
 var selectedFreightRoute = null;
 
 function showFreightPopup() {
@@ -1763,7 +1552,11 @@ function filterFreightRoutes() {
   filtered.forEach(function(r) {
     var tr = document.createElement("tr");
     tr.dataset.index = FREIGHT_DATA.indexOf(r);
-    tr.innerHTML = '<td>' + r.port + '</td><td>' + r.country + '</td><td class="freight-val">$' + r.freight + '</td><td>' + r.forwarder + '</td><td>' + r.via + '</td>';
+    tr.innerHTML = '<td>' + r.port + '</td><td>' + r.country + '</td><td class="freight-val">
+
+</body>
+</html>
+ + r.freight + '</td><td>' + r.forwarder + '</td><td>' + r.via + '</td>';
     tr.onclick = function() {
       tbody.querySelectorAll("tr").forEach(function(t) { t.classList.remove("selected"); });
       this.classList.add("selected");
@@ -1782,8 +1575,11 @@ function selectFreightRoute() {
 }
 
 
+
 
-// ====== QUOTATION POPUP ======
+
+// ====== 09-quotation.js ======
+﻿// ====== QUOTATION POPUP ======
 function showQuotationPopup() {
   var data = getCalcPriceData();
   if (!data) {
@@ -2054,72 +1850,219 @@ loadProductsData().then(function() {
   switchTab("pricelist");
 });</script>
 
-<!-- Freight Lookup Popup -->
-<div class="freight-overlay" id="freightPopup">
-  <div class="freight-modal">
-    <div class="freight-modal-header">
-      <h3>📡 Tra cước biển</h3>
-      <button class="freight-modal-close" onclick="closeFreightPopup()">✕</button>
-    </div>
-    <div class="freight-modal-search">
-      <input type="text" id="freightSearch" placeholder="🔍 Tìm cảng..." oninput="filterFreightRoutes()">
-    </div>
-    <div class="freight-modal-filters">
-      <select id="freightCountryFilter" onchange="filterFreightRoutes()"><option value="">Tất cả nước</option></select>
-      <select id="freightForwarderFilter" onchange="filterFreightRoutes()"><option value="">Tất cả hãng</option></select>
-      <select id="freightViaFilter" onchange="filterFreightRoutes()"><option value="">Tất cả loại</option></select>
-    </div>
-    <div class="freight-modal-body">
-      <table>
-        <thead><tr><th>Cảng đi</th><th>Nước đến</th><th>Cước (USD)</th><th>Hãng</th><th>Loại</th></tr></thead>
-        <tbody id="freightTableBody"></tbody>
-      </table>
-    </div>
-    <div class="freight-modal-footer">
-      <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="freightCount"></span>
-      <button class="btn-cancel" onclick="closeFreightPopup()">Đóng</button>
-      <button class="btn-confirm" onclick="selectFreightRoute()">✅ Chọn tuyến</button>
-    </div>
-  </div>
-</div>
 
 
-<!-- Quotation Popup -->
-<div class="q-overlay" id="quotationPopup">
-  <div class="q-modal">
-    <div class="q-modal-header">
-      <h3>📄 Lên báo giá</h3>
-      <button class="q-modal-close" onclick="closeQuotationPopup()">✕</button>
-    </div>
-    <div class="q-modal-form">
-      <div><label>👤 Khách hàng</label><input type="text" id="qCustomer" placeholder="Tên khách hàng..." oninput="updateQuotationPreview()"></div>
-      <div><label>📞 Liên hệ</label><input type="text" id="qContact" placeholder="Người liên hệ..." oninput="updateQuotationPreview()"></div>
-      <div><label>👤 Người phụ trách</label><input type="text" id="qAssigned" placeholder="Nhân viên phụ trách..." oninput="updateQuotationPreview()"></div>
-      <div><label>✉️ Email KH</label><input type="email" id="qCustEmail" placeholder="Email khách hàng..." oninput="updateQuotationPreview()"></div>
-      <div><label>📦 Số lượng (tấn)</label><input type="number" id="qQty" value="1" min="1" step="0.5" oninput="updateQuotationPreview()"></div>
-      <div><label>📅 Hiệu lực</label><select id="qValid" onchange="updateQuotationPreview()"><option value="15 ngày">15 ngày</option><option value="30 ngày">30 ngày</option><option value="7 ngày">7 ngày</option><option value="kể từ ngày ký">Kể từ ngày ký</option></select></div>
-      <div><label>💵 Điều kiện thanh toán</label><select id="qPayment" onchange="updateQuotationPreview()"><option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option><option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div>
-      <div><label>🌊 Cảng đi</label><input type="text" id="qPort" placeholder="Cảng đi (nếu có)..." oninput="updateQuotationPreview()"></div>
-      <div><label>🚚 Giao hàng</label><input type="text" id="qDelivery" placeholder="Điều kiện giao hàng..." oninput="updateQuotationPreview()"></div>
-      <div style="grid-column:1/-1"><label>📝 Ghi chú</label><input type="text" id="qNote" placeholder="Ghi chú thêm..." oninput="updateQuotationPreview()" style="width:100%"></div>
-    </div>
-    <div class="q-modal-body" id="qPreviewBody">
-      <div class="q-preview" id="qPreview">
-        <h1>CÔNG TY TNHH CÔNG NGHỆ VẬT LIỆU MỚI ĐỨC THỊNH</h1>
-        <p class="q-sub">ĐC: KCN NGHĨA ĐÀN, XÃ NGHĨA THỌ, TỈNH NGHỆ AN, VIỆT NAM<br>Email: sales@ducthinh.com - https://ducthinhmaterials.com<br>Tel: +84 382 666 000 Ext: 106 - MST: 2902085037<br>MST: 2902085037</p>
-        <div class="q-divider"></div>
-        <p style="text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px">📄 BÁO GIÁ</p>
-        <div id="qPreviewContent"><p style="text-align:center;color:#94a3b8;font-size:13px">Chọn sản phẩm và tính giá trước khi lên báo giá</p></div>
-      </div>
-    </div>
-    <div class="q-modal-footer">
-      <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="qDateSpan"></span>
-      <button class="q-btn-copy" onclick="copyQuotation()">📋 Copy</button>
-      <button class="q-btn-print" onclick="printQuotation()">🖨 In / PDF</button>
-    </div>
-  </div>
-</div>
+// ====== 10-market.js ======
+﻿var DATA_PRODUCTS = [];
+var DATA_LOADED = false;
 
-</body></html>
+function loadProductsData() {
+  return fetch('data/products.json')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      DATA_PRODUCTS = data;
+      DATA_LOADED = true;
+      return data;
+    })
+    .catch(function(err) {
+      console.error('Failed to load products.json:', err);
+      DATA_LOADED = false;
+      return [];
+    });
+}
+
+function importProducts(arr) {
+  DATA_PRODUCTS = [];
+  arr.forEach(function(r) {
+    var obj = {};
+    obj.code = r.code || r.Code || r["Mã SP"] || r["Ma SP"] || r["Mã sản phẩm"] || r["Mã"] || "";
+    if (!obj.code) return;
+    obj.size = r.size || r.Size || r["Cỡ hạt"] || r["Co hat"] || r["Size"] || "";
+    obj.standard = r.standard || r.Standard || r["Tiêu chuẩn"] || r["Tieu chuan"] || r["Standard"] || "";
+    obj.machine = r.machine || r.Machine || r["Máy chạy"] || r["May chay"] || r["Máy"] || r["May"] || "";
+    var vndFields = {
+      exw_vnd: ["EXW (VND)","EXW(VND)","exw_vnd","EXW_VND","exw vnd","EXW VND","Exw(VND)"],
+      exw_usd: ["EXW (USD)","EXW(USD)","exw_usd","EXW_USD","exw usd","EXW USD","Exw(USD)"],
+      comm_vnd: ["Hoa hồng (VND)","Hoa hong (VND)","Hoa hồng(VND)","comm_vnd","comm vnd"],
+      comm_usd: ["Hoa hồng (USD)","Hoa hong (USD)","Hoa hồng(USD)","comm_usd","comm usd"],
+      pkg25_vnd: ["25kg (VND)","25kg(VND)","25KG (VND)","25KG(VND)","pkg25_vnd","25kg_vnd"],
+      pkg25_usd: ["25kg (USD)","25kg(USD)","25KG (USD)","25KG(USD)","pkg25_usd","25kg_usd"],
+      jumbo_vnd: ["Jumbo (VND)","Jumbo(VND)","jumbo_vnd","jumbo vnd"],
+      jumbo_usd: ["Jumbo (USD)","Jumbo(USD)","jumbo_usd","jumbo usd"]
+    };
+    Object.keys(vndFields).forEach(function(k) {
+      var names = vndFields[k];
+      for (var i = 0; i < names.length; i++) {
+        if (r[names[i]] !== undefined && r[names[i]] !== null && r[names[i]] !== "") {
+          obj[k] = Number(r[names[i]]);
+          break;
+        }
+      }
+    });
+    // Read market-specific overrides (cn/other) if present in template
+    var marketSuffixes = ["_cn","_other"];
+    function readMarketField(r, obj, key, suffix) {
+      // Try suffixed user-friendly names first, then raw key+suffix
+      var baseNames = ["EXW (VND)","EXW (USD)","Hoa hồng (VND)","Hoa hồng (USD)","25kg (VND)","25kg (USD)","Jumbo (VND)","Jumbo (USD)"];
+      for (var si = 0; si < baseNames.length; si++) {
+        var fullName = baseNames[si] + suffix;
+        if (r[fullName] !== undefined && r[fullName] !== null && r[fullName] !== "") {
+          obj[key + suffix] = Number(r[fullName]);
+          return true;
+        }
+      }
+      if (r[key + suffix] !== undefined && r[key + suffix] !== null && r[key + suffix] !== "") {
+        obj[key + suffix] = Number(r[key + suffix]);
+        return true;
+      }
+      return false;
+    }
+    marketSuffixes.forEach(function(sfx) {
+      readMarketField(r, obj, "exw_vnd", sfx);
+      readMarketField(r, obj, "exw_usd", sfx);
+      readMarketField(r, obj, "comm_vnd", sfx);
+      readMarketField(r, obj, "comm_usd", sfx);
+      readMarketField(r, obj, "pkg25_vnd", sfx);
+      readMarketField(r, obj, "pkg25_usd", sfx);
+      readMarketField(r, obj, "jumbo_vnd", sfx);
+      readMarketField(r, obj, "jumbo_usd", sfx);
+    });
+    // Copy extra fields
+    if (r.d50 !== undefined) obj.d50 = Number(r.d50);
+    if (r.d97 !== undefined) obj.d97 = Number(r.d97);
+    if (r.whiteness !== undefined) obj.whiteness = Number(r.whiteness);
+    if (r.brightness !== undefined) obj.brightness = Number(r.brightness);
+    // Read max loading from product row if available
+    var max25 = r.max25 || r["Max Loading 25KG"] || r["Max Loading 25kg"] || r["Max25"] || r["Max 25KG"];
+    var maxJb = r.maxJumbo || r["Max Loading Jumbo"] || r["Max Loading jumbo"] || r["MaxJumbo"] || r["Max Jumbo"];
+    if (max25 !== undefined && max25 !== null && max25 !== "") {
+      obj.max25 = Number(max25);
+      DATA_MAX_LOADING[obj.code] = DATA_MAX_LOADING[obj.code] || {};
+      DATA_MAX_LOADING[obj.code].max25 = Number(max25);
+    }
+    if (maxJb !== undefined && maxJb !== null && maxJb !== "") {
+      obj.maxJumbo = Number(maxJb);
+      DATA_MAX_LOADING[obj.code] = DATA_MAX_LOADING[obj.code] || {};
+      DATA_MAX_LOADING[obj.code].maxJumbo = Number(maxJb);
+    }
+  
+    // CN là base mặc định: ghi đè obj.exw_vnd bằng exw_vnd_cn
+    obj.exw_vnd = obj.exw_vnd_cn !== undefined ? obj.exw_vnd_cn : obj.exw_vnd;
+    obj.exw_usd = obj.exw_usd_cn !== undefined ? obj.exw_usd_cn : obj.exw_usd;
+    obj.comm_vnd = obj.comm_vnd_cn !== undefined ? obj.comm_vnd_cn : obj.comm_vnd;
+    obj.comm_usd = obj.comm_usd_cn !== undefined ? obj.comm_usd_cn : obj.comm_usd;
+    obj.pkg25_vnd = obj.pkg25_vnd_cn !== undefined ? obj.pkg25_vnd_cn : obj.pkg25_vnd;
+    obj.pkg25_usd = obj.pkg25_usd_cn !== undefined ? obj.pkg25_usd_cn : obj.pkg25_usd;
+    obj.jumbo_vnd = obj.jumbo_vnd_cn !== undefined ? obj.jumbo_vnd_cn : obj.jumbo_vnd;
+    obj.jumbo_usd = obj.jumbo_usd_cn !== undefined ? obj.jumbo_usd_cn : obj.jumbo_usd;
+    // Fallback CN: nếu vẫn undefined, copy từ base cũ (backward compat với file cũ)
+    if (obj.exw_vnd_cn === undefined) obj.exw_vnd_cn = obj.exw_vnd !== undefined ? obj.exw_vnd : 0;
+    if (obj.exw_usd_cn === undefined) obj.exw_usd_cn = obj.exw_usd !== undefined ? obj.exw_usd : 0;
+    if (obj.comm_vnd_cn === undefined) obj.comm_vnd_cn = obj.comm_vnd !== undefined ? obj.comm_vnd : 0;
+    if (obj.comm_usd_cn === undefined) obj.comm_usd_cn = obj.comm_usd !== undefined ? obj.comm_usd : 0;
+    if (obj.pkg25_vnd_cn === undefined) obj.pkg25_vnd_cn = obj.pkg25_vnd !== undefined ? obj.pkg25_vnd : 0;
+    if (obj.pkg25_usd_cn === undefined) obj.pkg25_usd_cn = obj.pkg25_usd !== undefined ? obj.pkg25_usd : 0;
+    if (obj.jumbo_vnd_cn === undefined) obj.jumbo_vnd_cn = obj.jumbo_vnd !== undefined ? obj.jumbo_vnd : 0;
+    if (obj.jumbo_usd_cn === undefined) obj.jumbo_usd_cn = obj.jumbo_usd !== undefined ? obj.jumbo_usd : 0;
+    // Fallback Other: copy từ CN
+    if (obj.exw_vnd_other === undefined) obj.exw_vnd_other = obj.exw_vnd_cn !== undefined ? obj.exw_vnd_cn : 0;
+    if (obj.exw_usd_other === undefined) obj.exw_usd_other = obj.exw_usd_cn !== undefined ? obj.exw_usd_cn : 0;
+    if (obj.comm_vnd_other === undefined) obj.comm_vnd_other = obj.comm_vnd_cn !== undefined ? obj.comm_vnd_cn : 0;
+    if (obj.comm_usd_other === undefined) obj.comm_usd_other = obj.comm_usd_cn !== undefined ? obj.comm_usd_cn : 0;
+    if (obj.pkg25_vnd_other === undefined) obj.pkg25_vnd_other = obj.pkg25_vnd_cn !== undefined ? obj.pkg25_vnd_cn : 0;
+    if (obj.pkg25_usd_other === undefined) obj.pkg25_usd_other = obj.pkg25_usd_cn !== undefined ? obj.pkg25_usd_cn : 0;
+    if (obj.jumbo_vnd_other === undefined) obj.jumbo_vnd_other = obj.jumbo_vnd_cn !== undefined ? obj.jumbo_vnd_cn : 0;
+    if (obj.jumbo_usd_other === undefined) obj.jumbo_usd_other = obj.jumbo_usd_cn !== undefined ? obj.jumbo_usd_cn : 0;DATA_PRODUCTS.push(obj);
+  });
 
 
+
+// Market switching
+var currentMarket = "cn";
+
+function applyMarket() {
+  var suffix = "_" + currentMarket;
+  DATA_PRODUCTS.forEach(function(p) {
+    // Use suffix field if available, fall back to base field
+    p.exw_vnd = p["exw_vnd" + suffix] !== undefined ? p["exw_vnd" + suffix] : p.exw_vnd;
+    p.exw_usd = p["exw_usd" + suffix] !== undefined ? p["exw_usd" + suffix] : p.exw_usd;
+    p.comm_vnd = p["comm_vnd" + suffix] !== undefined ? p["comm_vnd" + suffix] : p.comm_vnd;
+    p.comm_usd = p["comm_usd" + suffix] !== undefined ? p["comm_usd" + suffix] : p.comm_usd;
+    p.pkg25_vnd = p["pkg25_vnd" + suffix] !== undefined ? p["pkg25_vnd" + suffix] : p.pkg25_vnd;
+    p.pkg25_usd = p["pkg25_usd" + suffix] !== undefined ? p["pkg25_usd" + suffix] : p.pkg25_usd;
+    p.jumbo_vnd = p["jumbo_vnd" + suffix] !== undefined ? p["jumbo_vnd" + suffix] : p.jumbo_vnd;
+    p.jumbo_usd = p["jumbo_usd" + suffix] !== undefined ? p["jumbo_usd" + suffix] : p.jumbo_usd;
+  });
+  // Re-render
+  render();
+}
+
+function setMarket(mkt) {
+  currentMarket = mkt;
+  // Update UI toggle buttons
+  var cnBtn = document.getElementById("marketCn");
+  var otherBtn = document.getElementById("marketOther");
+  if (cnBtn && otherBtn) {
+    cnBtn.classList.toggle("active", mkt === "cn");
+    otherBtn.classList.toggle("active", mkt === "other");
+    cnBtn.style.background = mkt === "cn" ? "#1a56db" : "#fff";
+    cnBtn.style.color = mkt === "cn" ? "#fff" : "#333";
+    cnBtn.style.borderColor = mkt === "cn" ? "#1a56db" : "#d0d5dd";
+    otherBtn.style.background = mkt === "other" ? "#1a56db" : "#fff";
+    otherBtn.style.color = mkt === "other" ? "#fff" : "#333";
+    otherBtn.style.borderColor = mkt === "other" ? "#1a56db" : "#d0d5dd";
+  }
+  applyMarket();
+
+
+﻿loadProductsData().then(function() {
+  var saved = localStorage.getItem("dq_products");
+  if (saved) {
+    try { DATA_PRODUCTS = JSON.parse(saved); } catch(e) {}
+  }
+  var savedBags = localStorage.getItem("dq_bags");
+  if (savedBags) {
+    try { DATA_BAGS = JSON.parse(savedBags); } catch(e) {}
+  }
+  var savedOthers = localStorage.getItem("dq_others");
+  if (savedOthers) {
+    try { DATA_OTHERS = JSON.parse(savedOthers); } catch(e) {}
+  }
+  var savedML = localStorage.getItem("dq_maxLoading");
+  if (savedML) {
+    try { DATA_MAX_LOADING = JSON.parse(savedML); } catch(e) {}
+  }
+  var savedCF = localStorage.getItem("dq_costFOB");
+  if (savedCF) {
+    try { DATA_COST_FOB = JSON.parse(savedCF); } catch(e) {}
+  }
+  applyMarket();
+  switchTab("pricelist");
+}).catch(function(err) {
+  console.error('Error loading data, using localStorage fallback', err);
+  var saved = localStorage.getItem("dq_products");
+  if (saved) {
+    try { DATA_PRODUCTS = JSON.parse(saved); } catch(e) {}  
+  }
+  var savedBags = localStorage.getItem("dq_bags");
+  if (savedBags) {
+    try { DATA_BAGS = JSON.parse(savedBags); } catch(e) {}
+  }
+  var savedOthers = localStorage.getItem("dq_others");
+  if (savedOthers) {
+    try { DATA_OTHERS = JSON.parse(savedOthers); } catch(e) {}
+  }
+  var savedML = localStorage.getItem("dq_maxLoading");
+  if (savedML) {
+    try { DATA_MAX_LOADING = JSON.parse(savedML); } catch(e) {}
+  }
+  var savedCF = localStorage.getItem("dq_costFOB");
+  if (savedCF) {
+    try { DATA_COST_FOB = JSON.parse(savedCF); } catch(e) {}
+  }
+  applyMarket();
+  switchTab("pricelist");
+
+
+</body>
+</html>
