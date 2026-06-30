@@ -1,4 +1,4 @@
-﻿// ====== EXPORT FUNCTIONS ======
+// ====== EXPORT FUNCTIONS ======
 function exportToExcel() {
   var dt = new Date();
   var isUsd = currency === "USD";

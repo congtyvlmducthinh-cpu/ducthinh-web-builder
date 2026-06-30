@@ -1,4 +1,4 @@
-﻿// ====== RENDER OTHERS TAB ======
+// ====== RENDER OTHERS TAB ======
 function renderOthersTab() {
   var h = '<div class="table-wrap" style="margin-top:0"><table><thead>';
   h += '<tr><th>Quy cách khác</th><th>Giá vốn</th><th>Giá bán</th><th>Lợi nhuận</th></tr>';

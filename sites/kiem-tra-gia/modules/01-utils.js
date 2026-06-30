@@ -73,3 +73,11 @@ function getCIFJumboPriceVND(prod, lccVariant, freight) {
 function getCIF25PriceUSD(prod, lccVariant, freight) { return getCIF25PriceVND(prod, lccVariant, freight) / 26000; }
 function getCIFJumboPriceUSD(prod, lccVariant, freight) { return getCIFJumboPriceVND(prod, lccVariant, freight) / 26000; }
 
+
+
+// ====== FORMAT MAX LOADING ======
+function formatMaxLoading(v) {
+  if (v === null || v === undefined || v === "" || isNaN(v) || v <= 0) return "\u2014";
+  return Number(v) % 1 === 0 ? Number(v).toLocaleString("vi-VN") : Number(v).toFixed(2);
+}
+

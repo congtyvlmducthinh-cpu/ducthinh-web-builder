@@ -1,4 +1,4 @@
-﻿// ====== FREIGHT LOOKUP POPUP ======
+// ====== FREIGHT LOOKUP POPUP ======
 var selectedFreightRoute = null;
 
 function showFreightPopup() {

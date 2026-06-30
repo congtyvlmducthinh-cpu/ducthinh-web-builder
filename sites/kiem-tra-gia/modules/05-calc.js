@@ -1,4 +1,4 @@
-﻿// ====== RENDER CALC TAB ======
+// ====== RENDER CALC TAB ======
 function renderCalcTab() {
   var h = '<div class="calc-grid">';
 

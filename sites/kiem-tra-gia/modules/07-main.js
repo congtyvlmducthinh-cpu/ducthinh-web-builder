@@ -1,4 +1,4 @@
-﻿// ====== GLOBAL SEARCH ======
+// ====== GLOBAL SEARCH ======
 function globalSearch() { render(); }
 
 // ====== TOGGLE CURRENCY ======

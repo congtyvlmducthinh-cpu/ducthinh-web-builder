@@ -1,4 +1,4 @@
-﻿// ====== RENDER BAGS TAB ======
+// ====== RENDER BAGS TAB ======
 
 function toggleMaxLoad() {
   var cols = document.querySelectorAll('.ml-toggle');

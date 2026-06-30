@@ -423,6 +423,14 @@ function getCIF25PriceUSD(prod, lccVariant, freight) { return getCIF25PriceVND(p
 function getCIFJumboPriceUSD(prod, lccVariant, freight) { return getCIFJumboPriceVND(prod, lccVariant, freight) / 26000; }
 
 
+
+// ====== FORMAT MAX LOADING ======
+function formatMaxLoading(v) {
+  if (v === null || v === undefined || v === "" || isNaN(v) || v <= 0) return "\u2014";
+  return Number(v) % 1 === 0 ? Number(v).toLocaleString("vi-VN") : Number(v).toFixed(2);
+}
+
+
 // 02-pricelist.js
 // ====== PRICE MODE CONTROLS (Giá bán tab) ======
 function setPriceMode(mode) {
@@ -571,7 +579,7 @@ function populateFilters() {
 }
 
 // 03-bags.js
-﻿// ====== RENDER BAGS TAB ======
+// ====== RENDER BAGS TAB ======
 
 function toggleMaxLoad() {
   var cols = document.querySelectorAll('.ml-toggle');
@@ -610,7 +618,7 @@ function renderBagsTab() {
 
 
 // 04-others.js
-﻿// ====== RENDER OTHERS TAB ======
+// ====== RENDER OTHERS TAB ======
 function renderOthersTab() {
   var h = '<div class="table-wrap" style="margin-top:0"><table><thead>';
   h += '<tr><th>Quy cách khác</th><th>Giá vốn</th><th>Giá bán</th><th>Lợi nhuận</th></tr>';
@@ -633,7 +641,7 @@ function renderOthersTab() {
 
 
 // 05-calc.js
-﻿// ====== RENDER CALC TAB ======
+// ====== RENDER CALC TAB ======
 function renderCalcTab() {
   var h = '<div class="calc-grid">';
 
@@ -1057,7 +1065,7 @@ var total = 0;
 
 
 // 06-manage.js
-﻿// ====== EXPORT FUNCTIONS ======
+// ====== EXPORT FUNCTIONS ======
 function exportToExcel() {
   var dt = new Date();
   var isUsd = currency === "USD";
@@ -1373,7 +1381,7 @@ function manageFromPwModal() { checkPassword(); }
 
 
 // 07-main.js
-﻿// ====== GLOBAL SEARCH ======
+// ====== GLOBAL SEARCH ======
 function globalSearch() { render(); }
 
 // ====== TOGGLE CURRENCY ======
@@ -1530,7 +1538,7 @@ function setLang(lang) {
 
 
 // 08-freight.js
-﻿// ====== FREIGHT LOOKUP POPUP ======
+// ====== FREIGHT LOOKUP POPUP ======
 var selectedFreightRoute = null;
 
 function showFreightPopup() {
