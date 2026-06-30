@@ -277,7 +277,7 @@ function calcCommission() {
   if (bcode) {
     // User selected a specific bag -> EXW + bagPrice
     exwBase = isUsd ? prod.exw_usd : prod.exw_vnd;
-    for (var i = 0; i < DATA_BAGS.length; i++) { if (DATA_BAGS[i].code === bcode) { bagPrice = DATA_BAGS[i].price; break; } } if (isJumbo && bagTons > 0) bagPrice = bagPrice / bagTons;
+    var bsSpec = document.getElementById("calcBagSpec"); var curBagSpec = bsSpec ? bsSpec.value : ""; for (var i = 0; i < DATA_BAGS.length; i++) { if (DATA_BAGS[i].code === bcode && DATA_BAGS[i].spec === curBagSpec) { bagPrice = DATA_BAGS[i].price; break; } } if (isJumbo && bagTons > 0) bagPrice = bagPrice / bagTons;
   } else {
     // No bag selected -> use pkg price (includes bag)
     exwBase = isUsd ? (isJumbo ? prod.jumbo_usd : prod.pkg25_usd) : (isJumbo ? prod.jumbo_vnd : prod.pkg25_vnd);
@@ -367,7 +367,7 @@ function calcPrice() {
     // User selected a specific bag -> use EXW + bagPrice + otherPrice
     hasBag = true;
     exwMin = isUsd ? prod.exw_usd : prod.exw_vnd;
-    for (var i = 0; i < DATA_BAGS.length; i++) { if (DATA_BAGS[i].code === bcode) { bagPrice = DATA_BAGS[i].price; bagCode = DATA_BAGS[i].code; break; } } if (isJumbo && bagTons > 0) bagPrice = bagPrice / bagTons;
+    var curBagSpec = bs; for (var i = 0; i < DATA_BAGS.length; i++) { if (DATA_BAGS[i].code === bcode && DATA_BAGS[i].spec === curBagSpec) { bagPrice = DATA_BAGS[i].price; bagCode = DATA_BAGS[i].code; break; } } if (isJumbo && bagTons > 0) bagPrice = bagPrice / bagTons;
   } else {
     // No bag selected -> use pkg price (already includes bag)
     exwMin = isUsd ? (isJumbo ? prod.jumbo_usd : prod.pkg25_usd) : (isJumbo ? prod.jumbo_vnd : prod.pkg25_vnd);
