@@ -788,7 +788,11 @@ function renderCalcTab() {
   h += '<select class="calc-select" id="calcStandard" onchange="filterCalcProducts()"><option value="">— Chọn tiêu chuẩn —</option></select></div>';
   h += '</div></div>';
 
-  h += '<div class="calc-form-group"><label class="calc-form-label">🔖 Sản phẩm</label>';
+  h += '<div class="calc-form-group"><div class="calc-row-inline">' +
+  '<div><label class="calc-form-label">📐 Kích thước</label>' +
+  '<select class="calc-select" id="calcSize" onchange="filterCalcProducts()"><option value="">— Chọn kích thước —</option></select></div>' +
+  '</div></div>' +
+  '<div class="calc-form-group"><label class="calc-form-label">🔖 Sản phẩm</label>';
   h += '<select class="calc-select" id="calcProduct" onchange="onCalcProductChange()"><option value="">— Chọn sản phẩm —</option></select></div>';
   // Max loading dropdown (shown only in FOB/CIF mode)
   h += '<div class="calc-form-group" id="calcMaxLoadRow" style="display:none">';
@@ -883,14 +887,17 @@ h += '<div class="calc-result" id="calcResult">';
   return h;
 }// ====== CALC FILTER HELPERS ======
 function filterCalcProducts() {
-  var me = document.getElementById("calcMachine"), se = document.getElementById("calcStandard"), pe = document.getElementById("calcProduct");
+  var me = document.getElementById("calcMachine"), se = document.getElementById("calcStandard"), sze = document.getElementById("calcSize"), pe = document.getElementById("calcProduct");
   if (!me || !se || !pe) return;
-  var m = me.value, s = se.value;
+  var m = me.value, s = se.value, sz = sze ? sze.value : "";
   // Collect standards by machine, and machines by standard
-  var machinesByStd = {}, standardsByMach = {};
+  var machinesByStd = {}, standardsByMach = {}, sizesByMachStd = {};
   DATA_PRODUCTS.forEach(function(p) {
-    if (!m || String(p.machine) === m) standardsByMach[p.standard] = true;
-    if (!s || p.standard === s) machinesByStd[p.machine] = true;
+    var machOk = !m || String(p.machine) === m;
+    var stdOk = !s || p.standard === s;
+    if (machOk) standardsByMach[p.standard] = true;
+    if (stdOk) machinesByStd[p.machine] = true;
+    if (machOk && stdOk) sizesByMachStd[p.size] = true;
   });
   // Populate machines (if standard is selected, filter)
   var prevMach = me.value;
@@ -904,18 +911,24 @@ function filterCalcProducts() {
   var sk = Object.keys(standardsByMach).sort();
   for (var i = 0; i < sk.length; i++) se.innerHTML += '<option value="' + sk[i].replace(/"/g, '&quot;') + '">' + sk[i] + '</option>';
   se.value = prevStd && sk.indexOf(prevStd) >= 0 ? prevStd : "";
+  // Populate sizes (if machine/standard is selected)
+  var prevSz = sze ? sze.value : "";
+  if (sze) {
+    sze.innerHTML = '<option value="">— Chọn kích thước —</option>';
+    var szk = Object.keys(sizesByMachStd).sort();
+    for (var i = 0; i < szk.length; i++) sze.innerHTML += '<option value="' + szk[i].replace(/"/g, '&quot;') + '">' + szk[i] + '</option>';
+    sze.value = prevSz && szk.indexOf(prevSz) >= 0 ? prevSz : "";
+  }
   filterCalcProducts_products();
-}
-function filterCalcProducts_products() {
-  var me = document.getElementById("calcMachine"), se = document.getElementById("calcStandard"), pe = document.getElementById("calcProduct");
+}function filterCalcProducts_products() {
+  var me = document.getElementById("calcMachine"), se = document.getElementById("calcStandard"), sze = document.getElementById("calcSize"), pe = document.getElementById("calcProduct");
   if (!me || !se || !pe) return;
-  var m = me.value, s = se.value;
+  var m = me.value, s = se.value, sz = sze ? sze.value : "";
   var prevProd = pe.value;
   pe.innerHTML = '<option value="">— Chọn sản phẩm —</option>';
-  DATA_PRODUCTS.forEach(function(p) { if ((!m || String(p.machine) === m) && (!s || p.standard === s)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
+  DATA_PRODUCTS.forEach(function(p) { if ((!m || String(p.machine) === m) && (!s || p.standard === s) && (!sz || p.size === sz)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
   pe.value = prevProd;
-}
-function onCalcProductChange() { populateCalcMaxLoad(); calcPrice(); }
+}function onCalcProductChange() { populateCalcMaxLoad(); calcPrice(); }
 function populateCalcMaxLoad() {
   var psel = document.getElementById("calcProduct"), mlsel = document.getElementById("calcMaxLoad");
   if (!psel || !mlsel) return;
@@ -1193,6 +1206,8 @@ function resetCalcFilters() {
   if (me) me.value = "";
   var se = document.getElementById("calcStandard");
   if (se) se.value = "";
+  var sze = document.getElementById("calcSize");
+  if (sze) sze.value = "";
   var pe = document.getElementById("calcProduct");
   if (pe) pe.value = "";
   var mlsel = document.getElementById("calcMaxLoad");
