@@ -1,3 +1,8 @@
+<div class="market-group">
+<span class="ext-label">{{MARKET_LABEL}}</span>
+<button class="btn-sm" id="marketCn" onclick="setMarket('cn')">{{MARKET_CN}}</button>
+<button class="btn-sm" id="marketOther" onclick="setMarket('other')">{{MARKET_OTHER}}</button>
+</div>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -31,6 +36,10 @@ header .badge{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);padding
 .price-mode-bar .mode-btn.active{background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;border-color:var(--primary)}
 .price-mode-bar .lcc-group{display:flex;gap:4px;align-items:center}
 .price-mode-bar .lcc-btn{padding:5px 14px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:600;cursor:pointer;border-radius:6px;transition:all .2s;font-family:var(--font);color:var(--text-secondary)}
+.market-group{display:flex;gap:4px;align-items:center;margin-left:auto}
+.market-group .btn-sm.active{background:#1a56db;color:#fff;border-color:#1a56db}
+.market-group .btn-sm{background:#fff;color:#333;border:1px solid #d0d5dd;padding:4px 10px;font-size:11px;font-weight:600;border-radius:6px;cursor:pointer;transition:all .15s ease}
+.market-group .btn-sm:hover{opacity:.85}
 .price-mode-bar .lcc-btn.active{background:linear-gradient(135deg,#059669,#10b981);color:#fff;border-color:#059669}
 .price-mode-bar .ext-input{padding:6px 12px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;font-weight:600;width:100px;outline:none;font-family:var(--font);color:var(--text);text-align:right}
 .price-mode-bar .ext-label{font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap}

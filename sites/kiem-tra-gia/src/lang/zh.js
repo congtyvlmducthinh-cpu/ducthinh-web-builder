@@ -95,4 +95,10 @@ var LANG_TEMPLATE = {
   COMPANY_ADDR: '地址：NGHE AN省NGHIA DAN工业区, VIET NAM',
   MANAGE_DRAG_TEXT: '将Excel文件拖放到此处',
   MANAGE_DRAG_SUB: '或点击选择',
+
+  // Market
+  MARKET_LABEL: "🌏 市场:",
+  MARKET_CN: "🇨🇳 中国",
+  MARKET_OTHER: "🌏 其他",
+
 };

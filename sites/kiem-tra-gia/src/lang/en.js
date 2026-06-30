@@ -95,4 +95,10 @@ var LANG_TEMPLATE = {
   COMPANY_ADDR: 'Add: NGHIA DAN IZ, NGHIA THU COMMUNE, NGHE AN, VIET NAM',
   MANAGE_DRAG_TEXT: 'Drop Excel file here',
   MANAGE_DRAG_SUB: 'or click to select',
+
+  // Market
+  MARKET_LABEL: "🌏 Market:",
+  MARKET_CN: "🇨🇳 China",
+  MARKET_OTHER: "🌏 Others",
+
 };

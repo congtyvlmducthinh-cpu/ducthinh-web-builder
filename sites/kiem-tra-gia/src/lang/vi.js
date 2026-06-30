@@ -97,4 +97,10 @@ var LANG_TEMPLATE = {
   COMPANY_ADDR: 'ĐC: KCN NGHIA DAN, XA NGHIA THU, TINH NGHE AN, VIET NAM',
   MANAGE_DRAG_TEXT: 'Kéo thả file vào đây',
   MANAGE_DRAG_SUB: 'hoặc bấm để chọn',
+
+  // Market
+  MARKET_LABEL: "🌏 Thị trường:",
+  MARKET_CN: "🇨🇳 TQ",
+  MARKET_OTHER: "🌏 Khác",
+
 };
