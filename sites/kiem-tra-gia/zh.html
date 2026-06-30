@@ -250,6 +250,7 @@ tbody tr:hover td{background:#eff6ff}
       <h3>🚢 Chọn cước biển</h3>
       <button class="freight-modal-close" onclick="closeFreightPopup()">✕</button>
     </div>
+        <div style="padding:0 16px 8px"><input type="text" id="freightSearch" placeholder="🔍 Tìm cảng hoặc nước..." oninput="filterFreightRoutes()" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;font-family:var(--font);color:var(--text);background:var(--card)"></div>
     <div class="freight-modal-filters">
       <select id="freightCountryFilter" onchange="filterFreightRoutes()"><option value="">Tất cả nước</option></select>
       <select id="freightForwarderFilter" onchange="filterFreightRoutes()"><option value="">Tất cả hãng</option></select>
