@@ -1,18 +1,6 @@
-function loadProductsData() {
-  return fetch('data/products.json')
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      DATA_PRODUCTS = data;
-      DATA_LOADED = true;
-      return data;
-    })
-    .catch(function(err) {
-      console.error('Failed to load products.json:', err);
-      DATA_LOADED = false;
-      return [];
-    });
-}
-
+/**
+ * 10-market.js — Market/Data functions
+ */
 function importProducts(arr) {
   DATA_PRODUCTS = [];
   arr.forEach(function(r) {
@@ -41,7 +29,6 @@ function importProducts(arr) {
         }
       }
     });
-    // Read market-specific overrides (cn/other) if present in template
     var marketSuffixes = ["_cn","_other"];
     function readMarketField(r, obj, key, suffix) {
       var baseNames = ["EXW (VND)","EXW (USD)","Hoa hồng (VND)","Hoa hồng (USD)","25kg (VND)","25kg (USD)","Jumbo (VND)","Jumbo (USD)"];
@@ -68,12 +55,10 @@ function importProducts(arr) {
       readMarketField(r, obj, "jumbo_vnd", sfx);
       readMarketField(r, obj, "jumbo_usd", sfx);
     });
-    // Copy extra fields
     if (r.d50 !== undefined) obj.d50 = Number(r.d50);
     if (r.d97 !== undefined) obj.d97 = Number(r.d97);
     if (r.whiteness !== undefined) obj.whiteness = Number(r.whiteness);
     if (r.brightness !== undefined) obj.brightness = Number(r.brightness);
-    // Read max loading from product row if available
     var max25 = r.max25 || r["Max Loading 25KG"] || r["Max Loading 25kg"] || r["Max25"] || r["Max 25KG"];
     var maxJb = r.maxJumbo || r["Max Loading Jumbo"] || r["Max Loading jumbo"] || r["MaxJumbo"] || r["Max Jumbo"];
     if (max25 !== undefined && max25 !== null && max25 !== "") {
@@ -86,7 +71,7 @@ function importProducts(arr) {
       DATA_MAX_LOADING[obj.code] = DATA_MAX_LOADING[obj.code] || {};
       DATA_MAX_LOADING[obj.code].maxJumbo = Number(maxJb);
     }
-    // CN là base mặc định: ghi đè obj.exw_vnd bằng exw_vnd_cn
+    // CN base
     obj.exw_vnd = obj.exw_vnd_cn !== undefined ? obj.exw_vnd_cn : obj.exw_vnd;
     obj.exw_usd = obj.exw_usd_cn !== undefined ? obj.exw_usd_cn : obj.exw_usd;
     obj.comm_vnd = obj.comm_vnd_cn !== undefined ? obj.comm_vnd_cn : obj.comm_vnd;
@@ -95,7 +80,7 @@ function importProducts(arr) {
     obj.pkg25_usd = obj.pkg25_usd_cn !== undefined ? obj.pkg25_usd_cn : obj.pkg25_usd;
     obj.jumbo_vnd = obj.jumbo_vnd_cn !== undefined ? obj.jumbo_vnd_cn : obj.jumbo_vnd;
     obj.jumbo_usd = obj.jumbo_usd_cn !== undefined ? obj.jumbo_usd_cn : obj.jumbo_usd;
-    // Fallback CN: nếu vẫn undefined, copy từ base cũ (backward compat với file cũ)
+    // Fallback CN
     if (obj.exw_vnd_cn === undefined) obj.exw_vnd_cn = obj.exw_vnd !== undefined ? obj.exw_vnd : 0;
     if (obj.exw_usd_cn === undefined) obj.exw_usd_cn = obj.exw_usd !== undefined ? obj.exw_usd : 0;
     if (obj.comm_vnd_cn === undefined) obj.comm_vnd_cn = obj.comm_vnd !== undefined ? obj.comm_vnd : 0;
@@ -104,7 +89,7 @@ function importProducts(arr) {
     if (obj.pkg25_usd_cn === undefined) obj.pkg25_usd_cn = obj.pkg25_usd !== undefined ? obj.pkg25_usd : 0;
     if (obj.jumbo_vnd_cn === undefined) obj.jumbo_vnd_cn = obj.jumbo_vnd !== undefined ? obj.jumbo_vnd : 0;
     if (obj.jumbo_usd_cn === undefined) obj.jumbo_usd_cn = obj.jumbo_usd !== undefined ? obj.jumbo_usd : 0;
-    // Fallback Other: copy từ CN
+    // Fallback Other: copy CN
     if (obj.exw_vnd_other === undefined) obj.exw_vnd_other = obj.exw_vnd_cn !== undefined ? obj.exw_vnd_cn : 0;
     if (obj.exw_usd_other === undefined) obj.exw_usd_other = obj.exw_usd_cn !== undefined ? obj.exw_usd_cn : 0;
     if (obj.comm_vnd_other === undefined) obj.comm_vnd_other = obj.comm_vnd_cn !== undefined ? obj.comm_vnd_cn : 0;
