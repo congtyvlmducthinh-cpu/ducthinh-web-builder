@@ -3387,12 +3387,26 @@ function downloadAsJSON() {
   a.click();
 }
 
-// Manage file upload
+// Manage file upload — dùng biến uploading để chống double-fire
+var _isUploadingFile = false;
 (function() {
   var dropZone = document.getElementById("manageDropZone");
   var fileInput = document.getElementById("manageFileInput");
   if (!dropZone || !fileInput) return;
-  dropZone.addEventListener("click", function() { fileInput.click(); });
+  
+  // KHÔNG reset hay click fileInput ở đây — để label/tự nhiên
+  // Reset value TRƯỚC khi picker mở — đảm bảo change luôn fire cho cùng file
+  dropZone.addEventListener("click", function() {
+    if (_isUploadingFile) return; // đang xử lý — chặn picker mở lại
+    fileInput.value = '';
+  });
+  
+  // Dùng click để mở picker — nhưng dùng setTimeout để không xung đột events
+  dropZone.addEventListener("click", function openPicker() {
+    if (_isUploadingFile) return;
+    setTimeout(function() { fileInput.click(); }, 10);
+  }, true); // capture phase để chạy trước
+  
   dropZone.addEventListener("dragover", function(e) { e.preventDefault(); dropZone.classList.add("dragover"); });
   dropZone.addEventListener("dragleave", function() { dropZone.classList.remove("dragover"); });
   dropZone.addEventListener("drop", function(e) {
@@ -3400,10 +3414,13 @@ function downloadAsJSON() {
     dropZone.classList.remove("dragover");
     if (e.dataTransfer.files.length) handleManageFile(e.dataTransfer.files[0]);
   });
-  fileInput.addEventListener("change", function() {
-    if (fileInput.files.length) handleManageFile(fileInput.files[0]);
-    // Reset input để cho phép chọn lại cùng file lần tiếp theo
-    fileInput.value = '';
+  
+  fileInput.addEventListener("change", function onChange() {
+    if (_isUploadingFile) return;
+    if (fileInput.files.length) {
+      _isUploadingFile = true;
+      handleManageFile(fileInput.files[0]);
+    }
   });
 })();
 
@@ -3413,6 +3430,7 @@ function handleManageFile(file) {
   if (!file.name.match(/.xlsx?$/i)) {
     status.className = "manage-status-sm err";
     status.textContent = "❌ 仅支持Excel文件(.xlsx)";
+    _isUploadingFile = false;
     return;
   }
   status.className = "manage-status-sm loading";
@@ -3482,12 +3500,17 @@ function handleManageFile(file) {
       populateFilters();
       render();
       status.className = "manage-status-sm ok";
-      saveToServer();
       status.textContent = "✅ 已更新 " + updated + " 个数据表!";
+      _isUploadingFile = false;
+      saveToServer();
     } catch(err) {
       status.className = "manage-status-sm err";
       status.textContent = "❌ 错误: " + err.message;
+      _isUploadingFile = false;
     }
+  };
+  reader.onerror = function() {
+    _isUploadingFile = false;
   };
   reader.readAsArrayBuffer(file);
 }
