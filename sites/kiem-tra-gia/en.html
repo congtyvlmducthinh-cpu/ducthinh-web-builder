@@ -1691,6 +1691,7 @@ function render() {
       vndBtn.classList.toggle("active", currency === "VND");
       usdBtn.classList.toggle("active", currency === "USD");
     }
+    if (typeof setCalcMarket === "function") setCalcMarket(currentMarket);
   }, 0);
   } else if (activeTab === "manage") {
     container.innerHTML = "";
