@@ -3220,7 +3220,7 @@ function exportToExcel() {
   if (priceMode === "fob" || priceMode === "cif") modeLabel += " (" + (lccType === "sub" ? "Sub LCC" : "No LCC") + ")";
   var fn = "DT-PriceList-" + dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate() + ".xlsx";
 
-  var rows = [["M\u00e3","K\u00edch th\u01b0\u1edbc","Ti\u00eau chu\u1ea9n","M\u00e1y","25KG (VND)","Jumbo (VND)","Gi\u00e1 b\u00e1n (" + modeLabel + ", " + (isUsd ? "USD" : "VND") + ")","Hoa h\u1ed3ng (" + (isUsd ? "USD" : "VND") + ")"]];
+  var rows = [["Mã","Kích thước","Tiêu chuẩn","Máy","25KG (VND)","Jumbo (VND)","Giá bán (" + modeLabel + ", " + (isUsd ? "USD" : "VND") + ")","Hoa hồng (" + (isUsd ? "USD" : "VND") + ")"]];
 
   for (var i = 0; i < DATA_PRODUCTS.length; i++) {
     var p = DATA_PRODUCTS[i];
@@ -3239,7 +3239,7 @@ function exportToExcel() {
       sellPrice = isUsd ? p.exw_usd : p.exw_vnd;
       comm = isUsd ? p.comm_usd : p.comm_vnd;
     }
-    rows.push([p.code, p.size, p.standard, p.machine, price25 || "\u2014", priceJumbo || "\u2014", sellPrice || "\u2014", comm || "\u2014"]);
+    rows.push([p.code, p.size, p.standard, p.machine, price25 || "—", priceJumbo || "—", sellPrice || "—", comm || "—"]);
   }
 
   var ws = XLSX.utils.aoa_to_sheet(rows);
@@ -3260,7 +3260,7 @@ function manageLogin() {
     document.getElementById("mOtherCnt").textContent = DATA_OTHERS.length;
     if (document.getElementById("mAppCnt")) document.getElementById("mAppCnt").textContent = DATA_APPLICATIONS.length;
   } else {
-    document.getElementById("manageError").textContent = "\u274c Sai m\u1eadt kh\u1ea9u!";
+    document.getElementById("manageError").textContent = "❌ Sai mật khẩu!";
     document.getElementById("manageError").style.display = "block";
   }
 }
@@ -3402,6 +3402,8 @@ function downloadAsJSON() {
   });
   fileInput.addEventListener("change", function() {
     if (fileInput.files.length) handleManageFile(fileInput.files[0]);
+    // Reset input để cho phép chọn lại cùng file lần tiếp theo
+    fileInput.value = '';
   });
 })();
 
