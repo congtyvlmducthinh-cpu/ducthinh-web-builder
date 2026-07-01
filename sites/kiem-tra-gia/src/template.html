@@ -93,7 +93,6 @@ tbody tr:hover td{background:#eff6ff}
 .btn-cancel,.btn-confirm{padding:11px 28px;border-radius:10px;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)}
 .btn-cancel{background:#f1f5f9;color:var(--text-secondary)}
 .btn-confirm{background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff}
-.q-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,.6);backdrop-filter:blur(4px);display:none;justify-content:center;align-items:center;z-index:2000}
 .q-overlay.open{display:flex}
 .q-modal{background:var(--card);border-radius:var(--radius-lg);max-width:680px;width:95%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.15)}
 .q-modal-header{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid var(--border)}
@@ -239,7 +238,54 @@ tbody tr:hover td{background:#eff6ff}
 .quot-preview .q-row span{color:#475569}
 .quot-preview .q-terms{margin-top:8px}
 .quot-preview .q-footer{margin-top:12px;font-size:10px;color:#94a3b8;line-height:1.6}
-@media(max-width:900px){.quot-grid{grid-template-columns:1fr}.quot-form-row{flex-direction:column;gap:6px}.quot-price-row{flex-wrap:wrap}.quot-row-inline{flex-wrap:wrap}}</style>
+@media(max-width:900px){.quot-grid{grid-template-columns:1fr}.quot-form-row{flex-direction:column;gap:6px}.quot-price-row{flex-wrap:wrap}.quot-row-inline{flex-wrap:wrap}}/* --- Quotation Tab --- */
+.quot-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;padding:0}
+.quot-left,.quot-right{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
+.quot-section{margin-bottom:16px}
+.quot-section-title{font-size:14px;font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--primary);color:var(--primary);display:flex;align-items:center;gap:8px}
+.quot-section-title .title-text{flex:1}
+.quot-form-row{display:flex;gap:10px;margin-bottom:10px}
+.quot-form-group{margin-bottom:10px;flex:1}
+.quot-form-group label{display:block;font-size:11px;font-weight:700;margin-bottom:4px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.03em}
+.quot-input{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:var(--font);color:var(--text);transition:all .2s;background:var(--card)}
+.quot-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.15)}
+.quot-filter-row{display:flex;gap:6px;margin-bottom:10px}
+.quot-filter-sm{flex:1;min-width:0;font-size:12px;padding:7px 10px}
+.quot-add-btn{padding:5px 14px;border:none;border-radius:6px;background:linear-gradient(135deg,#059669,#10b981);color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.quot-add-btn:hover{opacity:.9}
+.quot-prod-row{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px}
+.quot-row-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.quot-row-num{font-size:12px;font-weight:600;color:var(--muted)}
+.quot-remove-btn{width:24px;height:24px;border:none;border-radius:6px;background:#fee2e2;color:#dc2626;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.quot-price-row{display:flex;gap:10px;align-items:flex-end;padding:8px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;margin-top:8px}
+.quot-sell-input{width:140px;text-align:right;font-weight:700;font-size:14px}
+.quot-min-price{font-size:12px;padding:4px 0}
+.quot-min-label{color:var(--text-secondary);font-weight:600}
+.quot-min-val{font-weight:700;color:var(--primary)}
+.quot-comm-display{font-size:12px;padding:4px 0}
+.quot-comm-label{color:var(--text-secondary);font-weight:600}
+.quot-comm-val{font-weight:700;color:var(--green)}
+.quot-spec-row{font-size:11px;color:var(--text-secondary);padding:6px 8px;background:#f1f5f9;border-radius:6px;margin-top:6px;line-height:1.5}
+.quot-spec-label{font-weight:600;color:var(--text)}
+.quot-actions{display:flex;gap:6px;margin-bottom:12px}
+.quot-btn{padding:8px 18px;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .2s}
+.quot-btn-primary{background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff}
+.quot-btn-secondary{background:#f1f5f9;color:var(--text-secondary)}
+.quot-btn:hover{opacity:.9}
+.quot-preview{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px;font-size:12px;color:#334155;max-height:75vh;overflow-y:auto}
+.quot-preview-empty{text-align:center;color:var(--muted);font-size:14px;padding:60px 20px}
+.quot-preview .q-preview h1{font-size:15px;font-weight:800;text-align:center;color:#0f1b3d;margin-bottom:4px}
+.quot-preview .q-preview .q-sub{text-align:center;color:#64748b;font-size:11px;line-height:1.6;margin-bottom:6px}
+.quot-preview .q-preview .q-divider{height:2px;background:linear-gradient(90deg,transparent,#1a56db,transparent);margin:10px 0}
+.quot-preview .q-preview table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:12px}
+.quot-preview .q-preview th{background:#f1f5f9;text-align:left;padding:6px 5px;font-size:10px;text-transform:uppercase;color:#475569;border:1px solid #e2e8f0}
+.quot-preview .q-preview td{padding:6px 5px;border:1px solid #e2e8f0}
+.quot-preview .q-row{display:flex;justify-content:space-between;padding:4px 0;font-size:12px;border-bottom:1px solid #f1f5f9}
+.quot-preview .q-row strong{color:#1e293b}
+.quot-preview .q-row span{color:#475569}
+.quot-preview .q-terms{margin-top:8px}
+.quot-preview .q-footer{margin-top:12px;font-size:10px;color:#94a3b8;line-height:1.6}
+@media(max-width:900px){.quot-grid{grid-template-columns:1fr}.quot-form-row{flex-direction:column;gap:6px}.quot-price-row{flex-wrap:wrap}}</style>
 </head>
 <body>
 <div class="container">
@@ -259,6 +305,7 @@ tbody tr:hover td{background:#eff6ff}
 <button class="tab-btn" data-tab="others" onclick="switchTab('others')"><span>{{TAB_OTHERS}}</span><br><small style="font-weight:400;font-size:10px;opacity:.7">{{TAB_OTHERS_SUB}}</small></button>
 <button class="tab-btn" data-tab="calc" onclick="switchTab('calc')"><span>{{TAB_CALC}}</span><br><small style="font-weight:400;font-size:10px;opacity:.7">{{TAB_CALC_SUB}}</small></button>
 <button class="tab-btn" data-tab="manage" onclick="switchTab('manage')"><span>{{TAB_MANAGE}}</span><br><small style="font-weight:400;font-size:10px;opacity:.7">{{TAB_MANAGE_SUB}}</small></button>
+<button class="tab-btn" data-tab="quotation" onclick="switchTab('quotation')"><span>{{TAB_QUOTATION}}</span><br><small style="font-weight:400;font-size:10px;opacity:.7">{{TAB_QUOTATION_SUB}}</small></button>
 <button class="tab-btn" data-tab="apps" onclick="switchTab('apps')"><span>{{TAB_APPS}}</span><br><small style="font-weight:400;font-size:10px;opacity:.7">{{TAB_APPS_SUB}}</small></button>
 </div>
 
@@ -349,42 +396,6 @@ tbody tr:hover td{background:#eff6ff}
 </div>
 </div>
 
-<!-- Quotation Popup -->
-<div class="q-overlay" id="quotationPopup">
-  <div class="q-modal">
-    <div class="q-modal-header">
-      <h3>{{QUOTATION_TITLE}}</h3>
-<button class="q-modal-close" onclick="closeQuotationPopup()">&times;</button>
-    </div>
-    <div class="q-modal-form">
-      <div><label>{{Q_CUSTOMER}}</label><input type="text" id="qCustomer" placeholder="{{Q_CUSTOMER_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
-      <div><label>{{Q_CONTACT}}</label><input type="text" id="qContact" placeholder="{{Q_CONTACT_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
-      <div><label>{{Q_ASSIGNED}}</label><input type="text" id="qAssigned" placeholder="{{Q_ASSIGNED_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
-      <div><label>{{Q_CUST_EMAIL}}</label><input type="email" id="qCustEmail" placeholder="{{Q_CUST_EMAIL_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
-      <div><label>{{Q_QTY}}</label><input type="number" id="qQty" value="1" min="1" step="0.5" oninput="updateQuotationPreview()"></div>
-      <div><label>{{Q_VALIDITY}}</label><select id="qValid" onchange="updateQuotationPreview()"><option value="15 ngÃ y">{{Q_VALID_15}}</option><option value="30 ngÃ y">{{Q_VALID_30}}</option><option value="7 ngÃ y">{{Q_VALID_7}}</option><option value="ká»ƒ tá»« ngÃ y kÃ½">{{Q_VALID_FROM_SIGN}}</option></select></div>
-      <div><label>{{Q_PAYMENT}}</label><select id="qPayment" onchange="updateQuotationPreview()"><option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option><option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div>
-      <div><label>{{Q_PORT}}</label><input type="text" id="qPort" placeholder="{{Q_PORT_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
-      <div><label>{{Q_DELIVERY}}</label><input type="text" id="qDelivery" placeholder="{{Q_DELIVERY_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
-      <div style="grid-column:1/-1"><label>{{Q_NOTE}}</label><input type="text" id="qNote" placeholder="{{Q_NOTE_PLACEHOLDER}}" oninput="updateQuotationPreview()" style="width:100%"></div>
-    </div>
-    <div class="q-modal-body" id="qPreviewBody">
-      <div class="q-preview" id="qPreview">
-        <h1>{{COMPANY_NAME}}</h1>
-        <p class="q-sub">{{COMPANY_ADDR}}<br>Email: sales@ducthinh.com - https://ducthinhmaterials.com<br>Tel: +84 382 666 000 Ext: 106 - MST: 2902085037</p>
-        <div class="q-divider"></div>
-        <p style="text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px">ðŸ“„ BAO GIA</p>
-        <div id="qPreviewContent"><p style="text-align:center;color:#94a3b8;font-size:13px">{{Q_PREVIEW_EMPTY}}</p></div>
-      </div>
-    </div>
-    <div class="q-modal-footer">
-      <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="qDateSpan"></span>
-      <button class="q-btn-copy" onclick="copyQuotation()">ðŸ“‹ Copy</button>
-      <button class="q-btn-print" onclick="printQuotation()">ðŸ–¨ In / PDF</button>
-    </div>
-  </div>
-</div>
-
 <!-- Freight Popup -->
 <div class="freight-overlay" id="freightPopup">
   <div class="freight-modal">
@@ -418,6 +429,9 @@ tbody tr:hover td{background:#eff6ff}
 
 </body>
 </html>
+
+
+
 
 
 

@@ -1,118 +1,88 @@
-﻿// ============================================================
-// src/lang/vi.js â€” Vietnamese strings (base/reference)
-// Template uses {{KEY}} placeholders; JS strings use Vietnamese
-// ============================================================
-
-// Template placeholders
 var LANG_TEMPLATE = {
-  HTML_TITLE: "Kiá»ƒm Tra GiÃ¡ - Váº­t Liá»‡u Má»›i Äá»©c Thá»‹nh",
-  TITLE: "Kiá»ƒm Tra GiÃ¡",
-  SUBTITLE: "Váº­t Liá»‡u Má»›i Äá»©c Thá»‹nh - Báº£ng giÃ¡ thÃ¡ng 06/2026",
-  BADGE_COMPANY: "ðŸ­ VL Má»šI Äá»¨C THá»ŠNH",
-
-  TAB_PRICE: "ðŸ“‹ GiÃ¡ bÃ¡n",
-  TAB_PRICE_SUB: "Báº£ng giÃ¡ sáº£n pháº©m",
-  TAB_BAGS: "ðŸ“¦ Bao bÃ¬",
-  TAB_BAGS_SUB: "GiÃ¡ bao bÃ¬",
-  TAB_OTHERS: "ðŸ“ Quy cÃ¡ch khÃ¡c",
-  TAB_OTHERS_SUB: "CÃ¡c quy cÃ¡ch khÃ¡c",
-  TAB_CALC: "ðŸ“ TÃ­nh giÃ¡",
-  TAB_CALC_SUB: "TÃ­nh giÃ¡ bÃ¡n",
-  TAB_MANAGE: "âš™ï¸ Quáº£n lÃ½",
-  TAB_MANAGE_SUB: "Dá»¯ liá»‡u & upload",
-  TAB_APPS: "ðŸ“‹ á»¨ng Dá»¥ng",
-  TAB_APPS_SUB: "Sáº£n pháº©m theo á»©ng dá»¥ng",
-
-  SEARCH_PLACEHOLDER: "ðŸ” TÃ¬m sáº£n pháº©m...",
-  FILTER_ALL_STANDARDS: "Táº¥t cáº£ tiÃªu chuáº©n",
-  FILTER_ALL_SIZES: "Táº¥t cáº£ kÃ­ch thÆ°á»›c",
-  FILTER_ALL_MACHINES: "Táº¥t cáº£ mÃ¡y",
-  RESET_FILTERS_TITLE: "Bá» lá»c",
-
-  PRICE_MODE_EXW: "EXW",
-  PRICE_MODE_FOB: "FOB",
-  PRICE_MODE_CIF: "CIF",
-  LCC_LABEL: "Loáº¡i LCC:",
-  FREIGHT_LABEL: "ðŸš‚ CÆ°á»›c biá»ƒn:",
-
-  MANAGE_TITLE: "âš™ï¸ Quáº£n lÃ½ dá»¯ liá»‡u",
-  MANAGE_DESC: "ðŸ”’ Nháº­p máº­t kháº©u Ä‘á»ƒ táº£i / upload / cáº­p nháº­t dá»¯ liá»‡u",
-  MANAGE_PASS_PLACEHOLDER: "ðŸ”‘ Nháº­p máº­t kháº©u...",
-  MANAGE_LOGIN_BTN: "ðŸ”‘ ÄÄƒng nháº­p",
-  MANAGE_CARD_PRODUCTS: "Sáº£n pháº©m",
-  MANAGE_CARD_BAGS: "Bao bÃ¬",
-  MANAGE_CARD_OTHERS: "Quy cÃ¡ch khÃ¡c",
-  MANAGE_CARD_APPS: "á»¨ng dá»¥ng",
-  MANAGE_CARD_APPS_SUB: "NhÃ³m á»©ng dá»¥ng SP",
-  MANAGE_CARD_UPDATED: "Cáº­p nháº­t",
-  MANAGE_DOWNLOAD_TITLE: "â¬‡ Táº£i dá»¯ liá»‡u",
-  MANAGE_DOWNLOAD_PRICE: "ðŸ“‹ GiÃ¡ bÃ¡n",
-  MANAGE_DOWNLOAD_BAGS: "ðŸ“¦ Bao bÃ¬",
-  MANAGE_DOWNLOAD_OTHERS: "ðŸ“ Quy cÃ¡ch khÃ¡c",
-  MANAGE_DOWNLOAD_APPS: "ðŸ“‹ á»¨ng Dá»¥ng",
-  MANAGE_UPLOAD_TITLE: "ðŸ“¤ Upload dá»¯ liá»‡u má»›i",
-  MANAGE_SAVE_SERVER: "ðŸ’¾ LÆ°u lÃªn server",
-  MANAGE_DRAG_DROP: "ðŸ“‚ Tháº£ file Excel vÃ o Ä‘Ã¢y hoáº·c click Ä‘á»ƒ chá»n file<br><small>Há»— trá»£ .xlsx</small>",
-
-  PW_MODAL_TITLE: "ðŸ” Nháº­p máº­t kháº©u",
-  PW_MODAL_DESC: "ðŸ”’ Chá»©c nÄƒng quáº£n lÃ½ yÃªu cáº§u máº­t kháº©u",
-  PW_MODAL_PLACEHOLDER: "ðŸ”‘ Nháº­p máº­t kháº©u...",
-  PW_MODAL_ERROR: "âŒ Sai máº­t kháº©u!",
-  PW_MODAL_CANCEL: "Há»§y",
-  PW_MODAL_CONFIRM: "XÃ¡c nháº­n",
-
-  QUOTATION_TITLE: "ðŸ“ LÃªn bÃ¡o giÃ¡",
-  Q_CUSTOMER: "ðŸ¢ KhÃ¡ch hÃ ng",
-  Q_CUSTOMER_PLACEHOLDER: "TÃªn khÃ¡ch hÃ ng...",
-  Q_CONTACT: "ðŸ“ž LiÃªn há»‡",
-  Q_CONTACT_PLACEHOLDER: "NgÆ°á»i liÃªn há»‡...",
-  Q_ASSIGNED: "ðŸ‘¤ NgÆ°á»i phá»¥ trÃ¡ch",
-  Q_ASSIGNED_PLACEHOLDER: "NhÃ¢n viÃªn phá»¥ trÃ¡ch...",
-  Q_CUST_EMAIL: "ðŸ“§ Email KH",
-  Q_CUST_EMAIL_PLACEHOLDER: "Email khÃ¡ch hÃ ng...",
-  Q_QTY: "ðŸ“¦ Sá»‘ lÆ°á»£ng (táº¥n)",
-  Q_VALIDITY: "â± Hiá»‡u lá»±c",
-  Q_PAYMENT: "ðŸ’° Äiá»u kiá»‡n thanh toÃ¡n",
-  Q_PORT: "ðŸš¢ Cáº£ng Ä‘i",
-  Q_PORT_PLACEHOLDER: "Cáº£ng Ä‘i (náº¿u cÃ³)...",
-  Q_DELIVERY: "ðŸ“¬ Giao hÃ ng",
-  Q_DELIVERY_PLACEHOLDER: "Äiá»u kiá»‡n giao hÃ ng...",
-  Q_NOTE: "ðŸ“ Ghi chÃº",
-  Q_NOTE_PLACEHOLDER: "Ghi chÃº thÃªm...",
-  Q_VALID_15: "15 ngÃ y",
-  Q_VALID_30: "30 ngÃ y",
-  Q_PAY_TT: "T/T 30 ngÃ y",
-  Q_PAY_LC: "L/C 60 ngÃ y",
-  Q_PREVIEW_EMPTY: "Chá»n sáº£n pháº©m vÃ  tÃ­nh giÃ¡ trÆ°á»›c khi lÃªn bÃ¡o giÃ¡",
-
-  FREIGHT_TITLE: "ðŸš¢ Chá»n cÆ°á»›c biá»ƒn",
-  FREIGHT_SEARCH: "ðŸ” TÃ¬m cáº£ng hoáº·c nÆ°á»›c...",
-  FREIGHT_FILTER_COUNTRY: "Táº¥t cáº£ nÆ°á»›c",
-  FREIGHT_FILTER_FORWARDER: "Táº¥t cáº£ hÃ£ng",
-  FREIGHT_FILTER_VIA: "Táº¥t cáº£ loáº¡i",
-  FREIGHT_TABLE_FROM: "Cáº£ng Ä‘i",
-  FREIGHT_TABLE_TO: "NÆ°á»›c Ä‘áº¿n",
-  FREIGHT_TABLE_RATE: "CÆ°á»›c (USD)",
-  FREIGHT_TABLE_FORWARDER: "HÃ£ng",
-  FREIGHT_TABLE_VIA: "Loáº¡i",
-  FREIGHT_CLOSE: "ÄÃ³ng",
-  FREIGHT_SELECT: "ðŸš¢ Chá»n tuyáº¿n",
-  Q_VALID_7: '7 ngÃ y',
-  Q_VALID_FROM_SIGN: 'Ká»ƒ tá»« ngÃ y kÃ½',
-  COMPANY_NAME: 'CÃ”NG TY TNHH CÃ”NG NGHá»† Váº¬T LIá»†U Má»šI Äá»¨C THá»ŠNH',
-  COMPANY_ADDR: 'ÄC: KCN NGHIA DAN, XA NGHIA THU, TINH NGHE AN, VIET NAM',
-  MANAGE_DRAG_TEXT: 'KÃ©o tháº£ file vÃ o Ä‘Ã¢y',
-  MANAGE_DRAG_SUB: 'hoáº·c báº¥m Ä‘á»ƒ chá»n',
-
-  // Market
-  MARKET_LABEL: "ðŸŒ Thá»‹ trÆ°á»ng:",
-  MARKET_CN: "ðŸ‡¨ðŸ‡³ TQ",
-  MARKET_OTHER: "ðŸŒ KhÃ¡c",
-
-};
-  // Quotation Tab
+  // Navigation
+  TAB_PRICELIST: '📋 Giá bán',
+  TAB_PRICELIST_SUB: 'Bảng giá sản phẩm',
+  TAB_BAGS: '📦 Bao bì',
+  TAB_BAGS_SUB: 'Giá bao bì',
+  TAB_OTHERS: '📐 Quy cách khác',
+  TAB_OTHERS_SUB: 'Các quy cách khác',
+  TAB_CALC: '📝 Tính giá',
+  TAB_CALC_SUB: 'Tính giá bán',
+  TAB_MANAGE: '⚙️ Quản lý',
+  TAB_MANAGE_SUB: 'Dữ liệu & upload',
+  TAB_APPS: '📋 Ứng Dụng',
+  TAB_APPS_SUB: 'Sản phẩm theo ứng dụng',
   TAB_QUOTATION: '📄 Báo giá',
   TAB_QUOTATION_SUB: 'Lên báo giá',
+
+  // Search
+  SEARCH_PLACEHOLDER: '🔍 Tìm sản phẩm...',
+  NO_RESULTS: 'Không tìm thấy sản phẩm nào.',
+
+  // Price list
+  PL_CODE: 'Code',
+  PL_SIZE: 'Kích thước',
+  PL_PACK: 'Bao bì',
+  PL_EXW_VND: 'EXW (VND)',
+  PL_FOB_VND: 'FOB 25 (VND)',
+  PL_CIF_VND: 'CIF 25 (VND)',
+  PL_EXW_USD: 'EXW (USD)',
+  PL_FOB_USD: 'FOB 25 (USD)',
+  PL_CIF_USD: 'CIF 25 (USD)',
+  EXW_HEADER: 'EXW (VND)',
+  PACK_25KG: '25KG',
+  PACK_SPEC: 'Quy cách',
+
+  // Bags tab
+  BAGS_TITLE: '📦 Danh sách bao bì',
+  BAGS_CODE: 'Loại bao',
+  BAGS_SPEC: 'Quy cách',
+  BAGS_PRICE: 'Đơn giá (VND)',
+  BAGS_EMPTY: 'Chưa có dữ liệu bao bì.',
+
+  // Others tab
+  OTHERS_TITLE: '📐 Quy cách khác',
+  OTHERS_EMPTY: 'Chưa có dữ liệu.',
+  OTHERS_NOT_FOUND: 'Chưa có dữ liệu quy cách khác.',
+
+  // Calc tab
+  CALC_TITLE: '📝 Tính giá bán',
+  CALC_PRODUCT: 'Sản phẩm:',
+  CALC_BAG_SPEC: 'Quy cách bao:',
+  CALC_25KG: '25KG',
+  CALC_JUMBO: 'Jumbo',
+  CALC_OTHERS: 'Quy cách khác:',
+  CALC_NONE: 'Không',
+  CALC_BAGS: 'Loại bao:',
+  CALC_DEFAULT: 'Mặc định',
+  CALC_QTY: 'Số lượng (tấn):',
+  CALC_DELIVERY: 'Điều kiện:',
+  CALC_COST: 'Giá gốc:',
+  CALC_COMMISSION: 'Hoa hồng ~30%:',
+  CALC_MIN_PRICE: 'Giá tối thiểu:',
+  CALC_RECOMMENDED_PRICE_EXW: 'Giá bán đề xuất (EXW):',
+  CALC_RECOMMENDED_PRICE: 'Giá bán đề xuất ({mode}):',
+  CALC_MIN: 'TỐI THIỂU',
+  CALC_EMPTY: '👈 Chọn sản phẩm và các thông số để tính giá.',
+  CALC_SETTING_BAG: '(chưa bao bì)',
+  CALC_INCLUDED_BAG: '(cả bao bì)',
+
+  // Manage tab
+  MANAGE_TITLE: '⚙️ Quản lý dữ liệu',
+  MANAGE_UPLOAD: '📤 Tải lên',
+  MANAGE_DRAG_TEXT: 'Kéo thả file vào đây',
+  MANAGE_DRAG_SUB: 'hoặc bấm để chọn',
+  MANAGE_UPLOAD_TAB: '📤 Tải lên',
+  MANAGE_UPLOAD_BUTTON: '🔄 Tải dữ liệu lên',
+  MANAGE_DOWNLOAD_TAB: '📥 Tải xuống',
+  MANAGE_DOWNLOAD_BUTTON: '📥 Tải file Excel',
+  MANAGE_SYNC_BUTTON: '🔄 Đồng bộ',
+  MANAGE_SYNC_SUB: 'Sao chép dữ liệu sang en/zh',
+  MANAGE_SYNC_STATUS: 'Sẵn sàng đồng bộ',
+  MANAGE_AUTO_SYNC: 'Tự động đồng bộ',
+  MANAGE_AUTO_SUB: 'Lưu đồng bộ sang EN/ZH',
+
+  // Quotation Tab
   Delivery_Terms: 'Delivery Terms',
   Currency: 'Loại tiền',
   Market: 'Thị trường',
@@ -141,4 +111,17 @@ var LANG_TEMPLATE = {
   Print: 'In',
   Copy: 'Copy',
   Q_PREVIEW_EMPTY_QUOT: '👈 Chọn sản phẩm và điền thông tin',
+
+  // Market
+  MARKET_LABEL: "🌏 Thị trường:",
+  MARKET_CN: "🇨🇳 TQ",
+  MARKET_OTHER: "🌏 Khác",
+
+  // Company
+  COMPANY_NAME: 'CÔNG TY TNHH CÔNG NGHỆ VẬT LIỆU MỚI ĐỨC THỊNH',
+  COMPANY_ADDR: 'ĐC: KCN NGHIA DAN, XA NGHIA THU, TINH NGHE AN, VIET NAM',
+
+  // Others
+  Q_VALID_7: '7 ngày',
+  Q_VALID_FROM_SIGN: 'Kể từ ngày ký',
 };

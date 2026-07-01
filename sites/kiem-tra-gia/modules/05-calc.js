@@ -441,7 +441,7 @@ var total = 0;
   h += '<div class="calc-commission-wrap">';
   h += '<div class="calc-sell-input"><span>ðŸ’° GiÃ¡ bÃ¡n</span><input type="number" id="calcSellPrice" placeholder="Nháº­p giÃ¡ bÃ¡n..." oninput="calcCommission()"></div>';
   h += '<div class="calc-comm-result" id="calcCommissionResult"></div>';
-  h += '<div style="margin-top:12px;text-align:center"><button onclick="showQuotationPopup()" style="background:var(--primary);color:white;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.3)">ðŸ“„ LÃªn bÃ¡o giÃ¡</button></div>';
+  // [Removed - quotation moved to dedicated tab] style="background:var(--primary);color:white;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.3)">ðŸ“„ LÃªn bÃ¡o giÃ¡</button></div>';
   h += '</div>';
   res.innerHTML = h;
 }
@@ -483,4 +483,5 @@ function setCalcMarket(mkt) {
   applyMarket();
   calcPrice();
 }
+
 
