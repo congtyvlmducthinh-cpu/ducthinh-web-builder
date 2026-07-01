@@ -35,7 +35,8 @@ function switchTab(tab) {
   if (bar) bar.style.display = (tab === "pricelist") ? "flex" : "none";
   
   // Manage panel
-  document.getElementById("managePanel").classList.toggle("open", tab === "manage");
+  var mp = document.getElementById("managePanel");
+  if (mp) mp.classList.toggle("open", tab === "manage");
   
   // Populate filters on pricelist tab
   if (tab === "pricelist") populateFilters();
