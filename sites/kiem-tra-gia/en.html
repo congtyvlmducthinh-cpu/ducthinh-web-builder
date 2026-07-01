@@ -1798,6 +1798,593 @@ function manageFromPwModal() { checkPassword(); }
 
 // 07-main.js
 
+
+var DATA_MAX_LOADING = {
+  "H4A1": {
+    "max25": 20,
+    "maxJumbo": 14
+  },
+  "H5A1": {
+    "max25": 22,
+    "maxJumbo": 14
+  },
+  "H6A1": {
+    "max25": 24,
+    "maxJumbo": 14
+  },
+  "H8A1": {
+    "max25": 26,
+    "maxJumbo": 20
+  },
+  "H8RA1": {
+    "max25": 26,
+    "maxJumbo": 20
+  },
+  "H10A1": {
+    "max25": 27,
+    "maxJumbo": 22
+  },
+  "H12A1": {
+    "max25": 27,
+    "maxJumbo": 24
+  },
+  "H15A1": {
+    "max25": 27,
+    "maxJumbo": 26
+  },
+  "H17A1": {
+    "max25": 27,
+    "maxJumbo": 26
+  },
+  "H20A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "H25A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "H30A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "F15A1": {
+    "max25": 27,
+    "maxJumbo": 26
+  },
+  "F17A1": {
+    "max25": 27,
+    "maxJumbo": 26
+  },
+  "F20A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "F25A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "F30A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "F35A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "F40A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "F45A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "F15A2": {
+    "max25": 27,
+    "maxJumbo": 27
+  },
+  "F17A2": {
+    "max25": 27,
+    "maxJumbo": 26
+  },
+  "F20A2": {
+    "max25": 28,
+    "maxJumbo": 26
+  },
+  "F25A2": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "F30A2": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "F35A2": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "F45A2": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "K45A2": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "K65A2": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "K45A3": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "K65A3": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "E80A2": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "E125A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "E70A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "S55A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "S30A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "S40A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "S20A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "S16A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "S8A1": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "H10A1C": {
+    "max25": 27,
+    "maxJumbo": 22
+  },
+  "K65A1": {
+    "max25": 28,
+    "maxJumbo": 28
+  },
+  "K45A1": {
+    "max25": 28,
+    "maxJumbo": 28
+  },
+  "H20A1C": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "H8A2": {
+    "max25": 26,
+    "maxJumbo": 20
+  },
+  "F37A2": {
+    "max25": 28,
+    "maxJumbo": 27
+  },
+  "H4RA1C": {
+    "max25": 20,
+    "maxJumbo": 14
+  },
+  "H8RA1C": {
+    "max25": 26,
+    "maxJumbo": 20
+  },
+  "H8RA1C-TH": {
+    "max25": 26,
+    "maxJumbo": 20
+  }
+};
+
+var DATA_APPLICATIONS = [
+  {
+    "name": "MASTERBATCH",
+    "products": [
+      {
+        "code": "H10A1",
+        "spec_raw": "- D97=10±1\n- D50=2.3±0.3\n- R457=96-96.5\n- L* >98.6\n- b*<0.45",
+        "machine": "1700"
+      },
+      {
+        "code": "F10A1",
+        "spec_raw": "- D97=10±1\n- D50=2.3±0.3\n- R457=96-96.5\n- L* >98.6\n- b*<0.45",
+        "machine": "318"
+      },
+      {
+        "code": "EH12A1",
+        "spec_raw": "D97=12±1\nR457>96 B*<0.45",
+        "machine": "1303"
+      },
+      {
+        "code": "EH15A1",
+        "spec_raw": "D97=15±1\nR457>96 B*<0.45",
+        "machine": "1303"
+      },
+      {
+        "code": "EH20A1",
+        "spec_raw": "D97=20±1\nR457>96 B*<0.45",
+        "machine": "1303"
+      },
+      {
+        "code": "FS22A1",
+        "spec_raw": "D97=22±1\nKONICA: L*>98, Y>95.5",
+        "machine": "328"
+      },
+      {
+        "code": "H25A1",
+        "spec_raw": "D97=25±1\nKONICA: L*>98, Y>95.5",
+        "machine": "1700"
+      },
+      {
+        "code": "EH25A1",
+        "spec_raw": "D97=25±1\nR457>96 B*<0.45",
+        "machine": "1303"
+      },
+      {
+        "code": "EH30A1",
+        "spec_raw": "D97=30±1\nR457>96 B*<0.45",
+        "machine": "1303"
+      },
+      {
+        "code": "K45A2",
+        "spec_raw": "- D97=45±5\n- Y >94",
+        "machine": "1500"
+      },
+      {
+        "code": "K45A1",
+        "spec_raw": "- D97=45±5\n- Y >96",
+        "machine": "1500"
+      },
+      {
+        "code": "K65A1",
+        "spec_raw": "- D97=65±5\n- R457 >95.5\nB*<0.8",
+        "machine": "1500"
+      }
+    ]
+  },
+  {
+    "name": "SƠN NƯỚC",
+    "products": [
+      {
+        "code": "H4A1",
+        "spec_raw": "- D97=4±1\n- D50=0.95±0.15\n- R457=96.25\nCó tráng phủ",
+        "machine": "1700"
+      },
+      {
+        "code": "H15A1",
+        "spec_raw": "D50≤4.5\nD97= 15±1\nKONICA: L*>98, Y>95.5",
+        "machine": "1700"
+      },
+      {
+        "code": "H12A1",
+        "spec_raw": "D97=12±1\nD50≤3.5\nKONICA: L*>98, Y>95.5",
+        "machine": "1700"
+      },
+      {
+        "code": "H10A2\nF10A2",
+        "spec_raw": "D97=10±1\nKONICA: L*>97.8, B*<0.6",
+        "machine": "1700\n318"
+      },
+      {
+        "code": "H6A1",
+        "spec_raw": "D97=6±1\nKONICA: L*>98, Y>95.5",
+        "machine": "1700"
+      },
+      {
+        "code": "H10A1",
+        "spec_raw": "D97=10±1\nKONICA: L*>98, Y>95.5",
+        "machine": "1700"
+      },
+      {
+        "code": "H8A2\nF8A2",
+        "spec_raw": "D97=8±1\nKONICA: L*>98, B*<0.7",
+        "machine": "318"
+      },
+      {
+        "code": "F15A1",
+        "spec_raw": "D97=15±1\nĐộ trắng ≥ 98%  (hàng sản xuất sơn nước, không có váng đen",
+        "machine": "318"
+      },
+      {
+        "code": "F20A2",
+        "spec_raw": "D97=20±1\nKONICA: L*>98, B*<0.7",
+        "machine": "318"
+      },
+      {
+        "code": "F25A2",
+        "spec_raw": "D97=25±3\nKONICA: L*>97.5, B*<0.8",
+        "machine": "318"
+      }
+    ]
+  },
+  {
+    "name": "Đá nhân tạo",
+    "products": [
+      {
+        "code": "S3S, S3A1",
+        "spec_raw": "3mesh = 0%, >8mesh >98%, <8mesh <2%",
+        "machine": "CÁT"
+      },
+      {
+        "code": "S5S, S5A1",
+        "spec_raw": "5mesh = 0%, >16mesh >98%, <16mesh <2%",
+        "machine": "CÁT"
+      },
+      {
+        "code": "S8S, S8A1",
+        "spec_raw": "8mesh = 0%, >20mesh >98%, <20mesh <2%",
+        "machine": "CÁT"
+      },
+      {
+        "code": "S16S, S16A1",
+        "spec_raw": "16mesh = 0%, >30mesh >98%, <30mesh <2%",
+        "machine": "CÁT"
+      },
+      {
+        "code": "S20S, S20A1",
+        "spec_raw": "20mesh = 0%, >55mesh >98%, <55mesh <2%",
+        "machine": "CÁT"
+      },
+      {
+        "code": "S30S, S30A1, S30A2",
+        "spec_raw": "30mesh = 0%, 100mesh >98%, <100mesh <2%",
+        "machine": "CÁT"
+      },
+      {
+        "code": "S40S, S40A1",
+        "spec_raw": "40mesh = 0%, >150mesh >90%, <150mesh <10%",
+        "machine": "CÁT"
+      },
+      {
+        "code": "S55S, S55A1, S55A2",
+        "spec_raw": "55mesh = 0%, >150mesh >87%, <150mesh <13%",
+        "machine": "CÁT"
+      }
+    ]
+  },
+  {
+    "name": "COLLOR MASTERBATCH",
+    "products": [
+      {
+        "code": "H8A1, H8A2\nFS8A1, FS8A2\nF8A1, F8A2",
+        "spec_raw": "- D97=8±2\n- L* >98",
+        "machine": "1700, 328, 318"
+      },
+      {
+        "code": "H10A1, H10A2\nFS10A1, FS10A2\nF10A1, F10A2",
+        "spec_raw": "- D97=10±2\n- L* >98",
+        "machine": "1700, 328, 318"
+      },
+      {
+        "code": "H15A1, H15A2\nFS15A1, FS15A2\nF15A1, F15A2",
+        "spec_raw": "- D97=15±5\n- L* >98",
+        "machine": "1700, 328, 318"
+      },
+      {
+        "code": "H10A1",
+        "spec_raw": "- D97=8±2\n- L* >98\nY>96",
+        "machine": "1700"
+      },
+      {
+        "code": "F20A2",
+        "spec_raw": "- D97=20±2\n-R457 > 95",
+        "machine": "318"
+      }
+    ]
+  },
+  {
+    "name": "BỘT BẢ",
+    "products": [
+      {
+        "code": "K70A3",
+        "spec_raw": "- D97=70±3\n- L*>95.5 KONICA\nb*<2.5",
+        "machine": "1500"
+      },
+      {
+        "code": "K65A3",
+        "spec_raw": "- D97=65±5\n- L*>90\n- B*<1.8",
+        "machine": "1500"
+      },
+      {
+        "code": "F35A2",
+        "spec_raw": "- D97=35±5\nL*>97",
+        "machine": "318"
+      }
+    ]
+  },
+  {
+    "name": "Thức ăn chăn nuôi",
+    "products": [
+      {
+        "code": "S8150A2",
+        "spec_raw": "8mesh=0%, >150mesh >87%, <150mesh <13%",
+        "machine": "CÁT"
+      },
+      {
+        "code": "S1620A2",
+        "spec_raw": "16mesh=0%, >55mesh >98%, <55mesh <2%",
+        "machine": "CÁT"
+      },
+      {
+        "code": "S100A2",
+        "spec_raw": "55mesh=0%, >100mesh >2%, <100mesh <98%",
+        "machine": "CÁT"
+      }
+    ]
+  },
+  {
+    "name": "NGÓI NHỰA",
+    "products": [
+      {
+        "code": "F15A2",
+        "spec_raw": "- D97=15±2",
+        "machine": "318"
+      },
+      {
+        "code": "F15A2, FS15A2, H15A2",
+        "spec_raw": "- D97=15±2",
+        "machine": "318, 328, 1700"
+      }
+    ]
+  },
+  {
+    "name": "FILLER MASTERBATCH",
+    "products": [
+      {
+        "code": "H4CA1",
+        "spec_raw": "- D97=4±1\n- D50=0.95±0.15\n- R457=96.25\nCó tráng phủ",
+        "machine": "1700 + Tráng phủ"
+      },
+      {
+        "code": "H8A1",
+        "spec_raw": "- D97=8±1\n- D50=2.15±0.3\n- R457=96-96.5\n- L* >98.6\n- b*<0.45",
+        "machine": "1700"
+      }
+    ]
+  },
+  {
+    "name": "Giấy",
+    "products": [
+      {
+        "code": "FS22A1",
+        "spec_raw": "D97=22±1\nKONICA: L*>98, Y>95",
+        "machine": "328"
+      },
+      {
+        "code": "K110A1",
+        "spec_raw": "D97=110±1\nKONICA: L*>98, Y>95",
+        "machine": "1500"
+      }
+    ]
+  },
+  {
+    "name": "Tã bỉm",
+    "products": [
+      {
+        "code": "H8RCA1",
+        "spec_raw": "MS3000\nD97=8.0±0.5\nD50=2.35±0.10\nR457≥96.25\nB*≤0.5",
+        "machine": "1700+ TRÁNG PHỦ"
+      },
+      {
+        "code": "H9RCA1",
+        "spec_raw": "MS3000\nD97=8.5±0.5\nD50=2.55±0.10\nR457≥96.25\nB*≤0.5",
+        "machine": "1700+ TRÁNG PHỦ"
+      }
+    ]
+  },
+  {
+    "name": "Vỏ nhựa đèn",
+    "products": [
+      {
+        "code": "H10A1",
+        "spec_raw": "- D97=10",
+        "machine": "1700"
+      }
+    ]
+  },
+  {
+    "name": "Vỏ nhựa quạt màn",
+    "products": [
+      {
+        "code": "E80A2",
+        "spec_raw": "- D97=70-80\n2mic= 32-34\nR457= 94.5-95\nb* <0.75",
+        "machine": "1301, 1302"
+      }
+    ]
+  },
+  {
+    "name": "GẠCH GRANIT",
+    "products": [
+      {
+        "code": "K70A3",
+        "spec_raw": "- D97=70±3\n- L*>95.5 KONICA\nb*<1.5",
+        "machine": "1500"
+      }
+    ]
+  },
+  {
+    "name": "Kính",
+    "products": [
+      {
+        "code": "S8150A2",
+        "spec_raw": "8mesh=0%, >150mesh >87%, <150mesh <13%",
+        "machine": "CÁT"
+      }
+    ]
+  },
+  {
+    "name": "TẤM XỐP THAN TRE",
+    "products": [
+      {
+        "code": "K40D",
+        "spec_raw": "- D97=40±3\n- Không yêu cầu",
+        "machine": "1501"
+      }
+    ]
+  },
+  {
+    "name": "VÁN SÀN",
+    "products": [
+      {
+        "code": "F40A2\nFS40A2",
+        "spec_raw": "- D97=40±3\n- L*>97",
+        "machine": "318, 328"
+      }
+    ]
+  },
+  {
+    "name": "GỖ ÉP",
+    "products": [
+      {
+        "code": "K45A2",
+        "spec_raw": "- D97=45±5\n- L*>97",
+        "machine": "1500"
+      }
+    ]
+  },
+  {
+    "name": "Găng tay cao su",
+    "products": [
+      {
+        "code": "H4A1",
+        "spec_raw": "- D97=4±1\n- D50=1.05±0.15\n- R457=96.25",
+        "machine": "1700"
+      }
+    ]
+  },
+  {
+    "name": "Lốp xe cao su",
+    "products": [
+      {
+        "code": "H10CA2",
+        "spec_raw": "D97=10±1.0\nR457≥95\nB*≤0.75",
+        "machine": "1700+ TRÁNG PHỦ"
+      }
+    ]
+  }
+];
 // 01-utils.js
 // ====== COMPANY CONSTANTS ======
 var COMPANY = 'CONG TY TNHH CONG NGH? V?T LI?U M?I D?C TH?NH';
