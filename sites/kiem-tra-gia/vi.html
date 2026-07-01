@@ -580,6 +580,7 @@ function setMarket(mkt) {
 var DATA_OTHERS = [{"code": "PALLET TÁI SỬ DỤNG", "cost": 70000, "price": 77000, "profit": 0.1}, {"code": "PALLET MỚI", "cost": 120000, "price": 132000, "profit": 0.1}, {"code": "NẸP ĐAI", "cost": 5000, "price": 5500, "profit": 0.1}, {"code": "QUẤN MÀNG", "cost": 18000, "price": 19800, "profit": 0.1}, {"code": "PALLET TRÁNG PHỦ", "cost": 160000, "price": 176000, "profit": 0.1}, {"code": "JUMBO MỞ NẮP (SLING)", "cost": 95000, "price": 104500, "profit": 0.1}, {"code": "PALLET MỚI + NẸP ĐAI + QUẤN MÀNG", "cost": 143000, "price": 157300, "profit": 0.1}, {"code": "JUMBO MỞ NẮP (SLING) CỦA KHÁCH", "cost": 35000, "price": 38500, "profit": 0.1}];
 var DATA_MAX_LOADING = {}; // Empty - removed from pricelist table
 var DATA_COST_FOB = {14:{no:974600,sub:1263900},20:{no:682000,sub:884400},22:{no:620400,sub:804100},24:{no:568700,sub:737000},25:{no:545600,sub:707300},26:{no:524700,sub:680900},27:{no:504900,sub:655600},28:{no:487300,sub:632500}};
+var DATA_APPLICATIONS = [];
 
 
 // App
@@ -1017,7 +1018,8 @@ function renderBagsTab() {
   h += '</div>';
   return h;
 }
-
+
+
 
 // 04-others.js
 // ====== RENDER OTHERS TAB ======
@@ -1040,7 +1042,8 @@ function renderOthersTab() {
   h += '</div>';
   return h;
 }
-
+
+
 
 // 05-calc.js
 // ====== RENDER CALC TAB ======
@@ -1491,7 +1494,8 @@ var total = 0;
   res.innerHTML = h;
 }
 
-
+
+
 
 
 // ====== RESET CALC FILTERS ======
@@ -2137,7 +2141,8 @@ function selectFreightRoute() {
 }
 
 
-
+
+
 
 // 09-quotation.js
 // Legacy quotation module - replaced by 13-quotation-tab.js
