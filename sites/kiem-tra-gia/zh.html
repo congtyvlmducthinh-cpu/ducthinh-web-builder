@@ -1084,11 +1084,7 @@ function calcCommission() {
   var bsel = document.getElementById("calcBag"), tnsel = document.getElementById("calcTonnage"), otnsel = document.getElementById("calcOtherTonnage"), osel = document.getElementById("calcOther"), bag规格Sel = document.getElementById("calcBag规格");
   var bs = bag规格Sel ? bag规格Sel.value : "25KG";
   var isJumbo = bs === "Jumbo";
-  // Jumbo validation: must select tonnage
-  if (isJumbo && (!tnsel || !tnsel.value || tnsel.value === "")) {
-    res.innerHTML = '<div class="calc-empty">⚠️ Vui lòng chọn <strong>Số tấn / bao Jumbo</strong> để xem kết quả</div>';
-    return;
-  }
+  // 
   var bagPrice = 0, bcode = bsel ? bsel.value : "", bagTons = 1;
   if (isJumbo && tnsel && tnsel.value && parseFloat(tnsel.value) > 0) bagTons = parseFloat(tnsel.value);
   var otherTons = 1;
@@ -1157,6 +1153,11 @@ function calcPrice() {
   if (!prod) { res.innerHTML = '<div class="calc-empty">❌ 未找到产品</div>'; return; }
   var bs = bag规格Sel ? bag规格Sel.value : "25KG";
   var isJumbo = bs === "Jumbo";
+  // Jumbo validation: must select tonnage
+  if (isJumbo && (!tnsel || !tnsel.value || tnsel.value === "")) {
+    res.innerHTML = '<div class="calc-empty">⚠️ Vui lòng chọn <strong>Số tấn / bao Jumbo</strong> để xem kết quả</div>';
+    return;
+  }
   // Determine base price: EXW or FOB or CIF
   var exwMin = 0;
   var commBase = isUsd ? prod.comm_usd : prod.comm_vnd;
