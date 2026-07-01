@@ -308,7 +308,7 @@ tbody tr:hover td{background:#eff6ff}
   <div class="q-modal">
     <div class="q-modal-header">
       <h3>📝 创建报价</h3>
-      <button class="q-modal-close" onclick="closeQuotationPopup()">âœ•</button>
+<button class="q-modal-close" onclick="closeQuotationPopup()">&times;</button>
     </div>
     <div class="q-modal-form">
       <div><label>🏢 客户</label><input type="text" id="qCustomer" placeholder="客户名称..." oninput="updateQuotationPreview()"></div>
@@ -345,7 +345,7 @@ tbody tr:hover td{background:#eff6ff}
     <div class="freight-modal-header">
       <h3>🚢 选择运费</h3>
       <button class="freight-modal-close" onclick="closeFreightPopup()">âœ•</button>
-    </div>
+      <button class="freight-modal-close" onclick="closeFreightPopup()">&times;</button>
         <div style="padding:0 16px 8px"><input type="text" id="freightSearch" placeholder="🔍 搜索港口或国家..." oninput="filterFreightRoutes()" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;font-family:var(--font);color:var(--text);background:var(--card)"></div>
     <div class="freight-modal-filters">
       <select id="freightCountryFilter" onchange="filterFreightRoutes()"><option value="">所有国家</option></select>
@@ -440,7 +440,7 @@ var lccType = "cn";
 var freightUSD = 0;
 var managePassword = "Ducthinh@1";
 var calcPriceMode = "exw";
-var calcLccType = "cn";
+var calcLccType = "no";
 var calcFreightUSD = 0;
 
 var DATA_APPLICATIONS = [
@@ -467,7 +467,16 @@ var DATA_APPLICATIONS = [
 
 
 // 01-utils.js
-﻿// ====== UTILITY ======
+// ====== COMPANY CONSTANTS ======
+var COMPANY = 'CONG TY TNHH CONG NGH? V?T LI?U M?I D?C TH?NH';
+var COMPANY_EN = 'DUC THINH NEW MATERIALS TECHNOLOGY COMPANY LIMITED';
+var ADDR = 'DC: KCN NGHIA DAN, XA NGHIA THU, TINH NGHE AN, VIET NAM';
+var EMAIL = 'sales@ducthinh.com';
+var WEBSITE = 'https://ducthinhmaterials.com';
+var PHONE = '+84 382 666 000';
+var EXT = '106';
+var MST = '2902085037';
+// ====== UTILITY ======
 function formatUsd(v) { var n = Number(v); var dec = Math.round((n - Math.floor(n)) * 10); return Math.floor(n).toLocaleString("vi-VN") + "," + dec; }
 function formatCurrency(v, isUsd) {
   if (v === null || v === undefined || isNaN(v)) return "\u2014";
@@ -497,59 +506,10 @@ function getMaxLoading(code, spec) {
 // ====== COST FOB ======
 function getCostFobVND(maxLoad, lccVariant) {
   if (!maxLoad || maxLoad <= 0) return 0;
-  var keys = Object.keys(DATA_COST_FOB).map(Number).sort(function(a, b) { return a - b; });
-  var bestKey = keys[0];
-  for (var i = 0; i < keys.length; i++) {
-    if (keys[i] >= maxLoad) { bestKey = keys[i]; break; }
-    bestKey = keys[i];
-  }
-  var row = DATA_COST_FOB[bestKey];
+  var row = DATA_COST_FOB[maxLoad];
   if (!row) return 0;
   return lccVariant === "sub" ? row.sub : row.no;
 }
-
-// ====== FOB PRICES ======
-function getFOB25PriceVND(prod, lccVariant) {
-  var ml = getMaxLoading(prod.code, "max25");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var cf = getCostFobVND(ml, lccVariant);
-  return Math.round((prod.pkg25_vnd + cf) * 1.05);
-}
-function getFOBJumboPriceVND(prod, lccVariant) {
-  var ml = getMaxLoading(prod.code, "maxJumbo");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var cf = getCostFobVND(ml, lccVariant);
-  return Math.round((prod.jumbo_vnd + cf) * 1.05);
-}
-function getFOB25PriceUSD(prod, lccVariant) { return getFOB25PriceVND(prod, lccVariant) / 26000; }
-function getFOBJumboPriceUSD(prod, lccVariant) { return getFOBJumboPriceVND(prod, lccVariant) / 26000; }
-
-// ====== CIF PRICES ======
-function getCIF25PriceVND(prod, lccVariant, freight) {
-  var ml = getMaxLoading(prod.code, "max25");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var base = getFOB25PriceVND(prod, lccVariant);
-  if (!freight || freight <= 0) return base;
-  return Math.round(base + (freight + 10 + 10) * 26000 / ml);
-}
-function getCIFJumboPriceVND(prod, lccVariant, freight) {
-  var ml = getMaxLoading(prod.code, "maxJumbo");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var base = getFOBJumboPriceVND(prod, lccVariant);
-  if (!freight || freight <= 0) return base;
-  return Math.round(base + (freight + 10 + 10) * 26000 / ml);
-}
-function getCIF25PriceUSD(prod, lccVariant, freight) { return getCIF25PriceVND(prod, lccVariant, freight) / 26000; }
-function getCIFJumboPriceUSD(prod, lccVariant, freight) { return getCIFJumboPriceVND(prod, lccVariant, freight) / 26000; }
-
-
-
-// ====== FORMAT MAX LOADING ======
-function formatMaxLoading(v) {
-  if (v === null || v === undefined || v === "" || isNaN(v) || v <= 0) return "\u2014";
-  return Number(v) % 1 === 0 ? Number(v).toLocaleString("vi-VN") : Number(v).toFixed(2);
-}
-
 
 // 02-pricelist.js
 // ====== PRICE MODE CONTROLS (售价 tab) ======
@@ -589,7 +549,7 @@ function renderPriceTab() {
   var sizeFilter = document.getElementById("sizeFilter") && document.getElementById("sizeFilter").value || "";
   var isUsd = currency === "USD";
   var filtered = DATA_PRODUCTS.filter(function(p) {
-    if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0) && (!p.machine || String(p.machine).toLowerCase().indexOf(search) < 0) && (!p.standard || p.standard.toLowerCase().indexOf(search) < 0)) return false;
+    if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0) && (!p.machine || p.machine.toLowerCase().indexOf(search) < 0) && (!p.standard || p.standard.toLowerCase().indexOf(search) < 0)) return false;
     if (specFilter && p.standard !== specFilter) return false;
     if (machineFilter && String(p.machine) !== machineFilter) return false;
     if (sizeFilter && p.size !== sizeFilter) return false;
@@ -691,7 +651,7 @@ function populateFilters() {
     if (!search) return true;
     return (p.code && p.code.toLowerCase().indexOf(search) >= 0) ||
            (p.size && p.size.toLowerCase().indexOf(search) >= 0) ||
-           (p.machine && String(p.machine).toLowerCase().indexOf(search) >= 0) ||
+           (p.machine && p.machine.toLowerCase().indexOf(search) >= 0) ||
            (p.standard && p.standard.toLowerCase().indexOf(search) >= 0);
   }
 
@@ -2225,6 +2185,8 @@ function setMarket(mkt) {
 /**
  * 11-apps.js — Tab Ứng Dụng Sản Phẩm
  * Hiển thị sản phẩm theo nhóm ứng dụng (Masterbatch, Sơn nước, Bột bả...)
+ *
+ * FIX: filterApps() dùng DOM filtering thay vì re-render → hết mất focus, hết lag
  */
 var activeApp = null;
 var appSearchTerm = "";
@@ -2262,9 +2224,6 @@ function getAppIcon(index, name) {
   return c.icon;
 }
 
-/**
- * Parse spec_raw into structured HTML
- */
 function parse规格Row(specRaw) {
   if (!specRaw) return '<span class="muted">—</span>';
   var lines = specRaw.split('\n').map(function(l) { return l.trim(); }).filter(Boolean);
@@ -2275,12 +2234,7 @@ function parse规格Row(specRaw) {
   return h;
 }
 
-/**
- * Find DATA_PRODUCTS entry matching a code
- * Supports multi-code like "H10A2\nF10A2" -> find first match
- */
 function findProductByCode(code) {
-  // Codes may contain newlines or commas (multiple variants)
   var candidates = code.split(/[\n,]+/).map(function(s) { return s.trim(); }).filter(Boolean);
   for (var ci = 0; ci < candidates.length; ci++) {
     for (var i = 0; i < DATA_PRODUCTS.length; i++) {
@@ -2290,18 +2244,12 @@ function findProductByCode(code) {
   return null;
 }
 
-/**
- * Render the Ứng Dụng tab
- */
 function renderAppsTab() {
-  // If an app is selected, show detail view
   if (activeApp) {
     return renderAppDetail(activeApp);
   }
 
   var h = "";
-
-  // === CONTROLS ===
   h += '<div class="controls">';
   h += '<input type="text" id="appSearchInput" placeholder="🔍 Tìm ứng dụng hoặc mã SP..." value="' + appSearchTerm.replace(/"/g, '&quot;') + '" oninput="filterApps()">';
   h += '<select id="appSortSelect" onchange="doSortAppGrid()">';
@@ -2311,13 +2259,11 @@ function renderAppsTab() {
   h += '</select>';
   h += '</div>';
 
-  // Summary bar
   h += '<div class="summary-bar" id="appsSummaryBar">';
   h += '<div class="summary-card" id="appsSummaryCount"><div class="lbl">Ứng dụng</div><div class="val">' + DATA_APPLICATIONS.length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Mapping SP</div><div class="val">' + countTotalMappings(DATA_APPLICATIONS) + '</div></div>';
   h += '</div>';
 
-  // Grid of app cards (always render ALL, filter/display in DOM via JS)
   h += '<div class="app-grid" id="appGrid">';
   for (var i = 0; i < DATA_APPLICATIONS.length; i++) {
     var app = DATA_APPLICATIONS[i];
@@ -2325,7 +2271,6 @@ function renderAppsTab() {
     var icon = getAppIcon(i, app.name);
     var count = app.products.length;
     h += '<div class="app-card" ' + style + ' onclick="selectApp(' + i + ')" title="Xem sản phẩm ' + app.name + '"';
-    // Data attributes for DOM-only filtering (no re-render)
     h += ' data-index="' + i + '"';
     h += ' data-name="' + app.name.replace(/"/g, '&quot;').replace(/\n/g, ' ').toLowerCase() + '"';
     var codes = '';
@@ -2340,7 +2285,6 @@ function renderAppsTab() {
     h += '</div>';
   }
   h += '</div>';
-
   return h;
 }
 
@@ -2348,7 +2292,6 @@ function renderAppsTabAndSwitch() {
   var container = document.getElementById("mainContainer");
   if (container && activeTab === "apps") {
     container.innerHTML = renderAppsTab();
-    // Re-apply filter after render
     if (appSearchTerm) {
       applyAppCardFilter();
     }
@@ -2361,9 +2304,6 @@ function countTotalMappings(apps) {
   return count;
 }
 
-/**
- * Filter app cards in the DOM directly — NO re-render, NO focus loss
- */
 function applyAppCardFilter() {
   var grid = document.getElementById("appGrid");
   if (!grid) return;
@@ -2383,7 +2323,6 @@ function applyAppCardFilter() {
       if (match) visibleCount++;
     }
   }
-  // Update summary count live
   var summaryEl = document.getElementById("appsSummaryCount");
   if (summaryEl) {
     var valEl = summaryEl.querySelector(".val");
@@ -2391,9 +2330,6 @@ function applyAppCardFilter() {
   }
 }
 
-/**
- * Sort app cards in DOM (no re-render)
- */
 function doSortAppGrid() {
   var grid = document.getElementById("appGrid");
   if (!grid) return;
@@ -2420,37 +2356,27 @@ function doSortAppGrid() {
   applyAppCardFilter();
 }
 
-// ====== RENDER DETAIL ====== (same as before, kept for compatibility)
-
 function renderAppDetail(app) {
   var h = "";
   h += '<div style="margin-bottom:16px">';
   h += '<button class="btn-cancel" onclick="backToAppsGrid()" style="margin-right:10px">← Quay lại</button>';
   h += '</div>';
-
-  // App header
   h += '<div class="apps-detail-header">';
   h += '<div class="apps-detail-title" id="appsDetailTitle">' + app.name.replace(/\n/g, ' / ') + '</div>';
   h += '<div class="apps-detail-sub">' + app.products.length + ' sản phẩm</div>';
   h += '</div>';
-
-  // Products table
   h += '<div class="table-wrap"><table><thead>';
   h += '<tr><th>产品代码</th><th>Thông số kỹ thuật</th><th>机器</th><th>价格 tham khảo</th><th></th></tr>';
   h += '</thead><tbody>';
-
   for (var i = 0; i < app.products.length; i++) {
     var p = app.products[i];
     var product = findProductByCode(p.code);
     var displayCode = p.code.replace(/\n/g, '<br>');
     var displayMachine = (p.machine || "").replace(/\n/g, '<br>');
-
     h += '<tr>';
     h += '<td><strong>' + displayCode + '</strong></td>';
     h += '<td class="apps-spec-cell">' + parse规格Row(p.spec_raw) + '</td>';
     h += '<td>' + displayMachine + '</td>';
-
-    // Price reference column
     if (product) {
       var price = product.exw_vnd ? product.exw_vnd.toLocaleString('vi-VN') : '—';
       h += '<td class="text-right"><span class="apps-price-ref">' + price + '</span><br><span class="info-row">VND/tấn</span></td>';
@@ -2459,13 +2385,9 @@ function renderAppDetail(app) {
       h += '<td class="text-right"><span class="muted">—</span></td>';
       h += '<td></td>';
     }
-
     h += '</tr>';
   }
-
   h += '</tbody></table></div>';
-
-  // Other apps that share these products
   var sharing = getSharingApps(app);
   if (sharing.length > 0) {
     h += '<div class="apps-sharing-bar">';
@@ -2475,17 +2397,12 @@ function renderAppDetail(app) {
     }
     h += '</div>';
   }
-
   return h;
 }
 
-/**
- * Find other apps that share products with the current one (cross-reference)
- */
 function getSharingApps(currentApp) {
   var codes = {};
   for (var ci = 0; ci < currentApp.products.length; ci++) {
-    // Get base codes without \n
     var parts = currentApp.products[ci].code.split('\n');
     for (var pi = 0; pi < parts.length; pi++) {
       codes[parts[pi].trim()] = true;
@@ -2500,13 +2417,12 @@ function getSharingApps(currentApp) {
       for (var pi2 = 0; pi2 < parts2.length; pi2++) {
         if (codes[parts2[pi2].trim()]) {
           shared.push(a.name.replace(/\n/g, ' / '));
-          ci2 = a.products.length; // break outer
+          ci2 = a.products.length;
           break;
         }
       }
     }
   }
-  // Deduplicate
   var seen = {}, uniq = [];
   for (var si = 0; si < shared.length; si++) {
     if (!seen[shared[si]]) { seen[shared[si]] = true; uniq.push(shared[si]); }
@@ -2520,9 +2436,9 @@ function filterApps() {
   var input = document.getElementById("appSearchInput");
   if (!input) return;
   appSearchTerm = input.value;
-  // Direct DOM filtering — no re-render, no focus loss
-  applyAppCardFilter();
+  applyAppCardFilter(); // DOM only — no re-render
 }
+
 function selectApp(index) {
   activeApp = DATA_APPLICATIONS[index];
   renderAppsTabAndSwitch();
@@ -2544,7 +2460,6 @@ function backToAppsGrid() {
 }
 
 function gotoPriceTab(code) {
-  // Switch to price tab and auto-fill search with this code
   switchTab("pricelist");
   var searchInput = document.getElementById("searchInput");
   if (searchInput) {

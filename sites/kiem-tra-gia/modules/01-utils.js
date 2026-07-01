@@ -1,4 +1,13 @@
-﻿// ====== UTILITY ======
+// ====== COMPANY CONSTANTS ======
+var COMPANY = 'CONG TY TNHH CONG NGH? V?T LI?U M?I D?C TH?NH';
+var COMPANY_EN = 'DUC THINH NEW MATERIALS TECHNOLOGY COMPANY LIMITED';
+var ADDR = 'DC: KCN NGHIA DAN, XA NGHIA THU, TINH NGHE AN, VIET NAM';
+var EMAIL = 'sales@ducthinh.com';
+var WEBSITE = 'https://ducthinhmaterials.com';
+var PHONE = '+84 382 666 000';
+var EXT = '106';
+var MST = '2902085037';
+// ====== UTILITY ======
 function formatUsd(v) { var n = Number(v); var dec = Math.round((n - Math.floor(n)) * 10); return Math.floor(n).toLocaleString("vi-VN") + "," + dec; }
 function formatCurrency(v, isUsd) {
   if (v === null || v === undefined || isNaN(v)) return "\u2014";
@@ -28,56 +37,7 @@ function getMaxLoading(code, spec) {
 // ====== COST FOB ======
 function getCostFobVND(maxLoad, lccVariant) {
   if (!maxLoad || maxLoad <= 0) return 0;
-  var keys = Object.keys(DATA_COST_FOB).map(Number).sort(function(a, b) { return a - b; });
-  var bestKey = keys[0];
-  for (var i = 0; i < keys.length; i++) {
-    if (keys[i] >= maxLoad) { bestKey = keys[i]; break; }
-    bestKey = keys[i];
-  }
-  var row = DATA_COST_FOB[bestKey];
+  var row = DATA_COST_FOB[maxLoad];
   if (!row) return 0;
   return lccVariant === "sub" ? row.sub : row.no;
 }
-
-// ====== FOB PRICES ======
-function getFOB25PriceVND(prod, lccVariant) {
-  var ml = getMaxLoading(prod.code, "max25");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var cf = getCostFobVND(ml, lccVariant);
-  return Math.round((prod.pkg25_vnd + cf) * 1.05);
-}
-function getFOBJumboPriceVND(prod, lccVariant) {
-  var ml = getMaxLoading(prod.code, "maxJumbo");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var cf = getCostFobVND(ml, lccVariant);
-  return Math.round((prod.jumbo_vnd + cf) * 1.05);
-}
-function getFOB25PriceUSD(prod, lccVariant) { return getFOB25PriceVND(prod, lccVariant) / 26000; }
-function getFOBJumboPriceUSD(prod, lccVariant) { return getFOBJumboPriceVND(prod, lccVariant) / 26000; }
-
-// ====== CIF PRICES ======
-function getCIF25PriceVND(prod, lccVariant, freight) {
-  var ml = getMaxLoading(prod.code, "max25");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var base = getFOB25PriceVND(prod, lccVariant);
-  if (!freight || freight <= 0) return base;
-  return Math.round(base + (freight + 10 + 10) * 26000 / ml);
-}
-function getCIFJumboPriceVND(prod, lccVariant, freight) {
-  var ml = getMaxLoading(prod.code, "maxJumbo");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var base = getFOBJumboPriceVND(prod, lccVariant);
-  if (!freight || freight <= 0) return base;
-  return Math.round(base + (freight + 10 + 10) * 26000 / ml);
-}
-function getCIF25PriceUSD(prod, lccVariant, freight) { return getCIF25PriceVND(prod, lccVariant, freight) / 26000; }
-function getCIFJumboPriceUSD(prod, lccVariant, freight) { return getCIFJumboPriceVND(prod, lccVariant, freight) / 26000; }
-
-
-
-// ====== FORMAT MAX LOADING ======
-function formatMaxLoading(v) {
-  if (v === null || v === undefined || v === "" || isNaN(v) || v <= 0) return "\u2014";
-  return Number(v) % 1 === 0 ? Number(v).toLocaleString("vi-VN") : Number(v).toFixed(2);
-}
-

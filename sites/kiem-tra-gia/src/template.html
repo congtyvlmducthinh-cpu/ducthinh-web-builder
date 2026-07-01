@@ -308,7 +308,7 @@ tbody tr:hover td{background:#eff6ff}
   <div class="q-modal">
     <div class="q-modal-header">
       <h3>{{QUOTATION_TITLE}}</h3>
-      <button class="q-modal-close" onclick="closeQuotationPopup()">âœ•</button>
+<button class="q-modal-close" onclick="closeQuotationPopup()">&times;</button>
     </div>
     <div class="q-modal-form">
       <div><label>{{Q_CUSTOMER}}</label><input type="text" id="qCustomer" placeholder="{{Q_CUSTOMER_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
@@ -345,7 +345,7 @@ tbody tr:hover td{background:#eff6ff}
     <div class="freight-modal-header">
       <h3>{{FREIGHT_TITLE}}</h3>
       <button class="freight-modal-close" onclick="closeFreightPopup()">âœ•</button>
-    </div>
+      <button class="freight-modal-close" onclick="closeFreightPopup()">&times;</button>
         <div style="padding:0 16px 8px"><input type="text" id="freightSearch" placeholder="{{FREIGHT_SEARCH}}" oninput="filterFreightRoutes()" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;font-family:var(--font);color:var(--text);background:var(--card)"></div>
     <div class="freight-modal-filters">
       <select id="freightCountryFilter" onchange="filterFreightRoutes()"><option value="">{{FREIGHT_FILTER_COUNTRY}}</option></select>
