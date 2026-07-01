@@ -143,6 +143,7 @@ var priceMode = "exw";
 var lccType = "no";
 var freightUSD = 0;
 var managePassword = "Ducthinh@1";
+var currency = "VND";
 var calcPriceMode = "exw";
 var calcLccType = "no";
 var calcFreightUSD = 0;
