@@ -1911,7 +1911,7 @@ function getCalcPriceData() {
   var bag规格Sel=document.getElementById("calcBag规格"), sp=document.getElementById("calcSellPrice");
   if (!psel||!psel.value) return null;
   var prod=null;
-  for (var i=0;i<DATA_PRODUCTS.length;i++) { if (DATA_PRODUCTS[i].code===psel.value) { prod=DATA_PRODUCTS[i]; break; } }
+  for (var i=0;i<DATA_PRODUCTS.length;i++) { var _qp=psel.value.split('||'),_qc=_qp[0],_qs=_qp[1]||'';if (DATA_PRODUCTS[i].code===_qc&&DATA_PRODUCTS[i].standard===_qs) { prod=DATA_PRODUCTS[i]; break; } }
   if (!prod) return null;
   var isUsd=currency==="USD";
   var cc=isUsd?"USD":"VND";
