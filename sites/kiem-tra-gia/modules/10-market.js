@@ -117,7 +117,6 @@ function applyMarket() {
     p.jumbo_vnd = p["jumbo_vnd" + suffix] !== undefined ? p["jumbo_vnd" + suffix] : p.jumbo_vnd;
     p.jumbo_usd = p["jumbo_usd" + suffix] !== undefined ? p["jumbo_usd" + suffix] : p.jumbo_usd;
   });
-  render();
 }
 
 function setMarket(mkt) {
@@ -135,4 +134,5 @@ function setMarket(mkt) {
     otherBtn.style.borderColor = mkt === "other" ? "#1a56db" : "#d0d5dd";
   }
   applyMarket();
+  render();
 }
