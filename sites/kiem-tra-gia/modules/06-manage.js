@@ -173,42 +173,51 @@ function downloadAsJSON() {
   a.click();
 }
 
-// Manage file upload — dùng biến uploading để chống double-fire
+// ====== FILE UPLOAD ======
 var _isUploadingFile = false;
-(function() {
+
+function setupUpload() {
   var dropZone = document.getElementById("manageDropZone");
   var fileInput = document.getElementById("manageFileInput");
   if (!dropZone || !fileInput) return;
   
-  // KHÔNG reset hay click fileInput ở đây — để label/tự nhiên
-  // Reset value TRƯỚC khi picker mở — đảm bảo change luôn fire cho cùng file
+  // Reset input value TRƯỚC khi mở picker, dùng flag để chống double-fire
   dropZone.addEventListener("click", function() {
-    if (_isUploadingFile) return; // đang xử lý — chặn picker mở lại
+    if (_isUploadingFile) return;
     fileInput.value = '';
   });
   
-  // Dùng click để mở picker — nhưng dùng setTimeout để không xung đột events
-  dropZone.addEventListener("click", function openPicker() {
+  dropZone.addEventListener("click", function openFilePicker() {
     if (_isUploadingFile) return;
-    setTimeout(function() { fileInput.click(); }, 10);
-  }, true); // capture phase để chạy trước
+    fileInput.click();
+  });
   
   dropZone.addEventListener("dragover", function(e) { e.preventDefault(); dropZone.classList.add("dragover"); });
   dropZone.addEventListener("dragleave", function() { dropZone.classList.remove("dragover"); });
   dropZone.addEventListener("drop", function(e) {
     e.preventDefault();
     dropZone.classList.remove("dragover");
-    if (e.dataTransfer.files.length) handleManageFile(e.dataTransfer.files[0]);
+    if (!_isUploadingFile && e.dataTransfer.files.length) {
+      _isUploadingFile = true;
+      handleManageFile(e.dataTransfer.files[0]);
+    }
   });
   
-  fileInput.addEventListener("change", function onChange() {
+  fileInput.addEventListener("change", function() {
     if (_isUploadingFile) return;
     if (fileInput.files.length) {
       _isUploadingFile = true;
       handleManageFile(fileInput.files[0]);
     }
   });
-})();
+}
+
+// Setup on DOM ready
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", setupUpload);
+} else {
+  setupUpload();
+}
 
 function handleManageFile(file) {
   var status = document.getElementById("manageUploadStatus");
@@ -286,9 +295,8 @@ function handleManageFile(file) {
       populateFilters();
       render();
       status.className = "manage-status-sm ok";
-      status.textContent = "✅ Đã cập nhật " + updated + " bảng dữ liệu!";
+      status.textContent = "✅ Đã cập nhật " + updated + " bảng dữ liệu! ";
       _isUploadingFile = false;
-      saveToServer();
     } catch(err) {
       status.className = "manage-status-sm err";
       status.textContent = "❌ Lỗi: " + err.message;

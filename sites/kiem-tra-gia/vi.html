@@ -1647,137 +1647,6 @@ function downloadAsJSON() {
   a.click();
 }
 
-// Manage file upload
-(function() {
-  var dropZone = document.getElementById("manageDropZone");
-  var fileInput = document.getElementById("manageFileInput");
-  if (!dropZone || !fileInput) return;
-  dropZone.addEventListener("click", function() { fileInput.click(); });
-  dropZone.addEventListener("dragover", function(e) { e.preventDefault(); dropZone.classList.add("dragover"); });
-  dropZone.addEventListener("dragleave", function() { dropZone.classList.remove("dragover"); });
-  dropZone.addEventListener("drop", function(e) {
-    e.preventDefault();
-    dropZone.classList.remove("dragover");
-    if (e.dataTransfer.files.length) handleManageFile(e.dataTransfer.files[0]);
-  });
-  fileInput.addEventListener("change", function() {
-    if (fileInput.files.length) handleManageFile(fileInput.files[0]);
-  });
-})();
-
-function handleManageFile(file) {
-  var status = document.getElementById("manageUploadStatus");
-  status.style.display = "block";
-  if (!file.name.match(/.xlsx?$/i)) {
-    status.className = "manage-status-sm err";
-    status.textContent = "❌ Chỉ hỗ trợ file Excel (.xlsx)";
-    return;
-  }
-  status.className = "manage-status-sm loading";
-  status.textContent = "⏳ Đang xử lý file...";
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    try {
-      var data = new Uint8Array(e.target.result);
-      var wb = XLSX.read(data, {type: "array"});
-      var sheets = wb.SheetNames;
-      var updated = 0;
-      
-      function hasSheet(variants) {
-        for (var i = 0; i < variants.length; i++) {
-          if (sheets.indexOf(variants[i]) >= 0) return variants[i];
-        }
-        return null;
-      }
-      
-      var prodSheet = hasSheet(["Products", "products", "Sản phẩm", "sản phẩm", "Product", "product", "Template", "Giá bán tối thiểu", "giá bán tối thiểu", "Giá bán", "Gia ban", "Giá"]);
-      if (prodSheet) {
-        var s = XLSX.utils.sheet_to_json(wb.Sheets[prodSheet]);
-        if (s.length > 0) { importProducts(s); updated++; }
-      }
-      
-      var bagSheet = hasSheet(["Bags", "bags", "Bao bì", "bao bì", "Bao", "bao", "Bag"]);
-      if (bagSheet) {
-        var s = XLSX.utils.sheet_to_json(wb.Sheets[bagSheet]);
-        if (s.length > 0) { DATA_BAGS = s; updated++; }
-      }
-      
-      var otherSheet = hasSheet(["Others", "others", "Quy cách khác", "Other", "other"]);
-      if (otherSheet) {
-        var s = XLSX.utils.sheet_to_json(wb.Sheets[otherSheet]);
-        if (s.length > 0) { DATA_OTHERS = s; updated++; }
-      }
-      
-      var mlSheet = hasSheet(["MaxLoading", "maxloading", "Max Load", "max_load", "Tải trọng", "tải trọng"]);
-      if (mlSheet) {
-        var s = XLSX.utils.sheet_to_json(wb.Sheets[mlSheet]);
-        if (s.length > 0) { importMaxLoading(s); updated++; }
-      }
-      
-      var fobSheet = hasSheet(["CostFOB", "Cost FOB", "costfob", "cost fob", "FOB", "fob", "Cost_FOB", "cost_fob", "Cost Fob"]);
-      if (fobSheet) {
-        var s = XLSX.utils.sheet_to_json(wb.Sheets[fobSheet]);
-        if (s.length > 0) { importCostFOB(s); updated++; }
-      }
-      
-      var appSheet = hasSheet(["Applications", "applications", "Ứng dụng", "ứng dụng", "Ung dung", "ung dung", "Ứng Dụng"]);
-      if (appSheet) {
-        var s = XLSX.utils.sheet_to_json(wb.Sheets[appSheet]);
-        if (s.length > 0) { DATA_APPLICATIONS = s; updated++; }
-      }
-      
-      applyMarket();
-      localStorage.setItem("dq_products", JSON.stringify(DATA_PRODUCTS));
-      localStorage.setItem("dq_bags", JSON.stringify(DATA_BAGS));
-      localStorage.setItem("dq_others", JSON.stringify(DATA_OTHERS));
-      localStorage.setItem("dq_maxLoading", JSON.stringify(DATA_MAX_LOADING));
-      localStorage.setItem("dq_costFOB", JSON.stringify(DATA_COST_FOB));
-      localStorage.setItem("dq_applications", JSON.stringify(DATA_APPLICATIONS));
-      document.getElementById("mProdCnt").textContent = DATA_PRODUCTS.length;
-      document.getElementById("mBagCnt").textContent = DATA_BAGS.length;
-      document.getElementById("mOtherCnt").textContent = DATA_OTHERS.length;
-      if (document.getElementById("mAppCnt")) document.getElementById("mAppCnt").textContent = DATA_APPLICATIONS.length;
-      populateFilters();
-      render();
-      status.className = "manage-status-sm ok";
-      saveToServer();
-      status.textContent = "✅ Đã cập nhật " + updated + " bảng dữ liệu!";
-    } catch(err) {
-      status.className = "manage-status-sm err";
-      status.textContent = "❌ Lỗi: " + err.message;
-    }
-  };
-  reader.readAsArrayBuffer(file);
-}
-
-function importMaxLoading(arr) {
-  DATA_MAX_LOADING = {};
-  arr.forEach(function(r) {
-    var code = r.code || r.Code || r.CodeSP || r.CodeSP_Standard || r["SẢN PHẨM"] || r["SAN PHAM"] || "";
-    if (!code) return;
-    var obj = {};
-    var v25 = r.max25 || r["Max Loading 25KG"] || r["Max Loading 25kg"] || r["max25"] || r["Max25"];
-    var vJb = r.maxJumbo || r["Max Loading Jumbo"] || r["Max Loading jumbo"] || r["maxJumbo"] || r["MaxJumbo"] || r["Max Jumbo"];
-    if (v25 !== undefined && v25 !== null && v25 !== "") obj.max25 = Number(v25);
-    if (vJb !== undefined && vJb !== null && vJb !== "") obj.maxJumbo = Number(vJb);
-    if (Object.keys(obj).length > 0) DATA_MAX_LOADING[code] = obj;
-  });
-}
-
-function importCostFOB(arr) {
-  DATA_COST_FOB = {};
-  arr.forEach(function(r) {
-    var load = Number(r.maxLoading || r.MaxLoading || r.load || r.Load || r.tan || r.Tan || r["Tấn"] || r["Max loadding"] || r["Max Loadding"]);
-    if (!load) return;
-    var obj = {};
-    var vNo = r.no !== undefined ? r.no : r["No LCC"] || r["No lcc"];
-    var vSub = r.sub !== undefined ? r.sub : r["Sub LCC"] || r["Sub lcc"];
-    if (vNo !== undefined && vNo !== null && vNo !== "") obj.no = Number(vNo);
-    if (vSub !== undefined && vSub !== null && vSub !== "") obj.sub = Number(vSub);
-    if (Object.keys(obj).length > 0) DATA_COST_FOB[load] = obj;
-  });
-}
-
 // ====== PASSWORD MODAL ======
 function showPwModal() {
   document.getElementById("pwModal").classList.add("open");
@@ -3387,42 +3256,51 @@ function downloadAsJSON() {
   a.click();
 }
 
-// Manage file upload — dùng biến uploading để chống double-fire
+// ====== FILE UPLOAD ======
 var _isUploadingFile = false;
-(function() {
+
+function setupUpload() {
   var dropZone = document.getElementById("manageDropZone");
   var fileInput = document.getElementById("manageFileInput");
   if (!dropZone || !fileInput) return;
   
-  // KHÔNG reset hay click fileInput ở đây — để label/tự nhiên
-  // Reset value TRƯỚC khi picker mở — đảm bảo change luôn fire cho cùng file
+  // Reset input value TRƯỚC khi mở picker, dùng flag để chống double-fire
   dropZone.addEventListener("click", function() {
-    if (_isUploadingFile) return; // đang xử lý — chặn picker mở lại
+    if (_isUploadingFile) return;
     fileInput.value = '';
   });
   
-  // Dùng click để mở picker — nhưng dùng setTimeout để không xung đột events
-  dropZone.addEventListener("click", function openPicker() {
+  dropZone.addEventListener("click", function openFilePicker() {
     if (_isUploadingFile) return;
-    setTimeout(function() { fileInput.click(); }, 10);
-  }, true); // capture phase để chạy trước
+    fileInput.click();
+  });
   
   dropZone.addEventListener("dragover", function(e) { e.preventDefault(); dropZone.classList.add("dragover"); });
   dropZone.addEventListener("dragleave", function() { dropZone.classList.remove("dragover"); });
   dropZone.addEventListener("drop", function(e) {
     e.preventDefault();
     dropZone.classList.remove("dragover");
-    if (e.dataTransfer.files.length) handleManageFile(e.dataTransfer.files[0]);
+    if (!_isUploadingFile && e.dataTransfer.files.length) {
+      _isUploadingFile = true;
+      handleManageFile(e.dataTransfer.files[0]);
+    }
   });
   
-  fileInput.addEventListener("change", function onChange() {
+  fileInput.addEventListener("change", function() {
     if (_isUploadingFile) return;
     if (fileInput.files.length) {
       _isUploadingFile = true;
       handleManageFile(fileInput.files[0]);
     }
   });
-})();
+}
+
+// Setup on DOM ready
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", setupUpload);
+} else {
+  setupUpload();
+}
 
 function handleManageFile(file) {
   var status = document.getElementById("manageUploadStatus");
@@ -3500,9 +3378,8 @@ function handleManageFile(file) {
       populateFilters();
       render();
       status.className = "manage-status-sm ok";
-      status.textContent = "✅ Đã cập nhật " + updated + " bảng dữ liệu!";
+      status.textContent = "✅ Đã cập nhật " + updated + " bảng dữ liệu! ";
       _isUploadingFile = false;
-      saveToServer();
     } catch(err) {
       status.className = "manage-status-sm err";
       status.textContent = "❌ Lỗi: " + err.message;
