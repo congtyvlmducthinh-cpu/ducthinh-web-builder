@@ -1071,7 +1071,7 @@ function calcCommission() {
   var psel = document.getElementById("calcProduct");
   if (!psel || !psel.value) { cr.innerHTML = '<div style="color:var(--muted);font-size:12px">请先选择产品</div>'; return; }
   var prod = null;
-  for (var i = 0; i < DATA_PRODUCTS.length; i++) { if (DATA_PRODUCTS[i].code === psel.value) { prod = DATA_PRODUCTS[i]; break; } }
+  for (var i = 0; i < DATA_PRODUCTS.length; i++) { var _cp=psel.value.split('||'),_cpC=_cp[0],_cpS=_cp[1]||'';if (DATA_PRODUCTS[i].code===_cpC&&DATA_PRODUCTS[i].standard===_cpS) { prod = DATA_PRODUCTS[i]; break; } }
   if (!prod) { cr.innerHTML = ""; return; }
   var isUsd = currency === "USD";
   var commBase = isUsd ? prod.comm_usd : prod.comm_vnd;
