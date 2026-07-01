@@ -351,42 +351,6 @@ tbody tr:hover td{background:#eff6ff}
 </div>
 </div>
 
-<!-- Quotation Popup -->
-<div class="q-overlay" id="quotationPopup">
-  <div class="q-modal">
-    <div class="q-modal-header">
-      <h3>{{QUOTATION_TITLE}}</h3>
-<button class="q-modal-close" onclick="closeQuotationPopup()">&times;</button>
-    </div>
-    <div class="q-modal-form">
-      <div><label>{{Q_CUSTOMER}}</label><input type="text" id="qCustomer" placeholder="{{Q_CUSTOMER_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
-      <div><label>{{Q_CONTACT}}</label><input type="text" id="qContact" placeholder="{{Q_CONTACT_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
-      <div><label>{{Q_ASSIGNED}}</label><input type="text" id="qAssigned" placeholder="{{Q_ASSIGNED_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
-      <div><label>{{Q_CUST_EMAIL}}</label><input type="email" id="qCustEmail" placeholder="{{Q_CUST_EMAIL_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
-      <div><label>{{Q_QTY}}</label><input type="number" id="qQty" value="1" min="1" step="0.5" oninput="updateQuotationPreview()"></div>
-      <div><label>{{Q_VALIDITY}}</label><select id="qValid" onchange="updateQuotationPreview()"><option value="15 ngÃ y">{{Q_VALID_15}}</option><option value="30 ngÃ y">{{Q_VALID_30}}</option><option value="7 ngÃ y">{{Q_VALID_7}}</option><option value="ká»ƒ tá»« ngÃ y kÃ½">{{Q_VALID_FROM_SIGN}}</option></select></div>
-      <div><label>{{Q_PAYMENT}}</label><select id="qPayment" onchange="updateQuotationPreview()"><option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option><option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div>
-      <div><label>{{Q_PORT}}</label><input type="text" id="qPort" placeholder="{{Q_PORT_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
-      <div><label>{{Q_DELIVERY}}</label><input type="text" id="qDelivery" placeholder="{{Q_DELIVERY_PLACEHOLDER}}" oninput="updateQuotationPreview()"></div>
-      <div style="grid-column:1/-1"><label>{{Q_NOTE}}</label><input type="text" id="qNote" placeholder="{{Q_NOTE_PLACEHOLDER}}" oninput="updateQuotationPreview()" style="width:100%"></div>
-    </div>
-    <div class="q-modal-body" id="qPreviewBody">
-      <div class="q-preview" id="qPreview">
-        <h1>{{COMPANY_NAME}}</h1>
-        <p class="q-sub">{{COMPANY_ADDR}}<br>Email: sales@ducthinh.com - https://ducthinhmaterials.com<br>Tel: +84 382 666 000 Ext: 106 - MST: 2902085037</p>
-        <div class="q-divider"></div>
-        <p style="text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px">ðŸ“„ BAO GIA</p>
-        <div id="qPreviewContent"><p style="text-align:center;color:#94a3b8;font-size:13px">{{Q_PREVIEW_EMPTY}}</p></div>
-      </div>
-    </div>
-    <div class="q-modal-footer">
-      <span style="flex:1;font-size:12px;color:var(--muted);align-self:center" id="qDateSpan"></span>
-      <button class="q-btn-copy" onclick="copyQuotation()">ðŸ“‹ Copy</button>
-      <button class="q-btn-print" onclick="printQuotation()">ðŸ–¨ In / PDF</button>
-    </div>
-  </div>
-</div>
-
 <!-- Freight Popup -->
 <div class="freight-overlay" id="freightPopup">
   <div class="freight-modal">
