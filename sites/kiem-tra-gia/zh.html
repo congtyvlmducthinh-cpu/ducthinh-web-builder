@@ -2294,49 +2294,46 @@ function findProductByCode(code) {
  * Render the Ứng Dụng tab
  */
 function renderAppsTab() {
-  var h = "";
-  var filtered = DATA_APPLICATIONS;
-
-  // Search filter
-  if (appSearchTerm) {
-    var st = appSearchTerm.toLowerCase();
-    filtered = filtered.filter(function(a) {
-      if (a.name.toLowerCase().indexOf(st) >= 0) return true;
-      for (var i = 0; i < a.products.length; i++) {
-        if (a.products[i].code.toLowerCase().indexOf(st) >= 0) return true;
-      }
-      return false;
-    });
-  }
-
   // If an app is selected, show detail view
   if (activeApp) {
     return renderAppDetail(activeApp);
   }
 
-  // === GRID VIEW: All apps ===
+  var h = "";
+
+  // === CONTROLS ===
   h += '<div class="controls">';
   h += '<input type="text" id="appSearchInput" placeholder="🔍 Tìm ứng dụng hoặc mã SP..." value="' + appSearchTerm.replace(/"/g, '&quot;') + '" oninput="filterApps()">';
-  h += '<select id="appSortSelect" onchange="renderAppsTabAndSwitch()">';
+  h += '<select id="appSortSelect" onchange="doSortAppGrid()">';
+  h += '<option value="index">Mặc định</option>';
   h += '<option value="count">Theo số SP (nhiều→ít)</option>';
   h += '<option value="alpha">Theo tên A→Z</option>';
   h += '</select>';
   h += '</div>';
 
   // Summary bar
-  h += '<div class="summary-bar">';
-  h += '<div class="summary-card"><div class="lbl">Ứng dụng</div><div class="val">' + filtered.length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">Mapping SP</div><div class="val">' + countTotalMappings(filtered) + '</div></div>';
+  h += '<div class="summary-bar" id="appsSummaryBar">';
+  h += '<div class="summary-card" id="appsSummaryCount"><div class="lbl">Ứng dụng</div><div class="val">' + DATA_APPLICATIONS.length + '</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Mapping SP</div><div class="val">' + countTotalMappings(DATA_APPLICATIONS) + '</div></div>';
   h += '</div>';
 
-  // Grid of app cards
-  h += '<div class="app-grid">';
-  for (var i = 0; i < filtered.length; i++) {
-    var app = filtered[i];
+  // Grid of app cards (always render ALL, filter/display in DOM via JS)
+  h += '<div class="app-grid" id="appGrid">';
+  for (var i = 0; i < DATA_APPLICATIONS.length; i++) {
+    var app = DATA_APPLICATIONS[i];
     var style = getAppStyle(i);
     var icon = getAppIcon(i, app.name);
     var count = app.products.length;
-    h += '<div class="app-card" ' + style + ' onclick="selectApp(' + i + ')" title="Xem sản phẩm ' + app.name + '">';
+    h += '<div class="app-card" ' + style + ' onclick="selectApp(' + i + ')" title="Xem sản phẩm ' + app.name + '"';
+    // Data attributes for DOM-only filtering (no re-render)
+    h += ' data-index="' + i + '"';
+    h += ' data-name="' + app.name.replace(/"/g, '&quot;').replace(/\n/g, ' ').toLowerCase() + '"';
+    var codes = '';
+    for (var ci = 0; ci < app.products.length; ci++) {
+      codes += app.products[ci].code.replace(/\n/g, ' ') + ' ';
+    }
+    h += ' data-code="' + codes.replace(/"/g, '&quot;').toLowerCase() + '"';
+    h += '>';
     h += '<div class="app-card-icon">' + icon + '</div>';
     h += '<div class="app-card-name">' + app.name.replace(/\n/g, '<br>') + '</div>';
     h += '<div class="app-card-count">' + count + ' SP</div>';
@@ -2344,7 +2341,6 @@ function renderAppsTab() {
   }
   h += '</div>';
 
-  // "Back to grid" hidden (only when in detail)
   return h;
 }
 
@@ -2352,7 +2348,10 @@ function renderAppsTabAndSwitch() {
   var container = document.getElementById("mainContainer");
   if (container && activeTab === "apps") {
     container.innerHTML = renderAppsTab();
-    attachAppEvents();
+    // Re-apply filter after render
+    if (appSearchTerm) {
+      applyAppCardFilter();
+    }
   }
 }
 
@@ -2363,8 +2362,66 @@ function countTotalMappings(apps) {
 }
 
 /**
- * Render detail for a specific application
+ * Filter app cards in the DOM directly — NO re-render, NO focus loss
  */
+function applyAppCardFilter() {
+  var grid = document.getElementById("appGrid");
+  if (!grid) return;
+  var term = (appSearchTerm || "").toLowerCase().trim();
+  var cards = grid.querySelectorAll(".app-card");
+  var visibleCount = 0;
+  for (var i = 0; i < cards.length; i++) {
+    var card = cards[i];
+    if (!term) {
+      card.style.display = "";
+      visibleCount++;
+    } else {
+      var name = (card.getAttribute("data-name") || "");
+      var code = (card.getAttribute("data-code") || "");
+      var match = name.indexOf(term) >= 0 || code.indexOf(term) >= 0;
+      card.style.display = match ? "" : "none";
+      if (match) visibleCount++;
+    }
+  }
+  // Update summary count live
+  var summaryEl = document.getElementById("appsSummaryCount");
+  if (summaryEl) {
+    var valEl = summaryEl.querySelector(".val");
+    if (valEl) valEl.textContent = visibleCount;
+  }
+}
+
+/**
+ * Sort app cards in DOM (no re-render)
+ */
+function doSortAppGrid() {
+  var grid = document.getElementById("appGrid");
+  if (!grid) return;
+  var cards = Array.prototype.slice.call(grid.querySelectorAll(".app-card"));
+  var sortBy = document.getElementById("appSortSelect").value;
+  if (sortBy === "index") {
+    cards.sort(function(a, b) {
+      return parseInt(a.getAttribute("data-index")) - parseInt(b.getAttribute("data-index"));
+    });
+  } else if (sortBy === "count") {
+    cards.sort(function(a, b) {
+      var ca = parseInt(a.querySelector(".app-card-count").textContent);
+      var cb = parseInt(b.querySelector(".app-card-count").textContent);
+      return cb - ca;
+    });
+  } else if (sortBy === "alpha") {
+    cards.sort(function(a, b) {
+      return (a.getAttribute("data-name") || "").localeCompare(b.getAttribute("data-name") || "");
+    });
+  }
+  for (var i = 0; i < cards.length; i++) {
+    grid.appendChild(cards[i]);
+  }
+  applyAppCardFilter();
+}
+
+// ====== RENDER DETAIL ====== (same as before, kept for compatibility)
+
 function renderAppDetail(app) {
   var h = "";
   h += '<div style="margin-bottom:16px">';
@@ -2461,10 +2518,11 @@ function getSharingApps(currentApp) {
 
 function filterApps() {
   var input = document.getElementById("appSearchInput");
-  appSearchTerm = input ? input.value : "";
-  renderAppsTabAndSwitch();
+  if (!input) return;
+  appSearchTerm = input.value;
+  // Direct DOM filtering — no re-render, no focus loss
+  applyAppCardFilter();
 }
-
 function selectApp(index) {
   activeApp = DATA_APPLICATIONS[index];
   renderAppsTabAndSwitch();
