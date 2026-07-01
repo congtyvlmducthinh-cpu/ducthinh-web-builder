@@ -1,4 +1,4 @@
-// ====== GLOBAL SEARCH ======
+﻿// ====== GLOBAL SEARCH ======
 function globalSearch() { render(); }
 
 // ====== RESET FILTERS ======
@@ -81,6 +81,9 @@ function render() {
   }, 0);
   } else if (activeTab === "manage") {
     container.innerHTML = "";
+  } else if (activeTab === "quotation") {
+    container.innerHTML = renderQuotationTab();
+    setTimeout(function(){ quotInitRender(); }, 0);
   } else if (activeTab === "apps") {
     // Rendered via renderAppsTabAndSwitch from switchTab
   } else {
@@ -101,7 +104,7 @@ function saveToServer() {
   var btn = document.getElementById("saveServerBtn");
   if (!btn) return;
   var origText = btn.textContent;
-  btn.textContent = "⏳ Đang lưu...";
+  btn.textContent = "â³ Äang lÆ°u...";
   btn.disabled = true;
   var status = document.getElementById("manageUploadStatus");
 
@@ -127,8 +130,8 @@ function saveToServer() {
       status.style.display = "block";
       status.className = xhr.status === 200 ? "manage-status-sm ok" : "manage-status-sm err";
       status.textContent = xhr.status === 200
-        ? "✅ Đã lưu lên server! Tải lại en.html, zh.html để thấy dữ liệu mới."
-        : "❌ Lỗi: " + xhr.status + " - " + xhr.statusText;
+        ? "âœ… ÄÃ£ lÆ°u lÃªn server! Táº£i láº¡i en.html, zh.html Ä‘á»ƒ tháº¥y dá»¯ liá»‡u má»›i."
+        : "âŒ Lá»—i: " + xhr.status + " - " + xhr.statusText;
     }
   };
   xhr.onerror = function() {
@@ -137,7 +140,7 @@ function saveToServer() {
     if (status) {
       status.style.display = "block";
       status.className = "manage-status-sm err";
-      status.textContent = "❌ Không thể kết nối server!";
+      status.textContent = "âŒ KhÃ´ng thá»ƒ káº¿t ná»‘i server!";
     }
   };
   xhr.send(JSON.stringify(payload));
@@ -146,7 +149,7 @@ function saveToServer() {
 function updateDataInfo() {
   var el = document.getElementById("dataInfo");
   if (!el) return;
-  el.textContent = "📊 " + DATA_PRODUCTS.length + " SP · " + DATA_BAGS.length + " BB · " + DATA_OTHERS.length + " QC · " + DATA_APPLICATIONS.length + " APP";
+  el.textContent = "ðŸ“Š " + DATA_PRODUCTS.length + " SP Â· " + DATA_BAGS.length + " BB Â· " + DATA_OTHERS.length + " QC Â· " + DATA_APPLICATIONS.length + " APP";
 }
 
 // Language switch (i18n stub - keeps layout functional)
@@ -170,3 +173,20 @@ function setLang(lang) {
     b.classList.toggle("active", b.dataset.lang === lang);
   });
 }
+
+
+// ====== I18N HELPER ======
+
+function __(key) {
+
+  var k = key.replace(/ /g,'_').replace(/\//g,'_');
+
+  if (i18nStrings[k] && i18nStrings[k][currentLang]) return i18nStrings[k][currentLang];
+
+  if (LANG_TEMPLATE && LANG_TEMPLATE[k]) return LANG_TEMPLATE[k];
+
+  return key;
+
+}
+
+

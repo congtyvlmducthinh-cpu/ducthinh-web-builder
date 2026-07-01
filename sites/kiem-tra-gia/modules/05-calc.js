@@ -1,78 +1,78 @@
-// ====== RENDER CALC TAB ======
+﻿// ====== RENDER CALC TAB ======
 function renderCalcTab() {
   var h = '<div class="calc-grid">';
 
   // ===== LEFT PANEL =====
   h += '<div class="calc-left">';
 
-  // --- Section: Sản phẩm ---
-  h += '<div class="calc-section-title"><span class="badge blue">📦</span><span class="title-text">Chọn sản phẩm</span><button id="resetCalcBtn" onclick="resetCalcFilters()" title="Bỏ lọc" style="margin-left:auto;width:28px;height:28px;padding:0;border:1.5px solid var(--border);border-radius:6px;background:var(--card);color:var(--text-secondary);font-size:13px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s">↺</button></div>';
+  // --- Section: Sáº£n pháº©m ---
+  h += '<div class="calc-section-title"><span class="badge blue">ðŸ“¦</span><span class="title-text">Chá»n sáº£n pháº©m</span><button id="resetCalcBtn" onclick="resetCalcFilters()" title="Bá» lá»c" style="margin-left:auto;width:28px;height:28px;padding:0;border:1.5px solid var(--border);border-radius:6px;background:var(--card);color:var(--text-secondary);font-size:13px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s">â†º</button></div>';
 
   // Machine + Standard side by side
   var machines = {};
   DATA_PRODUCTS.forEach(function(p) { machines[p.machine] = true; });
   var machineKeys = Object.keys(machines).sort();
   h += '<div class="calc-form-group"><div class="calc-row-inline">';
-  h += '<div><label class="calc-form-label">🏭 Máy</label>';
-  h += '<select class="calc-select" id="calcMachine" onchange="filterCalcProducts()"><option value="">— Chọn máy —</option>';
+  h += '<div><label class="calc-form-label">ðŸ­ MÃ¡y</label>';
+  h += '<select class="calc-select" id="calcMachine" onchange="filterCalcProducts()"><option value="">â€” Chá»n mÃ¡y â€”</option>';
   for (var i = 0; i < machineKeys.length; i++) {
     h += '<option value="' + machineKeys[i].replace(/"/g, '&quot;') + '">' + machineKeys[i] + '</option>';
   }
   h += '</select></div>';
-  h += '<div><label class="calc-form-label">📋 Tiêu chuẩn</label>';
-  h += '<select class="calc-select" id="calcStandard" onchange="filterCalcProducts()"><option value="">— Chọn tiêu chuẩn —</option></select></div>';
+  h += '<div><label class="calc-form-label">ðŸ“‹ TiÃªu chuáº©n</label>';
+  h += '<select class="calc-select" id="calcStandard" onchange="filterCalcProducts()"><option value="">â€” Chá»n tiÃªu chuáº©n â€”</option></select></div>';
   h += '</div></div>';
 
   h += '<div class="calc-form-group"><div class="calc-row-inline">' +
-  '<div><label class="calc-form-label">📐 Kích thước</label>' +
-  '<select class="calc-select" id="calcSize" onchange="filterCalcProducts()"><option value="">— Chọn kích thước —</option></select></div>' +
+  '<div><label class="calc-form-label">ðŸ“ KÃ­ch thÆ°á»›c</label>' +
+  '<select class="calc-select" id="calcSize" onchange="filterCalcProducts()"><option value="">â€” Chá»n kÃ­ch thÆ°á»›c â€”</option></select></div>' +
   '</div></div>' +
-  '<div class="calc-form-group"><label class="calc-form-label">🔖 Sản phẩm</label>';
-  h += '<select class="calc-select" id="calcProduct" onchange="onCalcProductChange()"><option value="">— Chọn sản phẩm —</option></select></div>';
+  '<div class="calc-form-group"><label class="calc-form-label">ðŸ”– Sáº£n pháº©m</label>';
+  h += '<select class="calc-select" id="calcProduct" onchange="onCalcProductChange()"><option value="">â€” Chá»n sáº£n pháº©m â€”</option></select></div>';
   // Max loading dropdown (shown only in FOB/CIF mode)
   h += '<div class="calc-form-group" id="calcMaxLoadRow" style="display:none">';
-  h += '<label class="calc-form-label">⚖️ Max loading</label>';
-  h += '<select class="calc-select" id="calcMaxLoad" onchange="calcPrice()"><option value="">— Tự động —</option></select></div>';
+  h += '<label class="calc-form-label">âš–ï¸ Max loading</label>';
+  h += '<select class="calc-select" id="calcMaxLoad" onchange="calcPrice()"><option value="">â€” Tá»± Ä‘á»™ng â€”</option></select></div>';
 
-  // --- Section: Bao bì ---
-  h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge green">🛍️</span><span class="title-text">Tùy chọn bao bì</span></div>';
+  // --- Section: Bao bÃ¬ ---
+  h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge green">ðŸ›ï¸</span><span class="title-text">TÃ¹y chá»n bao bÃ¬</span></div>';
 
   // Bag spec + Bag select side by side
   h += '<div class="calc-form-group"><div class="calc-row-inline">';
-  h += '<div><label class="calc-form-label">📏 Quy cách bao</label>';
+  h += '<div><label class="calc-form-label">ðŸ“ Quy cÃ¡ch bao</label>';
   h += '<select class="calc-select" id="calcBagSpec" onchange="filterBagSpec()"><option value="25KG">25KG</option><option value="34KG">34KG</option><option value="50KG">50KG</option><option value="Jumbo">Jumbo</option></select></div>';
-  h += '<div><label class="calc-form-label">🛍️ Loại bao</label>';
-  h += '<select class="calc-select" id="calcBag" onchange="calcPrice()"><option value="">— Không chọn —</option>';
+  h += '<div><label class="calc-form-label">ðŸ›ï¸ Loáº¡i bao</label>';
+  h += '<select class="calc-select" id="calcBag" onchange="calcPrice()"><option value="">â€” KhÃ´ng chá»n â€”</option>';
   h += '</select></div>';
   h += '</div></div>';
 
   // Jumbo tonnage (hidden by default)
   h += '<div class="calc-form-group" id="calcTonnageRow" style="display:none">';
-  h += '<label class="calc-form-label">⚖️ Số tấn / bao Jumbo</label>';
+  h += '<label class="calc-form-label">âš–ï¸ Sá»‘ táº¥n / bao Jumbo</label>';
   h += '<select class="calc-select" id="calcTonnage" onchange="calcPrice()">';
-  h += '<option value="">— Chọn số tấn —</option>';
+  h += '<option value="">â€” Chá»n sá»‘ táº¥n â€”</option>';
   var jumboTons = ["0.5","0.7","1","1.1","1.2","1.25","1.3","1.35","1.375","1.38","1.4","1.5"];
   for (var i = 0; i < jumboTons.length; i++) {
-    h += '<option value="' + jumboTons[i] + '">' + jumboTons[i] + ' tấn</option>';
+    h += '<option value="' + jumboTons[i] + '">' + jumboTons[i] + ' táº¥n</option>';
   }
   h += '</select></div>';
 
-  // --- Section: Quy cách khác ---
-  h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge purple">📦</span><span class="title-text">Quy cách khác</span></div>';
+  // --- Section: Quy cÃ¡ch khÃ¡c ---
+  h += '<div class="calc-section-title" style="margin-top:16px"><span class="badge purple">ðŸ“¦</span><span class="title-text">Quy cÃ¡ch khÃ¡c</span></div>';
 
   h += '<div class="calc-form-group"><div class="calc-row-inline">';
-  h += '<div><label class="calc-form-label">📋 Loại quy cách</label>';
-  h += '<select class="calc-select" id="calcOther" onchange="calcPrice()"><option value="">— Không chọn —</option>';
+  h += '<div><label class="calc-form-label">ðŸ“‹ Loáº¡i quy cÃ¡ch</label>';
+  h += '<select class="calc-select" id="calcOther" onchange="calcPrice()"><option value="">â€” KhÃ´ng chá»n â€”</option>';
   for (var i = 0; i < DATA_OTHERS.length; i++) {
     h += '<option value="' + DATA_OTHERS[i].code + '">' + DATA_OTHERS[i].code + '</option>';
   }
   h += '</select></div>';
-  h += '<div id="calcOtherTonnageRow"><label class="calc-form-label">⚖️ Số tấn</label>';
+  h += '<div id="calcOtherTonnageRow"><label class="calc-form-label">âš–ï¸ Sá»‘ táº¥n</label>';
   h += '<select class="calc-select" id="calcOtherTonnage" onchange="calcPrice()">';
-  h += '<option value="">— Chọn số tấn —</option>';
+  h += '<option value="">â€” Chá»n sá»‘ táº¥n â€”</option>';
   var otherTons = ["0.5","0.7","1","1.1","1.2","1.25","1.3","1.35","1.375","1.38","1.4","1.5","1.53","1.6"];
   for (var i = 0; i < otherTons.length; i++) {
-    h += '<option value="' + otherTons[i] + '">' + otherTons[i] + ' tấn</option>';
+    h += '<option value="' + otherTons[i] + '">' + otherTons[i] + ' táº¥n</option>';
   }
   h += '</select></div>';
   h += '</div></div>';
@@ -82,8 +82,8 @@ function renderCalcTab() {
   // ===== RIGHT PANEL =====
   h += '<div class="calc-right">';
   h += '<div class="calc-right-header">';
-  h += '<span class="icon">💰</span>';
-  h += '<span>Kết quả tính giá</span>';
+  h += '<span class="icon">ðŸ’°</span>';
+  h += '<span>Káº¿t quáº£ tÃ­nh giÃ¡</span>';
   h += '</div>';
   // Price mode bar for calc tab
   h += '<div class="price-mode-bar" id="calcPriceModeBar" style="margin-bottom:12px;padding:8px 14px">';
@@ -93,20 +93,20 @@ function renderCalcTab() {
   h += '<button class="mode-btn" data-mode="cif" onclick="setCalcPriceMode(\'cif\')">CIF</button>';
   h += '</div>';
   h += '<div class="lcc-group" id="calcLccGroup" style="display:none">';
-  h += '<span class="ext-label">Loại LCC:</span>';
+  h += '<span class="ext-label">Loáº¡i LCC:</span>';
   h += '<button class="lcc-btn active" data-lcc="no" onclick="setCalcLccType(\'no\')">No Lcc</button>';
   h += '<button class="lcc-btn" data-lcc="sub" onclick="setCalcLccType(\'sub\')">Sub Lcc</button>';
   h += '</div>';
   h += '<div id="calcFreightGroup" style="display:none">';
-  h += '<span class="ext-label">🚂 Cước biển:</span>';
+  h += '<span class="ext-label">ðŸš‚ CÆ°á»›c biá»ƒn:</span>';
   h += '<input type="number" class="ext-input" id="calcFreightInput" value="0" min="0" step="100" oninput="setCalcFreight(this.value)" style="width:100px">';
   h += '<span class="ext-label">USD</span>;';
-  h += '<button class="ext-label" onclick="showFreightPopup()" style="background:var(--primary);color:white;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;font-weight:600">📡 Tra cước</button>';
+  h += '<button class="ext-label" onclick="showFreightPopup()" style="background:var(--primary);color:white;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;font-weight:600">ðŸ“¡ Tra cÆ°á»›c</button>';
   h += '</div>';
   h += '</div>';
       // Currency toggle for calc tab 
   h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:4px 0">';
-  h += '<span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">💱 Loại tiền:</span>';
+  h += '<span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">ðŸ’± Loáº¡i tiá»n:</span>';
   h += '<div class="calc-currency-bar">';
   h += '<button class="mode-btn active" id="calcCcyVnd" onclick="setCalcCurrency(\'VND\')">VND</button>';
   h += '<button class="mode-btn" id="calcCcyUsd" onclick="setCalcCurrency(\'USD\')">USD</button>';
@@ -114,16 +114,16 @@ function renderCalcTab() {
   h += '</div>';
   // Market selector for calc tab
   h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:4px 0;flex-wrap:wrap">';
-  h += '<span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">🌐 Thị trường:</span>';
+  h += '<span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">ðŸŒ Thá»‹ trÆ°á»ng:</span>';
   h += '<div class="market-group">';
-  h += '<button class="btn-sm" id="calcMarketCn" onclick="setCalcMarket(&apos;cn&apos;)" style="padding:4px 14px;font-size:12px;font-weight:600">🇨🇳 TQ</button>';
-  h += '<button class="btn-sm active" id="calcMarketOther" onclick="setCalcMarket(&apos;other&apos;)" style="padding:4px 14px;font-size:12px;font-weight:600">🌏 Khác</button>';
+  h += '<button class="btn-sm" id="calcMarketCn" onclick="setCalcMarket(&apos;cn&apos;)" style="padding:4px 14px;font-size:12px;font-weight:600">ðŸ‡¨ðŸ‡³ TQ</button>';
+  h += '<button class="btn-sm active" id="calcMarketOther" onclick="setCalcMarket(&apos;other&apos;)" style="padding:4px 14px;font-size:12px;font-weight:600">ðŸŒ KhÃ¡c</button>';
   h += '</div>';
   h += '</div>';
 h += '<div class="calc-result" id="calcResult">';
   h += '<div class="calc-empty">';
-  h += '<div class="calc-empty-icon">📊</div>';
-  h += '<div class="calc-empty-text">Chọn sản phẩm và bao bì để bắt đầu</div>';
+  h += '<div class="calc-empty-icon">ðŸ“Š</div>';
+  h += '<div class="calc-empty-text">Chá»n sáº£n pháº©m vÃ  bao bÃ¬ Ä‘á»ƒ báº¯t Ä‘áº§u</div>';
   h += '</div>';
   h += '</div>';
   h += '</div>';
@@ -146,20 +146,20 @@ function filterCalcProducts() {
   });
   // Populate machines (if standard is selected, filter)
   var prevMach = me.value;
-  me.innerHTML = '<option value="">— Chọn máy —</option>';
+  me.innerHTML = '<option value="">â€” Chá»n mÃ¡y â€”</option>';
   var mk = Object.keys(machinesByStd).sort();
   for (var i = 0; i < mk.length; i++) me.innerHTML += '<option value="' + mk[i].replace(/"/g, '&quot;') + '">' + mk[i] + '</option>';
   me.value = prevMach && mk.indexOf(prevMach) >= 0 ? prevMach : "";
   // Populate standards (if machine is selected, filter)
   var prevStd = se.value;
-  se.innerHTML = '<option value="">— Chọn tiêu chuẩn —</option>';
+  se.innerHTML = '<option value="">â€” Chá»n tiÃªu chuáº©n â€”</option>';
   var sk = Object.keys(standardsByMach).sort();
   for (var i = 0; i < sk.length; i++) se.innerHTML += '<option value="' + sk[i].replace(/"/g, '&quot;') + '">' + sk[i] + '</option>';
   se.value = prevStd && sk.indexOf(prevStd) >= 0 ? prevStd : "";
   // Populate sizes (if machine/standard is selected)
   var prevSz = sze ? sze.value : "";
   if (sze) {
-    sze.innerHTML = '<option value="">— Chọn kích thước —</option>';
+    sze.innerHTML = '<option value="">â€” Chá»n kÃ­ch thÆ°á»›c â€”</option>';
     var szk = Object.keys(sizesByMachStd).sort();
     for (var i = 0; i < szk.length; i++) sze.innerHTML += '<option value="' + szk[i].replace(/"/g, '&quot;') + '">' + szk[i] + '</option>';
     sze.value = prevSz && szk.indexOf(prevSz) >= 0 ? prevSz : "";
@@ -170,8 +170,8 @@ function filterCalcProducts() {
   if (!me || !se || !pe) return;
   var m = me.value, s = se.value, sz = sze ? sze.value : "";
   var prevProd = pe.value;
-  pe.innerHTML = '<option value="">— Chọn sản phẩm —</option>';
-  DATA_PRODUCTS.forEach(function(p) { if ((!m || String(p.machine) === m) && (!s || p.standard === s) && (!sz || p.size === sz)) pe.innerHTML += '<option value="' + p.code + '||' + p.standard + '">' + p.code + ' — ' + p.size + '</option>'; });
+  pe.innerHTML = '<option value="">â€” Chá»n sáº£n pháº©m â€”</option>';
+  DATA_PRODUCTS.forEach(function(p) { if ((!m || String(p.machine) === m) && (!s || p.standard === s) && (!sz || p.size === sz)) pe.innerHTML += '<option value="' + p.code + '||' + p.standard + '">' + p.code + ' â€” ' + p.size + '</option>'; });
   pe.value = prevProd;
 }function onCalcProductChange() { populateCalcMaxLoad(); calcPrice(); }
 function populateCalcMaxLoad() {
@@ -193,7 +193,7 @@ function populateCalcMaxLoad() {
   // Sort numeric ascending
   var sorted = Object.keys(allVals).map(Number).sort(function(a,b){return a-b;});
   for (var i = 0; i < sorted.length; i++) {
-    mlsel.innerHTML += '<option value="' + sorted[i] + '">' + sorted[i] + ' tấn</option>';
+    mlsel.innerHTML += '<option value="' + sorted[i] + '">' + sorted[i] + ' táº¥n</option>';
   }
 }
 // ====== FILTER HELPERS ======
@@ -202,7 +202,7 @@ function filterBagSpec() {
   var bsel = document.getElementById("calcBag");
   if (bsel) {
     var curVal = bsel.value;
-    bsel.innerHTML = '<option value="">— Không chọn bao bì —</option>';
+    bsel.innerHTML = '<option value="">â€” KhÃ´ng chá»n bao bÃ¬ â€”</option>';
     for (var i = 0; i < DATA_BAGS.length; i++) {
       if (DATA_BAGS[i].spec === bagSpec) {
         bsel.innerHTML += '<option value="' + DATA_BAGS[i].code + '">' + DATA_BAGS[i].code + '</option>';
@@ -266,7 +266,7 @@ function calcCommission() {
   var sellPrice = parseFloat(sp.value);
   if (isNaN(sellPrice) || sellPrice <= 0) { cr.innerHTML = ""; return; }
   var psel = document.getElementById("calcProduct");
-  if (!psel || !psel.value) { cr.innerHTML = '<div style="color:var(--muted);font-size:12px">Chọn sản phẩm trước</div>'; return; }
+  if (!psel || !psel.value) { cr.innerHTML = '<div style="color:var(--muted);font-size:12px">Chá»n sáº£n pháº©m trÆ°á»›c</div>'; return; }
   var prod = null;
   for (var i = 0; i < DATA_PRODUCTS.length; i++) { var _cp=psel.value.split('||'),_cpC=_cp[0],_cpS=_cp[1]||'';if (DATA_PRODUCTS[i].code===_cpC&&DATA_PRODUCTS[i].standard===_cpS) { prod = DATA_PRODUCTS[i]; break; } }
   if (!prod) { cr.innerHTML = ""; return; }
@@ -327,10 +327,10 @@ function calcCommission() {
     var effCommBase = sellPrice < totalCost ? 0 : commBase;
     var totalComm = effCommBase + commissionVar;
   }
-  var h = '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + fmtNum(totalCost, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
-  h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + fmtNum(totalComm, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  var h = '<div class="calc-comm-row"><span>Hoa há»“ng cÆ¡ báº£n</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>ChÃªnh lá»‡ch (30%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>Tá»•ng giÃ¡ vá»‘n</span><strong>' + fmtNum(totalCost, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tá»•ng hoa há»“ng</span><strong style="color:var(--primary);font-size:16px">' + fmtNum(totalComm, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   cr.innerHTML = h;
 }
 function calcPrice() {
@@ -338,15 +338,15 @@ function calcPrice() {
   if (!res) return;
   var psel = document.getElementById("calcProduct"), bsel = document.getElementById("calcBag"), tnsel = document.getElementById("calcTonnage"), otnsel = document.getElementById("calcOtherTonnage"), osel = document.getElementById("calcOther"), bagSpecSel = document.getElementById("calcBagSpec");
   var isUsd = currency === "USD", pcode = psel ? psel.value : "";
-  if (!pcode) { res.innerHTML = '<div class="calc-empty">👈 Vui lòng chọn sản phẩm</div>'; return; }
+  if (!pcode) { res.innerHTML = '<div class="calc-empty">ðŸ‘ˆ Vui lÃ²ng chá»n sáº£n pháº©m</div>'; return; }
   var prod = null;
   for (var i = 0; i < DATA_PRODUCTS.length; i++) { var _cp = pcode.split('||'), _cpC = _cp[0], _cpS = _cp[1] || ''; if (DATA_PRODUCTS[i].code === _cpC && DATA_PRODUCTS[i].standard === _cpS) { prod = DATA_PRODUCTS[i]; break; } }
-  if (!prod) { res.innerHTML = '<div class="calc-empty">❌ Không tìm thấy sản phẩm</div>'; return; }
+  if (!prod) { res.innerHTML = '<div class="calc-empty">âŒ KhÃ´ng tÃ¬m tháº¥y sáº£n pháº©m</div>'; return; }
   var bs = bagSpecSel ? bagSpecSel.value : "25KG";
   var isJumbo = bs === "Jumbo";
   // Jumbo validation: must select tonnage
   if (isJumbo && (!tnsel || !tnsel.value || tnsel.value === "")) {
-    res.innerHTML = '<div class="calc-empty">⚠️ Vui lòng chọn <strong>Số tấn / bao Jumbo</strong> để xem kết quả</div>';
+    res.innerHTML = '<div class="calc-empty">âš ï¸ Vui lÃ²ng chá»n <strong>Sá»‘ táº¥n / bao Jumbo</strong> Ä‘á»ƒ xem káº¿t quáº£</div>';
     return;
   }
   // Determine base price: EXW or FOB or CIF
@@ -386,7 +386,7 @@ function calcPrice() {
     // No bag selected -> use pkg price (already includes bag)
     exwMin = isUsd ? (isJumbo ? prod.jumbo_usd : prod.pkg25_usd) : (isJumbo ? prod.jumbo_vnd : prod.pkg25_vnd);
     bagPrice = 0;
-    bagCode = "Tiêu chuẩn " + bs;
+    bagCode = "TiÃªu chuáº©n " + bs;
   }
   var otherPrice = 0, otherCode = "";
   if (ocode) { for (var i = 0; i < DATA_OTHERS.length; i++) { if (DATA_OTHERS[i].code === ocode) { otherPrice = DATA_OTHERS[i].price; otherCode = DATA_OTHERS[i].code; break; } } if (otherTons > 0) otherPrice = otherPrice / otherTons; }
@@ -412,36 +412,36 @@ var total = 0;
   }
   var cc = isUsd ? "USD" : "VND";
     var h = '<div class="calc-result-summary">';
-  h += '<div class="calc-result-item"><span class="calc-rl">📦 Sản phẩm</span><span class="calc-rv">' + prod.code + '</span></div>';
-  h += '<div class="calc-result-item"><span class="calc-rl">⚙️ Máy / Tiêu chuẩn</span><span class="calc-rv">' + prod.machine + ' · ' + prod.standard + '</span></div>';
-  h += '<div class="calc-result-item"><span class="calc-rl">📐 Kích thước</span><span class="calc-rv">' + prod.size + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">ðŸ“¦ Sáº£n pháº©m</span><span class="calc-rv">' + prod.code + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">âš™ï¸ MÃ¡y / TiÃªu chuáº©n</span><span class="calc-rv">' + prod.machine + ' Â· ' + prod.standard + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">ðŸ“ KÃ­ch thÆ°á»›c</span><span class="calc-rv">' + prod.size + '</span></div>';
   var modeLabel = calcPriceMode.toUpperCase();
   if (isFobMode) modeLabel += " (" + (calcLccType === "sub" ? "Sub LCC" : "No LCC") + ")";
   if (isCifMode) modeLabel += " (LCC:" + (calcLccType === "sub" ? "Sub" : "No") + " F:" + calcFreightUSD + "USD)";
-  h += '<div class="calc-result-item"><span class="calc-rl">💰 ' + 'EXW' + (hasBag ? ' chưa bao bì' : ' có bao bì') + '</span><span class="calc-rv exw">' + fmtNum(exwMin, isUsd) + ' ' + cc + '</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">ðŸ’° ' + 'EXW' + (hasBag ? ' chÆ°a bao bÃ¬' : ' cÃ³ bao bÃ¬') + '</span><span class="calc-rv exw">' + fmtNum(exwMin, isUsd) + ' ' + cc + '</span></div>';
   if (isFobMode && maxLoad) {
-    h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tấn</span></div>';
-    h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
+    h += '<div class="calc-result-item"><span class="calc-rl">âš–ï¸ Max loading</span><span class="calc-rv other">' + maxLoad + ' táº¥n</span></div>';
+    h += '<div class="calc-result-item"><span class="calc-rl">ðŸš› PhÃ­ FOB / táº¥n</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
   }
   if (isCifMode) {
     if (maxLoad > 0) {
-      h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tấn</span></div>';
-      h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
+      h += '<div class="calc-result-item"><span class="calc-rl">âš–ï¸ Max loading</span><span class="calc-rv other">' + maxLoad + ' táº¥n</span></div>';
+      h += '<div class="calc-result-item"><span class="calc-rl">ðŸš› PhÃ­ FOB / táº¥n</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
       var cifFreightPerTon = isUsd ? (calcFreightUSD + 10) / maxLoad : (calcFreightUSD + 10) * EXCHANGE_RATE / maxLoad;
-      h += '<div class="calc-result-item"><span class="calc-rl">🚢 Freight / tấn</span><span class="calc-rv other">' + fmtNum(cifFreightPerTon, isUsd) + ' ' + cc + '</span></div>';
+      h += '<div class="calc-result-item"><span class="calc-rl">ðŸš¢ Freight / táº¥n</span><span class="calc-rv other">' + fmtNum(cifFreightPerTon, isUsd) + ' ' + cc + '</span></div>';
     }
   }
-  var bd = ""; if (bcode || isDefaultBag) { if (hasBag) { bd = bagCode; } else { bd = bagCode; } if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">🛍️ Bao bì (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; if (!hasBag) h += '<div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">⚠️ Đang dùng giá bao gồm bao bì tiêu chuẩn. Nếu bao bì khác vui lòng chọn chính xác!</span></div>'; }
-  if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">📦 Quy cách khác (' + od + ')</span><span class="calc-rv other">' + fmtNum(otherPrice, isUsd) + ' ' + cc + '</span></div>'; }
+  var bd = ""; if (bcode || isDefaultBag) { if (hasBag) { bd = bagCode; } else { bd = bagCode; } if (isJumbo && bagTons > 0) bd += " / " + bagTons + " táº¥n"; h += '<div class="calc-result-item"><span class="calc-rl">ðŸ›ï¸ Bao bÃ¬ (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; if (!hasBag) h += '<div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">âš ï¸ Äang dÃ¹ng giÃ¡ bao gá»“m bao bÃ¬ tiÃªu chuáº©n. Náº¿u bao bÃ¬ khÃ¡c vui lÃ²ng chá»n chÃ­nh xÃ¡c!</span></div>'; }
+  if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " táº¥n"; h += '<div class="calc-result-item"><span class="calc-rl">ðŸ“¦ Quy cÃ¡ch khÃ¡c (' + od + ')</span><span class="calc-rv other">' + fmtNum(otherPrice, isUsd) + ' ' + cc + '</span></div>'; }
   h += '<div class="calc-result-total-row">';
-  h += '<span class="calc-rl">🏷️ Tổng giá thành (' + modeLabel + ')</span>';
+  h += '<span class="calc-rl">ðŸ·ï¸ Tá»•ng giÃ¡ thÃ nh (' + modeLabel + ')</span>';
   h += '<span class="calc-rv total">' + fmtNum(total, isUsd) + ' ' + cc + '</span>';
   h += '</div>';
   h += '</div>';
   h += '<div class="calc-commission-wrap">';
-  h += '<div class="calc-sell-input"><span>💰 Giá bán</span><input type="number" id="calcSellPrice" placeholder="Nhập giá bán..." oninput="calcCommission()"></div>';
+  h += '<div class="calc-sell-input"><span>ðŸ’° GiÃ¡ bÃ¡n</span><input type="number" id="calcSellPrice" placeholder="Nháº­p giÃ¡ bÃ¡n..." oninput="calcCommission()"></div>';
   h += '<div class="calc-comm-result" id="calcCommissionResult"></div>';
-  h += '<div style="margin-top:12px;text-align:center"><button onclick="showQuotationPopup()" style="background:var(--primary);color:white;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.3)">📄 Lên báo giá</button></div>';
+  h += '<div style="margin-top:12px;text-align:center"><button onclick="showQuotationPopup()" style="background:var(--primary);color:white;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.3)">ðŸ“„ LÃªn bÃ¡o giÃ¡</button></div>';
   h += '</div>';
   res.innerHTML = h;
 }
@@ -465,7 +465,7 @@ function resetCalcFilters() {
   var bs = document.getElementById("calcBagSpec");
   if (bs) bs.value = "25KG";
   var bg = document.getElementById("calcBag");
-  if (bg) bg.innerHTML = '<option value="">— Không chọn bao bì —</option>';
+  if (bg) bg.innerHTML = '<option value="">â€” KhÃ´ng chá»n bao bÃ¬ â€”</option>';
   var ot = document.getElementById("calcOther");
   if (ot) ot.value = "";
   calcPrice();
@@ -483,3 +483,4 @@ function setCalcMarket(mkt) {
   applyMarket();
   calcPrice();
 }
+
