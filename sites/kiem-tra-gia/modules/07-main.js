@@ -83,6 +83,9 @@ function render() {
     container.innerHTML = "";
   } else if (activeTab === "apps") {
     // Rendered via renderAppsTabAndSwitch from switchTab
+  } else if (activeTab === "quotation") {
+    container.innerHTML = renderQuotationTab();
+    setTimeout(function(){ quotInitRender(); }, 0);
   } else {
     container.innerHTML = "";
   }
@@ -168,5 +171,12 @@ function setLang(lang) {
   });
   document.querySelectorAll(".lang-btn").forEach(function(b) {
     b.classList.toggle("active", b.dataset.lang === lang);
-  });
+  })
+
+// ====== I18N HELPER ======
+function __(key) {
+  var k = key.replace(/ /g,'_').replace(/\//g,'_');
+  if (i18nStrings && i18nStrings[k] && i18nStrings[k][currentLang]) return i18nStrings[k][currentLang];
+  if (LANG_TEMPLATE && LANG_TEMPLATE[k]) return LANG_TEMPLATE[k];
+  return key;
 }
