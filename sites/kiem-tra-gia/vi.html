@@ -974,15 +974,13 @@ function filterCalcProducts() {
   var m = me.value, s = se.value, sz = sze ? sze.value : "";
   var prevProd = pe.value;
   pe.innerHTML = '<option value="">— Chọn sản phẩm —</option>';
-  DATA_PRODUCTS.forEach(function(p) { if ((!m || String(p.machine) === m) && (!s || p.standard === s) && (!sz || p.size === sz)) pe.innerHTML += '<option value="' + p.code + '">' + p.code + ' — ' + p.size + '</option>'; });
+  DATA_PRODUCTS.forEach(function(p) { if ((!m || String(p.machine) === m) && (!s || p.standard === s) && (!sz || p.size === sz)) pe.innerHTML += '<option value="' + p.code + '||' + p.standard + '">' + p.code + ' — ' + p.size + '</option>'; });
   pe.value = prevProd;
 }function onCalcProductChange() { populateCalcMaxLoad(); calcPrice(); }
 function populateCalcMaxLoad() {
   var psel = document.getElementById("calcProduct"), mlsel = document.getElementById("calcMaxLoad");
   if (!psel || !mlsel) return;
-  var pcode = psel.value;
-  mlsel.innerHTML = '<option value="">— Tự động (theo quy cách bao) —</option>';
-  if (!pcode) return;
+  var pcode = psel ? psel.value.split('||')[0] : ''; if (!pcode) return;
   // Collect all unique max loading values from DATA_MAX_LOADING
   var allVals = {};
   for (var k in DATA_MAX_LOADING) {
@@ -1145,7 +1143,7 @@ function calcPrice() {
   var isUsd = currency === "USD", pcode = psel ? psel.value : "";
   if (!pcode) { res.innerHTML = '<div class="calc-empty">👈 Vui lòng chọn sản phẩm</div>'; return; }
   var prod = null;
-  for (var i = 0; i < DATA_PRODUCTS.length; i++) { if (DATA_PRODUCTS[i].code === pcode) { prod = DATA_PRODUCTS[i]; break; } }
+  for (var i = 0; i < DATA_PRODUCTS.length; i++) { var _cp = pcode.split('||'), _cpC = _cp[0], _cpS = _cp[1] || ''; if (DATA_PRODUCTS[i].code === _cpC && DATA_PRODUCTS[i].standard === _cpS) { prod = DATA_PRODUCTS[i]; break; } }
   if (!prod) { res.innerHTML = '<div class="calc-empty">❌ Không tìm thấy sản phẩm</div>'; return; }
   var bs = bagSpecSel ? bagSpecSel.value : "25KG";
   var isJumbo = bs === "Jumbo";
