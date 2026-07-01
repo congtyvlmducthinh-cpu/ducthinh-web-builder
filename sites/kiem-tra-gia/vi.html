@@ -483,6 +483,10 @@ function formatCurrency(v, isUsd) {
   var s = isUsd ? formatUsd(v) : Math.round(v).toLocaleString();
   return s + " " + (isUsd ? "USD" : "VND");
 }
+function formatMaxLoading(v) {
+  if (v && v > 0) return '<span style="font-weight:600;color:#0f766e">' + v + ' t</span>';
+  return '-';
+}
 
 // ====== MAX LOADING ======
 function getMaxLoading(code, spec) {
@@ -510,6 +514,40 @@ function getCostFobVND(maxLoad, lccVariant) {
   if (!row) return 0;
   return lccVariant === "sub" ? row.sub : row.no;
 }
+
+// ====== FOB PRICES ======
+function getFOB25PriceVND(prod, lccVariant) {
+  var ml = getMaxLoading(prod.code, "max25");
+  if (!ml || ml <= 0) return prod.exw_vnd;
+  var cf = getCostFobVND(ml, lccVariant);
+  return Math.round((prod.pkg25_vnd + cf) * 1.05);
+}
+function getFOBJumboPriceVND(prod, lccVariant) {
+  var ml = getMaxLoading(prod.code, "maxJumbo");
+  if (!ml || ml <= 0) return prod.exw_vnd;
+  var cf = getCostFobVND(ml, lccVariant);
+  return Math.round((prod.jumbo_vnd + cf) * 1.05);
+}
+function getFOB25PriceUSD(prod, lccVariant) { return getFOB25PriceVND(prod, lccVariant) / 26000; }
+function getFOBJumboPriceUSD(prod, lccVariant) { return getFOBJumboPriceVND(prod, lccVariant) / 26000; }
+
+// ====== CIF PRICES ======
+function getCIF25PriceVND(prod, lccVariant, freight) {
+  var ml = getMaxLoading(prod.code, "max25");
+  if (!ml || ml <= 0) return prod.exw_vnd;
+  var base = getFOB25PriceVND(prod, lccVariant);
+  if (!freight || freight <= 0) return base;
+  return Math.round(base + (freight + 10 + 10) * 26000 / ml);
+}
+function getCIFJumboPriceVND(prod, lccVariant, freight) {
+  var ml = getMaxLoading(prod.code, "maxJumbo");
+  if (!ml || ml <= 0) return prod.exw_vnd;
+  var base = getFOBJumboPriceVND(prod, lccVariant);
+  if (!freight || freight <= 0) return base;
+  return Math.round(base + (freight + 10 + 10) * 26000 / ml);
+}
+function getCIF25PriceUSD(prod, lccVariant, freight) { return getCIF25PriceVND(prod, lccVariant, freight) / 26000; }
+function getCIFJumboPriceUSD(prod, lccVariant, freight) { return getCIFJumboPriceVND(prod, lccVariant, freight) / 26000; }
 
 // 02-pricelist.js
 // ====== PRICE MODE CONTROLS (Giá bán tab) ======
