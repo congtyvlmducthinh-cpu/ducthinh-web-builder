@@ -114,8 +114,8 @@ function renderCalcTab() {
   h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:4px 0;flex-wrap:wrap">';
   h += '<span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">🌐 Thị trường:</span>';
   h += '<div class="market-group">';
-  h += '<button class="btn-sm active" id="calcMarketCn" onclick="setCalcMarket(&apos;cn&apos;)" style="padding:4px 14px;font-size:12px;font-weight:600">🇨🇳 TQ</button>';
-  h += '<button class="btn-sm" id="calcMarketOther" onclick="setCalcMarket(&apos;other&apos;)" style="padding:4px 14px;font-size:12px;font-weight:600">🌏 Khác</button>';
+  h += '<button class="btn-sm" id="calcMarketCn" onclick="setCalcMarket(&apos;cn&apos;)" style="padding:4px 14px;font-size:12px;font-weight:600">🇨🇳 TQ</button>';
+  h += '<button class="btn-sm active" id="calcMarketOther" onclick="setCalcMarket(&apos;other&apos;)" style="padding:4px 14px;font-size:12px;font-weight:600">🌏 Khác</button>';
   h += '</div>';
   h += '</div>';
 h += '<div class="calc-result" id="calcResult">';

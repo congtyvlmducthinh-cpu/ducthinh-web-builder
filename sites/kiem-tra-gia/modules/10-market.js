@@ -103,7 +103,7 @@ function importProducts(arr) {
 }
 
 // Market switching
-var currentMarket = "cn";
+var currentMarket = "other";
 
 function applyMarket() {
   var suffix = "_" + currentMarket;
