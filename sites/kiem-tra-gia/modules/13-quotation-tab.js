@@ -349,10 +349,10 @@ function recalcQuotCart() {
     var totalCost=0;
     var minPriceEl=document.getElementById("quotMin_"+i);
     var commEl=document.getElementById("quotComm_"+i);
+    var prod=null;
 
     if(item.product){
       var parts=item.product.split("||"), code=parts[0], std=parts[1]||"";
-      var prod=null;
       for(var j=0;j<DATA_PRODUCTS.length;j++){
         if(DATA_PRODUCTS[j].code===code&&DATA_PRODUCTS[j].standard===std){prod=DATA_PRODUCTS[j];break;}
       }
@@ -360,7 +360,7 @@ function recalcQuotCart() {
         var bagSpec=item.bagSpec||"25KG";
         var isJumbo=bagSpec==="Jumbo";
 
-        // === Step 1: minPrice (for display) - same as before ===
+        // === Step 1: minPrice (for display) ===
         if(mode==="exw"){
           minPrice = isUsd ? getEXWPriceUSD(prod, bagSpec) : getEXWPriceVND(prod, bagSpec);
         } else if(mode==="fob"){
@@ -374,22 +374,20 @@ function recalcQuotCart() {
         }
         minPrice = Math.round(minPrice*100)/100;
 
-        // === Step 2: totalCost for commission calc (same logic as calcPrice) ===
-        // Base EXW price
-        var exwBase = isUsd ? prod.exw_usd : prod.exw_vnd;
+        // === Step 2: totalCost for commission ===
+        // EXW base: with bag or without
+        var exwBase = 0;
         var bagPrice = 0;
         var otherPrice = 0;
-
-        // Bag price
         if(item.bagCode){
           // Specific bag selected
+          exwBase = isUsd ? prod.exw_usd : prod.exw_vnd;
           for(var j=0;j<DATA_BAGS.length;j++){
             if(DATA_BAGS[j].code===item.bagCode&&DATA_BAGS[j].spec===bagSpec){
               bagPrice = DATA_BAGS[j].price;
               break;
             }
           }
-          // Adjust for Jumbo tonnage
           if(isJumbo && item.qty > 1) bagPrice = bagPrice / item.qty;
         } else {
           // No bag selected -> use pkg price (includes bag)
@@ -397,36 +395,43 @@ function recalcQuotCart() {
           bagPrice = 0;
         }
 
-        // Convert to USD if needed
-        if(isUsd){
-          bagPrice = Math.round(bagPrice / 26000);
-          otherPrice = Math.round(otherPrice / 26000);
-        }
-
         // Total cost
         if(mode==="fob" || mode==="cif"){
           var ml = isJumbo ? getMaxLoading(prod.code, "maxJumbo") : getMaxLoading(prod.code, "max25");
-          var fobCost = getCostFobVND(ml, lccKey);
-          if(isUsd) fobCost = Math.round(fobCost / 26000);
-          totalCost = (exwBase + bagPrice + otherPrice + fobCost) * 1.05;
+          var cfobCost = getCostFobVND(ml, lccKey);
+          if(isUsd){
+            bagPrice = Math.round(bagPrice / 26000);
+            otherPrice = Math.round(otherPrice / 26000);
+            cfobCost = Math.round(cfobCost / 26000);
+          }
+          totalCost = (exwBase + bagPrice + otherPrice + cfobCost) * 1.05;
           if(mode==="cif" && ml > 0){
             totalCost += isUsd ? (freight + 10) / ml : (freight + 10) * 26000 / ml;
           }
         } else {
+          if(isUsd){
+            bagPrice = Math.round(bagPrice / 26000);
+            otherPrice = Math.round(otherPrice / 26000);
+          }
           totalCost = exwBase + bagPrice + otherPrice;
         }
         totalCost = Math.round(totalCost*100)/100;
       }
     }
 
-    // === Step 3: Commission calculation (same as calcCommission) ===
+    // === Step 3: Commission (matches calcCommission) ===
     var totalComm = 0;
     var effCommBase = 0;
     var commissionVar = 0;
     if(prod && sellPrice > 0 && totalCost > 0){
       var commBase = isUsd ? (prod.comm_usd||0) : (prod.comm_vnd||0);
       effCommBase = sellPrice < totalCost ? 0 : commBase;
-      var diff = Math.max(0, sellPrice - totalCost);
+      var diff;
+      if(mode==="fob" || mode==="cif"){
+        diff = Math.max(0, (sellPrice - totalCost) / 1.05);
+      } else {
+        diff = Math.max(0, sellPrice - totalCost);
+      }
       commissionVar = diff * 0.3;
       totalComm = effCommBase + commissionVar;
     }
