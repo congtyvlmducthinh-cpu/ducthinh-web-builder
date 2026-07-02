@@ -165,6 +165,7 @@ function quotRenderCart() {
     if(psel){for(var pi=0;pi<psel.options.length;pi++){if(psel.options[pi].value===item.product){psel.selectedIndex=pi;break;}}}
     var bagEl=document.getElementById("quotBagSpec_"+i);
     if(bagEl){for(var bi=0;bi<bagEl.options.length;bi++){if(bagEl.options[bi].value===item.bagSpec){bagEl.selectedIndex=bi;break;}}}
+    var _bsEl=document.getElementById("quotBagSpec_"+i); if(_bsEl) QUOT_CART[i].bagSpec=_bsEl.value;
     onQuotBagSpecChange(i);
     var bagDetailEl=document.getElementById("quotBag_"+i);
     if(bagDetailEl&&bagDetailEl.tagName==="SELECT"&&item.bagCode){for(var bj=0;bj<bagDetailEl.options.length;bj++){if(bagDetailEl.options[bj].value===item.bagCode){bagDetailEl.selectedIndex=bj;break;}}}
@@ -255,9 +256,8 @@ function quotRenderRow(idx, item) {
   }
   h+='</select></div>';
 
-  // Other spec (hidden for Jumbo)
-  var otherDisplay=item.bagSpec==="Jumbo"?"none":"flex";
-  h+='<div class="quot-form-group" style="flex:0.7;display:'+otherDisplay+'" id="quotOtherRow_'+idx+'"><label>📦 QC khác</label>';
+  // Other spec (always visible)
+  h+='<div class="quot-form-group" style="flex:0.7" id="quotOtherRow_'+idx+'"><label>📦 QC khác</label>';
   h+='<select id="quotOther_'+idx+'" class="quot-input" onchange="onQuotOtherChange('+idx+')"><option value="">— Không —</option>';
   for(var o=0;o<DATA_OTHERS.length;o++){
     var selAttr3=item.rowOtherCode===DATA_OTHERS[o].code?' selected':'';
@@ -265,8 +265,9 @@ function quotRenderRow(idx, item) {
   }
   h+='</select></div>';
 
-  // Other tonnage
-  h+='<div class="quot-form-group" style="flex:0.4" id="quotOtherTonsRow_'+idx+'"><label>Tấn QK</label>';
+  // Other tonnage (hidden when Jumbo)
+  var otherTonsDisplay=item.bagSpec==="Jumbo"?"none":"flex";
+  h+='<div class="quot-form-group" style="flex:0.4;display:'+otherTonsDisplay+'" id="quotOtherTonsRow_'+idx+'"><label>Tấn QK</label>';
   h+='<select id="quotOtherTons_'+idx+'" class="quot-input" onchange="recalcQuotCart()">';
   var otherTons=["0.5","0.7","1","1.1","1.2","1.25","1.3","1.35","1.4","1.5"];
   h+='<option value="1">1 tấn</option>';
@@ -328,10 +329,8 @@ function onQuotBagSpecChange(idx) {
   detail.innerHTML=html;
   // Show/hide Jumbo tonnage and Other spec rows
   var jumboRow=document.getElementById("quotJumboRow_"+idx);
-  var otherRow=document.getElementById("quotOtherRow_"+idx);
   var otherTonsRow=document.getElementById("quotOtherTonsRow_"+idx);
   if(jumboRow) jumboRow.style.display=isJumbo?"flex":"none";
-  if(otherRow) otherRow.style.display=isJumbo?"none":"flex";
   if(otherTonsRow) otherTonsRow.style.display=isJumbo?"none":"flex";
   recalcQuotCart();
 }function onQuotProdChange(idx) {
