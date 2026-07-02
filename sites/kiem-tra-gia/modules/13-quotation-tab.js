@@ -1012,6 +1012,11 @@ function quotSpecPickerApply() {
     if (!confirm("Bạn chưa chọn thông số nào. Tiếp tục?")) return;
   }
   quotSetSelectedFields(keys);
+  // Auto-save as "Mặc định" template so reload remembers
+  var tpls = quotGetTemplates();
+  tpls["Mặc định"] = keys.slice();
+  quotSetTemplates(tpls);
+  quotSetLastTemplate("Mặc định");
   quotSpecPickerClose();
 
   // Update all spec rows in quotation cart
