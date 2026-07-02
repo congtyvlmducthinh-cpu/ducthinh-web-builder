@@ -8243,10 +8243,13 @@ function quotRenderRow(idx, item) {
   QUOT_CART[idx].product="";
   // Re-render just this row to update filters and product dropdown
   var rowEl=document.getElementById("quotRow_"+idx);
+  var subEl=document.getElementById("quotSubRow_"+idx);
   if(rowEl){
     var newRow=quotRenderRow(idx, QUOT_CART[idx]);
     rowEl.outerHTML=newRow;
   }
+  // Remove old subrow if it became orphaned
+  if(subEl&&subEl.parentNode) subEl.parentNode.removeChild(subEl);
   setupQuotRowEvents(idx);
   recalcQuotCart();
 }function setupQuotRowEvents(idx) { onQuotBagSpecChange(idx); onQuotProdChange(idx); }
@@ -8459,7 +8462,76 @@ function recalcQuotCart() {
     }
   }
   updateQuotPreview();
-}function updateQuotPreview() {
+}
+function _generateQuotPreviewHtml() {
+  var hasProd=false;
+  for(var i=0;i<QUOT_CART.length;i++){if(QUOT_CART[i].product){hasProd=true;break;}}
+  if(!hasProd) return '<div class="quot-preview-empty" style="padding:40px;text-align:center;color:#94a3b8">Chưa có sản phẩm nào. Hãy thêm sản phẩm trước.</div>';
+  var customer=document.getElementById("qCustomer")?document.getElementById("qCustomer").value||"______________________":"";
+  var contact=document.getElementById("qContact")?document.getElementById("qContact").value||"":"";
+  var assigned=document.getElementById("qAssigned")?document.getElementById("qAssigned").value||"":"";
+  var custEmail=document.getElementById("qCustEmail")?document.getElementById("qCustEmail").value||"":"";
+  var valid=document.getElementById("qValid")?document.getElementById("qValid").value:"15 ngày";
+  var payment=document.getElementById("qPayment")?document.getElementById("qPayment").value:"";
+  var port=document.getElementById("qPort")?document.getElementById("qPort").value||"":"";
+  var delivery=document.getElementById("qDelivery")?document.getElementById("qDelivery").value:"";
+  var note=document.getElementById("qNote")?document.getElementById("qNote").value:"";
+  var unit=document.getElementById("quotUnit")?document.getElementById("quotUnit").value:"Tấn";
+  var mode=document.getElementById("quotDeliveryMode")?document.getElementById("quotDeliveryMode").value.toUpperCase():"EXW";
+  var isUsd=document.getElementById("quotCurrency")?document.getElementById("quotCurrency").value==="USD":false;
+  var now=new Date();
+  var dd=String(now.getDate()).padStart(2,"0");
+  var mm=String(now.getMonth()+1).padStart(2,"0");
+  var yy=now.getFullYear();
+  var dateStr=dd+"/"+mm+"/"+yy;
+  var h='<div class="q-preview" style="font-family:Arial,sans-serif;max-width:800px;margin:0 auto;font-size:13px;color:#333;line-height:1.5">';
+  h+='<h1 style="text-align:center;font-size:20px;color:#1e293b;margin:0 0 2px">'+COMPANY+'</h1>';
+  h+='<p style="text-align:center;font-size:11px;color:#64748b;margin:0 0 12px;line-height:1.6">'+ADDR+'<br>Email: '+EMAIL+' - '+WEBSITE+'<br>Tel: '+PHONE+' Ext: '+EXT+' - MST: '+MST+'</p>';
+  h+='<div style="border-top:2px solid #3b82f6;margin-bottom:12px"></div>';
+  h+='<p style="text-align:center;font-weight:700;font-size:14px;color:#1e293b;margin:0 0 16px">📄 BÁO GIÁ</p>';
+  h+='<div style="display:flex;gap:16px;flex-wrap:wrap;font-size:12px;margin-bottom:12px"><span><strong>Khách hàng:</strong> '+customer+'</span>';
+  if(contact) h+='<span><strong>LH:</strong> '+contact+'</span>';
+  if(assigned) h+='<span><strong>NV:</strong> '+assigned+'</span>';
+  if(custEmail) h+='<span><strong>Email:</strong> '+custEmail+'</span>';
+  h+='<span><strong>Ngày:</strong> '+dateStr+'</span>';
+  if(port) h+='<span><strong>Cảng đi:</strong> '+port+'</span>';
+  h+='</div>';
+  h+='<table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px">';
+  h+='<thead><tr style="background:#f1f5f9"><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:left;font-weight:600;color:#475569">STT</th><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:left;font-weight:600;color:#475569">Code</th><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:left;font-weight:600;color:#475569">Sản phẩm</th><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:left;font-weight:600;color:#475569">Bao bì</th><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:left;font-weight:600;color:#475569">ĐVT</th><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:left;font-weight:600;color:#475569">SL</th><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:right;font-weight:600;color:#475569">Giá bán</th><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:left;font-weight:600;color:#475569">Tiền tệ</th></tr></thead>';
+  h+='<tbody>';
+  for(var i=0;i<QUOT_CART.length;i++){
+    var item=QUOT_CART[i];
+    if(!item.product) continue;
+    var parts=item.product.split("||"), code=parts[0], std=parts[1]||"";
+    var prod=null;
+    for(var j=0;j<DATA_PRODUCTS.length;j++){
+      if(DATA_PRODUCTS[j].code===code&&DATA_PRODUCTS[j].standard===std){prod=DATA_PRODUCTS[j];code=prod.code;break;}
+    }
+    var size=prod?prod.code+" - "+prod.size:"";
+    var sp=item.sellPrice||0;
+    var priceFmt=sp>0?sp.toLocaleString("en-US",isUsd?{minimumFractionDigits:0,maximumFractionDigits:2}:{}):"__________";
+    var bagLabel=item.bagCode||item.bagSpec||"";
+    var qty=item.qty||1;
+    h+='<tr><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:12px">'+(i+1)+'</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:12px">'+code+'</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:12px">'+size+'</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:12px">'+bagLabel+'</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:12px">'+unit+'</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:12px">'+qty+'</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:12px;text-align:right;font-weight:700">'+priceFmt+'</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:12px">'+(isUsd?"USD":"VND")+'</td></tr>';
+  }
+  h+='</tbody></table>';
+  h+='<div style="font-size:12px;line-height:1.8">';
+  h+='<span><strong>Điều kiện:</strong> '+mode+'</span><br>';
+  if(port&&(mode==="FOB"||mode==="CIF")) h+='<span><strong>Cảng đi:</strong> '+port+'</span><br>';
+  var dest=document.getElementById("qDest")?document.getElementById("qDest").value:"";
+  if(dest&&mode==="CIF") h+='<span><strong>Cảng đến:</strong> '+dest+'</span><br>';
+  h+='<span><strong>Hiệu lực:</strong> '+valid+'</span><br>';
+  h+='<span><strong>Thanh toán:</strong> '+payment+'</span>';
+  if(note) h+='<br><span><strong>Ghi chú:</strong> '+note+'</span>';
+  h+='</div>';
+  h+='<div style="margin-top:12px;padding-top:8px;border-top:1px solid #e2e8f0;font-size:11px;color:#64748b">';
+  h+='- Giá không bao gồm thuế VAT<br>';
+  h+='- Báo giá này có hiệu lực trong vòng '+valid+'<br>';
+  h+='- Số lượng tối thiểu: 1 container 20 feet (khoảng 21 tấn)';
+  h+='</div></div>';
+  return h;
+}
+function updateQuotPreview() {
   var previewEl=document.getElementById("quotPreview");
   if(!previewEl) return;
   var hasProd=false;
@@ -8634,16 +8706,24 @@ function quotGetText() {
 
 function quotPreviewOpen() {
   var overlay=document.getElementById("quotPreviewOverlay");
-  if(!overlay){overlay=document.createElement("div");overlay.id="quotPreviewOverlay";overlay.style.cssText="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center";document.body.appendChild(overlay);
-    var popup=document.createElement("div");popup.id="quotPreviewPopup";popup.style.cssText="background:#fff;border-radius:12px;padding:24px;max-width:90vw;max-height:85vh;overflow:auto;box-shadow:0 8px 32px rgba(0,0,0,0.2);position:relative";overlay.appendChild(popup);
-    var closeBtn=document.createElement("button");closeBtn.textContent="✕ Đóng";closeBtn.style.cssText="position:sticky;top:0;float:right;background:var(--primary,#3b82f6);color:#fff;border:none;padding:6px 16px;border-radius:6px;cursor:pointer;font-size:14px;z-index:1";closeBtn.onclick=function(){document.body.removeChild(overlay);};popup.appendChild(closeBtn);
-    var content=document.createElement("div");content.id="quotPreviewContent";popup.appendChild(content);
+  if(!overlay){
+    overlay=document.createElement("div");overlay.id="quotPreviewOverlay";
+    overlay.style.cssText="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center";
+    document.body.appendChild(overlay);
+    var popup=document.createElement("div");popup.id="quotPreviewPopup";
+    popup.style.cssText="background:#fff;border-radius:12px;padding:24px;max-width:90vw;max-height:85vh;overflow:auto;box-shadow:0 8px 32px rgba(0,0,0,0.2);position:relative";
+    overlay.appendChild(popup);
+    var closeBtn=document.createElement("button");closeBtn.textContent="✕ Đóng";
+    closeBtn.style.cssText="position:sticky;top:0;float:right;background:var(--primary,#3b82f6);color:#fff;border:none;padding:6px 16px;border-radius:6px;cursor:pointer;font-size:14px;z-index:1";
+    closeBtn.onclick=function(){document.body.removeChild(overlay);};
+    popup.appendChild(closeBtn);
+    var content=document.createElement("div");content.id="quotPreviewContent";
+    content.style.cssText="clear:both";
+    popup.appendChild(content);
     overlay.onclick=function(e){if(e.target===overlay){document.body.removeChild(overlay);}};
   }
-  updateQuotPreview();
   var content=document.getElementById("quotPreviewContent");
-  var previewEl=document.getElementById("quotPreview");
-  if(content&&previewEl) content.innerHTML=previewEl.innerHTML;
+  if(content) content.innerHTML=_generateQuotPreviewHtml();
 }
 function quotPrint() {
   var hasProd = false;
