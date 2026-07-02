@@ -225,8 +225,9 @@ function quotRenderRow(idx, item) {
   h+='<button class="quot-remove-btn" onclick="quotRemoveRow('+idx+')" title="Xóa">✕</button>';
   h+='</div>';
 
-  // Row 1: Product + Bag spec + Bag + Sell price
+  // Thông tin sản phẩm
   h+='<div class="quot-row-body">';
+  h+='<label class="quot-field-label">Sản phẩm</label>';
   h+='<div class="quot-prod-sm-row">';
   h+='<div style="flex:2;min-width:0"><select id="quotProd_'+idx+'" class="quot-input quot-prod-sm" onchange="onQuotProdChange('+idx+')"><option value="">— Chọn SP —</option>';
   for(var i=0;i<DATA_PRODUCTS.length;i++){
@@ -241,6 +242,7 @@ function quotRenderRow(idx, item) {
   }
   h+='</select></div>';
   // Bag spec
+  h+='<label class="quot-field-label">Bao bì</label>';
   var bagSpecs={};
   for(var b=0;b<DATA_BAGS.length;b++){bagSpecs[DATA_BAGS[b].spec]=1;}
   var specKeys=Object.keys(bagSpecs).sort();
@@ -251,11 +253,13 @@ function quotRenderRow(idx, item) {
   h+='<option value="Khác">Khác</option></select></div>';
   // Bag detail
   h+='<div id="quotBagDetail_'+idx+'" style="flex:1;min-width:0"><select id="quotBag_'+idx+'" class="quot-input quot-prod-sm" onchange="recalcQuotCart()"><option value="">— Bao —</option></select></div>';
-  // Sell price
+  // Giá bán & Số lượng
+  h+='<label class="quot-field-label">Giá bán</label>';
   h+='<div style="flex:0.7;min-width:80px"><input type="number" id="quotSell_'+idx+'" class="quot-input quot-sell-sm" placeholder="Giá..." min="0" step="0.01" value="'+(item.sellPrice||'')+'" oninput="onQuotSellChange('+idx+')"></div>';
   h+='</div>';
 
-  // Sub-row: Jumbo + Other + Qty
+  // Quy cách đặc biệt (Jumbo / QC khác)
+  h+='<label class="quot-field-label">Quy cách đặc biệt</label>';
   var jumboDisplay=item.bagSpec==="Jumbo"?"flex":"none";
   var otherTonsDisplay=item.bagSpec==="Jumbo"?"none":"flex";
   h+='<div class="quot-prod-sm-row" id="quotJumboRow_'+idx+'" style="display:'+jumboDisplay+'">';
@@ -275,10 +279,10 @@ function quotRenderRow(idx, item) {
   h+='<option value="1">1 tấn</option>';
   for(var t=0;t<otherTons.length;t++){h+='<option value="'+otherTons[t]+'"'+(String(item.rowOtherTons)===otherTons[t]?' selected':'')+'>'+otherTons[t]+' tấn</option>';}
   h+='</select></div>';
-  h+='<div style="flex:0.2;min-width:50px"><input type="number" id="quotQty_'+idx+'" class="quot-input quot-prod-sm" value="'+item.qty+'" min="1" oninput="updateQuotPreview()"></div>';
+  h+='<div style="flex:0.2;min-width:50px"><input type="number" id="quotQty_'+idx+'" class="quot-input quot-prod-sm" placeholder="Số lượng" value="'+item.qty+'" min="1" oninput="updateQuotPreview()"></div>';
   h+='</div>';
 
-  // Row 2: Spec + Stats
+  // Thông số
   h+='<div class="quot-row-stats">';
   h+='<div class="quot-spec-row" id="quotSpec_'+idx+'"><span class="quot-spec-label">📊 TCKT:</span> <span class="quot-spec-val">Chọn SP trước</span></div>';
   h+='<div class="quot-min-price" id="quotMin_'+idx+'"><span class="quot-min-label">💰 Min: </span><span class="quot-min-val">—</span></div>';
