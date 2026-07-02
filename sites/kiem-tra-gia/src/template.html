@@ -296,6 +296,42 @@ tbody tr:hover td{background:#eff6ff}
 /* Delivery Terms: cảng đi/đến visibility */
 #quotPortGroup,#quotDestGroup{transition:display .2s}
 
+
+
+/* Quotation table */
+.quot-table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+.quot-table thead th{background:#f1f5f9;padding:8px 6px;text-align:left;font-weight:600;color:#475569;border-bottom:2px solid #e2e8f0;white-space:nowrap}
+.quot-table tbody td{padding:6px;vertical-align:top;border-bottom:1px solid #f1f5f9}
+.quot-data-row td{background:#fff}
+.quot-subrow td{background:#fafbfc;border-bottom:2px solid #e2e8f0;padding:4px 6px}
+.quot-td-num{width:36px;text-align:center;min-width:36px}
+.quot-td-prod{min-width:180px;width:auto}
+.quot-td-qty{width:65px;min-width:65px}
+.quot-td-bag{min-width:140px;width:auto}
+.quot-td-special{min-width:130px;width:auto}
+.quot-td-price{width:120px;min-width:120px}
+.quot-th-num{width:36px}
+.quot-th-qty{width:65px}
+.quot-th-price{width:120px}
+.quot-fltr-row{display:flex;gap:3px;margin-top:3px}
+.quot-fltr-row select{font-size:10px;padding:2px 4px;flex:1;min-width:0;border:1px solid #d1d5db;border-radius:4px;background:#f9fafb}
+.quot-row-num{font-weight:700;color:var(--primary,#3b82f6);display:block;font-size:12px;line-height:1}
+.quot-remove-btn{background:none;border:none;color:#ef4444;cursor:pointer;font-size:12px;padding:2px 4px;display:block;margin-top:2px;border-radius:4px}
+.quot-remove-btn:hover{background:#fef2f2}
+.quot-td-stats .quot-row-stats{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:#64748b;padding:2px 0}
+.quot-td-stats .quot-spec-row{flex:2;min-width:0}
+.quot-td-stats .quot-min-price,.quot-td-stats .quot-comm-display{white-space:nowrap}
+.quot-td-stats .quot-spec-val,.quot-td-stats .quot-min-val,.quot-td-stats .quot-comm-val{color:#334155;font-weight:600}
+.quot-input.quot-sell-sm{height:32px}
+@media(max-width:900px){
+  .quot-table,.quot-table thead,.quot-table tbody,.quot-table tr,.quot-table td,.quot-table th{display:block}
+  .quot-table thead{display:none}
+  .quot-data-row td,.quot-subrow td{display:block;width:100%!important;padding:4px 8px;border:none}
+  .quot-td-num{text-align:left}
+  .quot-fltr-row{display:flex}
+  .quot-subrow td{border-bottom:2px solid #e2e8f0;padding:6px 8px}
+}
+
 </style>
 </head>
 <body>
