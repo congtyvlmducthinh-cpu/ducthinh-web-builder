@@ -8288,6 +8288,12 @@ function recalcQuotCart() {
 
   for(var i=0;i<QUOT_CART.length;i++){
     var item=QUOT_CART[i];
+    // Sync per-row values from DOM
+    var bagEl=document.getElementById("quotBag_"+i); if(bagEl) item.bagCode=bagEl.value;
+    var jumboEl=document.getElementById("quotJumboTons_"+i); if(jumboEl) item.rowJumboTons=parseFloat(jumboEl.value)||1;
+    var otherEl=document.getElementById("quotOther_"+i); if(otherEl) item.rowOtherCode=otherEl.value;
+    var otherTonsEl=document.getElementById("quotOtherTons_"+i); if(otherTonsEl) item.rowOtherTons=parseFloat(otherTonsEl.value)||1;
+    var sellEl=document.getElementById("quotSell_"+i); if(sellEl) item.sellPrice=parseFloat(sellEl.value)||0;
     var sellPrice=item.sellPrice||0;
     var minPrice=0;
     var totalCost=0;
