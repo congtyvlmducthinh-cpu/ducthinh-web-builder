@@ -339,12 +339,14 @@ function recalcQuotCart() {
   var lcc=document.getElementById("quotLccType")?document.getElementById("quotLccType").value:"no";
   var freight=document.getElementById("quotFreight")?parseFloat(document.getElementById("quotFreight").value)||0:0;
   var market=document.getElementById("quotMarket")?document.getElementById("quotMarket").value:"other";
+  var lccKey = lcc==="sub"?"sub":"no";
   var cc=isUsd?"USD":"VND";
 
   for(var i=0;i<QUOT_CART.length;i++){
     var item=QUOT_CART[i];
     var sellPrice=item.sellPrice||0;
     var minPrice=0;
+    var totalCost=0;
     var minPriceEl=document.getElementById("quotMin_"+i);
     var commEl=document.getElementById("quotComm_"+i);
 
@@ -355,40 +357,93 @@ function recalcQuotCart() {
         if(DATA_PRODUCTS[j].code===code&&DATA_PRODUCTS[j].standard===std){prod=DATA_PRODUCTS[j];break;}
       }
       if(prod){
-        var lccKey = lcc==="sub"?"sub":"no";
         var bagSpec=item.bagSpec||"25KG";
+        var isJumbo=bagSpec==="Jumbo";
 
+        // === Step 1: minPrice (for display) - same as before ===
         if(mode==="exw"){
           minPrice = isUsd ? getEXWPriceUSD(prod, bagSpec) : getEXWPriceVND(prod, bagSpec);
         } else if(mode==="fob"){
           var fobFn=isUsd?getFOB25PriceUSD:getFOB25PriceVND;
-          if(bagSpec==="Jumbo") fobFn=isUsd?getFOBJumboPriceUSD:getFOBJumboPriceVND;
+          if(isJumbo) fobFn=isUsd?getFOBJumboPriceUSD:getFOBJumboPriceVND;
           minPrice = fobFn(prod, lccKey);
         } else if(mode==="cif"){
           var cifFn=isUsd?getCIF25PriceUSD:getCIF25PriceVND;
-          if(bagSpec==="Jumbo") cifFn=isUsd?getCIFJumboPriceUSD:getCIFJumboPriceVND;
+          if(isJumbo) cifFn=isUsd?getCIFJumboPriceUSD:getCIFJumboPriceVND;
           minPrice = cifFn(prod, lccKey, freight);
         }
         minPrice = Math.round(minPrice*100)/100;
+
+        // === Step 2: totalCost for commission calc (same logic as calcPrice) ===
+        // Base EXW price
+        var exwBase = isUsd ? prod.exw_usd : prod.exw_vnd;
+        var bagPrice = 0;
+        var otherPrice = 0;
+
+        // Bag price
+        if(item.bagCode){
+          // Specific bag selected
+          for(var j=0;j<DATA_BAGS.length;j++){
+            if(DATA_BAGS[j].code===item.bagCode&&DATA_BAGS[j].spec===bagSpec){
+              bagPrice = DATA_BAGS[j].price;
+              break;
+            }
+          }
+          // Adjust for Jumbo tonnage
+          if(isJumbo && item.qty > 1) bagPrice = bagPrice / item.qty;
+        } else {
+          // No bag selected -> use pkg price (includes bag)
+          exwBase = isUsd ? (isJumbo?prod.jumbo_usd:prod.pkg25_usd) : (isJumbo?prod.jumbo_vnd:prod.pkg25_vnd);
+          bagPrice = 0;
+        }
+
+        // Convert to USD if needed
+        if(isUsd){
+          bagPrice = Math.round(bagPrice / 26000);
+          otherPrice = Math.round(otherPrice / 26000);
+        }
+
+        // Total cost
+        if(mode==="fob" || mode==="cif"){
+          var ml = isJumbo ? getMaxLoading(prod.code, "maxJumbo") : getMaxLoading(prod.code, "max25");
+          var fobCost = getCostFobVND(ml, lccKey);
+          if(isUsd) fobCost = Math.round(fobCost / 26000);
+          totalCost = (exwBase + bagPrice + otherPrice + fobCost) * 1.05;
+          if(mode==="cif" && ml > 0){
+            totalCost += isUsd ? (freight + 10) / ml : (freight + 10) * 26000 / ml;
+          }
+        } else {
+          totalCost = exwBase + bagPrice + otherPrice;
+        }
+        totalCost = Math.round(totalCost*100)/100;
       }
     }
 
-    var totalComm=0;
-    if(sellPrice>0&&minPrice>0){
-      totalComm=sellPrice-minPrice;
-      if(totalComm<0) totalComm=0;
+    // === Step 3: Commission calculation (same as calcCommission) ===
+    var totalComm = 0;
+    var effCommBase = 0;
+    var commissionVar = 0;
+    if(prod && sellPrice > 0 && totalCost > 0){
+      var commBase = isUsd ? (prod.comm_usd||0) : (prod.comm_vnd||0);
+      effCommBase = sellPrice < totalCost ? 0 : commBase;
+      var diff = Math.max(0, sellPrice - totalCost);
+      commissionVar = diff * 0.3;
+      totalComm = effCommBase + commissionVar;
     }
 
     if(minPriceEl){
       minPriceEl.innerHTML='<div class="quot-min-label">💰 Giá tối thiểu</div><div class="quot-min-val">'+fmtNum(minPrice,isUsd)+' '+cc+'</div>';
     }
     if(commEl){
-      commEl.innerHTML='<div class="quot-comm-label">💰 Hoa hồng</div><div class="quot-comm-val">'+fmtNum(totalComm,isUsd)+' '+cc+'</div>';
+      var h='<div class="quot-comm-label">💰 Hoa hồng</div><div class="quot-comm-val">'+fmtNum(totalComm,isUsd)+' '+cc+'</div>';
+      h+='<div style="font-size:10px;color:var(--muted);margin-top:2px">';
+      if(effCommBase>0) h+='Base: '+fmtNum(effCommBase,isUsd)+' | ';
+      h+='30% chênh: '+fmtNum(commissionVar,isUsd)+' '+cc+'</div>';
+      commEl.innerHTML=h;
     }
   }
   updateQuotPreview();
-}
-function updateQuotPreview() {
+}function updateQuotPreview() {
   var previewEl=document.getElementById("quotPreview");
   if(!previewEl) return;
   var hasProd=false;
