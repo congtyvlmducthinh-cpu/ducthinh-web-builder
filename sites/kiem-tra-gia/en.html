@@ -8303,28 +8303,12 @@ function recalcQuotCart() {
       if(prod){
         var bagSpec=item.bagSpec||"25KG";
         var isJumbo=bagSpec==="Jumbo";
+        var bagTons = item.rowJumboTons||1;
+        var otherTons = item.rowOtherTons||1;
 
-        // === Step 1: minPrice (for display) ===
-        if(mode==="exw"){
-          minPrice = isUsd ? getEXWPriceUSD(prod, bagSpec) : getEXWPriceVND(prod, bagSpec);
-        } else if(mode==="fob"){
-          var fobFn=isUsd?getFOB25PriceUSD:getFOB25PriceVND;
-          if(isJumbo) fobFn=isUsd?getFOBJumboPriceUSD:getFOBJumboPriceVND;
-          minPrice = fobFn(prod, lccKey);
-        } else if(mode==="cif"){
-          var cifFn=isUsd?getCIF25PriceUSD:getCIF25PriceVND;
-          if(isJumbo) cifFn=isUsd?getCIFJumboPriceUSD:getCIFJumboPriceVND;
-          minPrice = cifFn(prod, lccKey, freight);
-        }
-        minPrice = Math.round(minPrice*100)/100;
-
-        // === Step 2: totalCost for commission ===
-        // EXW base: with bag or without
-        var exwBase = 0;
-        var bagPrice = 0;
-        var otherPrice = 0;
+        // === Compute exwBase, bagPrice, otherPrice (same for minPrice and totalCost) ===
+        var exwBase = 0, bagPrice = 0, otherPrice = 0;
         if(item.bagCode){
-          // Specific bag selected
           exwBase = isUsd ? prod.exw_usd : prod.exw_vnd;
           for(var j=0;j<DATA_BAGS.length;j++){
             if(DATA_BAGS[j].code===item.bagCode&&DATA_BAGS[j].spec===bagSpec){
@@ -8332,15 +8316,27 @@ function recalcQuotCart() {
               break;
             }
           }
-          if(isJumbo && item.qty > 1) bagPrice = bagPrice / item.qty;
+          if(isJumbo && bagTons > 0) bagPrice = bagPrice / bagTons;
         } else {
-          // No bag selected -> use pkg price (includes bag)
           exwBase = isUsd ? (isJumbo?prod.jumbo_usd:prod.pkg25_usd) : (isJumbo?prod.jumbo_vnd:prod.pkg25_vnd);
           bagPrice = 0;
         }
+        if(item.rowOtherCode){
+          for(var j=0;j<DATA_OTHERS.length;j++){
+            if(DATA_OTHERS[j].code===item.rowOtherCode){
+              otherPrice = DATA_OTHERS[j].price;
+              break;
+            }
+          }
+          if(!isJumbo && otherTons > 0) otherPrice = otherPrice / otherTons;
+          if(isJumbo && bagTons > 0) otherPrice = otherPrice / bagTons;
+        }
 
-        // Total cost
-        if(mode==="fob" || mode==="cif"){
+        // === Compute minPrice AND totalCost the same way ===
+        // This matches calcPrice() logic exactly
+        if(mode==="exw"){
+          minPrice = exwBase + bagPrice + otherPrice;
+        } else if(mode==="fob"){
           var ml = isJumbo ? getMaxLoading(prod.code, "maxJumbo") : getMaxLoading(prod.code, "max25");
           var cfobCost = getCostFobVND(ml, lccKey);
           if(isUsd){
@@ -8348,22 +8344,26 @@ function recalcQuotCart() {
             otherPrice = Math.round(otherPrice / 26000);
             cfobCost = Math.round(cfobCost / 26000);
           }
-          totalCost = (exwBase + bagPrice + otherPrice + cfobCost) * 1.05;
-          if(mode==="cif" && ml > 0){
-            totalCost += isUsd ? (freight + 10) / ml : (freight + 10) * 26000 / ml;
-          }
-        } else {
+          minPrice = (exwBase + bagPrice + otherPrice + cfobCost) * 1.05;
+        } else if(mode==="cif"){
+          var ml = isJumbo ? getMaxLoading(prod.code, "maxJumbo") : getMaxLoading(prod.code, "max25");
+          var cfobCost = getCostFobVND(ml, lccKey);
           if(isUsd){
             bagPrice = Math.round(bagPrice / 26000);
             otherPrice = Math.round(otherPrice / 26000);
+            cfobCost = Math.round(cfobCost / 26000);
           }
-          totalCost = exwBase + bagPrice + otherPrice;
+          minPrice = (exwBase + bagPrice + otherPrice + cfobCost) * 1.05;
+          if(ml > 0){
+            minPrice += isUsd ? (freight + 10) / ml : (freight + 10) * 26000 / ml;
+          }
         }
-        totalCost = Math.round(totalCost*100)/100;
+        minPrice = Math.round(minPrice*100)/100;
+        totalCost = minPrice; // Same value
       }
     }
 
-    // === Step 3: Commission (matches calcCommission) ===
+    // === Commission ===
     var totalComm = 0;
     var effCommBase = 0;
     var commissionVar = 0;
