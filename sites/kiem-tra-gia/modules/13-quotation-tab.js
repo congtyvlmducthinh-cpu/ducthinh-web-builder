@@ -1,4 +1,4 @@
-// ====== QUOTATION TAB (Standalone) ======
+﻿// ====== QUOTATION TAB (Standalone) ======
 // Multi-product quotation builder with TCKT spec data
 
 var QUOT_CART = [];
@@ -52,7 +52,7 @@ function renderQuotationTab() {
 
   // Products
   h += '<div class="quot-section"><div class="quot-section-title"><span class="badge purple">📦</span><span class="title-text">Sản phẩm</span>';
-  h += '<button class="quot-add-btn" onclick="quotAddRow()">+ Thêm SP</button></div>';
+  h += '<button class="tckt-spec-btn" onclick="quotSpecPickerOpen()" title="Chọn thông số KT hiển thị">🛠️ Spec</button><button class="quot-add-btn" onclick="quotAddRow()">+ Thêm SP</button></div>';
   h += '<div class="quot-filter-row">';
   h += '<select id="quotMachFilter" class="quot-input quot-filter-sm" onchange="quotFilterProds()"><option value="">— Tất cả máy —</option></select>';
   h += '<select id="quotStdFilter" class="quot-input quot-filter-sm" onchange="quotFilterProds()"><option value="">— Tất cả TC —</option></select>';
@@ -71,7 +71,7 @@ function renderQuotationTab() {
   return h;
 }
 
-function quotInitRender() {
+function quotInitRender() { quotInitSpecPicker();
   QUOT_CART = [{ product:"", bagCode:"", bagSpec:"25KG", qty:1, sellPrice:0, rowJumboTons:1, rowOtherCode:"", rowOtherTons:1 }];
   quotPopulateFilters();
   quotRenderCart();
@@ -782,4 +782,284 @@ function fmtNum(val, isUsd) {
   if (val === undefined || val === null || isNaN(val)) return "—";
   if (isUsd) return val.toLocaleString("en-US", {minimumFractionDigits:0, maximumFractionDigits:2});
   return Math.round(val).toLocaleString("en-US");
+}
+
+// ====== TCKT SPEC PICKER ======
+// Available spec fields with display labels
+var QUOT_TCKT_FIELDS = [
+  { key:"d97", label:"D97" },
+  { key:"d50_bet", label:"D50 (BET)" },
+  { key:"d50_marvel", label:"D50 (Marvel)" },
+  { key:"mesh", label:"Mesh" },
+  { key:"brightness_y", label:"Br (Y)" },
+  { key:"whiteness_l", label:"W (L)" },
+  { key:"r457", label:"R457" },
+  { key:"konica_l", label:"Konica L" },
+  { key:"b_konica", label:"B Konica" },
+  { key:"b_iso", label:"B ISO" },
+  { key:"ph_value", label:"pH" },
+  { key:"residue", label:"Residue" },
+  { key:"destiny", label:"Tỉ trọng" },
+  { key:"hardness", label:"Độ cứng" },
+  { key:"acid_stearic", label:"Acid Stearic" },
+  { key:"caco3", label:"CaCO3" },
+  { key:"fe2o3", label:"Fe2O3" },
+  { key:"mgo", label:"MgO" },
+  { key:"al2o3", label:"Al2O3" },
+  { key:"sio2", label:"SiO2" },
+  { key:"hcl_insoluble", label:"HCl Insoluble" }
+];
+
+// Get selected fields from localStorage (return array of key strings)
+function quotGetSelectedFields() {
+  var raw = localStorage.getItem("quot_tckt_selected");
+  if (raw) {
+    try { return JSON.parse(raw); } catch(e) {}
+  }
+  // Default: show core fields
+  return ["d97","d50_bet","brightness_y","whiteness_l","r457"];
+}
+
+// Save selected fields
+function quotSetSelectedFields(keys) {
+  localStorage.setItem("quot_tckt_selected", JSON.stringify(keys));
+}
+
+// Get saved templates
+function quotGetTemplates() {
+  var raw = localStorage.getItem("quot_tckt_templates");
+  if (raw) {
+    try { return JSON.parse(raw); } catch(e) {}
+  }
+  return {};
+}
+
+// Save all templates
+function quotSetTemplates(tpls) {
+  localStorage.setItem("quot_tckt_templates", JSON.stringify(tpls));
+}
+
+// Get last template name used
+function quotGetLastTemplate() {
+  return localStorage.getItem("quot_tckt_last_tpl") || "";
+}
+
+// Set last template name
+function quotSetLastTemplate(name) {
+  localStorage.setItem("quot_tckt_last_tpl", name);
+}
+
+// Render spec string from DATA_SPECS entry using selected fields
+function renderSpecFields(specData) {
+  if (!specData) return "(Không có thông số TCKT)";
+  var fields = quotGetSelectedFields();
+  var parts = [];
+  for (var i = 0; i < fields.length; i++) {
+    var key = fields[i];
+    if (specData[key] && specData[key] !== "") {
+      // Find label
+      var label = key;
+      for (var j = 0; j < QUOT_TCKT_FIELDS.length; j++) {
+        if (QUOT_TCKT_FIELDS[j].key === key) { label = QUOT_TCKT_FIELDS[j].label; break; }
+      }
+      parts.push(label + ": " + specData[key]);
+    }
+  }
+  return parts.length > 0 ? parts.join(" | ") : "(Không có thông số TCKT)";
+}
+
+// Open the spec picker popup
+function quotSpecPickerOpen() {
+  var overlay = document.getElementById("tcktOverlay");
+  if (!overlay) {
+    // Build popup HTML
+    var h = '<div class="tckt-overlay" id="tcktOverlay">';
+    h += '<div class="tckt-modal">';
+    h += '<div class="tckt-header"><h3>🛠️ Chọn thông số kỹ thuật</h3><button class="tckt-close" onclick="quotSpecPickerClose()">✕</button></div>';
+    h += '<div class="tckt-body" id="tcktBody">';
+    var sel = quotGetSelectedFields();
+    for (var i = 0; i < QUOT_TCKT_FIELDS.length; i++) {
+      var f = QUOT_TCKT_FIELDS[i];
+      var checked = sel.indexOf(f.key) >= 0 ? " checked" : "";
+      h += '<div class="tckt-field">';
+      h += '<input type="checkbox" id="tckt_' + f.key + '" value="' + f.key + '"' + checked + '>';
+      h += '<label for="tckt_' + f.key + '">' + f.label + '</label>';
+      h += '<span class="tckt-key">' + f.key + '</span>';
+      h += '</div>';
+    }
+    h += '</div>'; // tckt-body
+
+    // Template bar
+    h += '<div class="tckt-template-bar">';
+    h += '<label>📋 Template:</label>';
+    h += '<select id="tcktTplSelect" onchange="quotSpecPickerLoad()">';
+    h += '<option value="">— Chọn template —</option>';
+    var tpls = quotGetTemplates();
+    var tplKeys = Object.keys(tpls);
+    var lastTpl = quotGetLastTemplate();
+    for (var t = 0; t < tplKeys.length; t++) {
+      var selected = tplKeys[t] === lastTpl ? " selected" : "";
+      h += '<option value="' + tplKeys[t].replace(/"/g,"&quot;") + '"' + selected + '>' + escHtml(tplKeys[t]) + '</option>';
+    }
+    h += '</select>';
+    h += '<input type="text" id="tcktTplName" class="tckt-name-input" placeholder="Tên template...">';
+    h += '<button class="tckt-btn-sm tckt-btn-primary" onclick="quotSpecPickerSave()">💾 Lưu</button>';
+    h += '<button class="tckt-btn-sm tckt-btn-danger" onclick="quotSpecPickerDelete()">🗑️</button>';
+    h += '</div>';
+
+    h += '<div class="tckt-footer">';
+    h += '<button class="tckt-btn-sm tckt-btn-secondary" onclick="quotSpecPickerClose()">Huỷ</button>';
+    h += '<button class="tckt-btn-sm tckt-btn-primary" onclick="quotSpecPickerApply()">✅ Áp dụng</button>';
+    h += '</div>';
+    h += '</div></div>';
+
+    // Insert into DOM
+    var div = document.createElement("div");
+    div.innerHTML = h;
+    document.body.appendChild(div.firstElementChild);
+    overlay = document.getElementById("tcktOverlay");
+  } else {
+    // Refresh checkboxes from saved selection
+    var sel2 = quotGetSelectedFields();
+    for (var i2 = 0; i2 < QUOT_TCKT_FIELDS.length; i2++) {
+      var cb = document.getElementById("tckt_" + QUOT_TCKT_FIELDS[i2].key);
+      if (cb) cb.checked = sel2.indexOf(QUOT_TCKT_FIELDS[i2].key) >= 0;
+    }
+    // Refresh template dropdown
+    var tplSel = document.getElementById("tcktTplSelect");
+    if (tplSel) {
+      var curVal = tplSel.value;
+      tplSel.innerHTML = '<option value="">— Chọn template —</option>';
+      var tpls2 = quotGetTemplates();
+      var tplKeys2 = Object.keys(tpls2);
+      for (var t2 = 0; t2 < tplKeys2.length; t2++) {
+        tplSel.innerHTML += '<option value="' + tplKeys2[t2].replace(/"/g,"&quot;") + '">' + escHtml(tplKeys2[t2]) + '</option>';
+      }
+      if (curVal) tplSel.value = curVal;
+    }
+  }
+  overlay.classList.add("open");
+}
+
+function quotSpecPickerClose() {
+  var overlay = document.getElementById("tcktOverlay");
+  if (overlay) overlay.classList.remove("open");
+}
+
+// Save current selection as template
+function quotSpecPickerSave() {
+  var nameEl = document.getElementById("tcktTplName");
+  var name = nameEl ? nameEl.value.trim() : "";
+  if (!name) { alert("Vui lòng nhập tên template!"); return; }
+
+  // Get current checkbox state
+  var keys = [];
+  for (var i = 0; i < QUOT_TCKT_FIELDS.length; i++) {
+    var cb = document.getElementById("tckt_" + QUOT_TCKT_FIELDS[i].key);
+    if (cb && cb.checked) keys.push(QUOT_TCKT_FIELDS[i].key);
+  }
+
+  var tpls = quotGetTemplates();
+  tpls[name] = keys;
+  quotSetTemplates(tpls);
+  quotSetLastTemplate(name);
+  quotSpecPickerRefreshTplSelect(name);
+  alert("✅ Đã lưu template \"" + name + "\"");
+}
+
+// Load selected template
+function quotSpecPickerLoad() {
+  var tplSel = document.getElementById("tcktTplSelect");
+  if (!tplSel || !tplSel.value) return;
+  var name = tplSel.value;
+  var tpls = quotGetTemplates();
+  var keys = tpls[name];
+  if (!keys) return;
+
+  // Uncheck all, then check matched
+  for (var i = 0; i < QUOT_TCKT_FIELDS.length; i++) {
+    var cb = document.getElementById("tckt_" + QUOT_TCKT_FIELDS[i].key);
+    if (cb) cb.checked = keys.indexOf(QUOT_TCKT_FIELDS[i].key) >= 0;
+  }
+  quotSetLastTemplate(name);
+  // Show template name in input
+  var nameEl = document.getElementById("tcktTplName");
+  if (nameEl) nameEl.value = name;
+}
+
+// Delete current template
+function quotSpecPickerDelete() {
+  var tplSel = document.getElementById("tcktTplSelect");
+  if (!tplSel || !tplSel.value) return;
+  var name = tplSel.value;
+  if (!confirm("Xoá template \"" + name + "\"?")) return;
+  var tpls = quotGetTemplates();
+  delete tpls[name];
+  quotSetTemplates(tpls);
+  var lastTpl = quotGetLastTemplate();
+  if (lastTpl === name) quotSetLastTemplate("");
+  quotSpecPickerRefreshTplSelect("");
+}
+
+// Apply selected fields and close
+function quotSpecPickerApply() {
+  var keys = [];
+  for (var i = 0; i < QUOT_TCKT_FIELDS.length; i++) {
+    var cb = document.getElementById("tckt_" + QUOT_TCKT_FIELDS[i].key);
+    if (cb && cb.checked) keys.push(QUOT_TCKT_FIELDS[i].key);
+  }
+  if (keys.length === 0) {
+    if (!confirm("Bạn chưa chọn thông số nào. Tiếp tục?")) return;
+  }
+  quotSetSelectedFields(keys);
+  quotSpecPickerClose();
+
+  // Update all spec rows in quotation cart
+  var changed = false;
+  for (var i2 = 0; i2 < QUOT_CART.length; i2++) {
+    var item = QUOT_CART[i2];
+    if (!item.product) continue;
+    var parts = item.product.split("||"), code = parts[0], std = parts[1] || "";
+    var prod = null;
+    for (var j = 0; j < DATA_PRODUCTS.length; j++) {
+      if (DATA_PRODUCTS[j].code === code && DATA_PRODUCTS[j].standard === std) { prod = DATA_PRODUCTS[j]; break; }
+    }
+    if (prod) {
+      var specEl = document.getElementById("quotSpec_" + i2);
+      if (specEl) {
+        var s = DATA_SPECS[prod.code];
+        specEl.querySelector(".quot-spec-val").textContent = s ? renderSpecFields(s) : "(Không có thông số TCKT)";
+        changed = true;
+      }
+    }
+  }
+}
+
+// Refresh template dropdown
+function quotSpecPickerRefreshTplSelect(selectedVal) {
+  var tplSel = document.getElementById("tcktTplSelect");
+  if (!tplSel) return;
+  tplSel.innerHTML = '<option value="">— Chọn template —</option>';
+  var tpls = quotGetTemplates();
+  var keys = Object.keys(tpls);
+  for (var i = 0; i < keys.length; i++) {
+    var selAttr = keys[i] === (selectedVal || "") ? " selected" : "";
+    tplSel.innerHTML += '<option value="' + keys[i].replace(/"/g,"&quot;") + '"' + selAttr + '>' + escHtml(keys[i]) + '</option>';
+  }
+  if (selectedVal) {
+    var nameEl = document.getElementById("tcktTplName");
+    if (nameEl) nameEl.value = selectedVal;
+  }
+}
+
+// Auto-load last template on page init (called from quotInitRender)
+// Also ensures the spec row renders using selected fields
+function quotInitSpecPicker() {
+  var lastTpl = quotGetLastTemplate();
+  if (lastTpl) {
+    var tpls = quotGetTemplates();
+    if (tpls[lastTpl]) {
+      quotSetSelectedFields(tpls[lastTpl]);
+    }
+  }
 }
