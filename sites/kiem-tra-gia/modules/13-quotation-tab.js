@@ -212,21 +212,21 @@ function onQuotBagSpecChange(idx) {
   var val=spec.value; var detail=document.getElementById("quotBagDetail_"+idx);
   QUOT_CART[idx].bagSpec=val;
   QUOT_CART[idx].bagCode=""; // Reset bag code when spec changes
+  var html="";
   if(val==="Khác"){
-    detail.innerHTML='<label>QC khác</label><input type="text" id="quotBag_'+idx+'" class="quot-input" placeholder="Nhập quy cách..." oninput="recalcQuotCart()">';
+    html='<label>QC khác</label><input type="text" id="quotBag_'+idx+'" class="quot-input" placeholder="Nhập quy cách..." oninput="recalcQuotCart()">';
   } else {
-    var bags=[];
-    for(var j=0;j<DATA_BAGS.length;j++){
+    var bags=[], j=0;
+    for(j=0;j<DATA_BAGS.length;j++){
       if(DATA_BAGS[j].spec===val){bags.push(DATA_BAGS[j]);}
     }
-    detail.innerHTML='<label>Bao</label><select id="quotBag_'+idx+'" class="quot-input" onchange="recalcQuotCart()"><option value="">— Mặc định —</option>';
-    for(var j=0;j<bags.length;j++){detail.innerHTML+='<option value="'+bags[j].code.replace(/"/g,"&quot;")+'">'+escHtml(bags[j].code)+'</option>';}
-    detail.innerHTML+='</select>';
+    html='<label>Bao</label><select id="quotBag_'+idx+'" class="quot-input" onchange="recalcQuotCart()"><option value="">— Mặc định —</option>';
+    for(j=0;j<bags.length;j++){html+='<option value="'+bags[j].code.replace(/"/g,"&quot;")+'">'+escHtml(bags[j].code)+'</option>';}
+    html+='</select>';
   }
+  detail.innerHTML=html;
   recalcQuotCart();
-}
-
-function onQuotProdChange(idx) {
+}function onQuotProdChange(idx) {
   var sel=document.getElementById("quotProd_"+idx); if(!sel) return;
   var val=sel.value; QUOT_CART[idx].product=val;
   var specEl=document.getElementById("quotSpec_"+idx);
