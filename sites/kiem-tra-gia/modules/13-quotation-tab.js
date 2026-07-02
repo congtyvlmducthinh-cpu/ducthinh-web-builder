@@ -7,69 +7,82 @@ function renderQuotationTab() {
   var h = '<div class="quot-grid">';
   h += '<div class="quot-left">';
 
-  // Customer Info
-  h += '<div class="quot-section collapsed"><div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge blue">🏢</span><span class="title-text">Khách hàng</span><span class="quot-toggle-icon">▶</span></div>';
-  h += '<div class="quot-section-content"><div class="quot-form-row"><div class="quot-form-group"><label>🏢 Khách hàng</label><input type="text" id="qCustomer" placeholder="Tên khách hàng..." oninput="updateQuotPreview()" class="quot-input"></div>';
-  h += '<div class="quot-form-group"><label>👤 Người liên hệ</label><input type="text" id="qContact" placeholder="Người liên hệ..." oninput="updateQuotPreview()" class="quot-input"></div></div>';
-  h += '<div class="quot-form-row"><div class="quot-form-group"><label>👤 Người phụ trách</label><input type="text" id="qAssigned" placeholder="Tên nhân viên..." oninput="updateQuotPreview()" class="quot-input"></div>';
-  h += '<div class="quot-form-group"><label>📧 Email KH</label><input type="email" id="qCustEmail" placeholder="Email khách hàng..." oninput="updateQuotPreview()" class="quot-input"></div></div>';
+  // ====== Khách hàng ======
+  h += '<div class="quot-section">';
+  h += '<div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge blue">🏢</span><span class="title-text">Khách hàng</span><span class="quot-toggle-icon">▼</span></div>';
+  h += '<div class="quot-section-content">';
+  h += '<div class="quot-form-row">';
+  h += '<div class="quot-form-group"><label>🏢 Khách hàng</label><input type="text" id="qCustomer" placeholder="Tên khách hàng..." oninput="updateQuotPreview()" class="quot-input"></div>';
+  h += '<div class="quot-form-group"><label>👤 Người liên hệ</label><input type="text" id="qContact" placeholder="Người liên hệ..." oninput="updateQuotPreview()" class="quot-input"></div>';
   h += '</div>';
+  h += '<div class="quot-form-row">';
+  h += '<div class="quot-form-group"><label>👤 Người phụ trách</label><input type="text" id="qAssigned" placeholder="Tên nhân viên..." oninput="updateQuotPreview()" class="quot-input"></div>';
+  h += '<div class="quot-form-group"><label>📧 Email KH</label><input type="email" id="qCustEmail" placeholder="Email khách hàng..." oninput="updateQuotPreview()" class="quot-input"></div>';
+  h += '</div>';
+  h += '</div>'; // section-content
+  h += '</div>'; // section
 
-    // Delivery Terms (mở sẵn)
-  h+='<div class="quot-section"><div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge green">🚚</span><span class="title-text">Delivery Terms</span><span class="quot-toggle-icon">▼</span></div>'
-  h+='<div class="quot-section-content">';
-  h+='<div class="quot-form-row">';
-  h+='<div class="quot-form-group"><label>EXW/FOB/CIF</label>';
-  h+='<select id="quotDeliveryMode" class="quot-input" onchange="onQuotDeliveryChange()">';
-  h+='<option value="exw">EXW</option><option value="fob">FOB</option><option value="cif">CIF</option></select></div>';
-  h+='<div class="quot-form-group" id="quotLccGroup" style="display:none"><label>LCC</label>';
-  h+='<select id="quotLccType" class="quot-input" onchange="recalcQuotCart()">';
-  h+='<option value="no">No LCC</option><option value="sub">Sub LCC</option></select></div>';
-  h+='<div class="quot-form-group" id="quotFreightGroup" style="display:none"><label>🚂 Cước (USD)</label>';
-  h+='<input type="number" id="quotFreight" class="quot-input" value="0" min="0" oninput="recalcQuotCart()" style="width:100px"></div></div>';
-  h+='<div class="quot-form-row">';
-  h+='<div class="quot-form-group"><label>💱 Loại tiền</label>';
-  h+='<select id="quotCurrency" class="quot-input" onchange="recalcQuotCart()">';
-  h+='<option value="VND">VND</option><option value="USD">USD</option></select></div>';
-  h+='<div class="quot-form-group"><label>🌏 Thị trường</label>';
-  h+='<select id="quotMarket" class="quot-input" onchange="recalcQuotCart()">';
-  h+='<option value="other">🌏 Khác</option><option value="cn">🇨🇳 TQ</option></select></div>';
-  h+='<div class="quot-form-group"><label>📦 ĐVT</label>';
-  h+='<select id="quotUnit" class="quot-input" onchange="updateQuotPreview()">';
-  h+='<option value="Tấn">Tấn</option><option value="MT">MT</option><option value="TON">TON</option></select></div></div>';
-  h+='<div class="quot-form-row">';
-  h+='<div class="quot-form-group"><label>⏱ Hiệu lực</label>';
-  h+='<select id="qValid" class="quot-input" onchange="updateQuotPreview()">';
-  h+='<option value="15 ngày">15 ngày</option><option value="30 ngày">30 ngày</option>';
-  h+='<option value="7 ngày">7 ngày</option><option value="Kể từ ngày ký">Kể từ ngày ký</option></select></div>';
-  h+='<div class="quot-form-group"><label>💰 Thanh toán</label>';
-  h+='<select id="qPayment" class="quot-input" onchange="updateQuotPreview()">';
-  h+='<option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option>';
-  h+='<option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div></div>';
-  h+='<div class="quot-form-row">';
-  h+='<div class="quot-form-group" id="quotPortGroup" style="display:none"><label>⛵ Cảng đi</label><input type="text" id="qPort" placeholder="Cảng đi..." class="quot-input" oninput="updateQuotPreview()"></div>';
-  h+='<div class="quot-form-group" id="quotDestGroup" style="display:none"><label>🛫 Cảng đến</label><input type="text" id="qDest" placeholder="Cảng đến..." class="quot-input" oninput="updateQuotPreview()"></div>';
-  h+='<div class="quot-form-group" id="quotDelivGroup"><label>📬 Giao hàng</label><input type="text" id="qDelivery" placeholder="Điều kiện giao hàng..." class="quot-input" oninput="updateQuotPreview()"></div>';
-  h+='</div>';
-  h+='<div class="quot-form-group"><label>📝 Ghi chú</label><input type="text" id="qNote" placeholder="Ghi chú..." class="quot-input" oninput="updateQuotPreview()" style="width:100%"></div>';
-  h+='</div>';
-// Products
-  h += '<div class="quot-section"><div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge purple">📦</span><span class="title-text">Sản phẩm</span><span class="quot-toggle-icon">▼</span>';
-  h += '<button class="tckt-spec-btn" onclick="quotSpecPickerOpen()" title="Chọn thông số KT hiển thị">🛠️ Spec</button><button class="quot-add-btn" onclick="quotAddRow()">+ Thêm SP</button></div>';
+  // ====== Delivery Terms ======
+  h += '<div class="quot-section">';
+  h += '<div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge green">🚚</span><span class="title-text">Delivery Terms</span><span class="quot-toggle-icon">▼</span></div>';
+  h += '<div class="quot-section-content">';
+  h += '<div class="quot-form-row">';
+  h += '<div class="quot-form-group"><label>EXW/FOB/CIF</label>';
+  h += '<select id="quotDeliveryMode" class="quot-input" onchange="onQuotDeliveryChange()"><option value="exw">EXW</option><option value="fob">FOB</option><option value="cif">CIF</option></select></div>';
+  h += '<div class="quot-form-group" id="quotLccGroup" style="display:none"><label>LCC</label>';
+  h += '<select id="quotLccType" class="quot-input" onchange="recalcQuotCart()"><option value="no">No LCC</option><option value="sub">Sub LCC</option></select></div>';
+  h += '<div class="quot-form-group" id="quotFreightGroup" style="display:none"><label>🚂 Cước (USD)</label>';
+  h += '<input type="number" id="quotFreight" class="quot-input" value="0" min="0" oninput="recalcQuotCart()" style="width:100px"></div></div>';
+  h += '<div class="quot-form-row">';
+  h += '<div class="quot-form-group"><label>💱 Loại tiền</label>';
+  h += '<select id="quotCurrency" class="quot-input" onchange="recalcQuotCart()"><option value="VND">VND</option><option value="USD">USD</option></select></div>';
+  h += '<div class="quot-form-group"><label>🌏 Thị trường</label>';
+  h += '<select id="quotMarket" class="quot-input" onchange="recalcQuotCart()"><option value="other">🌏 Khác</option><option value="cn">🇨🇳 TQ</option></select></div>';
+  h += '<div class="quot-form-group"><label>📦 ĐVT</label>';
+  h += '<select id="quotUnit" class="quot-input" onchange="updateQuotPreview()"><option value="Tấn">Tấn</option><option value="MT">MT</option><option value="TON">TON</option></select></div></div>';
+  h += '<div class="quot-form-row">';
+  h += '<div class="quot-form-group"><label>⏱ Hiệu lực</label>';
+  h += '<select id="qValid" class="quot-input" onchange="updateQuotPreview()"><option value="15 ngày">15 ngày</option><option value="30 ngày">30 ngày</option><option value="7 ngày">7 ngày</option><option value="Kể từ ngày ký">Kể từ ngày ký</option></select></div>';
+  h += '<div class="quot-form-group"><label>💰 Thanh toán</label>';
+  h += '<select id="qPayment" class="quot-input" onchange="updateQuotPreview()"><option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option><option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div></div>';
+  h += '<div class="quot-form-row">';
+  h += '<div class="quot-form-group" id="quotPortGroup" style="display:none"><label>⛵ Cảng đi</label><input type="text" id="qPort" placeholder="Cảng đi..." class="quot-input" oninput="updateQuotPreview()"></div>';
+  h += '<div class="quot-form-group" id="quotDestGroup" style="display:none"><label>🛫 Cảng đến</label><input type="text" id="qDest" placeholder="Cảng đến..." class="quot-input" oninput="updateQuotPreview()"></div>';
+  h += '<div class="quot-form-group"><label>📬 Giao hàng</label><input type="text" id="qDelivery" placeholder="Điều kiện giao hàng..." class="quot-input" oninput="updateQuotPreview()"></div>';
+  h += '</div>';
+  h += '<div class="quot-form-group"><label>📝 Ghi chú</label><input type="text" id="qNote" placeholder="Ghi chú..." class="quot-input" oninput="updateQuotPreview()" style="width:100%"></div>';
+  h += '</div>'; // section-content
+  h += '</div>'; // section
 
-  h += '<div class="quot-section-content"><div class="quot-section-content"><div id="quotCart"></div></div></div>';
+  // ====== Sản phẩm ======
+  h += '<div class="quot-section">';
+  h += '<div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge purple">📦</span><span class="title-text">Sản phẩm</span><span class="quot-toggle-icon">▼</span>';
+  h += '<button class="tckt-spec-btn" onclick="quotSpecPickerOpen()" title="Chọn thông số KT hiển thị">🛠️ Spec</button>';
+  h += '<button class="quot-add-btn" onclick="quotAddRow()">+ Thêm SP</button></div>';
+  h += '<div class="quot-section-content">';
+  h += '<div id="quotCart"></div>';
+  h += '</div>'; // section-content
+  h += '</div>'; // section
 
-  // Right panel
-  h += '</div>'; // close quot-left
+  // ====== Kết thúc cột trái ======
+  h += '</div>'; // quot-left
+
+  // ====== Cột phải: Preview báo giá ======
   h += '<div class="quot-right">';
-  h += '<div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge blue">📄</span><span class="title-text">Xem trước báo giá</span><span class="quot-toggle-icon">▼</span></div>'
+  h += '<div class="quot-section">';
+  h += '<div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge blue">📄</span><span class="title-text">Xem trước báo giá</span><span class="quot-toggle-icon">▼</span></div>';
   h += '<div class="quot-section-content">';
   h += '<div class="quot-actions">';
   h += '<button class="quot-btn quot-btn-primary" onclick="quotPrint()">🖨️ In</button>';
   h += '<button class="quot-btn quot-btn-secondary" onclick="quotCopy()">📋 Copy</button>';
   h += '<button class="quot-btn quot-btn-secondary" onclick="quotClear()">🗑️ Xóa hết</button></div>';
   h += '<div class="quot-preview" id="quotPreview">';
-  h += '<div class="quot-preview-empty">👈 Chọn sản phẩm và điền thông tin</div></div></div></div>';
+  h += '<div class="quot-preview-empty">👈 Chọn sản phẩm và điền thông tin</div>';
+  h += '</div>';
+  h += '</div>'; // section-content
+  h += '</div>'; // section
+  h += '</div>'; // quot-right
+  h += '</div>'; // quot-grid
   return h;
 }
 
