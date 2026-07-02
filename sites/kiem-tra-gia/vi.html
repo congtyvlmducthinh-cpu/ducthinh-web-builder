@@ -8040,6 +8040,13 @@ function quotRenderCart() {
   cartEl.innerHTML=h;
   for(var i=0;i<QUOT_CART.length;i++){
     var item=QUOT_CART[i];
+    // Restore cascading filters
+    var machEl=document.getElementById("quotMach_"+i);
+    var stdEl=document.getElementById("quotStd_"+i);
+    var szEl=document.getElementById("quotSz_"+i);
+    if(machEl&&item.rowFilterMachine){for(var fi=0;fi<machEl.options.length;fi++){if(machEl.options[fi].value===item.rowFilterMachine){machEl.selectedIndex=fi;break;}}}
+    if(stdEl&&item.rowFilterStandard){for(var fi=0;fi<stdEl.options.length;fi++){if(stdEl.options[fi].value===item.rowFilterStandard){stdEl.selectedIndex=fi;break;}}}
+    if(szEl&&item.rowFilterSize){for(var fi=0;fi<szEl.options.length;fi++){if(szEl.options[fi].value===item.rowFilterSize){szEl.selectedIndex=fi;break;}}}
     var psel=document.getElementById("quotProd_"+i);
     if(psel){for(var pi=0;pi<psel.options.length;pi++){if(psel.options[pi].value===item.product){psel.selectedIndex=pi;break;}}}
     var bagEl=document.getElementById("quotBagSpec_"+i);
@@ -8051,24 +8058,62 @@ function quotRenderCart() {
     var qtyInput=document.getElementById("quotQty_"+i); if(qtyInput) qtyInput.value=item.qty;
     var sellInput=document.getElementById("quotSell_"+i); if(sellInput) sellInput.value=item.sellPrice;
     setupQuotRowEvents(i);
-  }
-  recalcQuotCart();
-}
-
-function quotRenderRow(idx, item) {
+  }function quotRenderRow(idx, item) {
   var filtered=getQuotFilteredProducts();
+  // Get current filter values from item
+  var curMach=item.rowFilterMachine||"";
+  var curStd=item.rowFilterStandard||"";
+  var curSz=item.rowFilterSize||"";
+
+  // Collect unique values for filters
+  var allMachines={}, allStds={}, allSizes={};
+  for(var i=0;i<DATA_PRODUCTS.length;i++){
+    var p=DATA_PRODUCTS[i];
+    allMachines[p.machine]=1;
+    allStds[p.standard]=1;
+    allSizes[p.size]=1;
+  }
+
+  // Filter standards by selected machine
+  var availStds={}, availSizes={};
+  for(var i=0;i<DATA_PRODUCTS.length;i++){
+    var p=DATA_PRODUCTS[i];
+    var machOk=!curMach||String(p.machine)===curMach;
+    var stdOk=!curStd||p.standard===curStd;
+    if(machOk) availStds[p.standard]=1;
+    if(machOk&&stdOk) availSizes[p.size]=1;
+  }
+  var machKeys=Object.keys(allMachines).sort();
+  var stdKeys=Object.keys(availStds).sort();
+  var sizeKeys=Object.keys(availSizes).sort();
+
   var h='<div class="quot-prod-row" id="quotRow_'+idx+'" data-machine="" data-standard="" data-size="">';
   h+='<div class="quot-row-header"><span class="quot-row-num">#'+(idx+1)+'</span><button class="quot-remove-btn" onclick="quotRemoveRow('+idx+')">✕</button></div>';
-  h+='<div class="quot-form-group"><label>Sản phẩm</label><select id="quotProd_'+idx+'" class="quot-input" onchange="onQuotProdChange('+idx+')"><option value="">— Chọn SP —</option>';
-  var lastMach="";
-  for(var i=0;i<filtered.length;i++){
-    var p=filtered[i];
+
+  // Cascading filters: Machine, Standard, Size
+  h+='<div class="quot-row-inline"><div class="quot-form-group" style="flex:1"><label>🏭 Máy</label><select id="quotMach_'+idx+'" class="quot-input" onchange="onQuotRowFilterChange('+idx+')"><option value="">— Máy —</option>';
+  for(var i=0;i<machKeys.length;i++){h+='<option value="'+machKeys[i].replace(/"/g,"&quot;")+'"'+(curMach===machKeys[i]?' selected':'')+'>'+machKeys[i]+'</option>';}
+  h+='</select></div>';
+  h+='<div class="quot-form-group" style="flex:1"><label>📋 Tiêu chuẩn</label><select id="quotStd_'+idx+'" class="quot-input" onchange="onQuotRowFilterChange('+idx+')"><option value="">— TC —</option>';
+  for(var i=0;i<stdKeys.length;i++){h+='<option value="'+stdKeys[i].replace(/"/g,"&quot;")+'"'+(curStd===stdKeys[i]?' selected':'')+'>'+stdKeys[i]+'</option>';}
+  h+='</select></div>';
+  h+='<div class="quot-form-group" style="flex:1"><label>📐 Kích thước</label><select id="quotSz_'+idx+'" class="quot-input" onchange="onQuotRowFilterChange('+idx+')"><option value="">— KT —</option>';
+  for(var i=0;i<sizeKeys.length;i++){h+='<option value="'+sizeKeys[i].replace(/"/g,"&quot;")+'"'+(curSz===sizeKeys[i]?' selected':'')+'>'+sizeKeys[i]+'</option>';}
+  h+='</select></div>';
+  h+='<div class="quot-form-group" style="flex:2"><label>🔖 Sản phẩm</label><select id="quotProd_'+idx+'" class="quot-input" onchange="onQuotProdChange('+idx+')"><option value="">— Chọn SP —</option>';
+  // Only show products matching all 3 filters
+  for(var i=0;i<DATA_PRODUCTS.length;i++){
+    var p=DATA_PRODUCTS[i];
+    var machOk=!curMach||String(p.machine)===curMach;
+    var stdOk=!curStd||p.standard===curStd;
+    var szOk=!curSz||p.size===curSz;
+    if(!machOk||!stdOk||!szOk) continue;
     var val=p.code+"||"+(p.standard||"");
-    var lab=(p.machine?"["+p.machine+"] ":"")+p.code+" - "+p.size+(p.standard?" ("+p.standard+")":"");
-    if(p.machine!==lastMach){h+='<option disabled style="font-weight:700;background:#f0f2f5">━━━ '+p.machine+' ━━━</option>';lastMach=p.machine;}
+    var lab=p.code+" - "+p.size+(p.standard?" ("+p.standard+")":"");
     h+='<option value="'+val.replace(/"/g,"&quot;")+'">'+escHtml(lab)+'</option>';
   }
-  h+='</select></div>';
+  h+='</select></div></div>';
+
   h+='<div class="quot-row-inline">';
   // Bag spec dropdown - dynamic unique specs from DATA_BAGS
   var bagSpecs={};
@@ -8092,7 +8137,25 @@ function quotRenderRow(idx, item) {
   return h;
 }
 
-function setupQuotRowEvents(idx) { onQuotBagSpecChange(idx); onQuotProdChange(idx); }
+function onQuotRowFilterChange(idx) {
+  var machEl=document.getElementById("quotMach_"+idx);
+  var stdEl=document.getElementById("quotStd_"+idx);
+  var szEl=document.getElementById("quotSz_"+idx);
+  if(!machEl) return;
+  QUOT_CART[idx].rowFilterMachine=machEl.value;
+  QUOT_CART[idx].rowFilterStandard=stdEl.value;
+  QUOT_CART[idx].rowFilterSize=szEl.value;
+  // Clear product selection when filter changes
+  QUOT_CART[idx].product="";
+  // Re-render just this row to update filters and product dropdown
+  var rowEl=document.getElementById("quotRow_"+idx);
+  if(rowEl){
+    var newRow=quotRenderRow(idx, QUOT_CART[idx]);
+    rowEl.outerHTML=newRow;
+  }
+  setupQuotRowEvents(idx);
+  recalcQuotCart();
+}function setupQuotRowEvents(idx) { onQuotBagSpecChange(idx); onQuotProdChange(idx); }
 function onQuotBagSpecChange(idx) {
   var spec=document.getElementById("quotBagSpec_"+idx); if(!spec) return;
   var val=spec.value; var detail=document.getElementById("quotBagDetail_"+idx);
