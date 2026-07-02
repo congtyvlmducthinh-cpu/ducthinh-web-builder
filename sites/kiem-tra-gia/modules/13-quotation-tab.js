@@ -98,6 +98,21 @@ function quotPopulateFilters() {
   if(sze) { sze.innerHTML='<option value="">— Tất cả KT —</option>'; Object.keys(sizes).sort().forEach(function(k){sze.innerHTML+='<option value="'+k.replace(/"/g,"&quot;")+'">'+k+'</option>';}); }
 }
 
+// Filtered products helper
+function getQuotFilteredProducts() {
+  var m=document.getElementById("quotMachFilter").value;
+  var s=document.getElementById("quotStdFilter").value;
+  var sz=document.getElementById("quotSizeFilter").value;
+  var list=[];
+  for(var i=0;i<DATA_PRODUCTS.length;i++){
+    var p=DATA_PRODUCTS[i];
+    if((!m||String(p.machine)===m)&&(!s||p.standard===s)&&(!sz||p.size===sz)){
+      list.push(p);
+    }
+  }
+  return list;
+}
+
 function quotFilterProds() {
   var m=document.getElementById("quotMachFilter").value;
   var s=document.getElementById("quotStdFilter").value;
@@ -106,6 +121,26 @@ function quotFilterProds() {
     var pm=row.dataset.machine||"", ps=row.dataset.standard||"", pz=row.dataset.size||"";
     row.style.display=(!m||pm===m)&&(!s||ps===s)&&(!sz||pz===sz)?"":"none";
   });
+  quotRefreshProdDropdowns();
+}
+
+function quotRefreshProdDropdowns() {
+  var filtered=getQuotFilteredProducts();
+  for(var idx=0;idx<QUOT_CART.length;idx++){
+    var sel=document.getElementById("quotProd_"+idx);
+    if(!sel) continue;
+    var curVal=sel.value;
+    sel.innerHTML='<option value="">— Chọn SP —</option>';
+    var lastMach="";
+    for(var i=0;i<filtered.length;i++){
+      var p=filtered[i];
+      var val=p.code+"||"+(p.standard||"");
+      var lab=(p.machine?"["+p.machine+"] ":"")+p.code+" - "+p.size+(p.standard?" ("+p.standard+")":"");
+      if(p.machine!==lastMach){sel.innerHTML+='<option disabled style="font-weight:700;background:#f0f2f5">━━━ '+p.machine+' ━━━</option>';lastMach=p.machine;}
+      sel.innerHTML+='<option value="'+val.replace(/"/g,"&quot;")+'">'+escHtml(lab)+'</option>';
+    }
+    sel.value=curVal;
+  }
 }
 
 function quotAddRow() { QUOT_CART.push({product:"", bagCode:"", bagSpec:"25KG", qty:1, sellPrice:0}); quotRenderCart(); }
@@ -135,12 +170,13 @@ function quotRenderCart() {
 }
 
 function quotRenderRow(idx, item) {
+  var filtered=getQuotFilteredProducts();
   var h='<div class="quot-prod-row" id="quotRow_'+idx+'" data-machine="" data-standard="" data-size="">';
   h+='<div class="quot-row-header"><span class="quot-row-num">#'+(idx+1)+'</span><button class="quot-remove-btn" onclick="quotRemoveRow('+idx+')">✕</button></div>';
   h+='<div class="quot-form-group"><label>Sản phẩm</label><select id="quotProd_'+idx+'" class="quot-input" onchange="onQuotProdChange('+idx+')"><option value="">— Chọn SP —</option>';
   var lastMach="";
-  for(var i=0;i<DATA_PRODUCTS.length;i++){
-    var p=DATA_PRODUCTS[i];
+  for(var i=0;i<filtered.length;i++){
+    var p=filtered[i];
     var val=p.code+"||"+(p.standard||"");
     var lab=(p.machine?"["+p.machine+"] ":"")+p.code+" - "+p.size+(p.standard?" ("+p.standard+")":"");
     if(p.machine!==lastMach){h+='<option disabled style="font-weight:700;background:#f0f2f5">━━━ '+p.machine+' ━━━</option>';lastMach=p.machine;}
@@ -148,7 +184,15 @@ function quotRenderRow(idx, item) {
   }
   h+='</select></div>';
   h+='<div class="quot-row-inline">';
-  h+='<div class="quot-form-group" style="flex:0.7"><label>Quy cách bao</label><select id="quotBagSpec_'+idx+'" class="quot-input" onchange="onQuotBagSpecChange('+idx+')"><option value="25KG">25KG</option><option value="Jumbo">Jumbo</option><option value="Khác">Khác</option></select></div>';
+  // Bag spec dropdown - dynamic unique specs from DATA_BAGS
+  var bagSpecs={};
+  for(var b=0;b<DATA_BAGS.length;b++){bagSpecs[DATA_BAGS[b].spec]=1;}
+  var specKeys=Object.keys(bagSpecs).sort();
+  h+='<div class="quot-form-group" style="flex:0.7"><label>Quy cách bao</label><select id="quotBagSpec_'+idx+'" class="quot-input" onchange="onQuotBagSpecChange('+idx+')">';
+  for(var b=0;b<specKeys.length;b++){
+    h+='<option value="'+specKeys[b].replace(/"/g,"&quot;")+'">'+specKeys[b]+'</option>';
+  }
+  h+='<option value="Khác">Khác</option></select></div>';
   h+='<div class="quot-form-group" style="flex:1" id="quotBagDetail_'+idx+'"><label>Bao</label><select id="quotBag_'+idx+'" class="quot-input" onchange="recalcQuotCart()"><option value="">— Mặc định —</option></select></div>';
   h+='<div class="quot-form-group" style="flex:0.4"><label>Số lượng</label><input type="number" id="quotQty_'+idx+'" class="quot-input" value="1" min="1" oninput="updateQuotPreview()"></div>';
   h+='</div>';
@@ -167,11 +211,14 @@ function onQuotBagSpecChange(idx) {
   var spec=document.getElementById("quotBagSpec_"+idx); if(!spec) return;
   var val=spec.value; var detail=document.getElementById("quotBagDetail_"+idx);
   QUOT_CART[idx].bagSpec=val;
+  QUOT_CART[idx].bagCode=""; // Reset bag code when spec changes
   if(val==="Khác"){
     detail.innerHTML='<label>QC khác</label><input type="text" id="quotBag_'+idx+'" class="quot-input" placeholder="Nhập quy cách..." oninput="recalcQuotCart()">';
   } else {
     var bags=[];
-    for(var j=0;j<DATA_BAGS.length;j++){if(DATA_BAGS[j].spec===val||(val==="25KG"&&DATA_BAGS[j].spec==="25KG")||(val==="Jumbo"&&DATA_BAGS[j].spec==="Jumbo")){bags.push(DATA_BAGS[j]);}}
+    for(var j=0;j<DATA_BAGS.length;j++){
+      if(DATA_BAGS[j].spec===val){bags.push(DATA_BAGS[j]);}
+    }
     detail.innerHTML='<label>Bao</label><select id="quotBag_'+idx+'" class="quot-input" onchange="recalcQuotCart()"><option value="">— Mặc định —</option>';
     for(var j=0;j<bags.length;j++){detail.innerHTML+='<option value="'+bags[j].code.replace(/"/g,"&quot;")+'">'+escHtml(bags[j].code)+'</option>';}
     detail.innerHTML+='</select>';
@@ -315,7 +362,7 @@ function updateQuotPreview() {
   h+='<div class="q-row"><strong>Ngày:</strong><span>'+dateStr+'</span></div>';
   if(port) h+='<div class="q-row"><strong>Cảng đi:</strong><span>'+port+'</span></div>';
 
-  // Product table - NO min price or commission
+  // Product table
   h+='<table class="q-table">';
   h+='<thead><tr><th>STT</th><th>Code</th><th>Sản phẩm</th><th>Spec</th><th>Bao</th><th>ĐVT</th><th>SL</th><th>Giá bán</th><th>Tiền tệ</th></tr></thead>';
   h+='<tbody>';
