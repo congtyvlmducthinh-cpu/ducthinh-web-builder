@@ -348,14 +348,7 @@ function onQuotBagSpecChange(idx) {
     if(row){row.dataset.machine=prod.machine||""; row.dataset.standard=prod.standard||""; row.dataset.size=prod.size||"";}
     var s=DATA_SPECS[prod.code];
     if(s){
-      var parts=[];
-      if(s.d97) parts.push("D97: "+s.d97);
-      if(s.d50_bet) parts.push("D50(BET): "+s.d50_bet);
-      if(s.brightness_y) parts.push("Br(Y): "+s.brightness_y);
-      if(s.whiteness_l) parts.push("W(L): "+s.whiteness_l);
-      if(s.r457) parts.push("R457: "+s.r457);
-      if(s.mesh) parts.push("Mesh: "+s.mesh);
-      specEl.querySelector(".quot-spec-val").textContent=parts.join(" | ");
+            specEl.querySelector(".quot-spec-val").textContent = renderSpecFields(s);
     } else {
       specEl.querySelector(".quot-spec-val").textContent="(Không có thông số TCKT)";
     }
@@ -1060,10 +1053,14 @@ function quotSpecPickerRefreshTplSelect(selectedVal) {
 // Auto-load last template on page init (called from quotInitRender)
 // Also ensures the spec row renders using selected fields
 function quotInitSpecPicker() {
+  var raw = localStorage.getItem("quot_tckt_selected");
+  if (!raw) {
+    quotSetSelectedFields(["d97","d50_bet","brightness_y","whiteness_l","r457"]);
+  }
   var lastTpl = quotGetLastTemplate();
   if (lastTpl) {
     var tpls = quotGetTemplates();
-    if (tpls[lastTpl]) {
+    if (tpls[lastTpl] && Array.isArray(tpls[lastTpl]) && tpls[lastTpl].length > 0) {
       quotSetSelectedFields(tpls[lastTpl]);
     }
   }
