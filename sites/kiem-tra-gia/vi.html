@@ -264,7 +264,32 @@ tbody tr:hover td{background:#eff6ff}
 .tckt-btn-danger{background:#fee2e2;color:#dc2626}
 .tckt-spec-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:12px;cursor:pointer;color:var(--muted);transition:all .2s;white-space:nowrap}
 .tckt-spec-btn:hover{background:#f1f5f9;color:var(--text)}
-.tckt-name-input{padding:6px 10px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;outline:none;font-family:var(--font);color:var(--text);flex:1;min-width:100px}</style>
+.tckt-name-input{padding:6px 10px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;outline:none;font-family:var(--font);color:var(--text);flex:1;min-width:100px}
+/* Quotation collapsible sections */
+.quot-section.collapsed .quot-section-content,
+.quot-section.collapsed .quot-section-title + *:not(.quot-section-title)
+{display:none}
+.quot-section.collapsed .quot-section-title{border-bottom-color:var(--border);margin-bottom:0}
+.quot-toggle-icon{font-size:10px;color:var(--muted);cursor:pointer;margin-left:4px;transition:transform .2s}
+.quot-section:not(.collapsed) .quot-toggle-icon{transform:rotate(0deg)}
+
+
+/* Quotation compact row */
+.quot-fltr-sm{width:100%;padding:6px 8px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;outline:none;font-family:var(--font);color:var(--text);background:var(--card)}
+.quot-fltr-sm:focus{border-color:var(--primary);box-shadow:0 0 0 2px rgba(37,99,235,.12)}
+.quot-row-header{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.quot-row-fltr{display:flex;gap:4px;flex:1}
+.quot-row-fltr select{font-size:11px;min-width:0}
+.quot-prod-sm{font-size:12px;padding:6px 8px}
+.quot-sell-sm{text-align:right;font-weight:700;font-size:13px;padding:6px 8px}
+.quot-row-bottom{display:flex;gap:8px;align-items:center;margin-top:6px;padding:6px 8px;background:#f8fafc;border-radius:6px}
+.quot-stat-box{font-size:11px;padding:4px 8px}
+.quot-stat-box .quot-min-label,.quot-stat-box .quot-comm-label{font-size:10px;color:var(--text-secondary);font-weight:600}
+.quot-stat-box .quot-min-val,.quot-stat-box .quot-comm-val{font-weight:700;font-size:12px}
+.quot-stat-box .quot-min-val{color:var(--primary)}
+.quot-stat-box .quot-comm-val{color:var(--green)}
+
+</style>
 </head>
 <body>
 <div class="container">
@@ -7918,15 +7943,16 @@ function renderQuotationTab() {
   h += '<div class="quot-left">';
 
   // Customer Info
-  h += '<div class="quot-section"><div class="quot-section-title"><span class="badge blue">🏢</span><span class="title-text">Khách hàng</span></div>';
-  h += '<div class="quot-form-row"><div class="quot-form-group"><label>🏢 Khách hàng</label><input type="text" id="qCustomer" placeholder="Tên khách hàng..." oninput="updateQuotPreview()" class="quot-input"></div>';
+  h += '<div class="quot-section collapsed"><div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge blue">🏢</span><span class="title-text">Khách hàng</span><span class="quot-toggle-icon">▶</span></div>';
+  h += '<div class="quot-section-content"><div class="quot-form-row"><div class="quot-form-group"><label>🏢 Khách hàng</label><input type="text" id="qCustomer" placeholder="Tên khách hàng..." oninput="updateQuotPreview()" class="quot-input"></div>';
   h += '<div class="quot-form-group"><label>👤 Người liên hệ</label><input type="text" id="qContact" placeholder="Người liên hệ..." oninput="updateQuotPreview()" class="quot-input"></div></div>';
   h += '<div class="quot-form-row"><div class="quot-form-group"><label>👤 Người phụ trách</label><input type="text" id="qAssigned" placeholder="Tên nhân viên..." oninput="updateQuotPreview()" class="quot-input"></div>';
   h += '<div class="quot-form-group"><label>📧 Email KH</label><input type="email" id="qCustEmail" placeholder="Email khách hàng..." oninput="updateQuotPreview()" class="quot-input"></div></div>';
   h += '</div>';
 
-  // Delivery Terms
-  h += '<div class="quot-section"><div class="quot-section-title"><span class="badge green">🚚</span><span class="title-text">Delivery Terms</span></div>';
+  // Delivery Terms (collapsible, starts collapsed)
+  h += '<div class="quot-section collapsed"><div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge green">🚚</span><span class="title-text">Delivery Terms</span><span class="quot-toggle-icon">▶</span></div>'
+  h += '<div class="quot-section-content">';
   h += '<div class="quot-form-row">';
   h += '<div class="quot-form-group"><label>EXW/FOB/CIF</label>';
   h += '<select id="quotDeliveryMode" class="quot-input" onchange="onQuotDeliveryChange()">';
@@ -7961,23 +7987,21 @@ function renderQuotationTab() {
   h += '<div class="quot-form-group"><label>📝 Ghi chú</label><input type="text" id="qNote" placeholder="Ghi chú..." class="quot-input" oninput="updateQuotPreview()" style="width:100%"></div>';
 
   // Products
-  h += '<div class="quot-section"><div class="quot-section-title"><span class="badge purple">📦</span><span class="title-text">Sản phẩm</span>';
+  h += '<div class="quot-section"><div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge purple">📦</span><span class="title-text">Sản phẩm</span><span class="quot-toggle-icon">▼</span>';
   h += '<button class="tckt-spec-btn" onclick="quotSpecPickerOpen()" title="Chọn thông số KT hiển thị">🛠️ Spec</button><button class="quot-add-btn" onclick="quotAddRow()">+ Thêm SP</button></div>';
-  h += '<div class="quot-filter-row">';
-  h += '<select id="quotMachFilter" class="quot-input quot-filter-sm" onchange="quotFilterProds()"><option value="">— Tất cả máy —</option></select>';
-  h += '<select id="quotStdFilter" class="quot-input quot-filter-sm" onchange="quotFilterProds()"><option value="">— Tất cả TC —</option></select>';
-  h += '<select id="quotSizeFilter" class="quot-input quot-filter-sm" onchange="quotFilterProds()"><option value="">— Tất cả KT —</option></select></div>';
-  h += '<div id="quotCart"></div></div></div>';
+
+  h += '<div class="quot-section-content"><div class="quot-section-content"><div id="quotCart"></div></div></div>';
 
   // Right panel
   h += '<div class="quot-right">';
-  h += '<div class="quot-section-title"><span class="badge blue">📄</span><span class="title-text">Xem trước báo giá</span></div>';
+  h += '<div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge blue">📄</span><span class="title-text">Xem trước báo giá</span><span class="quot-toggle-icon">▼</span></div>'
+  h += '<div class="quot-section-content">';
   h += '<div class="quot-actions">';
   h += '<button class="quot-btn quot-btn-primary" onclick="quotPrint()">🖨️ In</button>';
   h += '<button class="quot-btn quot-btn-secondary" onclick="quotCopy()">📋 Copy</button>';
   h += '<button class="quot-btn quot-btn-secondary" onclick="quotClear()">🗑️ Xóa hết</button></div>';
   h += '<div class="quot-preview" id="quotPreview">';
-  h += '<div class="quot-preview-empty">👈 Chọn sản phẩm và điền thông tin</div></div></div></div>';
+  h += '<div class="quot-preview-empty">👈 Chọn sản phẩm và điền thông tin</div></div></div></div></div>';
   return h;
 }
 
@@ -7994,7 +8018,7 @@ function quotInitRender() { quotInitSpecPicker();
   }
 }
 
-function quotPopulateFilters() {
+function quotPopulateFilters() { /* global filter removed */ if(!document.getElementById("quotMachFilter")) return;
   var me = document.getElementById("quotMachFilter"); if (!me) return;
   var machines={}, standards={}, sizes={};
   for(var i=0;i<DATA_PRODUCTS.length;i++){var p=DATA_PRODUCTS[i]; machines[p.machine]=1; standards[p.standard]=1; sizes[p.size]=1;}
@@ -8098,10 +8122,7 @@ function quotRenderRow(idx, item) {
 
   var allMachines={}, allStds={}, allSizes={};
   for(var i=0;i<DATA_PRODUCTS.length;i++){
-    var p=DATA_PRODUCTS[i];
-    allMachines[p.machine]=1;
-    allStds[p.standard]=1;
-    allSizes[p.size]=1;
+    var p=DATA_PRODUCTS[i]; allMachines[p.machine]=1; allStds[p.standard]=1; allSizes[p.size]=1;
   }
   var availStds={}, availSizes={};
   for(var i=0;i<DATA_PRODUCTS.length;i++){
@@ -8116,19 +8137,25 @@ function quotRenderRow(idx, item) {
   var sizeKeys=Object.keys(availSizes).sort();
 
   var h='<div class="quot-prod-row" id="quotRow_'+idx+'" data-machine="" data-standard="" data-size="">';
-  h+='<div class="quot-row-header"><span class="quot-row-num">#'+(idx+1)+'</span><button class="quot-remove-btn" onclick="quotRemoveRow('+idx+')">✕</button></div>';
-
-  // Product cascade + selector
-  h+='<div class="quot-row-inline"><div class="quot-form-group" style="flex:1"><label>🏭 Máy</label><select id="quotMach_'+idx+'" class="quot-input" onchange="onQuotRowFilterChange('+idx+')"><option value="">— Máy —</option>';
+  h+='<div class="quot-row-header">';
+  h+='<span class="quot-row-num">#'+(idx+1)+'</span>';
+  h+='<select id="quotMach_'+idx+'" class="quot-fltr-sm" onchange="onQuotRowFilterChange('+idx+')" style="width:auto;min-width:60px"><option value="">— Máy —</option>';
   for(var i=0;i<machKeys.length;i++){h+='<option value="'+machKeys[i].replace(/"/g,"&quot;")+'"'+(curMach===machKeys[i]?' selected':'')+'>'+machKeys[i]+'</option>';}
-  h+='</select></div>';
-  h+='<div class="quot-form-group" style="flex:1"><label>📋 Tiêu chuẩn</label><select id="quotStd_'+idx+'" class="quot-input" onchange="onQuotRowFilterChange('+idx+')"><option value="">— TC —</option>';
+  h+='</select>';
+  h+='<select id="quotStd_'+idx+'" class="quot-fltr-sm" onchange="onQuotRowFilterChange('+idx+')" style="width:auto;min-width:60px"><option value="">— TC —</option>';
   for(var i=0;i<stdKeys.length;i++){h+='<option value="'+stdKeys[i].replace(/"/g,"&quot;")+'"'+(curStd===stdKeys[i]?' selected':'')+'>'+stdKeys[i]+'</option>';}
-  h+='</select></div>';
-  h+='<div class="quot-form-group" style="flex:1"><label>📐 Kích thước</label><select id="quotSz_'+idx+'" class="quot-input" onchange="onQuotRowFilterChange('+idx+')"><option value="">— KT —</option>';
+  h+='</select>';
+  h+='<select id="quotSz_'+idx+'" class="quot-fltr-sm" onchange="onQuotRowFilterChange('+idx+')" style="width:auto;min-width:60px"><option value="">— KT —</option>';
   for(var i=0;i<sizeKeys.length;i++){h+='<option value="'+sizeKeys[i].replace(/"/g,"&quot;")+'"'+(curSz===sizeKeys[i]?' selected':'')+'>'+sizeKeys[i]+'</option>';}
-  h+='</select></div>';
-  h+='<div class="quot-form-group" style="flex:2"><label>🔖 Sản phẩm</label><select id="quotProd_'+idx+'" class="quot-input" onchange="onQuotProdChange('+idx+')"><option value="">— Chọn SP —</option>';
+  h+='</select>';
+  h+='<span style="flex:1"></span>';
+  h+='<button class="quot-remove-btn" onclick="quotRemoveRow('+idx+')" title="Xóa">✕</button>';
+  h+='</div>';
+
+  // Row 1: Product + Bag spec + Bag + Sell price
+  h+='<div class="quot-row-body">';
+  h+='<div class="quot-prod-sm-row">';
+  h+='<div style="flex:2;min-width:0"><select id="quotProd_'+idx+'" class="quot-input quot-prod-sm" onchange="onQuotProdChange('+idx+')"><option value="">— Chọn SP —</option>';
   for(var i=0;i<DATA_PRODUCTS.length;i++){
     var p=DATA_PRODUCTS[i];
     var machOk=!curMach||String(p.machine)===curMach;
@@ -8139,64 +8166,52 @@ function quotRenderRow(idx, item) {
     var lab=p.code+" - "+p.size+(p.standard?" ("+p.standard+")":"");
     h+='<option value="'+val.replace(/"/g,"&quot;")+'">'+escHtml(lab)+'</option>';
   }
-  h+='</select></div></div>';
-
-  // Bag spec + bag detail + Jumbo tons + Other spec
-  h+='<div class="quot-row-inline">';
+  h+='</select></div>';
+  // Bag spec
   var bagSpecs={};
   for(var b=0;b<DATA_BAGS.length;b++){bagSpecs[DATA_BAGS[b].spec]=1;}
   var specKeys=Object.keys(bagSpecs).sort();
-  h+='<div class="quot-form-group" style="flex:0.6"><label>📏 Quy cách bao</label><select id="quotBagSpec_'+idx+'" class="quot-input" onchange="onQuotBagSpecChange('+idx+')">';
+  h+='<div style="flex:0.7;min-width:0"><select id="quotBagSpec_'+idx+'" class="quot-input quot-prod-sm" onchange="onQuotBagSpecChange('+idx+')">';
   for(var b=0;b<specKeys.length;b++){
-    var selAttr=item.bagSpec===specKeys[b]?' selected':'';
-    h+='<option value="'+specKeys[b].replace(/"/g,"&quot;")+'"'+selAttr+'>'+specKeys[b]+'</option>';
+    h+='<option value="'+specKeys[b].replace(/"/g,"&quot;")+'"'+(item.bagSpec===specKeys[b]?' selected':'')+'>'+specKeys[b]+'</option>';
   }
   h+='<option value="Khác">Khác</option></select></div>';
-  h+='<div class="quot-form-group" style="flex:0.8" id="quotBagDetail_'+idx+'"><label>🛍️ Loại bao</label><select id="quotBag_'+idx+'" class="quot-input" onchange="recalcQuotCart()"><option value="">— Mặc định —</option></select></div>';
+  // Bag detail
+  h+='<div id="quotBagDetail_'+idx+'" style="flex:1;min-width:0"><select id="quotBag_'+idx+'" class="quot-input quot-prod-sm" onchange="recalcQuotCart()"><option value="">— Bao —</option></select></div>';
+  // Sell price
+  h+='<div style="flex:0.7;min-width:80px"><input type="number" id="quotSell_'+idx+'" class="quot-input quot-sell-sm" placeholder="Giá..." min="0" step="0.01" value="'+(item.sellPrice||'')+'" oninput="onQuotSellChange('+idx+')"></div>';
+  h+='</div>';
 
-  // Jumbo tonnage (hidden unless Jumbo)
+  // Sub-row: Jumbo + Other + Qty
   var jumboDisplay=item.bagSpec==="Jumbo"?"flex":"none";
-  h+='<div class="quot-form-group" style="flex:0.5;display:'+jumboDisplay+'" id="quotJumboRow_'+idx+'"><label>⚖️ Tấn/bao</label>';
-  h+='<select id="quotJumboTons_'+idx+'" class="quot-input" onchange="onQuotJumboTonsChange('+idx+')">';
+  var otherTonsDisplay=item.bagSpec==="Jumbo"?"none":"flex";
+  h+='<div class="quot-prod-sm-row" id="quotJumboRow_'+idx+'" style="display:'+jumboDisplay+'">';
+  h+='<div style="flex:1"><label style="font-size:10px;color:var(--muted)">⚖️ Jumbo (tấn)</label><select id="quotJumboTons_'+idx+'" class="quot-input quot-prod-sm" onchange="onQuotJumboTonsChange('+idx+')">';
   var jumboTons=["0.5","0.7","1","1.1","1.2","1.25","1.3","1.35","1.375","1.38","1.4","1.5"];
   h+='<option value="1">— Chọn —</option>';
-  for(var t=0;t<jumboTons.length;t++){
-    var selAttr2=String(item.rowJumboTons)===jumboTons[t]?' selected':'';
-    h+='<option value="'+jumboTons[t]+'"'+selAttr2+'>'+jumboTons[t]+' tấn</option>';
-  }
+  for(var t=0;t<jumboTons.length;t++){h+='<option value="'+jumboTons[t]+'"'+(String(item.rowJumboTons)===jumboTons[t]?' selected':'')+'>'+jumboTons[t]+' tấn</option>';}
   h+='</select></div>';
-
-  // Other spec (always visible)
-  h+='<div class="quot-form-group" style="flex:0.7" id="quotOtherRow_'+idx+'"><label>📦 QC khác</label>';
-  h+='<select id="quotOther_'+idx+'" class="quot-input" onchange="onQuotOtherChange('+idx+')"><option value="">— Không —</option>';
-  for(var o=0;o<DATA_OTHERS.length;o++){
-    var selAttr3=item.rowOtherCode===DATA_OTHERS[o].code?' selected':'';
-    h+='<option value="'+DATA_OTHERS[o].code.replace(/"/g,"&quot;")+'"'+selAttr3+'>'+escHtml(DATA_OTHERS[o].code)+'</option>';
-  }
+  h+='</div>';
+  // Other spec + tons
+  h+='<div class="quot-prod-sm-row">';
+  h+='<div id="quotOtherRow_'+idx+'" style="flex:1"><select id="quotOther_'+idx+'" class="quot-input quot-prod-sm" onchange="onQuotOtherChange('+idx+')"><option value="">— QC khác —</option>';
+  for(var o=0;o<DATA_OTHERS.length;o++){h+='<option value="'+DATA_OTHERS[o].code.replace(/"/g,"&quot;")+'"'+(item.rowOtherCode===DATA_OTHERS[o].code?' selected':'')+'>'+escHtml(DATA_OTHERS[o].code)+'</option>';}
   h+='</select></div>';
-
-  // Other tonnage (hidden when Jumbo)
-  var otherTonsDisplay=item.bagSpec==="Jumbo"?"none":"flex";
-  h+='<div class="quot-form-group" style="flex:0.4;display:'+otherTonsDisplay+'" id="quotOtherTonsRow_'+idx+'"><label>Tấn QK</label>';
-  h+='<select id="quotOtherTons_'+idx+'" class="quot-input" onchange="recalcQuotCart()">';
+  h+='<div id="quotOtherTonsRow_'+idx+'" style="flex:0.5;display:'+otherTonsDisplay+'"><select id="quotOtherTons_'+idx+'" class="quot-input quot-prod-sm" onchange="recalcQuotCart()">';
   var otherTons=["0.5","0.7","1","1.1","1.2","1.25","1.3","1.35","1.4","1.5"];
   h+='<option value="1">1 tấn</option>';
-  for(var t=0;t<otherTons.length;t++){
-    var selAttr4=String(item.rowOtherTons)===otherTons[t]?' selected':'';
-    h+='<option value="'+otherTons[t]+'"'+selAttr4+'>'+otherTons[t]+' tấn</option>';
-  }
+  for(var t=0;t<otherTons.length;t++){h+='<option value="'+otherTons[t]+'"'+(String(item.rowOtherTons)===otherTons[t]?' selected':'')+'>'+otherTons[t]+' tấn</option>';}
   h+='</select></div>';
-
-  h+='<div class="quot-form-group" style="flex:0.3"><label>Số lượng</label><input type="number" id="quotQty_'+idx+'" class="quot-input" value="'+item.qty+'" min="1" oninput="updateQuotPreview()"></div>';
+  h+='<div style="flex:0.2;min-width:50px"><input type="number" id="quotQty_'+idx+'" class="quot-input quot-prod-sm" value="'+item.qty+'" min="1" oninput="updateQuotPreview()"></div>';
   h+='</div>';
 
-  // Price row
-  h+='<div class="quot-price-row">';
-  h+='<div class="quot-form-group" style="flex:1"><label style="color:#b45309;text-transform:none">💰 Giá bán</label><input type="number" id="quotSell_'+idx+'" class="quot-input quot-sell-input" placeholder="Giá bán..." min="0" step="0.01" value="'+(item.sellPrice||'')+'" oninput="onQuotSellChange('+idx+')"></div>';
-  h+='<div class="quot-min-price" id="quotMin_'+idx+'" style="flex:1"><div class="quot-min-label">Giá tối thiểu</div><div class="quot-min-val">—</div></div>';
-  h+='<div class="quot-comm-display" id="quotComm_'+idx+'" style="flex:1"><div class="quot-comm-label">Hoa hồng</div><div class="quot-comm-val">—</div></div>';
+  // Row 2: Spec + Stats
+  h+='<div class="quot-row-stats">';
+  h+='<div class="quot-spec-row" id="quotSpec_'+idx+'"><span class="quot-spec-label">📊 TCKT:</span> <span class="quot-spec-val">Chọn SP trước</span></div>';
+  h+='<div class="quot-min-price" id="quotMin_'+idx+'"><span class="quot-min-label">💰 Min: </span><span class="quot-min-val">—</span></div>';
+  h+='<div class="quot-comm-display" id="quotComm_'+idx+'"><span class="quot-comm-label">💵 HH: </span><span class="quot-comm-val">—</span></div>';
   h+='</div>';
-  h+='<div class="quot-spec-row" id="quotSpec_'+idx+'"><span class="quot-spec-label">📊 Thông số KT:</span> <span class="quot-spec-val">Chọn SP trước</span></div>';
+  h+='</div>';
   h+='</div>';
   return h;
 }function onQuotRowFilterChange(idx) {
@@ -8977,6 +8992,16 @@ function quotInitSpecPicker() {
       quotSetSelectedFields(tpls[lastTpl]);
     }
   }
+}
+
+
+// Toggle collapsible section
+function toggleQuotSection(titleEl) {
+  var section = titleEl.closest(".quot-section");
+  if (!section) return;
+  section.classList.toggle("collapsed");
+  var icon = titleEl.querySelector(".quot-toggle-icon");
+  if (icon) icon.textContent = section.classList.contains("collapsed") ? "\u25B6" : "\u25BC";
 }
 
 // Init — dữ liệu đã có sẵn trong data.js

@@ -264,7 +264,32 @@ tbody tr:hover td{background:#eff6ff}
 .tckt-btn-danger{background:#fee2e2;color:#dc2626}
 .tckt-spec-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:12px;cursor:pointer;color:var(--muted);transition:all .2s;white-space:nowrap}
 .tckt-spec-btn:hover{background:#f1f5f9;color:var(--text)}
-.tckt-name-input{padding:6px 10px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;outline:none;font-family:var(--font);color:var(--text);flex:1;min-width:100px}</style>
+.tckt-name-input{padding:6px 10px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;outline:none;font-family:var(--font);color:var(--text);flex:1;min-width:100px}
+/* Quotation collapsible sections */
+.quot-section.collapsed .quot-section-content,
+.quot-section.collapsed .quot-section-title + *:not(.quot-section-title)
+{display:none}
+.quot-section.collapsed .quot-section-title{border-bottom-color:var(--border);margin-bottom:0}
+.quot-toggle-icon{font-size:10px;color:var(--muted);cursor:pointer;margin-left:4px;transition:transform .2s}
+.quot-section:not(.collapsed) .quot-toggle-icon{transform:rotate(0deg)}
+
+
+/* Quotation compact row */
+.quot-fltr-sm{width:100%;padding:6px 8px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;outline:none;font-family:var(--font);color:var(--text);background:var(--card)}
+.quot-fltr-sm:focus{border-color:var(--primary);box-shadow:0 0 0 2px rgba(37,99,235,.12)}
+.quot-row-header{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.quot-row-fltr{display:flex;gap:4px;flex:1}
+.quot-row-fltr select{font-size:11px;min-width:0}
+.quot-prod-sm{font-size:12px;padding:6px 8px}
+.quot-sell-sm{text-align:right;font-weight:700;font-size:13px;padding:6px 8px}
+.quot-row-bottom{display:flex;gap:8px;align-items:center;margin-top:6px;padding:6px 8px;background:#f8fafc;border-radius:6px}
+.quot-stat-box{font-size:11px;padding:4px 8px}
+.quot-stat-box .quot-min-label,.quot-stat-box .quot-comm-label{font-size:10px;color:var(--text-secondary);font-weight:600}
+.quot-stat-box .quot-min-val,.quot-stat-box .quot-comm-val{font-weight:700;font-size:12px}
+.quot-stat-box .quot-min-val{color:var(--primary)}
+.quot-stat-box .quot-comm-val{color:var(--green)}
+
+</style>
 </head>
 <body>
 <div class="container">
