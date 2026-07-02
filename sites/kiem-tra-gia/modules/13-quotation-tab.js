@@ -15,43 +15,45 @@ function renderQuotationTab() {
   h += '<div class="quot-form-group"><label>📧 Email KH</label><input type="email" id="qCustEmail" placeholder="Email khách hàng..." oninput="updateQuotPreview()" class="quot-input"></div></div>';
   h += '</div>';
 
-  // Delivery Terms (collapsible, starts collapsed)
-  h += '<div class="quot-section collapsed"><div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge green">🚚</span><span class="title-text">Delivery Terms</span><span class="quot-toggle-icon">▶</span></div>'
-  h += '<div class="quot-section-content">';
-  h += '<div class="quot-form-row">';
-  h += '<div class="quot-form-group"><label>EXW/FOB/CIF</label>';
-  h += '<select id="quotDeliveryMode" class="quot-input" onchange="onQuotDeliveryChange()">';
-  h += '<option value="exw">EXW</option><option value="fob">FOB</option><option value="cif">CIF</option></select></div>';
-  h += '<div class="quot-form-group" id="quotLccGroup" style="display:none"><label>LCC</label>';
-  h += '<select id="quotLccType" class="quot-input" onchange="recalcQuotCart()">';
-  h += '<option value="no">No LCC</option><option value="sub">Sub LCC</option></select></div>';
-  h += '<div class="quot-form-group" id="quotFreightGroup" style="display:none"><label>🚂 Cước (USD)</label>';
-  h += '<input type="number" id="quotFreight" class="quot-input" value="0" min="0" oninput="recalcQuotCart()" style="width:100px"></div></div>';
-  h += '<div class="quot-form-row">';
-  h += '<div class="quot-form-group"><label>💱 Loại tiền</label>';
-  h += '<select id="quotCurrency" class="quot-input" onchange="recalcQuotCart()">';
-  h += '<option value="VND">VND</option><option value="USD">USD</option></select></div>';
-  h += '<div class="quot-form-group"><label>🌏 Thị trường</label>';
-  h += '<select id="quotMarket" class="quot-input" onchange="recalcQuotCart()">';
-  h += '<option value="other">🌏 Khác</option><option value="cn">🇨🇳 TQ</option></select></div>';
-  h += '<div class="quot-form-group"><label>📦 ĐVT</label>';
-  h += '<select id="quotUnit" class="quot-input" onchange="updateQuotPreview()">';
-  h += '<option value="Tấn">Tấn</option><option value="MT">MT</option><option value="TON">TON</option></select></div></div>';
-  h += '<div class="quot-form-row">';
-  h += '<div class="quot-form-group"><label>⏱ Hiệu lực</label>';
-  h += '<select id="qValid" class="quot-input" onchange="updateQuotPreview()">';
-  h += '<option value="15 ngày">15 ngày</option><option value="30 ngày">30 ngày</option>';
-  h += '<option value="7 ngày">7 ngày</option><option value="Kể từ ngày ký">Kể từ ngày ký</option></select></div>';
-  h += '<div class="quot-form-group"><label>💰 Thanh toán</label>';
-  h += '<select id="qPayment" class="quot-input" onchange="updateQuotPreview()">';
-  h += '<option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option>';
-  h += '<option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div></div>';
-  h += '<div class="quot-form-row">';
-  h += '<div class="quot-form-group"><label>🚢 Cảng đi</label><input type="text" id="qPort" placeholder="Cảng đi..." class="quot-input" oninput="updateQuotPreview()"></div>';
-  h += '<div class="quot-form-group"><label>📬 Giao hàng</label><input type="text" id="qDelivery" placeholder="Điều kiện giao hàng..." class="quot-input" oninput="updateQuotPreview()"></div></div>';
-  h += '<div class="quot-form-group"><label>📝 Ghi chú</label><input type="text" id="qNote" placeholder="Ghi chú..." class="quot-input" oninput="updateQuotPreview()" style="width:100%"></div>';
-
-  // Products
+    // Delivery Terms (mở sẵn)
+  h+='<div class="quot-section"><div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge green">🚚</span><span class="title-text">Delivery Terms</span><span class="quot-toggle-icon">▼</span></div>'
+  h+='<div class="quot-section-content">';
+  h+='<div class="quot-form-row">';
+  h+='<div class="quot-form-group"><label>EXW/FOB/CIF</label>';
+  h+='<select id="quotDeliveryMode" class="quot-input" onchange="onQuotDeliveryChange()">';
+  h+='<option value="exw">EXW</option><option value="fob">FOB</option><option value="cif">CIF</option></select></div>';
+  h+='<div class="quot-form-group" id="quotLccGroup" style="display:none"><label>LCC</label>';
+  h+='<select id="quotLccType" class="quot-input" onchange="recalcQuotCart()">';
+  h+='<option value="no">No LCC</option><option value="sub">Sub LCC</option></select></div>';
+  h+='<div class="quot-form-group" id="quotFreightGroup" style="display:none"><label>🚂 Cước (USD)</label>';
+  h+='<input type="number" id="quotFreight" class="quot-input" value="0" min="0" oninput="recalcQuotCart()" style="width:100px"></div></div>';
+  h+='<div class="quot-form-row">';
+  h+='<div class="quot-form-group"><label>💱 Loại tiền</label>';
+  h+='<select id="quotCurrency" class="quot-input" onchange="recalcQuotCart()">';
+  h+='<option value="VND">VND</option><option value="USD">USD</option></select></div>';
+  h+='<div class="quot-form-group"><label>🌏 Thị trường</label>';
+  h+='<select id="quotMarket" class="quot-input" onchange="recalcQuotCart()">';
+  h+='<option value="other">🌏 Khác</option><option value="cn">🇨🇳 TQ</option></select></div>';
+  h+='<div class="quot-form-group"><label>📦 ĐVT</label>';
+  h+='<select id="quotUnit" class="quot-input" onchange="updateQuotPreview()">';
+  h+='<option value="Tấn">Tấn</option><option value="MT">MT</option><option value="TON">TON</option></select></div></div>';
+  h+='<div class="quot-form-row">';
+  h+='<div class="quot-form-group"><label>⏱ Hiệu lực</label>';
+  h+='<select id="qValid" class="quot-input" onchange="updateQuotPreview()">';
+  h+='<option value="15 ngày">15 ngày</option><option value="30 ngày">30 ngày</option>';
+  h+='<option value="7 ngày">7 ngày</option><option value="Kể từ ngày ký">Kể từ ngày ký</option></select></div>';
+  h+='<div class="quot-form-group"><label>💰 Thanh toán</label>';
+  h+='<select id="qPayment" class="quot-input" onchange="updateQuotPreview()">';
+  h+='<option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option>';
+  h+='<option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div></div>';
+  h+='<div class="quot-form-row">';
+  h+='<div class="quot-form-group" id="quotPortGroup" style="display:none"><label>⛵ Cảng đi</label><input type="text" id="qPort" placeholder="Cảng đi..." class="quot-input" oninput="updateQuotPreview()"></div>';
+  h+='<div class="quot-form-group" id="quotDestGroup" style="display:none"><label>🛫 Cảng đến</label><input type="text" id="qDest" placeholder="Cảng đến..." class="quot-input" oninput="updateQuotPreview()"></div>';
+  h+='<div class="quot-form-group" id="quotDelivGroup"><label>📬 Giao hàng</label><input type="text" id="qDelivery" placeholder="Điều kiện giao hàng..." class="quot-input" oninput="updateQuotPreview()"></div>';
+  h+='</div>';
+  h+='<div class="quot-form-group"><label>📝 Ghi chú</label><input type="text" id="qNote" placeholder="Ghi chú..." class="quot-input" oninput="updateQuotPreview()" style="width:100%"></div>';
+  h+='</div>';
+// Products
   h += '<div class="quot-section"><div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge purple">📦</span><span class="title-text">Sản phẩm</span><span class="quot-toggle-icon">▼</span>';
   h += '<button class="tckt-spec-btn" onclick="quotSpecPickerOpen()" title="Chọn thông số KT hiển thị">🛠️ Spec</button><button class="quot-add-btn" onclick="quotAddRow()">+ Thêm SP</button></div>';
 
@@ -193,100 +195,83 @@ function quotRenderRow(idx, item) {
   var curStd=item.rowFilterStandard||"";
   var curSz=item.rowFilterSize||"";
 
-  var allMachines={}, allStds={}, allSizes={};
-  for(var i=0;i<DATA_PRODUCTS.length;i++){
-    var p=DATA_PRODUCTS[i]; allMachines[p.machine]=1; allStds[p.standard]=1; allSizes[p.size]=1;
-  }
-  var availStds={}, availSizes={};
-  for(var i=0;i<DATA_PRODUCTS.length;i++){
-    var p=DATA_PRODUCTS[i];
-    var machOk=!curMach||String(p.machine)===curMach;
-    var stdOk=!curStd||p.standard===curStd;
-    if(machOk) availStds[p.standard]=1;
-    if(machOk&&stdOk) availSizes[p.size]=1;
-  }
-  var machKeys=Object.keys(allMachines).sort();
-  var stdKeys=Object.keys(availStds).sort();
-  var sizeKeys=Object.keys(availSizes).sort();
+  var allMachines={},allStds={},allSizes={};
+  for(var i=0;i<DATA_PRODUCTS.length;i++){var p=DATA_PRODUCTS[i];allMachines[p.machine]=1;allStds[p.standard]=1;allSizes[p.size]=1;}
+  var availStds={},availSizes={};
+  for(var i=0;i<DATA_PRODUCTS.length;i++){var p=DATA_PRODUCTS[i];var mOk=!curMach||String(p.machine)===curMach;var sOk=!curStd||p.standard===curStd;if(mOk)availStds[p.standard]=1;if(mOk&&sOk)availSizes[p.size]=1;}
+  var machKeys=Object.keys(allMachines).sort();var stdKeys=Object.keys(availStds).sort();var sizeKeys=Object.keys(availSizes).sort();
 
-  var h='<div class="quot-prod-row" id="quotRow_'+idx+'" data-machine="" data-standard="" data-size="">';
+  var h='<div class="quot-prod-row" id="quotRow_'+idx+'">';
+
+  // === HEADER: STT + cascade filters === 
   h+='<div class="quot-row-header">';
   h+='<span class="quot-row-num">#'+(idx+1)+'</span>';
-  h+='<select id="quotMach_'+idx+'" class="quot-fltr-sm" onchange="onQuotRowFilterChange('+idx+')" style="width:auto;min-width:60px"><option value="">— Máy —</option>';
+  h+='<select id="quotMach_'+idx+'" class="quot-fltr-sm" onchange="onQuotRowFilterChange('+idx+')"><option value="">Máy</option>';
   for(var i=0;i<machKeys.length;i++){h+='<option value="'+machKeys[i].replace(/"/g,"&quot;")+'"'+(curMach===machKeys[i]?' selected':'')+'>'+machKeys[i]+'</option>';}
   h+='</select>';
-  h+='<select id="quotStd_'+idx+'" class="quot-fltr-sm" onchange="onQuotRowFilterChange('+idx+')" style="width:auto;min-width:60px"><option value="">— TC —</option>';
+  h+='<select id="quotStd_'+idx+'" class="quot-fltr-sm" onchange="onQuotRowFilterChange('+idx+')"><option value="">TC</option>';
   for(var i=0;i<stdKeys.length;i++){h+='<option value="'+stdKeys[i].replace(/"/g,"&quot;")+'"'+(curStd===stdKeys[i]?' selected':'')+'>'+stdKeys[i]+'</option>';}
   h+='</select>';
-  h+='<select id="quotSz_'+idx+'" class="quot-fltr-sm" onchange="onQuotRowFilterChange('+idx+')" style="width:auto;min-width:60px"><option value="">— KT —</option>';
+  h+='<select id="quotSz_'+idx+'" class="quot-fltr-sm" onchange="onQuotRowFilterChange('+idx+')"><option value="">KT</option>';
   for(var i=0;i<sizeKeys.length;i++){h+='<option value="'+sizeKeys[i].replace(/"/g,"&quot;")+'"'+(curSz===sizeKeys[i]?' selected':'')+'>'+sizeKeys[i]+'</option>';}
   h+='</select>';
   h+='<span style="flex:1"></span>';
   h+='<button class="quot-remove-btn" onclick="quotRemoveRow('+idx+')" title="Xóa">✕</button>';
   h+='</div>';
 
-  // Thông tin sản phẩm
+  // === Sản phẩm === 
   h+='<div class="quot-row-body">';
   h+='<label class="quot-field-label">Sản phẩm</label>';
   h+='<div class="quot-prod-sm-row">';
   h+='<div style="flex:2;min-width:0"><select id="quotProd_'+idx+'" class="quot-input quot-prod-sm" onchange="onQuotProdChange('+idx+')"><option value="">— Chọn SP —</option>';
-  for(var i=0;i<DATA_PRODUCTS.length;i++){
-    var p=DATA_PRODUCTS[i];
-    var machOk=!curMach||String(p.machine)===curMach;
-    var stdOk=!curStd||p.standard===curStd;
-    var szOk=!curSz||p.size===curSz;
-    if(!machOk||!stdOk||!szOk) continue;
-    var val=p.code+"||"+(p.standard||"");
-    var lab=p.code+" - "+p.size+(p.standard?" ("+p.standard+")":"");
-    h+='<option value="'+val.replace(/"/g,"&quot;")+'">'+escHtml(lab)+'</option>';
-  }
+  for(var i=0;i<DATA_PRODUCTS.length;i++){var p=DATA_PRODUCTS[i];var mOk=!curMach||String(p.machine)===curMach;var sOk=!curStd||p.standard===curStd;var zOk=!curSz||p.size===curSz;if(!mOk||!sOk||!zOk)continue;var val=p.code+'||'+(p.standard||'');var lab=p.code+' - '+p.size+(p.standard?' ('+p.standard+')':'');h+='<option value="'+val.replace(/"/g,"&quot;")+'"'+(item.product===val?' selected':'')+'>'+escHtml(lab)+'</option>';}
   h+='</select></div>';
-  // Bag spec
-  h+='<label class="quot-field-label">Bao bì</label>';
-  var bagSpecs={};
-  for(var b=0;b<DATA_BAGS.length;b++){bagSpecs[DATA_BAGS[b].spec]=1;}
-  var specKeys=Object.keys(bagSpecs).sort();
-  h+='<div style="flex:0.7;min-width:0"><select id="quotBagSpec_'+idx+'" class="quot-input quot-prod-sm" onchange="onQuotBagSpecChange('+idx+')">';
-  for(var b=0;b<specKeys.length;b++){
-    h+='<option value="'+specKeys[b].replace(/"/g,"&quot;")+'"'+(item.bagSpec===specKeys[b]?' selected':'')+'>'+specKeys[b]+'</option>';
-  }
-  h+='<option value="Khác">Khác</option></select></div>';
-  // Bag detail
-  h+='<div id="quotBagDetail_'+idx+'" style="flex:1;min-width:0"><select id="quotBag_'+idx+'" class="quot-input quot-prod-sm" onchange="recalcQuotCart()"><option value="">— Bao —</option></select></div>';
-  // Giá bán & Số lượng
-  h+='<label class="quot-field-label">Giá bán</label>';
-  h+='<div style="flex:0.7;min-width:80px"><input type="number" id="quotSell_'+idx+'" class="quot-input quot-sell-sm" placeholder="Giá..." min="0" step="0.01" value="'+(item.sellPrice||'')+'" oninput="onQuotSellChange('+idx+')"></div>';
+  // Số lượng
+  h+='<div style="flex:0.3;min-width:60px"><input type="number" id="quotQty_'+idx+'" class="quot-input quot-prod-sm" placeholder="SL" value="'+item.qty+'" min="1" oninput="onQuotQtyChange('+idx+')"></div>';
   h+='</div>';
 
-  // Quy cách đặc biệt (Jumbo / QC khác)
+  // === Bao bì === 
+  h+='<label class="quot-field-label">Bao bì</label>';
+  var bagSpecs={};for(var b=0;b<DATA_BAGS.length;b++){bagSpecs[DATA_BAGS[b].spec]=1;}var specKeys=Object.keys(bagSpecs).sort();
+  h+='<div class="quot-prod-sm-row">';
+  h+='<div style="flex:0.7;min-width:0"><select id="quotBagSpec_'+idx+'" class="quot-input quot-prod-sm" onchange="onQuotBagSpecChange('+idx+')">';
+  for(var b=0;b<specKeys.length;b++){h+='<option value="'+specKeys[b].replace(/"/g,"&quot;")+'"'+(item.bagSpec===specKeys[b]?' selected':'')+'>'+specKeys[b]+'</option>';}
+  h+='<option value="Khác">Khác</option></select></div>';
+  h+='<div id="quotBagDetail_'+idx+'" style="flex:1;min-width:0"><select id="quotBag_'+idx+'" class="quot-input quot-prod-sm" onchange="recalcQuotCart()"><option value="">Bao</option></select></div>';
+  h+='</div>';
+
+  // === Quy cách đặc biệt (Jumbo / QC khác) === 
   h+='<label class="quot-field-label">Quy cách đặc biệt</label>';
-  var jumboDisplay=item.bagSpec==="Jumbo"?"flex":"none";
-  var otherTonsDisplay=item.bagSpec==="Jumbo"?"none":"flex";
-  h+='<div class="quot-prod-sm-row" id="quotJumboRow_'+idx+'" style="display:'+jumboDisplay+'">';
-  h+='<div style="flex:1"><label style="font-size:10px;color:var(--muted)">⚖️ Jumbo (tấn)</label><select id="quotJumboTons_'+idx+'" class="quot-input quot-prod-sm" onchange="onQuotJumboTonsChange('+idx+')">';
+  var jumboDisp=item.bagSpec==="Jumbo"?"flex":"none";
+  var otherDisp=item.bagSpec!=="Jumbo"?"flex":"none";
+  h+='<div class="quot-prod-sm-row">';
+  h+='<div id="quotJumboRow_'+idx+'" style="flex:1;display:'+jumboDisp+'">';
+  h+='<select id="quotJumboTons_'+idx+'" class="quot-input quot-prod-sm" onchange="onQuotJumboTonsChange('+idx+')">';
   var jumboTons=["0.5","0.7","1","1.1","1.2","1.25","1.3","1.35","1.375","1.38","1.4","1.5"];
-  h+='<option value="1">— Chọn —</option>';
+  h+='<option value="1">Jumbo (tấn)</option>';
   for(var t=0;t<jumboTons.length;t++){h+='<option value="'+jumboTons[t]+'"'+(String(item.rowJumboTons)===jumboTons[t]?' selected':'')+'>'+jumboTons[t]+' tấn</option>';}
   h+='</select></div>';
-  h+='</div>';
-  // Other spec + tons
-  h+='<div class="quot-prod-sm-row">';
-  h+='<div id="quotOtherRow_'+idx+'" style="flex:1"><select id="quotOther_'+idx+'" class="quot-input quot-prod-sm" onchange="onQuotOtherChange('+idx+')"><option value="">— QC khác —</option>';
+  h+='<div id="quotOtherRow_'+idx+'" style="flex:1;display:'+otherDisp+'">';
+  h+='<select id="quotOther_'+idx+'" class="quot-input quot-prod-sm" onchange="onQuotOtherChange('+idx+')"><option value="">QC khác</option>';
   for(var o=0;o<DATA_OTHERS.length;o++){h+='<option value="'+DATA_OTHERS[o].code.replace(/"/g,"&quot;")+'"'+(item.rowOtherCode===DATA_OTHERS[o].code?' selected':'')+'>'+escHtml(DATA_OTHERS[o].code)+'</option>';}
   h+='</select></div>';
-  h+='<div id="quotOtherTonsRow_'+idx+'" style="flex:0.5;display:'+otherTonsDisplay+'"><select id="quotOtherTons_'+idx+'" class="quot-input quot-prod-sm" onchange="recalcQuotCart()">';
+  h+='<div id="quotOtherTonsRow_'+idx+'" style="flex:0.5;display:'+otherDisp+'">';
+  h+='<select id="quotOtherTons_'+idx+'" class="quot-input quot-prod-sm" onchange="recalcQuotCart()">';
   var otherTons=["0.5","0.7","1","1.1","1.2","1.25","1.3","1.35","1.4","1.5"];
   h+='<option value="1">1 tấn</option>';
   for(var t=0;t<otherTons.length;t++){h+='<option value="'+otherTons[t]+'"'+(String(item.rowOtherTons)===otherTons[t]?' selected':'')+'>'+otherTons[t]+' tấn</option>';}
   h+='</select></div>';
-  h+='<div style="flex:0.2;min-width:50px"><input type="number" id="quotQty_'+idx+'" class="quot-input quot-prod-sm" placeholder="Số lượng" value="'+item.qty+'" min="1" oninput="updateQuotPreview()"></div>';
   h+='</div>';
 
-  // Thông số
+  // === Giá bán === 
+  h+='<label class="quot-field-label">Giá bán</label>';
+  h+='<input type="number" id="quotSell_'+idx+'" class="quot-input quot-sell-sm" placeholder="Giá..." min="0" step="0.01" value="'+(item.sellPrice||'')+'" oninput="onQuotSellChange('+idx+')" style="flex:1;width:100%">';
+
+  // === TCKT + Stats === 
   h+='<div class="quot-row-stats">';
-  h+='<div class="quot-spec-row" id="quotSpec_'+idx+'"><span class="quot-spec-label">📊 TCKT:</span> <span class="quot-spec-val">Chọn SP trước</span></div>';
-  h+='<div class="quot-min-price" id="quotMin_'+idx+'"><span class="quot-min-label">💰 Min: </span><span class="quot-min-val">—</span></div>';
-  h+='<div class="quot-comm-display" id="quotComm_'+idx+'"><span class="quot-comm-label">💵 HH: </span><span class="quot-comm-val">—</span></div>';
+  h+='<div class="quot-spec-row" id="quotSpec_'+idx+'"><span class="quot-spec-label">📊 TCKT:</span><span class="quot-spec-val">Chọn SP trước</span></div>';
+  h+='<div class="quot-min-price" id="quotMin_'+idx+'"><span class="quot-min-label">💰 Min:</span><span class="quot-min-val">—</span></div>';
+  h+='<div class="quot-comm-display" id="quotComm_'+idx+'"><span class="quot-comm-label">💵 HH:</span><span class="quot-comm-val">—</span></div>';
   h+='</div>';
   h+='</div>';
   h+='</div>';
@@ -364,14 +349,23 @@ function onQuotSellChange(idx) {
   recalcQuotCart();
 }
 
+
+function onQuotQtyChange(idx) {
+  var el=document.getElementById("quotQty_"+idx); if(!el) return;
+  QUOT_CART[idx].qty=Math.max(1, parseInt(el.value)||1);
+  recalcQuotCart();
+}
 function onQuotDeliveryChange() {
   var mode=document.getElementById("quotDeliveryMode").value;
   document.getElementById("quotLccGroup").style.display=(mode==="exw"?"none":"block");
   document.getElementById("quotFreightGroup").style.display=(mode==="cif"?"block":"none");
+  // EXW: hide cảng đi, FOB: show cảng đi, CIF: show cảng đi + cảng đến
+  var portGroup=document.getElementById("quotPortGroup");
+  var destGroup=document.getElementById("quotDestGroup");
+  if(portGroup) portGroup.style.display=(mode==="exw"?"none":"block");
+  if(destGroup) destGroup.style.display=(mode==="cif"?"block":"none");
   recalcQuotCart();
-}
-
-function onQuotJumboTonsChange(idx) {
+}function onQuotJumboTonsChange(idx) {
   var el=document.getElementById("quotJumboTons_"+idx);
   if(!el) return;
   QUOT_CART[idx].rowJumboTons=parseFloat(el.value)||1;
@@ -404,6 +398,7 @@ function recalcQuotCart() {
     var jumboEl=document.getElementById("quotJumboTons_"+i); if(jumboEl) item.rowJumboTons=parseFloat(jumboEl.value)||1;
     var otherEl=document.getElementById("quotOther_"+i); if(otherEl) item.rowOtherCode=otherEl.value;
     var otherTonsEl=document.getElementById("quotOtherTons_"+i); if(otherTonsEl) item.rowOtherTons=parseFloat(otherTonsEl.value)||1;
+    var qtyEl=document.getElementById("quotQty_"+i); if(qtyEl) item.qty=Math.max(1, parseInt(qtyEl.value)||1);
     var sellEl=document.getElementById("quotSell_"+i); if(sellEl) item.sellPrice=parseFloat(sellEl.value)||0;
     var sellPrice=item.sellPrice||0;
     var minPrice=0;
@@ -585,6 +580,8 @@ function recalcQuotCart() {
   h+='<div class="q-terms" style="margin-top:8px">';
   h+='<div class="q-row"><strong>Điều kiện:</strong><span>'+mode+'</span></div>';
   if(port&&(mode==="FOB"||mode==="CIF")) h+='<div class="q-row"><strong>Cảng đi:</strong><span>'+port+'</span></div>';
+  var dest=document.getElementById("qDest")?document.getElementById("qDest").value:"";
+  if(dest&&mode==="CIF") h+='<div class="q-row"><strong>Cảng đến:</strong><span>'+dest+'</span></div>';
   h+='<div class="q-row"><strong>Hiệu lực:</strong><span>'+valid+'</span></div>';
   h+='<div class="q-row"><strong>Thanh toán:</strong><span>'+payment+'</span></div>';
   if(note) h+='<div class="q-row"><strong>Ghi chú:</strong><span>'+note+'</span></div>';
@@ -639,6 +636,8 @@ function quotGetText() {
   if (custEmail) t += "Email: " + custEmail + "\n";
   t += "Ngày: " + dateStr + "\n";
   if (port) t += "Cảng đi: " + port + "\n";
+  var dest=document.getElementById("qDest")?document.getElementById("qDest").value:"";
+  if (dest&&mode==="CIF") t += "Cảng đến: " + dest + "\n";
   t += "──────────────────────────────────\n";
   for (var i = 0; i < QUOT_CART.length; i++) {
     var item = QUOT_CART[i];
@@ -710,6 +709,8 @@ function quotPrint() {
   if (custEmail) w.document.write('<div class="row"><strong>Email:</strong><span>'+custEmail+'</span></div>');
   w.document.write('<div class="row"><strong>Ngày:</strong><span>'+dateStr+'</span></div>');
   if (port) w.document.write('<div class="row"><strong>Cảng đi:</strong><span>'+port+'</span></div>');
+  var dest=document.getElementById("qDest")?document.getElementById("qDest").value:"";
+  if (dest&&mode==="CIF") w.document.write('<div class="row"><strong>Cảng đến:</strong><span>'+dest+'</span></div>');
   w.document.write('<table><thead><tr><th>STT</th><th>Code</th><th>Sản phẩm</th><th>Spec</th><th>Bao</th><th>ĐVT</th><th>SL</th><th>Giá bán</th><th>Tiền tệ</th></tr></thead><tbody>');
   for (var i = 0; i < QUOT_CART.length; i++) {
     var item = QUOT_CART[i];
