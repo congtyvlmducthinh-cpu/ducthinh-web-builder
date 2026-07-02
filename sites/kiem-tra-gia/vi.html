@@ -8034,9 +8034,15 @@ function quotPopulateFilters() { /* global filter removed */ if(!document.getEle
 
 // Filtered products helper
 function getQuotFilteredProducts() {
-  var m=document.getElementById("quotMachFilter").value;
-  var s=document.getElementById("quotStdFilter").value;
-  var sz=document.getElementById("quotSizeFilter").value;
+  var mEl=document.getElementById("quotMachFilter");
+  if(!mEl) return DATA_PRODUCTS.slice();
+  var m=mEl.value;
+  var sEl=document.getElementById("quotStdFilter");
+  if(!sEl) return DATA_PRODUCTS.slice();
+  var s=sEl.value;
+  var szEl=document.getElementById("quotSizeFilter");
+  if(!szEl) return DATA_PRODUCTS.slice();
+  var sz=szEl.value;
   var list=[];
   for(var i=0;i<DATA_PRODUCTS.length;i++){
     var p=DATA_PRODUCTS[i];
@@ -8048,7 +8054,9 @@ function getQuotFilteredProducts() {
 }
 
 function quotFilterProds() {
-  var m=document.getElementById("quotMachFilter").value;
+  var mEl=document.getElementById("quotMachFilter");
+  if(!mEl) return;
+  var m=mEl.value;
   var s=document.getElementById("quotStdFilter").value;
   var sz=document.getElementById("quotSizeFilter").value;
   document.querySelectorAll(".quot-prod-row").forEach(function(row){
