@@ -1,28 +1,4 @@
 ﻿
-
-/* Spec picker popup (TCKT) */
-.tckt-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,.6);backdrop-filter:blur(4px);display:none;justify-content:center;align-items:center;z-index:2000}
-.tckt-overlay.open{display:flex}
-.tckt-modal{background:var(--card);border-radius:var(--radius-lg);max-width:520px;width:95%;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.15)}
-.tckt-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--border)}
-.tckt-header h3{font-size:15px;font-weight:700}
-.tckt-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);padding:4px}
-.tckt-body{flex:1;overflow-y:auto;padding:12px 20px;max-height:50vh}
-.tckt-field{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f8fafc}
-.tckt-field input[type=checkbox]{width:16px;height:16px;accent-color:var(--primary);cursor:pointer}
-.tckt-field label{font-size:13px;cursor:pointer;color:var(--text);flex:1}
-.tckt-field .tckt-key{font-size:10px;color:var(--muted);font-family:monospace;background:#f1f5f9;padding:1px 6px;border-radius:4px}
-.tckt-footer{display:flex;justify-content:flex-end;gap:8px;padding:12px 20px;border-top:1px solid var(--border);flex-wrap:wrap}
-.tckt-template-bar{display:flex;gap:6px;align-items:center;padding:8px 20px;border-top:1px solid var(--border);flex-wrap:wrap}
-.tckt-template-bar label{font-size:11px;font-weight:600;color:var(--text-secondary);white-space:nowrap}
-.tckt-template-bar select{flex:1;min-width:120px;padding:6px 10px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;outline:none;font-family:var(--font);color:var(--text);background:var(--card)}
-.tckt-btn-sm{padding:5px 12px;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);white-space:nowrap}
-.tckt-btn-primary{background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff}
-.tckt-btn-secondary{background:#f1f5f9;color:var(--text-secondary)}
-.tckt-btn-danger{background:#fee2e2;color:#dc2626}
-.tckt-spec-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:12px;cursor:pointer;color:var(--muted);transition:all .2s;white-space:nowrap}
-.tckt-spec-btn:hover{background:#f1f5f9;color:var(--text)}
-.tckt-name-input{padding:6px 10px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;outline:none;font-family:var(--font);color:var(--text);flex:1;min-width:100px}
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -264,7 +240,31 @@ tbody tr:hover td{background:#eff6ff}
 .quot-preview .q-terms{margin-top:8px}
 .quot-preview .q-footer{margin-top:12px;font-size:10px;color:#94a3b8;line-height:1.6}
 @media(max-width:900px){.quot-grid{grid-template-columns:1fr}.quot-form-row{flex-direction:column;gap:6px}.quot-price-row{flex-wrap:wrap}.quot-row-inline{flex-wrap:wrap}}
-</style>
+
+
+/* Spec picker popup (TCKT) */
+.tckt-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,.6);backdrop-filter:blur(4px);display:none;justify-content:center;align-items:center;z-index:2000}
+.tckt-overlay.open{display:flex}
+.tckt-modal{background:var(--card);border-radius:var(--radius-lg);max-width:520px;width:95%;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.tckt-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--border)}
+.tckt-header h3{font-size:15px;font-weight:700}
+.tckt-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);padding:4px}
+.tckt-body{flex:1;overflow-y:auto;padding:12px 20px;max-height:50vh}
+.tckt-field{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f8fafc}
+.tckt-field input[type=checkbox]{width:16px;height:16px;accent-color:var(--primary);cursor:pointer}
+.tckt-field label{font-size:13px;cursor:pointer;color:var(--text);flex:1}
+.tckt-field .tckt-key{font-size:10px;color:var(--muted);font-family:monospace;background:#f1f5f9;padding:1px 6px;border-radius:4px}
+.tckt-footer{display:flex;justify-content:flex-end;gap:8px;padding:12px 20px;border-top:1px solid var(--border);flex-wrap:wrap}
+.tckt-template-bar{display:flex;gap:6px;align-items:center;padding:8px 20px;border-top:1px solid var(--border);flex-wrap:wrap}
+.tckt-template-bar label{font-size:11px;font-weight:600;color:var(--text-secondary);white-space:nowrap}
+.tckt-template-bar select{flex:1;min-width:120px;padding:6px 10px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;outline:none;font-family:var(--font);color:var(--text);background:var(--card)}
+.tckt-btn-sm{padding:5px 12px;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);white-space:nowrap}
+.tckt-btn-primary{background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff}
+.tckt-btn-secondary{background:#f1f5f9;color:var(--text-secondary)}
+.tckt-btn-danger{background:#fee2e2;color:#dc2626}
+.tckt-spec-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:12px;cursor:pointer;color:var(--muted);transition:all .2s;white-space:nowrap}
+.tckt-spec-btn:hover{background:#f1f5f9;color:var(--text)}
+.tckt-name-input{padding:6px 10px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;outline:none;font-family:var(--font);color:var(--text);flex:1;min-width:100px}</style>
 </head>
 <body>
 <div class="container">
