@@ -172,7 +172,9 @@ function quotRenderCart() {
     var qtyInput=document.getElementById("quotQty_"+i); if(qtyInput) qtyInput.value=item.qty;
     var sellInput=document.getElementById("quotSell_"+i); if(sellInput) sellInput.value=item.sellPrice;
     setupQuotRowEvents(i);
-  }function quotRenderRow(idx, item) {
+  }}
+
+function quotRenderRow(idx, item) {
   var filtered=getQuotFilteredProducts();
   // Get current filter values from item
   var curMach=item.rowFilterMachine||"";
