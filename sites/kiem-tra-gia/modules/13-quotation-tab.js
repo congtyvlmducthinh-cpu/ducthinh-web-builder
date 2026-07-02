@@ -389,6 +389,9 @@ function recalcQuotCart() {
   var lcc=document.getElementById("quotLccType")?document.getElementById("quotLccType").value:"no";
   var freight=document.getElementById("quotFreight")?parseFloat(document.getElementById("quotFreight").value)||0:0;
   var market=document.getElementById("quotMarket")?document.getElementById("quotMarket").value:"other";
+  // Apply market pricing to DATA_PRODUCTS
+  currentMarket = market;
+  applyMarket();
   var lccKey = lcc==="sub"?"sub":"no";
   var cc=isUsd?"USD":"VND";
 
