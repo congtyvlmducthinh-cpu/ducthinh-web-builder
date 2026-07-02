@@ -8005,12 +8005,12 @@ function quotFilterProds() {
   var sz=document.getElementById("quotSizeFilter").value;
   document.querySelectorAll(".quot-prod-row").forEach(function(row){
     var pm=row.dataset.machine||"", ps=row.dataset.standard||"", pz=row.dataset.size||"";
+    // Skip empty rows (no product selected) - keep them visible
+    if(!pm&&!ps&&!pz){row.style.display="";return;}
     row.style.display=(!m||pm===m)&&(!s||ps===s)&&(!sz||pz===sz)?"":"none";
   });
   quotRefreshProdDropdowns();
-}
-
-function quotRefreshProdDropdowns() {
+}function quotRefreshProdDropdowns() {
   var filtered=getQuotFilteredProducts();
   for(var idx=0;idx<QUOT_CART.length;idx++){
     var sel=document.getElementById("quotProd_"+idx);
