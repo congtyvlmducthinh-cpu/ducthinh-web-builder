@@ -60,6 +60,7 @@ function renderQuotationTab() {
   h += '<div class="quot-section-content"><div class="quot-section-content"><div id="quotCart"></div></div></div>';
 
   // Right panel
+  h += '</div>'; // close quot-left
   h += '<div class="quot-right">';
   h += '<div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge blue">📄</span><span class="title-text">Xem trước báo giá</span><span class="quot-toggle-icon">▼</span></div>'
   h += '<div class="quot-section-content">';
@@ -68,7 +69,7 @@ function renderQuotationTab() {
   h += '<button class="quot-btn quot-btn-secondary" onclick="quotCopy()">📋 Copy</button>';
   h += '<button class="quot-btn quot-btn-secondary" onclick="quotClear()">🗑️ Xóa hết</button></div>';
   h += '<div class="quot-preview" id="quotPreview">';
-  h += '<div class="quot-preview-empty">👈 Chọn sản phẩm và điền thông tin</div></div></div></div></div>';
+  h += '<div class="quot-preview-empty">👈 Chọn sản phẩm và điền thông tin</div></div></div></div>';
   return h;
 }
 
