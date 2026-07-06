@@ -549,7 +549,7 @@ function _generateQuotPreviewHtml() {
   h+='<div style="margin-top:12px;padding-top:8px;border-top:1px solid #e2e8f0;font-size:11px;color:#64748b">';
   h+='- Giá không bao gồm thuế VAT<br>';
   h+='- Báo giá này có hiệu lực trong vòng '+valid+'<br>';
-  h+='- Số lượng tối thiểu: 1 container 20 feet (khoảng 21 tấn)';
+  if(mode==='FOB'||mode==='CIF') h+='- Số lượng tối thiểu: 3 containers';
   h+='</div></div>';
   return h;
 }
@@ -638,7 +638,7 @@ function updateQuotPreview() {
   h+='<div class="q-footer">';
   h+='- Giá không bao gồm thuế VAT<br>';
   h+='- Báo giá này có hiệu lực trong vòng '+valid+'<br>';
-  h+='- Số lượng tối thiểu: 1 container 20 feet (khoảng 21 tấn)';
+  if(mode==='FOB'||mode==='CIF') h+='- Số lượng tối thiểu: 3 containers';
   h+='</div></div>';
   previewEl.innerHTML = h;
 }
@@ -812,7 +812,7 @@ function quotPrint() {
   w.document.write('<div class="row"><strong>Hiệu lực:</strong><span>'+valid+'</span></div>');
   w.document.write('<div class="row"><strong>Thanh toán:</strong><span>'+payment+'</span></div>');
   if (note) w.document.write('<div class="row"><strong>Ghi chú:</strong><span>'+note+'</span></div>');
-  w.document.write('<div class="footer">- Giá không bao gồm thuế VAT<br>- Báo giá này có hiệu lực trong vòng '+valid+'<br>- Số lượng tối thiểu: 1 container 20 feet (khoảng 21 tấn)<br><br><strong>'+COMPANY_EN+'</strong></div>');
+  w.document.write('<div class="footer">- Giá không bao gồm thuế VAT<br>- Báo giá này có hiệu lực trong vòng '+valid+'<br>' + (mode==='FOB'||mode==='CIF' ? '- Số lượng tối thiểu: 3 containers<br><br>' : '<br>') + '<strong>'+COMPANY_EN+'</strong></div>');
   w.document.write('</body></html>');
   w.document.close();
   setTimeout(function(){w.print();}, 500);

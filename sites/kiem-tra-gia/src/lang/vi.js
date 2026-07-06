@@ -130,7 +130,7 @@ var LANG_TEMPLATE = {
 
   // Company
   COMPANY_NAME: "CÔNG TY TNHH CÔNG NGHỆ VẬT LIỆU MỚI ĐỨC THỊNH",
-  COMPANY_ADDR: "ĐC: KCN NGHIA DAN, XA NGHIA THU, TINH NGHE AN, VIET NAM",
+  COMPANY_ADDR: "ĐC: KCN NGHĨA ĐÀN, XÃ NGHĨA THỌ, TỈNH NGHỆ AN, VIỆT NAM",
 
   // Quotation Tab
   Delivery_Terms: "Delivery Terms",

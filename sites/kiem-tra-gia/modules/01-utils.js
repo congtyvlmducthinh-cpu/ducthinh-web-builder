@@ -1,9 +1,9 @@
 // ====== COMPANY CONSTANTS ======
-var COMPANY = 'CONG TY TNHH CONG NGH? V?T LI?U M?I D?C TH?NH';
+var COMPANY = 'CÔNG TY TNHH CÔNG NGHỆ VẬT LIỆU MỚI ĐỨC THỊNH';
 var COMPANY_EN = 'DUC THINH NEW MATERIALS TECHNOLOGY COMPANY LIMITED';
-var ADDR = 'DC: KCN NGHIA DAN, XA NGHIA THU, TINH NGHE AN, VIET NAM';
+var ADDR = 'ĐC: KCN NGHĨA ĐÀN, XÃ NGHĨA THỌ, TỈNH NGHỆ AN, VIỆT NAM';
 var EMAIL = 'sales@ducthinh.com';
-var WEBSITE = 'https://ducthinhmaterials.com';
+var WEBSITE = 'https://ducthinh.com';
 var PHONE = '+84 382 666 000';
 var EXT = '106';
 var MST = '2902085037';
