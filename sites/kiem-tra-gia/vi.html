@@ -339,11 +339,12 @@ tbody tr:hover td{background:#eff6ff}
 
 <header>
 <div>
-<h1>Kiểm Tra Giá <span>ðŸ”</span></h1>
+<h1>Kiểm Tra Giá <span>🔍</span></h1>
 <div class="sub" style="margin-top:6px;font-size:13px;opacity:.8;">Vật Liệu Mới Đức Thịnh - Bảng giá tháng 06/2026</div>
 </div>
-<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="badge">ðŸ­ 🏭 VL MỚI ĐỨC THỊNH</span><span class="badge" id="dataInfo">ðŸ“Š 0 SP</span>
-<div class="lang-switcher"><a href="vi.html" class=" active">VI</a><a href="en.html" class="">EN</a><a href="zh.html" class="">ZH</a></div></div>
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+<div class="lang-switcher"><a href="vi.html" class=" active">VI</a><a href="en.html" class="">EN</a><a href="zh.html" class="">ZH</a></div>
+</div>
 </header>
 
 <div class="tabs" id="tabs">
@@ -3629,7 +3630,7 @@ function render() {
     container.innerHTML = "";
   }
   
-  updateDataInfo();
+  ;
 }
 
 // ====== SAVE DATA TO SERVER ======
@@ -3685,11 +3686,8 @@ function saveToServer() {
   xhr.send(JSON.stringify(payload));
 }
 
-function updateDataInfo() {
-  var el = document.getElementById("dataInfo");
-  if (!el) return;
-  el.textContent = "📊 " + DATA_PRODUCTS.length + " SP · " + DATA_BAGS.length + " BB · " + DATA_OTHERS.length + " QC · " + DATA_APPLICATIONS.length + " APP";
-}
+
+
 
 // Language switch (i18n stub - keeps layout functional)
 var currentLang = "vi";
