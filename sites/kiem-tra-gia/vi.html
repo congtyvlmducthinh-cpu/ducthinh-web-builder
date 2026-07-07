@@ -7986,10 +7986,10 @@ function renderQuotationTab() {
 
   // == Khách hàng ==
   h += '<div class="quot-section"><div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge blue">🏢</span><span class="title-text">Khách hàng</span><span class="quot-toggle-icon">▼</span></div>';
-  h += '<div class="quot-section-content"><div class="quot-form-row"><div class="quot-form-group"><label>🏢 Khách hàng</label><input type="text" id="qCustomer" placeholder="Tên khách hàng..." oninput="this.style.borderColor='';updateQuotPreview()" class="quot-input"></div>';
+  h += '<div class="quot-section-content"><div class="quot-form-row"><div class="quot-form-group"><label>🏢 Khách hàng</label><input type="text" id="qCustomer" placeholder="Tên khách hàng..." oninput="this.style.borderColor=\'\';updateQuotPreview()" class="quot-input"></div>';
   h += '<div class="quot-form-group"><label>👤 Người liên hệ</label><input type="text" id="qContact" placeholder="Người liên hệ..." oninput="updateQuotPreview()" class="quot-input"></div></div>';
   h += '<div class="quot-form-row"><div class="quot-form-group"><label>👤 Người phụ trách</label><input type="text" id="qAssigned" placeholder="Tên nhân viên..." oninput="updateQuotPreview()" class="quot-input"></div>';
-  h += '<div class="quot-form-group"><label>📧 Email người phụ trách</label><input type="email" id="qCustEmail" oninput="this.style.borderColor=''" placeholder="Email khách hàng..." oninput="updateQuotPreview()" class="quot-input"></div></div></div></div>';
+  h += '<div class="quot-form-group"><label>📧 Email người phụ trách</label><input type="email" id="qCustEmail" placeholder="Email khách hàng..." oninput="this.style.borderColor=\'\';updateQuotPreview()" class="quot-input"></div></div></div></div>';
 
   // == Delivery Terms ==
   h += '<div class="quot-section"><div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge green">🚚</span><span class="title-text">Delivery Terms</span><span class="quot-toggle-icon">▼</span></div>';
@@ -8621,23 +8621,7 @@ function updateQuotPreview() {
   previewEl.innerHTML = h;
 }
 function quotCopy() {
-  var custName = document.getElementById("qCustomer");
-  if (!custName || !custName.value.trim()) {
-    alert("⚠️ Vui lòng nhập Tên khách hàng trước khi copy báo giá!");
-    if (custName) { custName.focus(); custName.style.borderColor = "red"; }
-    return;
-  }
-  var custEmail = document.getElementById("qCustEmail");
-  if (custEmail && custEmail.value.trim()) {
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(custEmail.value.trim())) {
-      alert("⚠️ Email người phụ trách không đúng định dạng! Vui lòng kiểm tra lại.");
-      custEmail.focus();
-      custEmail.style.borderColor = "red";
-      return;
-    }
-  }
-  var txt = quotGetText();var txt = quotGetText();
+  var txt = quotGetText();
   if (!txt) { alert("Chưa có dữ liệu báo giá!"); return; }
   if (navigator.clipboard) {
     navigator.clipboard.writeText(txt).then(function(){alert("✅ Đã copy báo giá vào clipboard");});
@@ -8721,43 +8705,28 @@ function quotGetText() {
 }
 
 function quotPreviewOpen() {
-  // === VALIDATION ===
-  var custName = document.getElementById("qCustomer");
-  if (!custName || !custName.value.trim()) {
-    alert("⚠️ Vui lòng nhập Tên khách hàng trước khi xem báo giá!");
-    if (custName) { custName.focus(); custName.style.borderColor = "red"; }
-    return;
+  var overlay=document.getElementById("quotPreviewOverlay");
+  if(!overlay){
+    overlay=document.createElement("div");overlay.id="quotPreviewOverlay";
+    overlay.style.cssText="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center";
+    document.body.appendChild(overlay);
+    var popup=document.createElement("div");popup.id="quotPreviewPopup";
+    popup.style.cssText="background:#fff;border-radius:12px;padding:24px;max-width:90vw;max-height:85vh;overflow:auto;box-shadow:0 8px 32px rgba(0,0,0,0.2);position:relative";
+    overlay.appendChild(popup);
+    var closeBtn=document.createElement("button");closeBtn.textContent="✕ Đóng";
+    closeBtn.style.cssText="position:sticky;top:0;float:right;background:var(--primary,#3b82f6);color:#fff;border:none;padding:6px 16px;border-radius:6px;cursor:pointer;font-size:14px;z-index:1";
+    closeBtn.onclick=function(){document.body.removeChild(overlay);};
+    popup.appendChild(closeBtn);
+    var content=document.createElement("div");content.id="quotPreviewContent";
+    content.style.cssText="clear:both";
+    popup.appendChild(content);
+    overlay.onclick=function(e){if(e.target===overlay){document.body.removeChild(overlay);}};
   }
-  // Email validation
-  var custEmail = document.getElementById("qCustEmail");
-  if (custEmail && custEmail.value.trim()) {
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(custEmail.value.trim())) {
-      alert("⚠️ Email người phụ trách không đúng định dạng! Vui lòng kiểm tra lại.");
-      custEmail.focus();
-      custEmail.style.borderColor = "red";
-      return;
-    }
-  }function quotPrint() {
-  var custName = document.getElementById("qCustomer");
-  if (!custName || !custName.value.trim()) {
-    alert("⚠️ Vui lòng nhập Tên khách hàng trước khi in báo giá!");
-    if (custName) { custName.focus(); custName.style.borderColor = "red"; }
-    return;
-  }
-  var custEmail = document.getElementById("qCustEmail");
-  if (custEmail && custEmail.value.trim()) {
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(custEmail.value.trim())) {
-      alert("⚠️ Email người phụ trách không đúng định dạng! Vui lòng kiểm tra lại.");
-      custEmail.focus();
-      custEmail.style.borderColor = "red";
-      return;
-    }
-  }
-
-  
-    var hasProd = false;
+  var content=document.getElementById("quotPreviewContent");
+  if(content) content.innerHTML=_generateQuotPreviewHtml();
+}
+function quotPrint() {
+  var hasProd = false;
   for (var i = 0; i < QUOT_CART.length; i++) { if (QUOT_CART[i].product) { hasProd = true; break; } }
   if (!hasProd) { alert("Chưa có sản phẩm để in báo giá!"); return; }
   var customer = document.getElementById("qCustomer").value || "______________________";
