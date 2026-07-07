@@ -1,27 +1,13 @@
-/**
- * add_fob_ptsc.js — Thêm tab "🚢 FOB PTSC" vào vi.html
- * Chạy: node add_fob_ptsc.js
- * 
- * Thêm:
- * 1. Tab button mới sau tab Apps
- * 2. CSS cho FOB PTSC panel
- * 3. HTML panel (Setup + Tính toán)
- * 4. JS data + functions
- * 5. Cập nhật switchTab() + render()
- */
-const fs = require('fs');
-
+var fs = require('fs');
 var html = fs.readFileSync(__dirname + '/vi.html', 'utf8');
 
-// ====== 1. Tab button: chèn sau button Apps ======
-var tabInsert = '\n<button class="tab-btn" data-tab="fobptsc" onclick="switchTab(\'fobptsc\')"><span>🚢 FOB PTSC</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Tàu rời & chi phí</small></button>\n</div>';
-
-// Find the closing </div> of the tabs div
+// ====== 1. TAB BUTTON ======
 var appsBtnEnd = html.indexOf('<button class="tab-btn" data-tab="apps"');
 appsBtnEnd = html.indexOf('</button>', appsBtnEnd) + '</button>'.length;
+var tabInsert = '<button class="tab-btn" data-tab="fobptsc" onclick="switchTab(\'fobptsc\')"><span>🚢 FOB PTSC</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Tàu rời & chi phí</small></button>\n</div>';
 html = html.slice(0, appsBtnEnd) + tabInsert + html.slice(appsBtnEnd);
 
-// ====== 2. CSS: thêm trước dòng cuối </style> ======
+// ====== 2. CSS ======
 var cssBlock = `
 /* ====== FOB PTSC ====== */
 .fobptsc-panel{max-width:960px;margin:0 auto;padding:16px}
@@ -52,10 +38,9 @@ var cssBlock = `
 .fobptsc-empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:14px}
 .fobptsc-empty .icon{font-size:48px;margin-bottom:12px}
 `;
-
 html = html.replace('</style>', cssBlock + '\n</style>');
 
-// ====== 3. JS data: thêm FOB_PTSC_CONFIG + FOB_PTSC_DEFAULTS sau DATA_COST_FOB ======
+// ====== 3. DATA OBJECT (after var DATA_COST_FOB) ======
 var fobDataBlock = `
 var FOB_PTSC_DEFAULTS = {
   transport: 50000,
@@ -70,10 +55,9 @@ var FOB_PTSC_DEFAULTS = {
 var FOB_PTSC_CONFIG = JSON.parse(JSON.stringify(FOB_PTSC_DEFAULTS));
 var FOB_PTSC_WAREHOUSE_DAYS = 3;
 `;
-
 html = html.replace('var DATA_COST_FOB', fobDataBlock + '\nvar DATA_COST_FOB');
 
-// ====== 4. HTML panel: thêm sau quản lý panel (trước modal pwModal) ======
+// ====== 4. HTML PANEL (before password modal) ======
 var fobPtscPanelHtml = `
 <!-- ====== FOB PTSC PANEL ====== -->
 <div class="fobptsc-panel" id="fobptscPanel" style="display:none">
@@ -93,7 +77,7 @@ var fobPtscPanelHtml = `
     </div>
     <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
       <button class="btn-confirm" onclick="fobPtscResetCfg()">↺ Đặt lại mặc định</button>
-      <button class="btn-cancel" onclick="alert('Đã lưu cấu hình (dùng cho phiên này).')">💾 Lưu</button>
+      <button class="btn-cancel" onclick="alert('✅ Cấu hình đã lưu (dùng trong phiên này).')">💾 Lưu</button>
     </div>
   </div>
 
@@ -125,22 +109,25 @@ var fobPtscPanelHtml = `
   </div>
 </div>
 `;
-
 html = html.replace('<div class="modal-overlay" id="pwModal">', fobPtscPanelHtml + '\n<div class="modal-overlay" id="pwModal">');
 
-// ====== 5. Cập nhật switchTab() ======
+// ====== 5. Update switchTab() ======
 html = html.replace(
-  "if (tab === 'quotation') {\n    render();\n  }",
-  "if (tab === 'quotation') {\n    render();\n  }\n  if (tab === 'fobptsc') {\n    fobPtscInitCalc();\n  }"
+  'if (mp) mp.classList.toggle("open", tab === "manage");',
+  'if (mp) mp.classList.toggle("open", tab === "manage");\n  var fp = document.getElementById("fobptscPanel");\n  if (fp) fp.style.display = (tab === "fobptsc") ? "block" : "none";'
+);
+html = html.replace(
+  'if (tab === "quotation") {\n    render();\n  }',
+  'if (tab === "quotation") {\n    render();\n  }\n  if (tab === "fobptsc") {\n    fobPtscInitCalc();\n  }'
 );
 
-// ====== 6. Cập nhật render() ======
+// ====== 6. Update render() ======
 html = html.replace(
-  "} else if (activeTab === 'quotation') {\n    container.innerHTML = renderQuotationTab();\n    setTimeout(function(){ quotInitRender(); }, 0);\n  } else {\n    container.innerHTML = '';\n  }",
-  "} else if (activeTab === 'quotation') {\n    container.innerHTML = renderQuotationTab();\n    setTimeout(function(){ quotInitRender(); }, 0);\n  } else if (activeTab === 'fobptsc') {\n    container.innerHTML = '';\n    var fp = document.getElementById('fobptscPanel');\n    if (fp) fp.style.display = 'block';\n  } else {\n    container.innerHTML = '';\n  }"
+  '} else if (activeTab === "quotation") {\n    container.innerHTML = renderQuotationTab();\n    setTimeout(function(){ quotInitRender(); }, 0);\n  } else {\n    container.innerHTML = "";\n  }',
+  '} else if (activeTab === "quotation") {\n    container.innerHTML = renderQuotationTab();\n    setTimeout(function(){ quotInitRender(); }, 0);\n  } else if (activeTab === "fobptsc") {\n    container.innerHTML = "";\n  } else {\n    container.innerHTML = "";\n  }'
 );
 
-// ====== 7. JS functions: thêm vào cuối trước </script> ======
+// ====== 7. JS FUNCTIONS (insert before last </script>) ======
 var fobJsFunctions = `
 // ====== FOB PTSC ======
 var FOB_PTSC_MODE = 'direct';
@@ -195,10 +182,7 @@ function fobPtscResetCfg() {
 }
 
 function fobPtscInitCalc() {
-  // Load config vào input
   fobPtscLoadCfg();
-  
-  // Populate product select
   var sel = document.getElementById('fobProduct');
   if (!sel) return;
   var curVal = sel.value;
@@ -237,7 +221,6 @@ function fobPtscCalc() {
     return;
   }
   
-  // Get EXW price
   var prod = null;
   if (typeof DATA_PRODUCTS !== 'undefined') {
     for (var i = 0; i < DATA_PRODUCTS.length; i++) {
@@ -250,12 +233,9 @@ function fobPtscCalc() {
   }
   
   var exwPrice = prod.exw_vnd || 0;
-  
-  // Collect fees
   var cfg = FOB_PTSC_CONFIG || FOB_PTSC_DEFAULTS;
   var fees = [];
   
-  // Luôn có
   fees.push({ label: '🚛 Vận chuyển NM → PTSC', value: cfg.transport || 0 });
   fees.push({ label: '🚢 Bốc xếp & giao nhận (cầu cảng → tàu)', value: cfg.loadShip || 0 });
   
@@ -284,59 +264,68 @@ function fobPtscCalc() {
     finalCost = costBeforeTax + exportTax;
   }
   
-  // Render result
-  var html = '<div class="fobptsc-result">';
-  html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
-  html += '<div><strong>' + (prod.code || '') + '</strong> | ' + (prod.spec || '') + ' | ' + (prod.size || '') + '</div>';
-  html += '<div style="font-size:13px;color:var(--muted)">' + tonnage + ' tấn | ' + (mode === 'direct' ? 'Không lưu kho' : 'Có lưu kho') + (isExport ? ' | 🌍 Xuất khẩu' : '') + '</div>';
-  html += '</div>';
+  var h = '<div class="fobptsc-result">';
+  h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
+  h += '<div><strong>' + (prod.code || '') + '</strong> | ' + (prod.spec || '') + ' | ' + (prod.size || '') + '</div>';
+  h += '<div style="font-size:13px;color:var(--muted)">' + tonnage + ' tấn | ' + (mode === 'direct' ? 'Không lưu kho' : 'Có lưu kho') + (isExport ? ' | 🌍 Xuất khẩu' : '') + '</div>';
+  h += '</div>';
   
-  html += '<table class="fobptsc-result-table">';
-  html += '<tr><td>💰 Giá EXW gốc</td><td>' + Math.round(exwPrice).toLocaleString() + ' VNĐ/tấn</td></tr>';
+  h += '<table class="fobptsc-result-table">';
+  h += '<tr><td>💰 Giá EXW gốc</td><td>' + Math.round(exwPrice).toLocaleString() + ' VNĐ/tấn</td></tr>';
   
   fees.forEach(function(f) {
-    html += '<tr><td>' + f.label + '</td><td>' + f.value.toLocaleString() + ' VNĐ/tấn</td></tr>';
+    h += '<tr><td>' + f.label + '</td><td>' + f.value.toLocaleString() + ' VNĐ/tấn</td></tr>';
   });
   
-  html += '<tr class="total-row"><td>📊 Tổng chi phí FOB / tấn</td><td>' + totalFees.toLocaleString() + ' VNĐ</td></tr>';
-  html += '<tr><td style="font-weight:600">Giá thành FOB (chưa thuế)</td><td style="font-weight:600">' + costBeforeTax.toLocaleString() + ' VNĐ/tấn</td></tr>';
+  h += '<tr class="total-row"><td>📊 Tổng chi phí FOB / tấn</td><td>' + totalFees.toLocaleString() + ' VNĐ</td></tr>';
+  h += '<tr><td style="font-weight:600">Giá thành FOB (chưa thuế)</td><td style="font-weight:600">' + costBeforeTax.toLocaleString() + ' VNĐ/tấn</td></tr>';
   
   if (isExport) {
-    html += '<tr><td>📋 Thuế xuất khẩu 5%</td><td>' + exportTax.toLocaleString() + ' VNĐ/tấn</td></tr>';
-    html += '<tr class="grand-row"><td>💰💎 Giá thành FOB (đã bao gồm XK)</td><td>' + finalCost.toLocaleString() + ' VNĐ/tấn</td></tr>';
+    h += '<tr><td>📋 Thuế xuất khẩu 5%</td><td>' + exportTax.toLocaleString() + ' VNĐ/tấn</td></tr>';
+    h += '<tr class="grand-row"><td>💰💎 Giá thành FOB (đã bao gồm XK)</td><td>' + finalCost.toLocaleString() + ' VNĐ/tấn</td></tr>';
   }
   
-  html += '</table>';
+  h += '</table>';
   
-  // Summary
   var totalForShipment = Math.round(finalCost * tonnage);
-  html += '<div class="summary">';
-  html += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">';
-  html += '<div><div class="lbl">Giá thành FOB / tấn</div><div class="big">' + finalCost.toLocaleString() + ' VNĐ</div></div>';
-  html += '<div><div class="lbl">Tổng giá thành lô hàng (' + tonnage + ' tấn)</div><div class="big">' + totalForShipment.toLocaleString() + ' VNĐ</div></div>';
-  html += '</div>';
+  h += '<div class="summary">';
+  h += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">';
+  h += '<div><div class="lbl">Giá thành FOB / tấn</div><div class="big">' + finalCost.toLocaleString() + ' VNĐ</div></div>';
+  h += '<div><div class="lbl">Tổng giá thành lô hàng (' + tonnage + ' tấn)</div><div class="big">' + totalForShipment.toLocaleString() + ' VNĐ</div></div>';
+  h += '</div>';
   
   if (isExport) {
     var totalExw = Math.round(exwPrice * tonnage);
     var totalFeesShip = Math.round(totalFees * tonnage);
     var totalTaxShip = Math.round(exportTax * tonnage);
-    html += '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #86efac;font-size:12px;color:var(--muted)">';
-    html += 'EXW: ' + totalExw.toLocaleString() + ' VNĐ | Phí: ' + totalFeesShip.toLocaleString() + ' VNĐ | Thuế XK: ' + totalTaxShip.toLocaleString() + ' VNĐ';
-    html += '</div>';
+    h += '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #86efac;font-size:12px;color:var(--muted)">';
+    h += 'EXW: ' + totalExw.toLocaleString() + ' VNĐ | Phí: ' + totalFeesShip.toLocaleString() + ' VNĐ | Thuế XK: ' + totalTaxShip.toLocaleString() + ' VNĐ';
+    h += '</div>';
   }
   
-  html += '</div></div>';
+  h += '</div></div>';
   
-  resultEl.innerHTML = html;
+  resultEl.innerHTML = h;
 }
 
-// Init after DOM ready
+// Init fobPtsc config fields if panel is visible
 setTimeout(function() {
-  fobPtscLoadCfg();
-}, 200);
+  var fp = document.getElementById('fobptscPanel');
+  if (fp && fp.style.display !== 'none') fobPtscLoadCfg();
+}, 500);
 `;
 
-html = html.replace('</script>', fobJsFunctions + '\n</script>');
+// Insert JS functions into the main <script> block
+var scriptStart = html.indexOf('<script>') + '<script>'.length;
+var scriptEnd = html.lastIndexOf('</script>');
+
+var beforeScript = html.slice(0, scriptStart);
+var originalJs = html.slice(scriptStart, scriptEnd);
+var afterScript = html.slice(scriptEnd);
+
+// Append FOB PTSC functions to original JS
+var newJs = originalJs + fobJsFunctions;
+html = beforeScript + newJs + afterScript;
 
 fs.writeFileSync(__dirname + '/vi.html', html, 'utf8');
-console.log('✅ vi.html updated with FOB PTSC feature');
+console.log('✅ vi.html — FOB PTSC added successfully');
