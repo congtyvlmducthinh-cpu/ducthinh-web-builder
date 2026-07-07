@@ -334,6 +334,11 @@ tbody tr:hover td{background:#eff6ff}
 
 
 /* FOB PTSC */
+/* FOB PTSC cascading filters */
+.fobptsc-filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.fobptsc-filter-row select{flex:1;min-width:120px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;background:#fff}
+.fobptsc-filter-row select:focus{border-color:var(--blue);outline:none}
+@media(max-width:600px){.fobptsc-filter-row select{min-width:100%}}
 .fobptsc-panel{padding:16px}
 .fobptsc-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
 .fobptsc-section h3{font-size:15px;font-weight:700;color:var(--text);margin:0 0 16px 0;padding-bottom:10px;border-bottom:2px solid var(--border)}
@@ -392,7 +397,6 @@ tbody tr:hover td{background:#eff6ff}
             <button class="tab-btn" data-tab="quotation" onclick="switchTab('quotation')"><span>📄 Quotation</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Create quotation</small></button>
 <button class="tab-btn" data-tab="apps" onclick="switchTab('apps')"><span>📋 Application</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Products theo application</small></button><button class="tab-btn" data-tab="fobptsc" onclick="switchTab('fobptsc')"><span>🚢 FOB PTSC</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Bulk vessel & costs</small></button>
 </div>
-</div>
 
 <div class="controls" id="controlBar">
 <input type="text" id="searchInput" placeholder="🔍 Search products..." oninput="globalSearch()">
@@ -441,7 +445,6 @@ tbody tr:hover td{background:#eff6ff}
 <div class="manage-card"><div class="num" id="mOtherCnt">0</div><div class="lbl">Other spec</div></div>
 <div class="manage-card"><div class="num" id="mAppCnt">0</div><div class="lbl">Application</div></div>
 <div class="manage-card"><div class="num" id="mUptd">06/2026</div><div class="lbl">Updated</div></div>
-</div>
 <div class="manage-actions">
 <h3>📥 Download</h3>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:10px">
@@ -497,6 +500,20 @@ tbody tr:hover td{background:#eff6ff}
 <input type="checkbox" id="fobExportCb" checked onchange="fobPtscCalc()">
 <label for="fobExportCb">🌍 Export (tax 5% + customs)</label>
 </div>
+
+<!-- Cascading filters -->
+<div class="fobptsc-filter-row">
+<select id="fobCalcMachine" onchange="fobPtscFilterCalc()">
+<option value="">— Choose machine —</option>
+</select>
+<select id="fobCalcStandard" onchange="fobPtscFilterCalc()">
+<option value="">— Choose standard —</option>
+</select>
+<select id="fobCalcSize" onchange="fobPtscFilterCalc()">
+<option value="">— Choose size —</option>
+</select>
+</div>
+
 <div class="fobptsc-grid">
 <div class="fobptsc-field"><label>📦 Product</label>
 <select id="fobProduct" onchange="fobPtscCalc()">
@@ -504,10 +521,22 @@ tbody tr:hover td{background:#eff6ff}
 </select></div>
 <div class="fobptsc-field"><label>⚖️ Tonnage</label><input type="number" id="fobTonnage" min="0" step="0.1" oninput="fobPtscCalc()"></div>
 <div class="fobptsc-field"><label>📅 Warehouse days</label><input type="number" id="fobWarehouseDays" value="3" min="0" oninput="fobPtscCalc()"></div>
+
+<div class="fobptsc-row">
+<div class="fobptsc-field" style="flex:2">
+<label>🔍 Search products</label>
+<input type="text" id="fobSearchInput" placeholder="Type code, spec, size, machine..." oninput="fobPtscFilterProducts()">
 </div>
+<div class="fobptsc-field" style="flex:1">
+<label>💰 Sell price (VND/ton) <span style="font-weight:400;font-size:11px;color:var(--muted)">auto min price</span></label>
+<input type="number" id="fobSellPrice" min="0" step="1000" oninput="fobPtscCalc()">
+</div>
+</div>
+
 <div id="fobPtscCalcResult"></div>
 </div>
 </div>
+</div> <!-- .container -->
 <div class="modal-overlay" id="pwModal">
 <div class="modal-box">
 <h3>🔒 Enter password</h3>
@@ -9282,13 +9311,38 @@ function fobPtscResetCfg() {
 
 function fobPtscInitCalc() {
   fobPtscLoadCfg();
+  // Populate cascading filter dropdowns
+  var me = document.getElementById('fobCalcMachine');
+  var se = document.getElementById('fobCalcStandard');
+  var sze = document.getElementById('fobCalcSize');
+  if (me && typeof DATA_PRODUCTS !== 'undefined') {
+    var machines = {}, standards = {}, sizes = {};
+    DATA_PRODUCTS.forEach(function(p) {
+      machines[p.machine] = true;
+      standards[p.standard] = true;
+      sizes[p.size] = true;
+    });
+    var mk = Object.keys(machines).sort();
+    me.innerHTML = '<option value="">— Choose machine —</option>';
+    mk.forEach(function(k) { me.innerHTML += '<option value="' + k.replace(/"/g,'&quot;') + '">' + k + '</option>'; });
+    if (se) {
+      var sk = Object.keys(standards).sort();
+      se.innerHTML = '<option value="">— Choose standard —</option>';
+      sk.forEach(function(k) { se.innerHTML += '<option value="' + k.replace(/"/g,'&quot;') + '">' + k + '</option>'; });
+    }
+    if (sze) {
+      var szk = Object.keys(sizes).sort();
+      sze.innerHTML = '<option value="">— Choose size —</option>';
+      szk.forEach(function(k) { sze.innerHTML += '<option value="' + k.replace(/"/g,'&quot;') + '">' + k + '</option>'; });
+    }
+  }
   var sel = document.getElementById('fobProduct');
   if (!sel) return;
   var curVal = sel.value;
   sel.innerHTML = '<option value="">-- Select product --</option>';
   if (typeof DATA_PRODUCTS !== 'undefined') {
     DATA_PRODUCTS.forEach(function(p) {
-      var label = p.code + ' | ' + p.size;
+      var label = p.code + ' | ' + p.spec + ' | ' + p.size;
       if (p.machine) label += ' | ' + p.machine;
       var opt = document.createElement('option');
       opt.value = p.code;
@@ -9307,9 +9361,19 @@ function fobPtscFilterProducts() {
   if (!sel || !searchEl) return;
   var q = searchEl.value.toLowerCase().trim();
   var curVal = sel.value;
-  sel.innerHTML = '<option value="">-- Chọn sản phẩm --</option>';
+  // Also apply cascading filters
+  var me = document.getElementById('fobCalcMachine');
+  var se = document.getElementById('fobCalcStandard');
+  var sze = document.getElementById('fobCalcSize');
+  var m = me ? me.value : '';
+  var s = se ? se.value : '';
+  var sz = sze ? sze.value : '';
+  sel.innerHTML = '<option value="">-- Select product --</option>';
   if (typeof DATA_PRODUCTS !== 'undefined') {
     DATA_PRODUCTS.forEach(function(p) {
+      if (m && String(p.machine) !== m) return;
+      if (s && p.standard !== s) return;
+      if (sz && p.size !== sz) return;
       var label = p.code + ' | ' + p.spec + ' | ' + p.size;
       if (p.machine) label += ' | ' + p.machine;
       if (q) {
@@ -9325,6 +9389,46 @@ function fobPtscFilterProducts() {
   if (curVal) { for (var i=0;i<sel.options.length;i++) { if (sel.options[i].value===curVal) { sel.value=curVal; break; } } }
   fobPtscCalc();
 }
+
+// Cascading filter for Machine → Standard → Size
+function fobPtscFilterCalc() {
+  var me = document.getElementById('fobCalcMachine');
+  var se = document.getElementById('fobCalcStandard');
+  var sze = document.getElementById('fobCalcSize');
+  if (!me || !se) return;
+  var m = me.value, s = se.value;
+  
+  // Collect standards by machine, sizes by machine+standard
+  var standardsByMach = {}, sizesByMachStd = {};
+  if (typeof DATA_PRODUCTS !== 'undefined') {
+    DATA_PRODUCTS.forEach(function(p) {
+      var machOk = !m || String(p.machine) === m;
+      var stdOk = !s || p.standard === s;
+      if (machOk) standardsByMach[p.standard] = true;
+      if (machOk && stdOk && sze) sizesByMachStd[p.size] = true;
+    });
+  }
+  
+  // Rebuild standard dropdown
+  var prevStd = se.value;
+  se.innerHTML = '<option value="">— Choose standard —</option>';
+  var sk = Object.keys(standardsByMach).sort();
+  sk.forEach(function(k) { se.innerHTML += '<option value="' + k.replace(/"/g,'&quot;') + '">' + k + '</option>'; });
+  se.value = prevStd && sk.indexOf(prevStd) >= 0 ? prevStd : '';
+  
+  // Rebuild size dropdown
+  if (sze) {
+    var prevSz = sze.value;
+    sze.innerHTML = '<option value="">— Choose size —</option>';
+    var szk = Object.keys(sizesByMachStd).sort();
+    szk.forEach(function(k) { sze.innerHTML += '<option value="' + k.replace(/"/g,'&quot;') + '">' + k + '</option>'; });
+    sze.value = prevSz && szk.indexOf(prevSz) >= 0 ? prevSz : '';
+  }
+  
+  // Filter products
+  fobPtscFilterProducts();
+}
+
 function fobPtscCalc() {
   var sel = document.getElementById('fobProduct');
   var tonEl = document.getElementById('fobTonnage');
