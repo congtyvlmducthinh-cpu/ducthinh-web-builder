@@ -1,0 +1,672 @@
+EN/-- | >⚠️ Chế độ CIF yêu cầu nhập cước biển. Vui lòng nhập Freight USD ở thanh công cụ bên trên.</div>';
+  }
+
+  // Summary + thống kê
+  var uniqueCodes = {}, uniqueSpecs = {}, uniqueMachines = {};
+  filtered.forEach(function(p) { uniqueCodes[p.code] = true; uniqueSpecs[p.standard] = true; uniqueMachines[p.machine] = true; });
+  var sum25=0, cnt25=0, max25=0;
+  var sumJ=0, cntJ=0, maxJ=0;
+  var sumExw=0, cntExw=0, maxExw=0;
+  filtered.forEach(function(p) {
+    var v25 = isFob ? getFOB25PriceVND(p, lccType) : (isCif ? getCIF25PriceVND(p, lccType, freightUSD) : p.pkg25_vnd);
+    if (v25 && v25 > 0) { sum25 += v25; cnt25++; if (v25 > max25) max25 = v25; }
+    var vJ = isFob ? getFOBJumboPriceVND(p, lccType) : (isCif ? getCIFJumboPriceVND(p, lccType, freightUSD) : p.jumbo_vnd);
+    if (vJ && vJ > 0) { sumJ += vJ; cntJ++; if (vJ > maxJ) maxJ = vJ; }
+    if (p.exw_vnd && p.exw_vnd > 0) { sumExw += p.exw_vnd; cntExw++; if (p.exw_vnd > maxExw) maxExw = p.exw_vnd; }
+  });
+  var fmt = function(v) { return (v || 0).toLocaleString('vi-VN'); };
+  h += '<div class=
+--/-- | <thead><tr style="background:#f1f5f9"><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:left;font-weight:600;color:#475569">STT</th><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:left;font-weight:600;color:#475569">Code</th><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:left;font-weight:600;color:#475569">Sản phẩm</th><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:left;font-weight:600;color:#475569">Bao bì</th><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:left;font-weight:600;color:#475569">ĐVT</th><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:left;font-weight:600;color:#475569">SL</th><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:right;font-weight:600;color:#475569">Giá bán</th><th style="padding:6px 8px;border:1px solid #e2e8f0;text-align:left;font-weight:600;color:#475569">Tiền tệ</th></tr></thead>
+EN/ZH | );
+  if (!ml || ml <= 0) return prod.exw_vnd;
+  var base = getFOBJumboPriceVND(prod, lccVariant);
+  if (!freight || freight <= 0) return base;
+  return Math.round(base + (freight + 10 + 10) * 26000 / ml);
+}
+function getCIF25PriceUSD(prod, lccVariant, freight) { return getCIF25PriceVND(prod, lccVariant, freight) / 26000; }
+function getCIFJumboPriceUSD(prod, lccVariant, freight) { return getCIFJumboPriceVND(prod, lccVariant, freight) / 26000; }
+
+// 02-pricelist.js
+// ====== PRICE MODE CONTROLS (Giá bán tab) ======
+function setPriceMode(mode) {
+  priceMode = mode;
+  var bar = document.getElementById(
+EN/ZH | 
+      }
+    ]
+  }
+];
+// 01-utils.js
+// ====== COMPANY CONSTANTS ======
+var COMPANY = 'CÔNG TY TNHH CÔNG NGHỆ VẬT LIỆU MỚI ĐỨC THỊNH';
+var COMPANY_EN = 'DUC THINH NEW MATERIALS TECHNOLOGY COMPANY LIMITED';
+var ADDR = 'ĐC: KCN NGHĨA ĐÀN, XÃ NGHĨA THỌ, TỈNH NGHỆ AN, VIỆT NAM';
+var EMAIL = 'sales@ducthinh.com';
+var WEBSITE = 'https://ducthinh.com';
+var PHONE = '+84 382 666 000';
+var EXT = '106';
+var MST = '2902085037';
+// ====== UTILITY ======
+function formatUsd(v) { var n = Number(v); var dec = Math.round((n - Math.floor(n)) * 10); return Math.floor(n).toLocaleString(
+--/-- | <div class="calc-section-title"><span class="badge blue">📦</span><span class="title-text">Chọn sản phẩm</span><button id="resetCalcBtn" onclick="resetCalcFilters()" title="Bỏ lọc" style="margin-left:auto;width:28px;height:28px;padding:0;border:1.5px solid var(--border);border-radius:6px;background:var(--card);color:var(--text-secondary);font-size:13px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s">↺</button></div>
+EN/ZH | ><table><thead>';
+  h += '<tr><th>Mã SP</th><th>Thông số kỹ thuật</th><th>Máy</th><th>Giá tham khảo</th><th></th></tr>';
+  h += '</thead><tbody>';
+  for (var i = 0; i < app.products.length; i++) {
+    var p = app.products[i];
+    var product = findProductByCode(p.code);
+    var displayCode = p.code.replace(/\n/g, '<br>');
+    var displayMachine = (p.machine || 
+--/-- | >Giá</th></tr>';
+  h += '<tr><th>Mã bao</th><th>Quy cách</th><th>Số lượng</th><th>Giá vốn</th><th>Giá bán</th><th>Lợi nhuận</th></tr>';
+  h += '</thead><tbody>';
+  for (var i = 0; i < DATA_BAGS.length; i++) {
+    var b = DATA_BAGS[i];
+    h += '<tr>';
+    h += '<td><strong>' + b.code + '</strong></td>';
+    h += '<td>' + b.spec + '</td>';
+    h += '<td class=
+EN/ZH | >— Chọn SP —</option>';
+  for(var i=0;i<DATA_PRODUCTS.length;i++){var p=DATA_PRODUCTS[i];var mOk=!curMach||String(p.machine)===curMach;var sOk=!curStd||p.standard===curStd;var zOk=!curSz||p.size===curSz;if(!mOk||!sOk||!zOk)continue;var val=p.code+'||'+(p.standard||'');var lab=p.code+' - '+p.size+(p.standard?' ('+p.standard+')':'');h+='<option value=
+EN/ZH | <button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">📋 Hiện max tải</button>\n<div class="market-group">\n<span class="ext-label">🌏 Thị trường:</span>\n<button class="btn-sm
+--/-- | <div class="quot-form-group"><label>💰 Thanh toán</label><select id="qPayment" class="quot-input" onchange="updateQuotPreview()"><option value="T/T 30 days">T/T 30 days</option><option value="T/T 60 days">T/T 60 days</option><option value="L/C at sight">L/C at sight</option><option value="Negotiable">Negotiable</option></select></div></div>
+--/-- | >👈 Vui lòng chọn sản phẩm</div>'; return; }
+  var prod = null;
+  for (var i = 0; i < DATA_PRODUCTS.length; i++) { var _cp = pcode.split('||'), _cpC = _cp[0], _cpS = _cp[1] || ''; if (DATA_PRODUCTS[i].code === _cpC && DATA_PRODUCTS[i].standard === _cpS) { prod = DATA_PRODUCTS[i]; break; } }
+  if (!prod) { res.innerHTML = '<div class=
+--/-- | <div class="quot-form-row"><div class="quot-form-group"><label>⏱ Hiệu lực</label><select id="qValid" class="quot-input" onchange="updateQuotPreview()"><option value="15 ngày">15 ngày</option><option value="30 ngày">30 ngày</option><option value="7 ngày">7 ngày</option><option value="Kể từ ngày ký">Kể từ ngày ký</option></select></div>
+EN/ZH | ><table><thead>';
+  h += '<tr><th>Quy cách khác</th><th>Giá vốn</th><th>Giá bán</th><th>Lợi nhuận</th></tr>';
+  h += '</thead><tbody>';
+  for (var i = 0; i < DATA_OTHERS.length; i++) {
+    var o = DATA_OTHERS[i];
+    h += '<tr>';
+    h += '<td><strong>' + o.code + '</strong></td>';
+    h += '<td class=
+--/-- | >Chọn sản phẩm trước</div>'; return; }
+  var prod = null;
+  for (var i = 0; i < DATA_PRODUCTS.length; i++) { var _cp=psel.value.split('||'),_cpC=_cp[0],_cpS=_cp[1]||'';if (DATA_PRODUCTS[i].code===_cpC&&DATA_PRODUCTS[i].standard===_cpS) { prod = DATA_PRODUCTS[i]; break; } }
+  if (!prod) { cr.innerHTML = 
+EN/ZH | >Giá bán</th>';
+  h+='</tr></thead>';
+  h+='<tbody>';
+  for(var i=0;i<QUOT_CART.length;i++) h+=quotRenderRow(i,QUOT_CART[i]);
+  h+='</tbody></table>';
+  cartEl.innerHTML=h;
+  // Restore values
+  for(var i=0;i<QUOT_CART.length;i++){var item=QUOT_CART[i];
+    var machEl=document.getElementById(
+EN/ZH | <div style="margin-top:12px;text-align:center"><button onclick="switchTab('quotation')" style="background:var(--primary);color:white;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.3)">📄 Lên báo giá</button></div>
+EN/ZH | >⚠️ Vui lòng chọn <strong>Số tấn / bao Jumbo</strong> để xem kết quả</div>';
+    return;
+  }
+  // Determine base price: EXW or FOB or CIF
+  var exwMin = 0;
+  var commBase = isUsd ? prod.comm_usd : prod.comm_vnd;
+  var fobCostPerTon = 0;
+  var maxLoad = isJumbo ? getMaxLoading(prod.code, 
+--/-- | <div class="quot-section-content"><div class="quot-form-row"><div class="quot-form-group"><label>🏢 Khách hàng</label><input type="text" id="qCustomer" placeholder="Tên khách hàng..." oninput="this.style.borderColor=\'\';updateQuotPreview()" class="quot-input"></div>
+--/-- | >Chọn sản phẩm và bao bì để bắt đầu</div>';
+  h += '</div>';
+  h += '</div>';
+  h += '</div>';
+
+  h += '</div>'; // end calc-grid
+  return h;
+}// ====== CALC FILTER HELPERS ======
+function filterCalcProducts() {
+  var me = document.getElementById(
+EN/ZH | 
+  }
+};
+
+// 13-quotation-tab.js
+﻿// ====== QUOTATION TAB (Standalone) ======
+// Multi-product quotation builder with TCKT spec data
+
+var QUOT_CART = [];
+
+function renderQuotationTab() {
+  var h = '';
+
+  // == Khách hàng ==
+  h += '<div class=
+EN/ZH | >— Chọn template —</option>';
+    var tpls = quotGetTemplates();
+    var tplKeys = Object.keys(tpls);
+    var lastTpl = quotGetLastTemplate();
+    for (var t = 0; t < tplKeys.length; t++) {
+      var selected = tplKeys[t] === lastTpl ? 
+--/-- | <div class="quot-form-group"><label>📧 Email người phụ trách</label><input type="email" id="qCustEmail" placeholder="Email khách hàng..." oninput="this.style.borderColor=\'\';updateQuotPreview()" class="quot-input"></div></div></div></div>
+--/-- | <div class="quot-form-group"><label>📦 ĐVT</label><select id="quotUnit" class="quot-input" onchange="updateQuotPreview()"><option value="Tấn">Tấn</option><option value="MT">MT</option><option value="TON">TON</option></select></div></div>
+EN/ZH | <div class="quot-form-row"><div class="quot-form-group"><label>💱 Loại tiền</label><select id="quotCurrency" class="quot-input" onchange="recalcQuotCart()"><option value="VND">VND</option><option value="USD">USD</option></select></div>
+EN/ZH | <div class="quot-form-group" id="quotFreightGroup" style="display:none"><label>🚂 Cước (USD)</label><input type="number" id="quotFreight" class="quot-input" value="0" min="0" oninput="recalcQuotCart()" style="width:100px"></div></div>
+--/-- | <div class="quot-form-row"><div class="quot-form-group" id="quotPortGroup" style="display:none"><label>⛵ Cảng đi</label><input type="text" id="qPort" placeholder="Cảng đi..." class="quot-input" oninput="updateQuotPreview()"></div>
+EN/ZH | <div class="quot-form-group"><label>🌏 Thị trường</label><select id="quotMarket" class="quot-input" onchange="recalcQuotCart()"><option value="other">🌏 Khác</option><option value="cn">🇨🇳 TQ</option></select></div>
+EN/ZH | <button class="ext-label" onclick="showFreightPopup()" style="background:var(--primary);color:white;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;font-weight:600">📡 Tra cước</button>
+EN/ZH | <div class="quot-section"><div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge blue">🏢</span><span class="title-text">Khách hàng</span><span class="quot-toggle-icon">▼</span></div>
+EN/ZH | <tr><th>Mã</th><th>Kích thước</th><th>Tiêu chuẩn</th><th>Máy</th><th class="ml-toggle">Max 25KG <span class="info-row">(tấn)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(tấn)</span></th><th>
+--/-- | <div class="quot-form-row"><div class="quot-form-group"><label>👤 Người phụ trách</label><input type="text" id="qAssigned" placeholder="Tên nhân viên..." oninput="updateQuotPreview()" class="quot-input"></div>
+--/-- | <div class="quot-section"><div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge purple">📦</span><span class="title-text">Sản phẩm</span><span class="quot-toggle-icon">▼</span>
+EN/ZH | <div class="quot-form-group" id="quotDestGroup" style="display:none"><label>🛫 Cảng đến</label><input type="text" id="qDest" placeholder="Cảng đến..." class="quot-input" oninput="updateQuotPreview()"></div>
+--/-- | <div class="quot-form-group"><label>📝 Ghi chú</label><input type="text" id="qNote" placeholder="Ghi chú..." class="quot-input" oninput="updateQuotPreview()" style="width:100%"></div></div></div>
+--/-- | >— Chọn sản phẩm —</option>';
+  DATA_PRODUCTS.forEach(function(p) { if ((!m || String(p.machine) === m) && (!s || p.standard === s) && (!sz || p.size === sz)) pe.innerHTML += '<option value=
+EN/ZH | <div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">
+EN/ZH | <div class="summary-card" style="padding:8px 12px;background:#fefce8;border-color:#fde68a"><div class="lbl" style="font-size:10px">C.nhất Jumbo</div><div class="val" style="font-size:15px">
+EN/ZH | <div class="summary-card" style="padding:8px 12px;background:#fef2f2;border-color:#fecaca"><div class="lbl" style="font-size:10px">C.nhất 25KG</div><div class="val" style="font-size:15px">
+EN/ZH | <div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">⚠️ Đang dùng giá bao gồm bao bì tiêu chuẩn. Nếu bao bì khác vui lòng chọn chính xác!</span></div>
+EN/ZH | <div class="quot-form-group"><label>📬 Giao hàng</label><input type="text" id="qDelivery" placeholder="Điều kiện giao hàng..." class="quot-input" oninput="updateQuotPreview()"></div></div>
+EN/ZH | <div class="summary-card" style="padding:8px 12px;background:#fff1f2;border-color:#fecdd3"><div class="lbl" style="font-size:10px">C.nhất EXW</div><div class="val" style="font-size:15px">
+EN/ZH | >📄 Lên báo giá</button></div>`;
+  h += '</div>';
+  res.innerHTML = h;
+}
+
+
+
+
+// ====== RESET CALC FILTERS ======
+function resetCalcFilters() {
+  var me = document.getElementById(
+--/-- | <div class="quot-form-group"><label>👤 Người liên hệ</label><input type="text" id="qContact" placeholder="Người liên hệ..." oninput="updateQuotPreview()" class="quot-input"></div></div>
+EN/ZH | >' + otherTons[i] + ' tấn</option>';
+  }
+  h += '</select></div>';
+  h += '</div></div>';
+
+  h += '</div>'; // end calc-left
+
+  // ===== RIGHT PANEL =====
+  h += '<div class=
+EN/ZH | >⚠️ Đang dùng giá bao gồm bao bì tiêu chuẩn. Nếu bao bì khác vui lòng chọn chính xác!</span></div>'; }
+  if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += 
+EN/ZH | >— Không chọn bao bì —</option>';
+    for (var i = 0; i < DATA_BAGS.length; i++) {
+      if (DATA_BAGS[i].spec === bagSpec) {
+        bsel.innerHTML += '<option value=
+EN/ZH | '+(String(item.rowOtherTons)===otherTons[t]?' selected':'')+'>'+otherTons[t]+' tấn</option>';}
+  h+='</select></div>';
+  h+='</td>';
+
+  // Giá bán
+  h+='<td class=
+EN/ZH | <button class="btn-sm active" id="calcMarketOther" onclick="setCalcMarket(&apos;other&apos;)" style="padding:4px 14px;font-size:12px;font-weight:600">🌏 Khác</button>
+--/-- | <table><thead><tr><th>STT</th><th>Code</th><th>Sản phẩm</th><th>Spec</th><th>Bao</th><th>ĐVT</th><th>SL</th><th>Giá bán</th><th>Tiền tệ</th></tr></thead><tbody>
+EN/ZH | >— Chọn kích thước —</option>';
+    var szk = Object.keys(sizesByMachStd).sort();
+    for (var i = 0; i < szk.length; i++) sze.innerHTML += '<option value=
+EN/ZH | <div class="calc-sell-input"><span>💰 Giá bán</span><input type="number" id="calcSellPrice" placeholder="Nhập giá bán..." oninput="calcCommission()"></div>
+EN/ZH | >— Chọn tiêu chuẩn —</option>';
+  var sk = Object.keys(standardsByMach).sort();
+  for (var i = 0; i < sk.length; i++) se.innerHTML += '<option value=
+--/-- | <thead><tr><th>STT</th><th>Code</th><th>Sản phẩm</th><th>Spec</th><th>Bao</th><th>ĐVT</th><th>SL</th><th>Giá bán</th><th>Tiền tệ</th></tr></thead>
+EN/ZH | <div class="calc-section-title" style="margin-top:16px"><span class="badge green">🛍️</span><span class="title-text">Tùy chọn bao bì</span></div>
+EN/ZH | >' + sorted[i] + ' tấn</option>';
+  }
+}
+// ====== FILTER HELPERS ======
+function filterBagSpec() {
+  var bagSpec = document.getElementById(
+EN/ZH | <div class="calc-section-title" style="margin-top:16px"><span class="badge purple">📦</span><span class="title-text">Quy cách khác</span></div>
+EN/ZH | >— Không chọn —</option>';
+  h += '</select></div>';
+  h += '</div></div>';
+
+  // Jumbo tonnage (hidden by default)
+  h += '<div class=
+EN/ZH | >— Chọn máy —</option>';
+  var mk = Object.keys(machinesByStd).sort();
+  for (var i = 0; i < mk.length; i++) me.innerHTML += '<option value=
+EN/ZH | <select class="calc-select" id="calcStandard" onchange="filterCalcProducts()"><option value="">— Chọn tiêu chuẩn —</option></select></div>
+--/-- | >🔗 Sản phẩm trong ứng dụng này cũng được dùng cho:</span>';
+    for (var si = 0; si < sharing.length; si++) {
+      h += '<span class=
+--/-- | <div class="quot-preview-empty" style="padding:40px;text-align:center;color:#94a3b8">Chưa có sản phẩm nào. Hãy thêm sản phẩm trước.</div>
+--/-- | <select class="calc-select" id="calcProduct" onchange="onCalcProductChange()"><option value="">— Chọn sản phẩm —</option></select></div>
+EN/ZH | <div class="tckt-header"><h3>🛠️ Chọn thông số kỹ thuật</h3><button class="tckt-close" onclick="quotSpecPickerClose()">✕</button></div>
+EN/ZH | <select class="calc-select" id="calcSize" onchange="filterCalcProducts()"><option value="">— Chọn kích thước —</option></select></div>
+EN/ZH | >' + jumboTons[i] + ' tấn</option>';
+  }
+  h += '</select></div>';
+
+  // --- Section: Quy cách khác ---
+  h += '<div class=
+EN/ZH | >🗑️ Xóa hết</button></div>';
+  return h;
+}
+
+
+function quotInitRender() { quotInitSpecPicker();
+  QUOT_CART = [{ product:
+EN/ZH | >💰</span>';
+  h += '<span>Kết quả tính giá</span>';
+  h += '</div>';
+  // Price mode bar for calc tab
+  h += '<div class=
+EN/ZH | <span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">🌐 Thị trường:</span>
+--/-- | <span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.03em">💱 Loại tiền:</span>
+EN/-- | <div class="freight-warning">⚠️ Chế độ CIF yêu cầu nhập cước biển. Vui lòng nhập Freight USD ở thanh công cụ bên trên.</div>
+EN/-- | <div class="summary-card"><div class="lbl">Ngày báo giá</div><div class="val" style="font-size:16px">25/06/2026</div></div>
+--/-- | >— Chọn sản phẩm —</option></select></div>';
+  // Max loading dropdown (shown only in FOB/CIF mode)
+  h += '<div class=
+EN/ZH | >📡 Tra cước</button>';
+  h += '</div>';
+  h += '</div>';
+      // Currency toggle for calc tab 
+  h += '<div style=
+EN/ZH | <select class="calc-select" id="calcMaxLoad" onchange="calcPrice()"><option value="">— Tự động —</option></select></div>
+--/-- | <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:12px;margin-bottom:12px"><span><strong>Khách hàng:</strong> 
+EN/ZH | <select class="calc-select" id="calcMachine" onchange="filterCalcProducts()"><option value="">— Chọn máy —</option>
+EN/ZH | ) + '</th>';
+  h += '</tr>';
+  h += '<tr><th>Mã</th><th>Kích thước</th><th>Tiêu chuẩn</th><th>Máy</th><th class=
+EN/ZH | <button class="tckt-spec-btn" onclick="quotSpecPickerOpen()" title="Chọn thông số KT hiển thị">🛠️ Spec</button>
+EN/ZH | >— Tất cả máy —</option>';
+  Object.keys(machines).sort().forEach(function(k){me.innerHTML+='<option value=
+--/-- | <tr><th>Mã bao</th><th>Quy cách</th><th>Số lượng</th><th>Giá vốn</th><th>Giá bán</th><th>Lợi nhuận</th></tr>
+EN/ZH | <select class="calc-select" id="calcOther" onchange="calcPrice()"><option value="">— Không chọn —</option>
+EN/ZH | >Tất cả kích thước</option>';
+    for (var i = 0; i < sk2.length; i++) szf.innerHTML += '<option value=
+EN/ZH | <select class="calc-select" id="calcBag" onchange="calcPrice()"><option value="">— Không chọn —</option>
+EN/ZH | <div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">
+EN/ZH | <div class="calc-result-item"><span class="calc-rl">🚢 Freight / tấn</span><span class="calc-rv other">
+EN/ZH | >Tất cả tiêu chuẩn</option>';
+    for (var i = 0; i < sk.length; i++) sf.innerHTML += '<option value=
+EN/ZH | >— Không chọn —</option>';
+  for (var i = 0; i < DATA_OTHERS.length; i++) {
+    h += '<option value=
+EN/ZH | >— Tất cả KT —</option>'; Object.keys(sizes).sort().forEach(function(k){sze.innerHTML+='<option value=
+--/-- | <th class="quot-th-prod">Sản phẩm <span style="font-weight:400;font-size:10px">(Máy/TC/KT)</span></th>
+EN/ZH | >— Chọn máy —</option>';
+  for (var i = 0; i < machineKeys.length; i++) {
+    h += '<option value=
+EN/ZH | <div class="calc-result-item"><span class="calc-rl">⚙️ Máy / Tiêu chuẩn</span><span class="calc-rv">
+EN/ZH | <button class="btn-cancel" onclick="backToAppsGrid()" style="margin-right:10px">← Quay lại</button>
+EN/ZH | <div class="calc-empty">⚠️ Vui lòng chọn <strong>Số tấn / bao Jumbo</strong> để xem kết quả</div>
+EN/ZH | <tr><th colspan="4">Thông tin</th><th colspan="2" class="ml-toggle">Max tải</th><th colspan="2">
+EN/ZH | <div class="summary-card" id="appsSummaryCount"><div class="lbl">Ứng dụng</div><div class="val">
+EN/ZH | >Tất cả máy</option>';
+    for (var i = 0; i < mk.length; i++) mf.innerHTML += '<option value=
+EN/ZH | >Tùy chọn bao bì</span></div>';
+
+  // Bag spec + Bag select side by side
+  h += '<div class=
+EN/ZH | <button class="tckt-btn-sm tckt-btn-primary" onclick="quotSpecPickerApply()">✅ Áp dụng</button>
+EN/ZH | <div class="calc-result-item"><span class="calc-rl">📐 Kích thước</span><span class="calc-rv">
+EN/ZH | >— Chọn tiêu chuẩn —</option></select></div>';
+  h += '</div></div>';
+
+  h += '<div class=
+--/-- | <button class="quot-btn quot-btn-primary" onclick="quotPreviewOpen()">📄 Xem báo giá</button>
+--/-- | <div class="calc-result-item"><span class="calc-rl">📦 Sản phẩm</span><span class="calc-rv">
+EN/ZH | <tr><th>Mã SP</th><th>Thông số kỹ thuật</th><th>Máy</th><th>Giá tham khảo</th><th></th></tr>
+EN/ZH | <button class="quot-btn quot-btn-secondary" onclick="quotClear()">🗑️ Xóa hết</button></div>
+EN/ZH | >— Tự động —</option></select></div>';
+
+  // --- Section: Bao bì ---
+  h += '<div class=
+EN/ZH | <button class="tckt-btn-sm tckt-btn-primary" onclick="quotSpecPickerSave()">💾 Lưu</button>
+EN/ZH | <button class="tckt-btn-sm tckt-btn-secondary" onclick="quotSpecPickerClose()">Huỷ</button>
+EN/ZH | ;
+}
+
+// Init — dữ liệu đã có sẵn trong data.js
+(function() {
+  applyMarket(); setMarket(
+EN/ZH | <input type="text" id="appSearchInput" placeholder="🔍 Tìm ứng dụng hoặc mã SP..." value="
+--/-- | <span class="apps-sharing-label">🔗 Sản phẩm trong ứng dụng này cũng được dùng cho:</span>
+EN/ZH | <input type="text" id="tcktTplName" class="tckt-name-input" placeholder="Tên template...">
+--/-- | >❌ Không tìm thấy sản phẩm</div>'; return; }
+  var bs = bagSpecSel ? bagSpecSel.value : 
+EN/ZH | <div class="footer">- Giá không bao gồm thuế VAT<br>- Báo giá này có hiệu lực trong vòng 
+EN/ZH | ><span>Chênh lệch (30%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? 
+EN/ZH | " class="quot-input" onchange="recalcQuotCart()"><option value="">— Mặc định —</option>
+EN/ZH | >Theo tên A→Z</option>';
+  h += '</select>';
+  h += '</div>';
+
+  h += '<div class=
+EN/ZH | ><span>Hoa hồng cơ bản</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? 
+--/-- | >' + app.products.length + ' sản phẩm</div>';
+  h += '</div>';
+  h += '<div class=
+EN/ZH | <!DOCTYPE html><html><head><meta charset="utf-8"><title>Báo giá - Đức Thịnh</title>
+EN/ZH | " class="quot-input quot-sell-sm" placeholder="Giá..." min="0" step="0.01" value="
+EN/ZH | >— Chọn kích thước —</option></select></div>' +
+  '</div></div>' +
+  '<div class=
+EN/ZH | <tr><th>Quy cách khác</th><th>Giá vốn</th><th>Giá bán</th><th>Lợi nhuận</th></tr>
+EN/ZH | ><span>Tổng giá vốn</span><strong>' + fmtNum(totalCost, isUsd) + ' ' + (isUsd ? 
+EN/ZH | >💰 ' + 'EXW' + (hasBag ? ' chưa bao bì' : ' có bao bì') + '</span><span class=
+EN/ZH | <div class="summary-card"><div class="lbl">Tổng loại bao</div><div class="val">
+EN/ZH | <div class="summary-card"><div class="lbl">Tổng quy cách</div><div class="val">
+--/-- | <div class="calc-form-group"><label class="calc-form-label">🔖 Sản phẩm</label>
+EN/ZH | " class="quot-input" placeholder="Nhập quy cách..." oninput="recalcQuotCart()">
+EN/ZH | >— Mặc định —</option>';
+    for(j=0;j<bags.length;j++){html+='<option value=
+EN/ZH | <div id="calcOtherTonnageRow"><label class="calc-form-label">⚖️ Số tấn</label>
+EN/ZH | <div class="summary-card"><div class="lbl">Tiêu chuẩn</div><div class="val">
+EN/ZH | <button class="quot-add-btn" onclick="quotAddRow()">+ Thêm SP</button></div>
+EN/ZH | >1 tấn</option>';
+  for(var t=0;t<otherTons.length;t++){h+='<option value=
+--/-- | <div class="quot-preview-empty">👈 Chọn sản phẩm để xem trước báo giá</div>
+EN/ZH | >🌏 Khác</button>';
+  h += '</div>';
+  h += '</div>';
+h += '<div class=
+--/-- | <div class="summary-card"><div class="lbl">Sản phẩm</div><div class="val">
+EN/ZH | " id="marketOther" onclick="setMarket(\'other\')">🌏 Khác</button>\n</div>
+--/-- | <div style="color:var(--muted);font-size:12px">Chọn sản phẩm trước</div>
+EN/ZH | >🏷️ Tổng giá thành (' + modeLabel + ')</span>';
+  h += '<span class=
+EN/ZH | <tr><th colspan="4">Thông tin bao bì</th><th colspan="2">Giá</th></tr>
+EN/ZH | <div class="calc-result-item"><span class="calc-rl">📦 Quy cách khác (
+EN/ZH | >— Không chọn bao bì —</option>';
+  var ot = document.getElementById(
+EN/ZH | <div class="summary-card"><div class="lbl">Máy</div><div class="val">
+--/-- | <div class="calc-empty-text">Chọn sản phẩm và bao bì để bắt đầu</div>
+EN/ZH | ✅ Đã lưu lên server! Tải lại en.html, zh.html để thấy dữ liệu mới.
+EN/ZH | ">📊 TCKT: <span class="quot-spec-val">Chọn SP trước</span></span>
+EN/ZH | >📋 Xem giá</button></td>';
+    } else {
+      h += '<td class=
+--/-- | ></div></div></div>';
+
+  // == Sản phẩm ==
+  h += '<div class=
+EN/ZH | <div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>
+EN/ZH | <div class="calc-result-item"><span class="calc-rl">🛍️ Bao bì (
+EN/-- | <div class="q-row"><strong>Email người phụ trách:</strong><span>
+EN/ZH | <div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>
+EN/-- | <div class="row"><strong>Email người phụ trách:</strong><span>
+EN/ZH | >← Quay lại</button>';
+  h += '</div>';
+  h += '<div class=
+EN/ZH | >Kể từ ngày ký</option></select></div>';
+  h += '<div class=
+EN/ZH | >' + maxLoad + ' tấn</span></div>';
+      h += '<div class=
+EN/ZH | <label class="calc-form-label">⚖️ Số tấn / bao Jumbo</label>
+EN/ZH | <div><label class="calc-form-label">📋 Loại quy cách</label>
+EN/ZH | <div class="calc-comm-row"><span>Tổng giá vốn</span><strong>
+EN/ZH | <div><label class="calc-form-label">📏 Quy cách bao</label>
+EN/ZH | )" style="width:100%"><option value="">— Chọn SP —</option>
+--/-- | >';
+
+  // --- Section: Sản phẩm ---
+  h += '<div class=
+EN/ZH | >' + maxLoad + ' tấn</span></div>';
+    h += '<div class=
+--/-- | <div class="q-row"><strong>Người phụ trách:</strong><span>
+EN/ZH | >Theo số SP (nhiều→ít)</option>';
+  h += '<option value=
+EN/ZH | <div><label class="calc-form-label">📋 Tiêu chuẩn</label>
+EN/ZH | <div><label class="calc-form-label">📐 Kích thước</label>
+EN/ZH | >⚖️ Số tấn / bao Jumbo</label>';
+  h += '<select class=
+EN/ZH | <div><label class="calc-form-label">🛍️ Loại bao</label>
+--/-- | <div class="q-row"><strong>Người liên hệ:</strong><span>
+--/-- | <div class="row"><strong>Người phụ trách:</strong><span>
+EN/ZH | ĐC: KCN NGHĨA ĐÀN, XÃ NGHĨA THỌ, TỈNH NGHỆ AN, VIỆT NAM
+--/-- | <div class="calc-empty">👈 Vui lòng chọn sản phẩm</div>
+--/-- | <div class="calc-empty">❌ Không tìm thấy sản phẩm</div>
+EN/ZH | )" style="width:100%"><option value="">QC khác</option>
+--/-- | <div class="q-row"><strong>Ngày báo giá:</strong><span>
+EN/ZH | >VND/tấn</span></td>';
+      h += '<td><button class=
+--/-- | <div class="row"><strong>Người liên hệ:</strong><span>
+EN/ZH | </span><br><span class="info-row">VND/tấn</span></td>
+EN/ZH | <label>QC khác</label><input type="text" id="quotBag_
+--/-- | <div class="q-row"><strong>Khách hàng:</strong><span>
+--/-- | <div class="q-row"><strong>Thanh toán:</strong><span>
+--/-- | <div class="row"><strong>Ngày báo giá:</strong><span>
+EN/ZH | >Quy cách khác</span></div>';
+
+  h += '<div class=
+--/-- | ><label>📧 Email người phụ trách</label><input type=
+EN/ZH | <option value="count">Theo số SP (nhiều→ít)</option>
+EN/ZH | <div class="q-row"><strong>Điều kiện:</strong><span>
+EN/ZH | >📋 Loại quy cách</label>';
+  h += '<select class=
+EN/ZH | <div class="q-row"><strong>Cảng đến:</strong><span>
+--/-- | <div class="q-row"><strong>Hiệu lực:</strong><span>
+--/-- | <div class="row"><strong>Khách hàng:</strong><span>
+--/-- | <div class="row"><strong>Thanh toán:</strong><span>
+EN/ZH | >📏 Quy cách bao</label>';
+  h += '<select class=
+--/-- | >📄 Xem báo giá</button>';
+  h += '<button class=
+EN/ZH | >Chọn SP trước</span></span>';
+  h+='<span class=
+EN/ZH | ><h3>🛠️ Chọn thông số kỹ thuật</h3><button class=
+EN/ZH | <div><label class="calc-form-label">🏭 Máy</label>
+--/-- | <div class="q-row"><strong>Cảng đi:</strong><span>
+--/-- | <div class="q-row"><strong>Ghi chú:</strong><span>
+EN/ZH | <div class="row"><strong>Điều kiện:</strong><span>
+EN/ZH | >📦 Quy cách khác (' + od + ')</span><span class=
+EN/ZH | <div class="row"><strong>Cảng đến:</strong><span>
+--/-- | <div class="row"><strong>Hiệu lực:</strong><span>
+EN/ZH | >📋 Tiêu chuẩn</label>';
+  h += '<select class=
+EN/ZH | >— Chọn số tấn —</option>';
+  var jumboTons = [
+EN/ZH | >— Chọn số tấn —</option>';
+  var otherTons = [
+EN/ZH | >+ Thêm SP</button></div>';
+  h += '<div class=
+EN/ZH | ){
+    html='<label>QC khác</label><input type=
+--/-- | <div class="row"><strong>Cảng đi:</strong><span>
+--/-- | <div class="row"><strong>Ghi chú:</strong><span>
+EN/ZH | >🌏 Khác</button>\n</div>'
+  h += '<div class=
+EN/ZH | >🛍️ Loại bao</label>';
+  h += '<select class=
+EN/ZH | <option value="">— Không chọn bao bì —</option>
+--/-- | >🔖 Sản phẩm</label>';
+  h += '<select class=
+--/-- | ><label>👤 Người phụ trách</label><input type=
+EN/-- | <span><strong>Email người phụ trách:</strong> 
+EN/ZH | >🚂 Cước biển:</span>';
+  h += '<input type=
+EN/ZH | >🌐 Thị trường:</span>';
+  h += '<div class=
+EN/ZH | CÔNG TY TNHH CÔNG NGHỆ VẬT LIỆU MỚI ĐỨC THỊNH
+EN/ZH | <option value="">— Chọn tiêu chuẩn —</option>
+EN/ZH | <option value="">— Chọn kích thước —</option>
+EN/ZH | >⚖️ Số tấn</label>';
+  h += '<select class=
+--/-- | >💱 Loại tiền:</span>';
+  h += '<div class=
+EN/ZH | >Mặc định</option>';
+  h += '<option value=
+--/-- | ><label>👤 Người liên hệ</label><input type=
+EN/ZH | >(Máy/TC/KT)</span></th>';
+  h+='<th class=
+EN/ZH | <span class="ext-label">🚂 Cước biển:</span>
+EN/ZH | <th class="quot-th-special">QC đặc biệt</th>
+EN/ZH | >🛍️ Bao bì (' + bd + ')</span><span class=
+EN/ZH | >📐 Kích thước</label>' +
+  '<select class=
+EN/ZH | >Loại LCC:</span>';
+  h += '<button class=
+EN/ZH | <option value="">Tất cả tiêu chuẩn</option>
+EN/ZH | <option value="">Tất cả kích thước</option>
+--/-- | <option value="">— Chọn sản phẩm —</option>
+EN/ZH | <option value="alpha">Theo tên A→Z</option>
+EN/ZH | <option value="Khác">Khác</option></select>
+EN/ZH | <option value="">— Chọn template —</option>
+EN/ZH | <span class="calc-rl">🏷️ Tổng giá thành (
+--/-- | - Số lượng tối thiểu: 3 containers<br><br>
+EN/ZH | >🏭 Máy</label>';
+  h += '<select class=
+EN/ZH | ><span>Tổng hoa hồng</span><strong style=
+--/-- | ><label>🏢 Khách hàng</label><input type=
+EN/ZH | ><label>🚂 Cước (USD)</label><input type=
+EN/ZH | ></td>';
+
+  // Bao bì
+  h+='<td class=
+EN/ZH | <option value="">— Chọn số tấn —</option>
+EN/ZH | ><label>🌏 Thị trường</label><select id=
+--/-- | ><label>💰 Thanh toán</label><select id=
+EN/ZH | ><label>📬 Giao hàng</label><input type=
+EN/ZH | <span class="ext-label">Loại LCC:</span>
+EN/ZH | <option value="">— Tất cả máy —</option>
+EN/ZH | >⚙️ Máy / Tiêu chuẩn</span><span class=
+EN/ZH | >(tấn)</span></th><th>' + (priceMode===
+EN/ZH | ><label>💱 Loại tiền</label><select id=
+EN/ZH | ><label>🛫 Cảng đến</label><input type=
+EN/ZH | <option value="index">Mặc định</option>
+EN/ZH | <option value="">— Tất cả TC —</option>
+EN/ZH | <option value="">— Tất cả KT —</option>
+EN/ZH | >📋 Hiện max tải</button>\n<div class=
+EN/ZH | >🌏 Thị trường:</span>\n<button class=
+--/-- | ><label>📝 Ghi chú</label><input type=
+EN/ZH | <option value="">— Chọn máy —</option>
+EN/ZH | <th class="quot-th-price">Giá bán</th>
+EN/ZH | <option value="1">Jumbo (tấn)</option>
+--/-- | ><label>⏱ Hiệu lực</label><select id=
+--/-- | ><label>⛵ Cảng đi</label><input type=
+EN/ZH | >QC đặc biệt</th>';
+  h+='<th class=
+EN/ZH | Bạn chưa chọn thông số nào. Tiếp tục?
+EN/ZH | <option value="">Tất cả nước</option>
+EN/ZH | <option value="">Tất cả hãng</option>
+EN/ZH | <option value="">Tất cả loại</option>
+EN/ZH | <option value="">— Chọn SP —</option>
+--/-- | <span><strong>Ngày báo giá:</strong> 
+EN/ZH | - Báo giá này có hiệu lực trong vòng 
+EN/ZH | >🚛 Phí FOB / tấn</span><span class=
+EN/ZH | >🚢 Freight / tấn</span><span class=
+EN/ZH | ><span>💰 Giá bán</span><input type=
+EN/ZH | <option value="">Tất cả máy</option>
+--/-- | <br><span><strong>Ghi chú:</strong> 
+EN/ZH | <th class="quot-th-bag">Bao bì</th>
+--/-- | <span><strong>Thanh toán:</strong> 
+EN/ZH | >Thông tin bao bì</th><th colspan=
+EN/ZH | <span><strong>Điều kiện:</strong> 
+--/-- | - Số lượng tối thiểu: 3 containers
+EN/ZH | >📐 Kích thước</span><span class=
+--/-- | ><label>📦 ĐVT</label><select id=
+EN/ZH | <span><strong>Cảng đến:</strong> 
+--/-- | <span><strong>Hiệu lực:</strong> 
+EN/ZH | PALLET MỚI + NẸP ĐAI + QUẤN MÀNG
+--/-- | >Chọn sản phẩm</span><button id=
+EN/ZH | >Bao bì</th>';
+  h+='<th class=
+EN/ZH | )"><option value="">Máy</option>
+EN/ZH | <option value="1">1 tấn</option>
+--/-- | <span><strong>Cảng đi:</strong> 
+EN/ZH | - Giá không bao gồm thuế VAT<br>
+EN/ZH | >Tổng loại bao</div><div class=
+EN/ZH | >Tổng quy cách</div><div class=
+--/-- | >📦 Sản phẩm</span><span class=
+EN/ZH | ❌ Chỉ hỗ trợ file Excel (.xlsx)
+EN/ZH | >🌏 Khác</option><option value=
+EN/ZH | >15 ngày</option><option value=
+EN/ZH | >30 ngày</option><option value=
+--/-- | ✅ Đã copy báo giá vào clipboard
+--/-- | Chưa có sản phẩm để in báo giá!
+EN/-- | >Ngày báo giá</div><div class=
+EN/ZH | >C.nhất Jumbo</div><div class=
+EN/ZH | >Khách hàng</span><span class=
+EN/ZH | >7 ngày</option><option value=
+EN/ZH | - Giá không bao gồm thuế VAT\n
+EN/ZH | >C.nhất 25KG</div><div class=
+EN/ZH | 🔍 Tìm ứng dụng hoặc mã SP...
+EN/ZH | <span>Kết quả tính giá</span>
+EN/ZH | \')">📋 Xem giá</button></td>
+EN/ZH | >Tiêu chuẩn</div><div class=
+EN/ZH | >C.nhất EXW</div><div class=
+EN/ZH | >(tấn)</span></th><th class=
+--/-- | >Sản phẩm</span><span class=
+EN/ZH | >Thông tin</th><th colspan=
+EN/ZH | ❌ Không thể kết nối server!
+EN/ZH | >Tấn</option><option value=
+--/-- | >Sản phẩm</div><div class=
+EN/ZH | >Ứng dụng</div><div class=
+EN/ZH | - Báo giá này có hiệu lực 
+EN/ZH | >Max tải</th><th colspan=
+EN/ZH | )" title="Xóa">✕</button>
+EN/ZH | EXW jumbo bao tiêu chuẩn
+EN/ZH | (Không có thông số TCKT)
+--/-- | Chưa có dữ liệu báo giá!
+EN/ZH | Copy đoạn text dưới đây:
+EN/ZH | EXW 25KG bao tiêu chuẩn
+EN/-- | Email người phụ trách: 
+--/-- | )" title="Xem sản phẩm 
+--/-- | >Sản phẩm <span style=
+EN/ZH | >Máy</div><div class=
+EN/ZH | ⏳ Đang xử lý file...
+EN/ZH | Bao jumbo của khách
+EN/ZH | Giá bao gồm bao bì
+EN/ZH | Giá bán tối thiểu
+EN/ZH | giá bán tối thiểu
+--/-- | Người phụ trách: 
+EN/ZH |  tấn</span></div>
+EN/ZH | EXW chưa bao bì
+EN/ZH | Hoa hồng cơ bản
+EN/ZH | Nhập giá bán...
+EN/ZH | ❌ Sai mật khẩu!
+EN/ZH |  bảng dữ liệu! 
+--/-- | Người liên hệ: 
+EN/ZH | Tên template...
+EN/ZH | Xoá template \"
+--/-- |  sản phẩm</div>
+EN/ZH | Hoa hồng (VND)
+EN/ZH | Hoa hồng (USD)
+--/-- | ✅ Đã cập nhật 
+--/-- | Ngày báo giá: 
+EN/ZH | Hoa hồng(VND)
+EN/ZH | Hoa hồng(USD)
+EN/ZH | Giá bán (EXW)
+EN/ZH | Quy cách khác
+EN/ZH | ⏳ Đang lưu...
+EN/ZH | Chọn SP trước
+EN/ZH |  tấn</option>
+--/-- | Khách hàng: 
+--/-- | Thanh toán: 
+EN/ZH |  chưa bao bì
+--/-- | Mã sản phẩm
+EN/ZH | Tiêu chuẩn 
+EN/ZH | Điều kiện: 
+EN/ZH | 30% chênh: 
+EN/ZH | Tiêu chuẩn
+EN/ZH | Kích thước
+EN/ZH | Hoa hồng (
+EN/ZH | Cảng đến: 
+--/-- | Hiệu lực: 
+EN/ZH |  có bao bì
+EN/ZH | Giá bán (
+EN/ZH | Tải trọng
+EN/ZH | tải trọng
+--/-- | Cảng đi: 
+--/-- | Ghi chú: 
+EN/ZH | Máy chạy
+EN/ZH | Hoa hồng
+--/-- | Sản phẩm
+--/-- | sản phẩm
+EN/ZH | Ứng dụng
+EN/ZH | ứng dụng
+EN/ZH | Ứng Dụng
+EN/ZH |    Giá: 
+EN/ZH | Mặc định
+EN/ZH | NẸP ĐAI
+EN/ZH | Giá bán
+EN/ZH | ❌ Lỗi: 
+EN/ZH | 15 ngày
+EN/ZH | Cỡ hạt
+EN/ZH | Bỏ lọc
+EN/ZH | Bao bì
+EN/ZH | bao bì
+EN/ZH |  tuyến
+EN/ZH | ✕ Đóng
+EN/ZH | Mã SP
+EN/ZH |  tấn
+EN/ZH | Khác
+EN/ZH | Máy
+EN/ZH | Giá
+EN/ZH | Tấn
