@@ -1,0 +1,59 @@
+L368 d=1 <div class="container">
+L374 d=1 </div>
+L377 d=1 </div>
+L387 d=2 <button class="tab-btn" data-tab="apps" onclick="switchTab('apps')"><s
+L388 d=1 </div>
+L389 d=0 </div>
+L391 d=1 <div class="controls" id="controlBar">
+L400 d=1 </div>
+L401 d=0 </div>
+L403 d=1 <div class="price-mode-bar" id="priceModeBar" style="display:none">
+L408 d=1 </div>
+L413 d=1 </div>
+L418 d=1 </div>
+L419 d=0 </div>
+L421 d=0 <div id="mainContainer"></div>
+L423 d=1 <div class="manage-panel" id="managePanel">
+L430 d=1 </div>
+L438 d=2 </div>
+L446 d=3 </div>
+L450 d=3 </div>
+L451 d=2 </div>
+L459 d=2 </div>
+L460 d=1 </div>
+L461 d=0 </div>
+L463 d=-1 </div>
+L467 d=0 <div class="fobptsc-panel" id="fobptscPanel" style="display:none">
+L469 d=1 <div class="fobptsc-section">
+L472 d=2 <div class="fobptsc-grid">
+L473 d=2 <div class="fobptsc-field"><label>🚛 Vận chuyển NM → PTSC</label><inpu
+L474 d=2 <div class="fobptsc-field"><label>🚛 Bốc dỡ & giao nhận (ô tô → kho cả
+L475 d=2 <div class="fobptsc-field"><label>🏗️ Bốc xếp & giao nhận (kho cảng → 
+L476 d=2 <div class="fobptsc-field"><label>🔄 Chuyển tải hàng hóa</label><input
+L477 d=2 <div class="fobptsc-field"><label>🚢 Bốc xếp & giao nhận (cầu cảng → t
+L478 d=2 <div class="fobptsc-field"><label>🏭 Thuê kho cảng (VNĐ/tấn/ngày)</lab
+L479 d=2 <div class="fobptsc-field"><label>📦 Vận hành kho (pallet lưu kho + KC
+L480 d=2 <div class="fobptsc-field"><label>📋 Hải quan (lấy mẫu + Vilas + Tham 
+L481 d=1 </div>
+L485 d=1 </div>
+L486 d=0 </div>
+L489 d=1 <div class="fobptsc-section">
+L492 d=2 <div class="fobptsc-radio-group">
+L493 d=2 <button class="fobptsc-radio-btn active" data-fobmode="direct" onclick
+L494 d=2 <button class="fobptsc-radio-btn" data-fobmode="warehouse" onclick="fo
+L495 d=1 </div>
+L497 d=2 <div class="fobptsc-check">
+L500 d=1 </div>
+L502 d=2 <div class="fobptsc-grid">
+L503 d=3 <div class="fobptsc-field"><label>📦 Sản phẩm</label>
+L507 d=2 </div>
+L508 d=2 <div class="fobptsc-field"><label>⚖️ Số tấn</label><input type="number
+L509 d=2 <div class="fobptsc-field"><label>📅 Số ngày lưu kho</label><input typ
+L510 d=1 </div>
+L513 d=0 </div>
+L514 d=-1 </div>
+L516 d=0 <div class="modal-overlay" id="pwModal">
+L525 d=1 </div>
+L526 d=0 </div>
+L527 d=-1 </div>
+L541 d=2 </div>
