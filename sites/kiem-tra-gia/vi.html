@@ -9282,11 +9282,6 @@ function fobPtscLoadCfg() {
     var el = document.getElementById(id);
     if (el) el.value = c[map[id]] || 0;
   }
-};
-  for (var id in map) {
-    var el = document.getElementById(id);
-    if (el) el.value = c[map[id]] || 0;
-  }
 }
 
 function fobPtscSaveCfg() {
@@ -9305,12 +9300,6 @@ function fobPtscSaveCfg() {
     if (el) FOB_PTSC_CONFIG[map[id]] = parseFloat(el.value) || 0;
   }
   localStorage.setItem('fobptsc_config', JSON.stringify(FOB_PTSC_CONFIG));
-  fobPtscCalc();
-};
-  for (var id in map) {
-    var el = document.getElementById(id);
-    if (el) FOB_PTSC_CONFIG[map[id]] = parseFloat(el.value) || 0;
-  }
   fobPtscCalc();
 }
 
