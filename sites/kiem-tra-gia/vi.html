@@ -894,7 +894,7 @@ function renderPriceTab() {
   h += '<div class="summary-card"><div class="lbl">Sản phẩm</div><div class="val">' + filtered.length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Tiêu chuẩn</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Máy</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">Ngày</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Ngày báo giá</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
   h += '</div>';
   h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">📋 Hiện max tải</button>\n<div class="market-group">\n<span class="ext-label">🌏 Thị trường:</span>\n<button class="btn-sm' + (currentMarket === 'cn' ? ' active' : '') + '" id="marketCn" onclick="setMarket(\'cn\')">🇨🇳 TQ</button>\n<button class="btn-sm' + (currentMarket === 'other' ? ' active' : '') + '" id="marketOther" onclick="setMarket(\'other\')">🌏 Khác</button>\n</div>'
   h += '<div class="summary-bar" style="margin-top:4px;gap:6px">';
@@ -2503,7 +2503,7 @@ function renderPriceTab() {
   h += '<div class="summary-card"><div class="lbl">Sản phẩm</div><div class="val">' + filtered.length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Tiêu chuẩn</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Máy</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">Ngày</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Ngày báo giá</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
   h += '</div>';
   h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">📋 Hiện max tải</button>\n<div class="market-group">\n<span class="ext-label">🌏 Thị trường:</span>\n<button class="btn-sm' + (currentMarket === 'cn' ? ' active' : '') + '" id="marketCn" onclick="setMarket(\'cn\')">🇨🇳 TQ</button>\n<button class="btn-sm' + (currentMarket === 'other' ? ' active' : '') + '" id="marketOther" onclick="setMarket(\'other\')">🌏 Khác</button>\n</div>'
   h += '<div class="summary-bar" style="margin-top:4px;gap:6px">';
@@ -7989,7 +7989,7 @@ function renderQuotationTab() {
   h += '<div class="quot-section-content"><div class="quot-form-row"><div class="quot-form-group"><label>🏢 Khách hàng</label><input type="text" id="qCustomer" placeholder="Tên khách hàng..." oninput="updateQuotPreview()" class="quot-input"></div>';
   h += '<div class="quot-form-group"><label>👤 Người liên hệ</label><input type="text" id="qContact" placeholder="Người liên hệ..." oninput="updateQuotPreview()" class="quot-input"></div></div>';
   h += '<div class="quot-form-row"><div class="quot-form-group"><label>👤 Người phụ trách</label><input type="text" id="qAssigned" placeholder="Tên nhân viên..." oninput="updateQuotPreview()" class="quot-input"></div>';
-  h += '<div class="quot-form-group"><label>📧 Email KH</label><input type="email" id="qCustEmail" placeholder="Email khách hàng..." oninput="updateQuotPreview()" class="quot-input"></div></div></div></div>';
+  h += '<div class="quot-form-group"><label>📧 Email người phụ trách</label><input type="email" id="qCustEmail" placeholder="Email khách hàng..." oninput="updateQuotPreview()" class="quot-input"></div></div></div></div>';
 
   // == Delivery Terms ==
   h += '<div class="quot-section"><div class="quot-section-title" onclick="toggleQuotSection(this)"><span class="badge green">🚚</span><span class="title-text">Delivery Terms</span><span class="quot-toggle-icon">▼</span></div>';
@@ -8493,7 +8493,7 @@ function _generateQuotPreviewHtml() {
   if(contact) h+='<span><strong>LH:</strong> '+contact+'</span>';
   if(assigned) h+='<span><strong>NV:</strong> '+assigned+'</span>';
   if(custEmail) h+='<span><strong>Email:</strong> '+custEmail+'</span>';
-  h+='<span><strong>Ngày:</strong> '+dateStr+'</span>';
+  h+='<span><strong>Ngày báo giá:</strong> '+dateStr+'</span>';
   if(port) h+='<span><strong>Cảng đi:</strong> '+port+'</span>';
   h+='</div>';
   h+='<table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px">';
@@ -8567,7 +8567,7 @@ function updateQuotPreview() {
   if(contact) h+='<div class="q-row"><strong>Người liên hệ:</strong><span>'+contact+'</span></div>';
   if(assigned) h+='<div class="q-row"><strong>Người phụ trách:</strong><span>'+assigned+'</span></div>';
   if(custEmail) h+='<div class="q-row"><strong>Email:</strong><span>'+custEmail+'</span></div>';
-  h+='<div class="q-row"><strong>Ngày:</strong><span>'+dateStr+'</span></div>';
+  h+='<div class="q-row"><strong>Ngày báo giá:</strong><span>'+dateStr+'</span></div>';
   if(port) h+='<div class="q-row"><strong>Cảng đi:</strong><span>'+port+'</span></div>';
 
   // Product table
@@ -8661,7 +8661,7 @@ function quotGetText() {
   if (contact) t += "Người liên hệ: " + contact + "\n";
   if (assigned) t += "Người phụ trách: " + assigned + "\n";
   if (custEmail) t += "Email: " + custEmail + "\n";
-  t += "Ngày: " + dateStr + "\n";
+  t += "Ngày báo giá: " + dateStr + "\n";
   if (port) t += "Cảng đi: " + port + "\n";
   var dest=document.getElementById("qDest")?document.getElementById("qDest").value:"";
   if (dest&&mode==="CIF") t += "Cảng đến: " + dest + "\n";
@@ -8756,7 +8756,7 @@ function quotPrint() {
   if (contact) w.document.write('<div class="row"><strong>Người liên hệ:</strong><span>'+contact+'</span></div>');
   if (assigned) w.document.write('<div class="row"><strong>Người phụ trách:</strong><span>'+assigned+'</span></div>');
   if (custEmail) w.document.write('<div class="row"><strong>Email:</strong><span>'+custEmail+'</span></div>');
-  w.document.write('<div class="row"><strong>Ngày:</strong><span>'+dateStr+'</span></div>');
+  w.document.write('<div class="row"><strong>Ngày báo giá:</strong><span>'+dateStr+'</span></div>');
   if (port) w.document.write('<div class="row"><strong>Cảng đi:</strong><span>'+port+'</span></div>');
   var dest=document.getElementById("qDest")?document.getElementById("qDest").value:"";
   if (dest&&mode==="CIF") w.document.write('<div class="row"><strong>Cảng đến:</strong><span>'+dest+'</span></div>');
