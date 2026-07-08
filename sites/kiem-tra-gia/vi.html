@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -9296,6 +9296,9 @@ function fobPtscSetMode(mode) {
   fobPtscCalc();
 }
 
+
+// === Load data tu localStorage (upload tu tab Quan ly) ===
+(function() { var keys = [['dq_products','DATA_PRODUCTS'],['dq_bags','DATA_BAGS'],['dq_others','DATA_OTHERS'],['dq_maxLoading','DATA_MAX_LOADING'],['dq_costFOB','DATA_COST_FOB'],['dq_applications','DATA_APPLICATIONS']]; keys.forEach(function(k){var s;try{s=JSON.parse(localStorage.getItem(k[0]))}catch(e){};if(s){window[k[1]]=s}}); })();
 function fobPtscLoadCfg() {
   // Load from localStorage if available
   var saved;
