@@ -346,6 +346,11 @@ tbody tr:hover td{background:#eff6ff}
 .fobptsc-check{display:flex;align-items:center;gap:8px;margin-bottom:12px}
 .fobptsc-check input[type=checkbox]{width:18px;height:18px;cursor:pointer}
 .fobptsc-check label{cursor:pointer;font-size:14px;font-weight:600;color:var(--text)}
+
+.fobptsc-toggle-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:8px 0;padding:8px 12px;background:#f8fafc;border-radius:8px;border:1px solid var(--border)}
+.fobptsc-toggle{padding:4px 12px;border:1.5px solid #d0d5dd;border-radius:6px;background:#fff;cursor:pointer;font-size:13px;font-family:var(--font);color:#333;transition:all .15s}
+.fobptsc-toggle:hover{border-color:#1a56db}
+.fobptsc-toggle.active{background:#1a56db;color:#fff;border-color:#1a56db}
 .fobptsc-radio-group{display:flex;gap:8px;margin-bottom:12px}
 .fobptsc-radio-btn{padding:8px 16px;border:1.5px solid var(--border);border-radius:8px;background:var(--card);cursor:pointer;font-size:13px;font-weight:600;font-family:var(--font);transition:all .2s;color:var(--text)}
 .fobptsc-radio-btn.active{border-color:var(--blue);background:#eff6ff;color:var(--blue)}
@@ -507,7 +512,16 @@ tbody tr:hover td{background:#eff6ff}
 </select>
 </div>
 
-<div class="fobptsc-grid">
+
+    <!-- Currency + Market toggles -->
+    <div class="fobptsc-toggle-row">
+      <span style="font-size:13px;font-weight:500">Currency:</span>
+      <button class="fobptsc-toggle" data-fobccy="VND" onclick="fobPtscSetCurrency('VND')">VND</button>
+      <button class="fobptsc-toggle" data-fobccy="USD" onclick="fobPtscSetCurrency('USD')">USD</button>
+      <span style="font-size:13px;font-weight:500;margin-left:12px">Market:</span>
+      <button class="fobptsc-toggle" data-fobmkt="cn" onclick="fobPtscSetMarket('cn')">🇨🇳 China</button>
+      <button class="fobptsc-toggle" data-fobmkt="other" onclick="fobPtscSetMarket('other')">🌏 Other</button>
+    </div><div class="fobptsc-grid">
 <div class="fobptsc-field"><label>📦 Product</label>
 <select id="fobProduct" onchange="fobPtscCalc()">
 <option value="">-- Select product --</option>
@@ -9300,7 +9314,21 @@ function fobPtscInitCalc() {
   var se = document.getElementById('fobCalcStandard');
   var sze = document.getElementById('fobCalcSize');
   if (me && typeof DATA_PRODUCTS !== 'undefined') {
-    var machines = {}, standards = {}, sizes = {};
+    var machines = 
+  // Sync currency toggle buttons
+  var ccy = (typeof currency !== 'undefined') ? currency : 'VND';
+  document.querySelectorAll('.fobptsc-toggle[data-fobccy]').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.fobccy === ccy);
+  });
+  var mkt = (typeof currentMarket !== 'undefined') ? currentMarket : 'other';
+  document.querySelectorAll('.fobptsc-toggle[data-fobmkt]').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.fobmkt === mkt);
+  });
+  // Update sell price label  
+  var lbl = document.getElementById('fobCcyLbl');
+  if (lbl) lbl.textContent = ccy;
+
+}, standards = {}, sizes = {};
     DATA_PRODUCTS.forEach(function(p) {
       machines[p.machine] = true;
       standards[p.standard] = true;
@@ -9414,6 +9442,46 @@ function fobPtscFilterCalc() {
   fobPtscFilterProducts();
 }
 
+
+// FOB PTSC currency toggle
+function fobPtscSetCurrency(ccy) {
+  if (typeof currency !== 'undefined') currency = ccy;
+  // Update button active states
+  document.querySelectorAll('.fobptsc-toggle[data-fobccy]').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.fobccy === ccy);
+  });
+  // Update sell price label
+  var lbl = document.getElementById('fobCcyLbl');
+  if (lbl) lbl.textContent = ccy;
+  // Recalc
+  fobPtscCalc();
+}
+
+// FOB PTSC market toggle
+function fobPtscSetMarket(mkt) {
+  if (typeof currentMarket !== 'undefined') {
+    currentMarket = mkt;
+    if (typeof applyMarket === 'function') applyMarket();
+  }
+  // Update button active states
+  document.querySelectorAll('.fobptsc-toggle[data-fobmkt]').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.fobmkt === mkt);
+  });
+  // Update global market buttons too (in control bar)
+  var cnBtn = document.getElementById("marketCn");
+  var otherBtn = document.getElementById("marketOther");
+  if (cnBtn && otherBtn) {
+    cnBtn.classList.toggle("active", mkt === "cn");
+    otherBtn.classList.toggle("active", mkt === "other");
+    cnBtn.style.background = mkt === "cn" ? "#1a56db" : "#fff";
+    cnBtn.style.color = mkt === "cn" ? "#fff" : "#333";
+    otherBtn.style.background = mkt === "other" ? "#1a56db" : "#fff";
+    otherBtn.style.color = mkt === "other" ? "#fff" : "#333";
+  }
+  // Recalc
+  fobPtscCalc();
+}
+
 function fobPtscCalc() {
   var sel = document.getElementById('fobProduct');
   var tonEl = document.getElementById('fobTonnage');
@@ -9446,7 +9514,9 @@ function fobPtscCalc() {
     return;
   }
   
-  var exwPrice = prod.exw_vnd || 0;
+  var ccy = (typeof currency !== 'undefined' && currency === 'USD') ? 'usd' : 'vnd';
+  var ccySymbol = ccy === 'usd' ? 'USD' : 'VNĐ';
+  var exwPrice = prod['exw_' + ccy] || 0;
   var cfg = FOB_PTSC_CONFIG || FOB_PTSC_DEFAULTS;
   var fees = [];
   
@@ -9488,7 +9558,7 @@ function fobPtscCalc() {
     sellPrice = minPrice;
   }
   
-  var commBase = prod.comm_vnd || 0;
+  var commBase = prod['comm_' + ccy] || 0;
   var diff, commissionVar, effCommBase, totalComm;
   
   if (isExport) {
@@ -9507,29 +9577,29 @@ function fobPtscCalc() {
   h += '</div>';
   
   h += '<table class="fobptsc-result-table">';
-  h += '<tr><td>💰 Giá EXW gốc</td><td>' + Math.round(exwPrice).toLocaleString() + ' VNĐ/tấn</td></tr>';
+  h += '<tr><td>💰 Giá EXW gốc</td><td>' + Math.round(exwPrice).toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
   
   fees.forEach(function(f) {
-    h += '<tr><td>' + f.label + '</td><td>' + f.value.toLocaleString() + ' VNĐ/tấn</td></tr>';
+    h += '<tr><td>' + f.label + '</td><td>' + f.value.toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
   });
   
-  h += '<tr class="total-row"><td>📊 Tổng chi phí FOB / tấn</td><td>' + totalFees.toLocaleString() + ' VNĐ</td></tr>';
-  h += '<tr><td style="font-weight:600">Giá thành FOB (chưa thuế)</td><td style="font-weight:600">' + costBeforeTax.toLocaleString() + ' VNĐ/tấn</td></tr>';
+  h += '<tr class="total-row"><td>📊 Tổng chi phí FOB / tấn</td><td>' + totalFees.toLocaleString() + ' ' + ccySymbol</td></tr>';
+  h += '<tr><td style="font-weight:600">Giá thành FOB (chưa thuế)</td><td style="font-weight:600">' + costBeforeTax.toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
   
   if (isExport) {
-    h += '<tr><td>📋 Thuế xuất khẩu 5%</td><td>' + exportTax.toLocaleString() + ' VNĐ/tấn</td></tr>';
-    h += '<tr class="grand-row"><td>💰💎 Giá thành FOB (đã bao gồm XK)</td><td>' + finalCost.toLocaleString() + ' VNĐ/tấn</td></tr>';
+    h += '<tr><td>📋 Thuế xuất khẩu 5%</td><td>' + exportTax.toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
+    h += '<tr class="grand-row"><td>💰💎 Giá thành FOB (đã bao gồm XK)</td><td>' + finalCost.toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
   }
   
-  h += '<tr class="total-row"><td>🔽 Giá tối thiểu (có thể bán)</td><td>' + minPrice.toLocaleString() + ' VNĐ/tấn</td></tr>';
+  h += '<tr class="total-row"><td>🔽 Giá tối thiểu (có thể bán)</td><td>' + minPrice.toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
   
   h += '</table>';
   
   var totalForShipment = Math.round(finalCost * tonnage);
   h += '<div class="summary">';
   h += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">';
-  h += '<div><div class="lbl">Giá thành FOB / tấn</div><div class="big">' + finalCost.toLocaleString() + ' VNĐ</div></div>';
-  h += '<div><div class="lbl">Tổng giá thành lô hàng (' + tonnage + ' tấn)</div><div class="big">' + totalForShipment.toLocaleString() + ' VNĐ</div></div>';
+  h += '<div><div class="lbl">Giá thành FOB / tấn</div><div class="big">' + finalCost.toLocaleString() + ' ' + ccySymbol</div></div>';
+  h += '<div><div class="lbl">Tổng giá thành lô hàng (' + tonnage + ' tấn)</div><div class="big">' + totalForShipment.toLocaleString() + ' ' + ccySymbol</div></div>';
   h += '</div>';
   
   if (isExport) {
@@ -9537,7 +9607,7 @@ function fobPtscCalc() {
     var totalFeesShip = Math.round(totalFees * tonnage);
     var totalTaxShip = Math.round(exportTax * tonnage);
     h += '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #86efac;font-size:12px;color:var(--muted)">';
-    h += 'EXW: ' + totalExw.toLocaleString() + ' VNĐ | Phí: ' + totalFeesShip.toLocaleString() + ' VNĐ | Thuế XK: ' + totalTaxShip.toLocaleString() + ' VNĐ';
+    h += 'EXW: ' + totalExw.toLocaleString() + ' ' + ccySymbol + ' | Phí: ' + totalFeesShip.toLocaleString() + ' ' + ccySymbol + ' | Thuế XK: ' + totalTaxShip.toLocaleString() + ' ' + ccySymbol;
     h += '</div>';
   }
   
@@ -9545,11 +9615,11 @@ function fobPtscCalc() {
   
   // Commission section
   h += '<div class="calc-comm-result" style="margin-top:8px">';
-  h += '<div class="calc-comm-row"><span>💰 Giá bán</span><strong>' + Math.round(sellPrice).toLocaleString() + ' VNĐ/tấn</strong></div>';
-  h += '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + Math.round(effCommBase).toLocaleString() + ' VNĐ</strong></div>';
-  h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + Math.round(commissionVar).toLocaleString() + ' VNĐ</strong></div>';
-  h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + Math.round(finalCost).toLocaleString() + ' VNĐ</strong></div>';
-  h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + Math.round(totalComm).toLocaleString() + ' VNĐ</strong></div>';
+  h += '<div class="calc-comm-row"><span>💰 Giá bán</span><strong>' + Math.round(sellPrice).toLocaleString() + ' ' + ccySymbol + '/tấn</strong></div>';
+  h += '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + Math.round(effCommBase).toLocaleString() + ' ' + ccySymbol</strong></div>';
+  h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + Math.round(commissionVar).toLocaleString() + ' ' + ccySymbol</strong></div>';
+  h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + Math.round(finalCost).toLocaleString() + ' ' + ccySymbol</strong></div>';
+  h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + Math.round(totalComm).toLocaleString() + ' ' + ccySymbol</strong></div>';
   h += '</div>'; // close comm
   
   h += '</div>'; // close fobptsc-result
