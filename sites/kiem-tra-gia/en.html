@@ -9351,7 +9351,7 @@ var sel = document.getElementById('fobProduct');
   sel.innerHTML = '<option value="">-- Select product --</option>';
   if (typeof DATA_PRODUCTS !== 'undefined') {
     DATA_PRODUCTS.forEach(function(p) {
-      var label = p.code + ' | ' + p.spec + ' | ' + p.size;
+      var label = p.code + ' | ' + (p.standard || p.spec_raw || '') + ' | ' + p.size;
       if (p.machine) label += ' | ' + p.machine;
       var opt = document.createElement('option');
       opt.value = p.code;
@@ -9380,7 +9380,7 @@ function fobPtscFilterProducts() {
       if (m && String(p.machine) !== m) return;
       if (s && p.standard !== s) return;
       if (sz && p.size !== sz) return;
-      var label = p.code + ' | ' + p.spec + ' | ' + p.size;
+      var label = p.code + ' | ' + (p.standard || p.spec_raw || '') + ' | ' + p.size;
       if (p.machine) label += ' | ' + p.machine;
       var opt = document.createElement('option');
       opt.value = p.code;
