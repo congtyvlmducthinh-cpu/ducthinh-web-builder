@@ -959,7 +959,7 @@ function renderPriceTab() {
   var sizeFilter = document.getElementById("sizeFilter") && document.getElementById("sizeFilter").value || "";
   var isUsd = currency === "USD";
   var filtered = DATA_PRODUCTS.filter(function(p) {
-    if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0) && (!p.machine || p.machine.toLowerCase().indexOf(search) < 0) && (!p.standard || p.standard.toLowerCase().indexOf(search) < 0)) return false;
+    if (search && (!p.code || String(p.code).toLowerCase().indexOf(search) < 0) && (!p.size || String(p.size).toLowerCase().indexOf(search) < 0) && (!p.machine || String(p.machine).toLowerCase().indexOf(search) < 0) && (!p.standard || String(p.standard).toLowerCase().indexOf(search) < 0)) return false;
     if (specFilter && p.standard !== specFilter) return false;
     if (machineFilter && String(p.machine) !== machineFilter) return false;
     if (sizeFilter && p.size !== sizeFilter) return false;
@@ -978,7 +978,7 @@ function renderPriceTab() {
 
   // Summary + 统计
   var uniqueCodes = {}, uniqueSpecs = {}, uniqueMachines = {};
-  filtered.forEach(function(p) { uniqueCodes[p.code] = true; uniqueSpecs[p.standard] = true; uniqueMachines[p.machine] = true; });
+  filtered.forEach(function(p) { uniqueCodes[p.code] = true; uniqueSpecs[p.standard] = true; uniqueMachines[String(p.machine)] = true; });
   var sum25=0, cnt25=0, max25=0;
   var sumJ=0, cntJ=0, maxJ=0;
   var sumExw=0, cntExw=0, maxExw=0;
@@ -2562,7 +2562,7 @@ function renderPriceTab() {
   var sizeFilter = document.getElementById("sizeFilter") && document.getElementById("sizeFilter").value || "";
   var isUsd = currency === "USD";
   var filtered = DATA_PRODUCTS.filter(function(p) {
-    if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0) && (!p.machine || p.machine.toLowerCase().indexOf(search) < 0) && (!p.standard || p.standard.toLowerCase().indexOf(search) < 0)) return false;
+    if (search && (!p.code || String(p.code).toLowerCase().indexOf(search) < 0) && (!p.size || String(p.size).toLowerCase().indexOf(search) < 0) && (!p.machine || String(p.machine).toLowerCase().indexOf(search) < 0) && (!p.standard || String(p.standard).toLowerCase().indexOf(search) < 0)) return false;
     if (specFilter && p.standard !== specFilter) return false;
     if (machineFilter && String(p.machine) !== machineFilter) return false;
     if (sizeFilter && p.size !== sizeFilter) return false;
@@ -2581,7 +2581,7 @@ function renderPriceTab() {
 
   // Summary + 统计
   var uniqueCodes = {}, uniqueSpecs = {}, uniqueMachines = {};
-  filtered.forEach(function(p) { uniqueCodes[p.code] = true; uniqueSpecs[p.standard] = true; uniqueMachines[p.machine] = true; });
+  filtered.forEach(function(p) { uniqueCodes[p.code] = true; uniqueSpecs[p.standard] = true; uniqueMachines[String(p.machine)] = true; });
   var sum25=0, cnt25=0, max25=0;
   var sumJ=0, cntJ=0, maxJ=0;
   var sumExw=0, cntExw=0, maxExw=0;
