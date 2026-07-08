@@ -530,7 +530,14 @@ tbody tr:hover td{background:#eff6ff}
 <div class="fobptsc-field"><label>📅 仓储天数</label><input type="number" id="fobWarehouseDays" value="3" min="0" oninput="fobPtscCalc()"></div>
 
 
-      <div class="fobptsc-field" style="flex:1">
+      
+    <div class="fobptsc-row" id="fobJumboRow">
+      <div class="fobptsc-field">
+        <label>Số tấn/bao Jumbo</label>
+        <input type="number" id="fobJumboTons" value="1" min="0.1" step="0.1" oninput="fobPtscCalc()">
+      </div>
+    </div>
+    <div class="fobptsc-field" style="flex:1">
         <label>📋 QC khác</label>
         <select id="fobOther" onchange="fobPtscCalc()" style="width:100%">
           <option value="">-- QC khác --</option>
@@ -9371,27 +9378,7 @@ function fobPtscInitCalc() {
     var tons = ["0.5","0.7","1","1.1","1.2","1.25","1.3","1.35","1.4","1.5"];
     tons.forEach(function(t) { otEl.innerHTML += '<option value="' + t + '">' + t + ' táº¥n</option>'; });
   }
-  // Populate bag spec
-  var bsp = document.getElementById('fobBagSpec');
-  if (bsp && typeof DATA_BAGS !== 'undefined') {
-    var sp = {};
-    DATA_BAGS.forEach(function(b) { sp[b.spec] = 1; });
-    var sk = Object.keys(sp).sort();
-    sk.forEach(function(k) { bsp.innerHTML += '<option value="' + k.replace(/"/g,'&quot;') + '">' + k + '</option>'; });
-    bsp.innerHTML += '<option value="Other">Khác</option>';
-  }
-  // Populate other specs
-  var oe = document.getElementById('fobOther');
-  if (oe && typeof DATA_OTHERS !== 'undefined') {
-    DATA_OTHERS.forEach(function(o) { oe.innerHTML += '<option value="' + o.code.replace(/"/g,'&quot;') + '">' + o.code + '</option>'; });
-  }
-  // Populate tons
-  var te = document.getElementById('fobOtherTons');
-  if (te) {
-    var ts = ["0.5","0.7","1","1.1","1.2","1.25","1.3","1.35","1.4","1.5"];
-    ts.forEach(function(t) { te.innerHTML += '<option value="' + t + '">' + t + ' tấn</option>'; });
-  }
-var sel = document.getElementById('fobProduct');
+  var sel = document.getElementById('fobProduct');
   if (!sel) return;
   var curVal = sel.value;
   sel.innerHTML = '<option value="">-- 选择产品 --</option>';
@@ -9593,35 +9580,6 @@ function fobPtscCalc() {
   var ccy = (typeof currency !== 'undefined' && String(currency).toUpperCase() === 'USD') ? 'usd' : 'vnd';
   var ccySymbol = ccy === 'usd' ? 'USD' : 'VNĐ';
   var exwPrice = prod['exw_' + ccy] || 0;
-  // Bag cost
-  var bagSpec = document.getElementById('fobBagSpec') ? document.getElementById('fobBagSpec').value : '';
-  var bagCode = document.getElementById('fobBag') ? document.getElementById('fobBag').value : '';
-  var bagPrice = 0;
-  if (bagCode && typeof DATA_BAGS !== 'undefined') {
-    for (var bi = 0; bi < DATA_BAGS.length; bi++) {
-      if (DATA_BAGS[bi].code === bagCode && DATA_BAGS[bi].spec === bagSpec) {
-        bagPrice = ccy === 'usd' ? Math.round(DATA_BAGS[bi].price / 26000) : DATA_BAGS[bi].price;
-        break;
-      }
-    }
-  }
-  
-  // Other specs cost
-  var otherCode = document.getElementById('fobOther') ? document.getElementById('fobOther').value : '';
-  var otherTons = parseFloat(document.getElementById('fobOtherTons') ? document.getElementById('fobOtherTons').value : '1') || 1;
-  var otherPrice = 0;
-  if (otherCode && typeof DATA_OTHERS !== 'undefined') {
-    for (var oi = 0; oi < DATA_OTHERS.length; oi++) {
-      if (DATA_OTHERS[oi].code === otherCode) {
-        var raw = DATA_OTHERS[oi].price;
-        otherPrice = ccy === 'usd' ? Math.round(raw / 26000) : raw;
-        break;
-      }
-    }
-    if (otherTons > 0) otherPrice = Math.round(otherPrice / otherTons);
-  }
-  
-  var totalBagOther = bagPrice + otherPrice;
 
   // Read bag/other selections
   var bagSpec = document.getElementById('fobBagSpec') ? document.getElementById('fobBagSpec').value : '';
@@ -9629,6 +9587,7 @@ function fobPtscCalc() {
   var otherCode = document.getElementById('fobOther') ? document.getElementById('fobOther').value : '';
   var otherTons = parseFloat(document.getElementById('fobOtherTons') ? document.getElementById('fobOtherTons').value : '1') || 1;
   var isJumbo = bagSpec === 'Jumbo';
+  var bagTons=parseFloat(document.getElementById('fobJumboTons')?document.getElementById('fobJumboTons').value:'1')||1;
   var bagPrice = 0, otherPrice = 0;
   
   if (bagCode) {
@@ -9640,6 +9599,7 @@ function fobPtscCalc() {
         break;
       }
     }
+      if(isJumbo&&bagTons>0)bagPrice=Math.round(bagPrice/bagTons);
   } else {
     // No specific bag: use product price with standard packaging
     exwPrice = isJumbo ? (prod['jumbo_' + ccy] || 0) : (prod['pkg25_' + ccy] || 0);
@@ -9654,7 +9614,7 @@ function fobPtscCalc() {
         break;
       }
     }
-    if (!isJumbo && otherTons > 0) otherPrice = Math.round(otherPrice / otherTons);
+    if (!isJumbo && otherTons > 0) otherPrice = Math.round(otherPrice / otherTons);if(isJumbo&&bagTons>0)otherPrice=Math.round(otherPrice/bagTons);
   }
   
   var totalBagOther = bagPrice + otherPrice;
@@ -9720,7 +9680,8 @@ function fobPtscCalc() {
   
   h += '<table class="fobptsc-result-table">';
   h += '<tr><td>💰 Giá EXW gốc</td><td>' + Math.round(exwPrice).toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
-  h += '<tr><td>📦 Bao bì</td><td>' + Math.round(bagPrice).toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
+  h += '<tr><td>📦 Bao bì</td><td>' + Math.round(bagPrice).toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>
+        <tr id="fobJumboRowInfo" style="display:none"><td colspan="3" style="text-align:right;font-size:0.85em;color:#666">Bao: <span id="fobJumboTonsDisplay">1</span> tấn/bao</td></tr>';
   h += '<tr><td>📋 QC khác</td><td>' + Math.round(otherPrice).toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
   
   fees.forEach(function(f) {
