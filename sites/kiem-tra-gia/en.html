@@ -551,7 +551,7 @@ tbody tr:hover td{background:#eff6ff}
         </select>
       </div>
     </div>
-    <div class="fobptsc-row" id="fobJumboRow">
+    <div class="fobptsc-row" id="fobJumboRow" style="display:none">
       <div class="fobptsc-field">
         <label>Số tấn/bao Jumbo</label>
         <select id="fobJumboTons" onchange="fobPtscCalc()" style="width:100%">
@@ -9620,7 +9620,7 @@ function fobPtscCalc() {
       if(isJumbo&&bagTons>0)bagPrice=bagPrice/bagTons;
   } else {
     // No specific bag: use product price with standard packaging
-    exwPrice = isJumbo ? (prod['jumbo_' + ccy] || 0) : (prod['pkg25_' + ccy] || 0);
+    exwPrice = isJumbo ? (prod['jumbo_' + ccy] || 0) : (bagSpec === '25kg' || !bagSpec) ? (prod['pkg25_' + ccy] || 0) : 0;
     bagPrice = 0;
   }
   
@@ -9759,7 +9759,7 @@ function fobPtscCalc() {
 // Init fobPtsc config fields if panel is visible
 setTimeout(function() {
   var fp = document.getElementById('fobptscPanel');
-  if (fp && fp.style.display !== 'none') fobPtscLoadCfg();
+  if (fp && fp.style.display !== 'none') { fobPtscLoadCfg(); fobBagSpecChange(); }
 }, 500);
 
 </script>
