@@ -3622,7 +3622,14 @@ function manageFromPwModal() { checkPassword(); }
 
 // 07-main.js
 // ====== GLOBAL SEARCH ======
-function globalSearch() { render(); }
+function globalSearch() {
+  if (activeTab === "quotation") {
+    quotRefreshProdDropdowns();
+    quotFilterProds();
+  } else {
+    render();
+  }
+}
 
 // ====== RESET FILTERS ======
 function resetFilters() {
@@ -8145,10 +8152,16 @@ function getQuotFilteredProducts() {
   var szEl=document.getElementById("quotSizeFilter");
   if(!szEl) return DATA_PRODUCTS.slice();
   var sz=szEl.value;
+  var searchEl = document.getElementById("searchInput");
+  var search = searchEl ? searchEl.value.toLowerCase().trim() : "";
+  var searchEl = document.getElementById("searchInput");
+  var search = searchEl ? searchEl.value.toLowerCase().trim() : "";
   var list=[];
   for(var i=0;i<DATA_PRODUCTS.length;i++){
     var p=DATA_PRODUCTS[i];
     if((!m||String(p.machine)===m)&&(!s||p.standard===s)&&(!sz||p.size===sz)){
+      if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0) && (!p.machine || p.machine.toLowerCase().indexOf(search) < 0) && (!p.standard || p.standard.toLowerCase().indexOf(search) < 0)) { continue; }
+      if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0) && (!p.machine || p.machine.toLowerCase().indexOf(search) < 0) && (!p.standard || p.standard.toLowerCase().indexOf(search) < 0)) { continue; }
       list.push(p);
     }
   }

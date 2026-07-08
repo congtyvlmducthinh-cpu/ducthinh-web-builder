@@ -1,4 +1,4 @@
-﻿
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -241,6 +241,7 @@ tbody tr:hover td{background:#eff6ff}
 .quot-preview .q-footer{margin-top:12px;font-size:10px;color:#94a3b8;line-height:1.6}
 @media(max-width:900px){.quot-grid{grid-template-columns:1fr}.quot-form-row{flex-direction:column;gap:6px}.quot-price-row{flex-wrap:wrap}.quot-row-inline{flex-wrap:wrap}}
 
+
 /* Spec picker popup (TCKT) */
 .tckt-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,.6);backdrop-filter:blur(4px);display:none;justify-content:center;align-items:center;z-index:2000}
 .tckt-overlay.open{display:flex}
@@ -272,6 +273,7 @@ tbody tr:hover td{background:#eff6ff}
 .quot-toggle-icon{font-size:10px;color:var(--muted);cursor:pointer;margin-left:4px;transition:transform .2s}
 .quot-section:not(.collapsed) .quot-toggle-icon{transform:rotate(0deg)}
 
+
 /* Quotation compact row */
 .quot-fltr-sm{width:100%;padding:6px 8px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;outline:none;font-family:var(--font);color:var(--text);background:var(--card)}
 .quot-fltr-sm:focus{border-color:var(--primary);box-shadow:0 0 0 2px rgba(37,99,235,.12)}
@@ -287,11 +289,14 @@ tbody tr:hover td{background:#eff6ff}
 .quot-stat-box .quot-min-val{color:var(--primary)}
 .quot-stat-box .quot-comm-val{color:var(--green)}
 
+
 /* Quotation field labels */
 .quot-field-label{display:block;font-size:11px;font-weight:600;color:#475569;margin:6px 0 3px;padding:0 2px}
 
 /* Delivery Terms: cảng đi/đến visibility */
 #quotPortGroup,#quotDestGroup{transition:display .2s}
+
+
 
 /* Quotation table */
 .quot-table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
@@ -326,6 +331,7 @@ tbody tr:hover td{background:#eff6ff}
   .quot-fltr-row{display:flex}
   .quot-subrow td{border-bottom:2px solid #e2e8f0;padding:6px 8px}
 }
+
 
 /* ====== FOB PTSC ====== */
 
@@ -466,6 +472,8 @@ tbody tr:hover td{background:#eff6ff}
 </div>
 </div>
 
+
+
 <!-- ====== FOB PTSC PANEL ====== -->
 <div class="fobptsc-panel" id="fobptscPanel" style="display:none">
   <!-- === SETUP === -->
@@ -526,6 +534,10 @@ tbody tr:hover td{background:#eff6ff}
     </div>
 
     <div class="fobptsc-row">
+      <div class="fobptsc-field" style="flex:2">
+        <label>🔍 Tìm sản phẩm</label>
+        <input type="text" id="fobSearchInput" placeholder="Gõ mã, spec, kích thước, máy..." oninput="fobPtscFilterProducts()">
+      </div>
       <div class="fobptsc-field" style="flex:1">
         <label>💰 Giá bán (VNĐ/tấn) <span style="font-weight:400;font-size:11px;color:var(--muted)">giá tối thiểu tự động</span></label>
         <input type="number" id="fobSellPrice" min="0" step="1000" oninput="fobPtscCalc()">
@@ -858,6 +870,7 @@ function onFreightChange() {
   if (fi) setFreight(fi.value);
 }
 
+
 // 01-utils.js
 // ====== COMPANY CONSTANTS ======
 var COMPANY = 'CÔNG TY TNHH CÔNG NGHỆ VẬT LIỆU MỚI ĐỨC THỊNH';
@@ -1171,6 +1184,7 @@ function renderBagsTab() {
   h += '</div>';
   return h;
 }
+
 
 // 04-others.js
 // ====== RENDER OTHERS TAB ======
@@ -1193,6 +1207,7 @@ function renderOthersTab() {
   h += '</div>';
   return h;
 }
+
 
 // 05-calc.js
 // ====== RENDER CALC TAB ======
@@ -1643,6 +1658,9 @@ var total = 0;
   res.innerHTML = h;
 }
 
+
+
+
 // ====== RESET CALC FILTERS ======
 function resetCalcFilters() {
   var me = document.getElementById("calcMachine");
@@ -1874,6 +1892,7 @@ function checkPassword() {
 function manageFromPwModal() { checkPassword(); }
 
 // 07-main.js
+
 
 var DATA_MAX_LOADING = {
   "H4A1": {
@@ -2774,6 +2793,7 @@ function renderBagsTab() {
   h += '</div>';
   return h;
 }
+
 
 // 04-others.js
 // ====== RENDER OTHERS TAB ======
@@ -2796,6 +2816,7 @@ function renderOthersTab() {
   h += '</div>';
   return h;
 }
+
 
 // 05-calc.js
 // ====== RENDER CALC TAB ======
@@ -3246,6 +3267,9 @@ var total = 0;
   res.innerHTML = h;
 }
 
+
+
+
 // ====== RESET CALC FILTERS ======
 function resetCalcFilters() {
   var me = document.getElementById("calcMachine");
@@ -3642,7 +3666,14 @@ function manageFromPwModal() { checkPassword(); }
 
 // 07-main.js
 // ====== GLOBAL SEARCH ======
-function globalSearch() { render(); }
+function globalSearch() {
+  if (activeTab === "quotation") {
+    quotRefreshProdDropdowns();
+    quotFilterProds();
+  } else {
+    render();
+  }
+}
 
 // ====== RESET FILTERS ======
 function resetFilters() {
@@ -3801,6 +3832,9 @@ function saveToServer() {
   xhr.send(JSON.stringify(payload));
 }
 
+
+
+
 // Language switch (i18n stub - keeps layout functional)
 var currentLang = "vi";
 var i18nStrings = {};
@@ -3822,6 +3856,7 @@ function setLang(lang) {
     b.classList.toggle("active", b.dataset.lang === lang);
   });
 }
+
 
 // ====== I18N HELPER ======
 function __(key) {
@@ -3921,8 +3956,12 @@ function selectFreightRoute() {
   closeFreightPopup();
 }
 
+
+
+
 // 09-quotation.js
 // Legacy quotation module - replaced by 13-quotation-tab.js
+
 
 // 10-market.js
 /**
@@ -8127,6 +8166,7 @@ function renderQuotationTab() {
   return h;
 }
 
+
 function quotInitRender() { quotInitSpecPicker();
   QUOT_CART = [{ product:"", bagCode:"", bagSpec:"25KG", qty:1, sellPrice:0, rowJumboTons:1, rowOtherCode:"", rowOtherTons:1 }];
   quotPopulateFilters();
@@ -8165,10 +8205,13 @@ function getQuotFilteredProducts() {
   var szEl=document.getElementById("quotSizeFilter");
   if(!szEl) return DATA_PRODUCTS.slice();
   var sz=szEl.value;
+  var searchEl = document.getElementById("searchInput");
+  var search = searchEl ? searchEl.value.toLowerCase().trim() : "";
   var list=[];
   for(var i=0;i<DATA_PRODUCTS.length;i++){
     var p=DATA_PRODUCTS[i];
     if((!m||String(p.machine)===m)&&(!s||p.standard===s)&&(!sz||p.size===sz)){
+      if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0) && (!p.machine || p.machine.toLowerCase().indexOf(search) < 0) && (!p.standard || p.standard.toLowerCase().indexOf(search) < 0)) { continue; }
       list.push(p);
     }
   }
@@ -8410,6 +8453,7 @@ function onQuotSellChange(idx) {
   QUOT_CART[idx].sellPrice=parseFloat(el.value)||0;
   recalcQuotCart();
 }
+
 
 function onQuotQtyChange(idx) {
   var el=document.getElementById("quotQty_"+idx); if(!el) return;
@@ -9221,6 +9265,7 @@ function quotInitSpecPicker() {
   }
 }
 
+
 // Toggle collapsible section
 function toggleQuotSection(titleEl) {
   var section = titleEl.closest(".quot-section");
@@ -9235,6 +9280,7 @@ function toggleQuotSection(titleEl) {
   applyMarket(); setMarket("other");
   switchTab("pricelist");
 })();
+
 
 // ====== FOB PTSC ======
 var FOB_PTSC_MODE = 'direct';
@@ -9338,9 +9384,12 @@ function fobPtscInitCalc() {
   fobPtscCalc();
 }
 
+
 function fobPtscFilterProducts() {
   var sel = document.getElementById('fobProduct');
-  if (!sel) return;
+  var searchEl = document.getElementById('fobSearchInput');
+  if (!sel || !searchEl) return;
+  var q = searchEl.value.toLowerCase().trim();
   var curVal = sel.value;
   // Also apply cascading filters
   var me = document.getElementById('fobCalcMachine');
@@ -9357,6 +9406,10 @@ function fobPtscFilterProducts() {
       if (sz && p.size !== sz) return;
       var label = p.code + ' | ' + p.spec + ' | ' + p.size;
       if (p.machine) label += ' | ' + p.machine;
+      if (q) {
+        var haystack = (p.code + ' ' + p.spec + ' ' + p.size + ' ' + (p.machine||'')).toLowerCase();
+        if (haystack.indexOf(q) < 0) return;
+      }
       var opt = document.createElement('option');
       opt.value = p.code;
       opt.textContent = label;
@@ -9366,47 +9419,6 @@ function fobPtscFilterProducts() {
   if (curVal) { for (var i=0;i<sel.options.length;i++) { if (sel.options[i].value===curVal) { sel.value=curVal; break; } } }
   fobPtscCalc();
 }
-
-function fobPtscFilterCalc() {
-  var me = document.getElementById('fobCalcMachine');
-  var se = document.getElementById('fobCalcStandard');
-  var sze = document.getElementById('fobCalcSize');
-  if (!me || !se) return;
-  var m = me.value, s = se.value;
-  
-  // Collect standards by machine, sizes by machine+standard
-  var standardsByMach = {}, sizesByMachStd = {};
-  if (typeof DATA_PRODUCTS !== 'undefined') {
-    DATA_PRODUCTS.forEach(function(p) {
-      var machOk = !m || String(p.machine) === m;
-      var stdOk = !s || p.standard === s;
-      if (machOk) standardsByMach[p.standard] = true;
-      if (machOk && stdOk && sze) sizesByMachStd[p.size] = true;
-    });
-  }
-  
-  // Rebuild standard dropdown
-  var prevStd = se.value;
-  se.innerHTML = '<option value="">-- Chọn tiêu chuẩn --</option>';
-  var sk = Object.keys(standardsByMach).sort();
-  sk.forEach(function(k) { se.innerHTML += '<option value="' + k.replace(/"/g,'&quot;') + '">' + k + '</option>'; });
-  se.value = prevStd && sk.indexOf(prevStd) >= 0 ? prevStd : '';
-  
-  // Rebuild size dropdown
-  if (sze) {
-    var prevSz = sze.value;
-    sze.innerHTML = '<option value="">-- Chọn kích thước --</option>';
-    var szk = Object.keys(sizesByMachStd).sort();
-    szk.forEach(function(k) { sze.innerHTML += '<option value="' + k.replace(/"/g,'&quot;') + '">' + k + '</option>'; });
-    sze.value = prevSz && szk.indexOf(prevSz) >= 0 ? prevSz : '';
-  }
-  
-  // Filter products
-  fobPtscFilterProducts();
-}
-
-// Cascading filter for Machine → Standard → Size
-
 function fobPtscCalc() {
   var sel = document.getElementById('fobProduct');
   var tonEl = document.getElementById('fobTonnage');
@@ -9473,7 +9485,7 @@ function fobPtscCalc() {
   
   // Sell price + commission
   var sellPrice = spEl ? parseFloat(spEl.value) : 0;
-  var minPrice = finalCost;
+  var minPrice = isExport ? Math.round(finalCost / 1.05) : finalCost;
   
   // Auto-fill min price if sell price is empty or 0
   if (spEl && (!spEl.value || parseFloat(spEl.value) <= 0)) {
@@ -9558,4 +9570,5 @@ setTimeout(function() {
 
 </body>
 </html>
+
 
