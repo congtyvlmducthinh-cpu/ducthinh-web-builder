@@ -9563,14 +9563,14 @@ function fobBagSpecChange() {
   var be = document.getElementById('fobBag');
   if (!be) return;
   be.innerHTML = '<option value="">-- Mã bao --</option>';
-  if (!spv || spv === 'Other' || typeof DATA_BAGS === 'undefined') {   var jumboRow = document.getElementById('fobJumboRow');
-  if (jumboRow) jumboRow.style.display = (spv === 'Jumbo') ? '' : 'none';
-  fobPtscCalc(); return; }
+  if (!spv || spv === 'Other' || typeof DATA_BAGS === 'undefined') { fobPtscCalc(); return; }
   DATA_BAGS.forEach(function(b) {
     if (b.spec === spv) {
       be.innerHTML += '<option value="' + b.code.replace(/"/g,'&quot;') + '">' + b.code + '</option>';
     }
   });
+  var jumboRow = document.getElementById('fobJumboRow');
+  if (jumboRow) jumboRow.style.display = (spv === 'Jumbo') ? '' : 'none';
   fobPtscCalc();
 }
 function fobPtscSetCurrency(ccy) {
