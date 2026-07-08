@@ -570,7 +570,20 @@ tbody tr:hover td{background:#eff6ff}
     <div class="fobptsc-row" id="fobJumboRow">
       <div class="fobptsc-field">
         <label>Số tấn/bao Jumbo</label>
-        <input type="number" id="fobJumboTons" value="1" min="0.1" step="0.1" oninput="fobPtscCalc()">
+        <select id="fobJumboTons" onchange="fobPtscCalc()" style="width:100%">
+          <option value="0.5">0.5 tấn</option>
+          <option value="0.7">0.7 tấn</option>
+          <option value="1" selected>1 tấn</option>
+          <option value="1.1">1.1 tấn</option>
+          <option value="1.2">1.2 tấn</option>
+          <option value="1.25">1.25 tấn</option>
+          <option value="1.3">1.3 tấn</option>
+          <option value="1.35">1.35 tấn</option>
+          <option value="1.375">1.375 tấn</option>
+          <option value="1.38">1.38 tấn</option>
+          <option value="1.4">1.4 tấn</option>
+          <option value="1.5">1.5 tấn</option>
+        </select>
       </div>
     </div>
     <div class="fobptsc-field" style="flex:1">
@@ -583,7 +596,7 @@ tbody tr:hover td{background:#eff6ff}
         </select>
       </div>
     </div>
-id="fobPtscCalcResult"></div>
+<div id="fobPtscCalcResult"></div>
   </div>
 </div>
 
@@ -9573,7 +9586,9 @@ function fobBagSpecChange() {
   var be = document.getElementById('fobBag');
   if (!be) return;
   be.innerHTML = '<option value="">-- Mã bao --</option>';
-  if (!spv || spv === 'Other' || typeof DATA_BAGS === 'undefined') { fobPtscCalc(); return; }
+  if (!spv || spv === 'Other' || typeof DATA_BAGS === 'undefined') {   var jumboRow = document.getElementById('fobJumboRow');
+  if (jumboRow) jumboRow.style.display = (spv === 'Jumbo') ? '' : 'none';
+  fobPtscCalc(); return; }
   DATA_BAGS.forEach(function(b) {
     if (b.spec === spv) {
       be.innerHTML += '<option value="' + b.code.replace(/"/g,'&quot;') + '">' + b.code + '</option>';
