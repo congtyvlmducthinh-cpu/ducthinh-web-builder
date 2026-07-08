@@ -9517,20 +9517,20 @@ function fobPtscCalc() {
   var cfg = FOB_PTSC_CONFIG || FOB_PTSC_DEFAULTS;
   var fees = [];
   
-  fees.push({ label: '🚛 Vận chuyển NM → PTSC', value: cfg.transport || 0 });
-  fees.push({ label: '🚢 Bốc xếp & giao nhận (cầu cảng → tàu)', value: cfg.loadShip || 0 });
+  fees.push({ label: '🚛 Vận chuyển NM → PTSC', value: (cfg.transport || 0) / (ccy === 'usd' ? 26000 : 1) });
+  fees.push({ label: '🚢 Bốc xếp & giao nhận (cầu cảng → tàu)', value: (cfg.loadShip || 0) / (ccy === 'usd' ? 26000 : 1) });
   
   if (mode === 'warehouse') {
-    fees.push({ label: '🚛 Bốc dỡ & giao nhận (ô tô → kho cảng)', value: cfg.unloadTruck || 0 });
-    fees.push({ label: '🏗️ Bốc xếp & giao nhận (kho → cầu cảng)', value: cfg.loadWharf || 0 });
-    fees.push({ label: '🔄 Chuyển tải hàng hóa', value: cfg.transship || 0 });
+    fees.push({ label: '🚛 Bốc dỡ & giao nhận (ô tô → kho cảng)', value: (cfg.unloadTruck || 0) / (ccy === 'usd' ? 26000 : 1) });
+    fees.push({ label: '🏗️ Bốc xếp & giao nhận (kho → cầu cảng)', value: (cfg.loadWharf || 0) / (ccy === 'usd' ? 26000 : 1) });
+    fees.push({ label: '🔄 Chuyển tải hàng hóa', value: (cfg.transship || 0) / (ccy === 'usd' ? 26000 : 1) });
     var whCost = (cfg.warehouseDay || 0) * whDays;
     fees.push({ label: '🏭 Thuê kho cảng (' + whDays + ' ngày)', value: whCost });
-    fees.push({ label: '📦 Vận hành kho (pallet + KCS)', value: cfg.warehouseOps || 0 });
+    fees.push({ label: '📦 Vận hành kho (pallet + KCS)', value: (cfg.warehouseOps || 0) / (ccy === 'usd' ? 26000 : 1) });
   }
   
   if (isExport) {
-    fees.push({ label: '📋 Hải quan (lấy mẫu + Vilas + Tham vấn)', value: cfg.customs || 0 });
+    fees.push({ label: '📋 Hải quan (lấy mẫu + Vilas + Tham vấn)', value: (cfg.customs || 0) / (ccy === 'usd' ? 26000 : 1) });
   }
   
   var totalFees = 0;
