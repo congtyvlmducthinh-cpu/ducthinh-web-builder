@@ -9569,7 +9569,7 @@ function fobPtscCalc() {
   
   var h = '<div class="fobptsc-result">';
   h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
-  h += '<div><strong>' + (prod.code || '') + '</strong> | ' + (prod.spec || '') + ' | ' + (prod.size || '') + '</div>';
+  h += '<div><strong>' + (prod.code || '') + '</strong> | ' + (prod.standard || '') + ' | ' + (prod.size || '') + '</div>';
   h += '<div style="font-size:13px;color:var(--muted)">' + tonnage + ' tấn | ' + (mode === 'direct' ? 'Không lưu kho' : 'Có lưu kho') + (isExport ? ' | 🌍 Xuất khẩu' : '') + '</div>';
   h += '</div>';
   
