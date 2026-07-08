@@ -3658,7 +3658,7 @@ function switchTab(tab) {
   
   // Control bar visibility
   var cbar = document.getElementById("controlBar");
-  if (cbar) cbar.style.display = (tab === "pricelist") ? "flex" : "none";
+  if (cbar) cbar.style.display = (tab === "pricelist" || tab === "quotation") ? "flex" : "none";
   
   // Price mode bar only on pricelist
   var bar = document.getElementById("priceModeBar");
@@ -8178,10 +8178,11 @@ function quotFilterProds() {
   var search = searchEl ? searchEl.value.toLowerCase().trim() : "";
   document.querySelectorAll(".quot-data-row").forEach(function(row){
     var pm=row.dataset.machine||"", ps=row.dataset.standard||"", pz=row.dataset.size||"";
-    var pc=row.dataset.code||"", pn=row.dataset.name||"";
+    var sel = row.querySelector('select[id^="quotProd_"]');
+    var prodText = sel && sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : "";
     // Skip empty rows (no product selected) - keep them visible
     if(!pm&&!ps&&!pz){row.style.display="";return;}
-    var matchSearch = !search || (pc && pc.toLowerCase().indexOf(search) >= 0) || (pn && pn.toLowerCase().indexOf(search) >= 0) || (pm && pm.toLowerCase().indexOf(search) >= 0) || (ps && ps.toLowerCase().indexOf(search) >= 0) || (pz && pz.toLowerCase().indexOf(search) >= 0);
+    var matchSearch = !search || (prodText && prodText.toLowerCase().indexOf(search) >= 0);
     row.style.display=((!m||pm===m)&&(!s||ps===s)&&(!sz||pz===sz) && matchSearch)?"":"none";
   });
   quotRefreshProdDropdowns();
