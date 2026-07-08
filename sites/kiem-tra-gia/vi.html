@@ -9389,6 +9389,54 @@ function fobPtscInitCalc() {
 }
 
 
+
+// Cascading filter for Machine → Standard → Size
+function fobPtscFilterCalc() {
+  var me = document.getElementById('fobCalcMachine');
+  var se = document.getElementById('fobCalcStandard');
+  var sze = document.getElementById('fobCalcSize');
+  if (!me || !se) return;
+  var m = me.value, s = se.value;
+  
+  // Collect machines by standard, standards by machine, sizes by machine+standard
+  var machinesByStd = {}, standardsByMach = {}, sizesByMachStd = {};
+  if (typeof DATA_PRODUCTS !== 'undefined') {
+    DATA_PRODUCTS.forEach(function(p) {
+      var machOk = !m || String(p.machine) === m;
+      var stdOk = !s || p.standard === s;
+      if (stdOk) machinesByStd[String(p.machine)] = true;
+      if (machOk) standardsByMach[p.standard] = true;
+      if (machOk && stdOk && sze) sizesByMachStd[p.size] = true;
+    });
+  }
+  
+  // Rebuild machine dropdown (bi-directional filter)
+  var prevM = me.value;
+  me.innerHTML = '<option value="">— Chọn máy —</option>';
+  var mk = Object.keys(machinesByStd).sort();
+  mk.forEach(function(k) { me.innerHTML += '<option value="' + k.replace(/"/g,'&quot;') + '">' + k + '</option>'; });
+  me.value = prevM && mk.indexOf(prevM) >= 0 ? prevM : '';
+  
+  // Rebuild standard dropdown
+  var prevStd = se.value;
+  se.innerHTML = '<option value="">— Chọn tiêu chuẩn —</option>';
+  var sk = Object.keys(standardsByMach).sort();
+  sk.forEach(function(k) { se.innerHTML += '<option value="' + k.replace(/"/g,'&quot;') + '">' + k + '</option>'; });
+  se.value = prevStd && sk.indexOf(prevStd) >= 0 ? prevStd : '';
+  
+  // Rebuild size dropdown
+  if (sze) {
+    var prevSz = sze.value;
+    sze.innerHTML = '<option value="">— Chọn kích thước —</option>';
+    var szk = Object.keys(sizesByMachStd).sort();
+    szk.forEach(function(k) { sze.innerHTML += '<option value="' + k.replace(/"/g,'&quot;') + '">' + k + '</option>'; });
+    sze.value = prevSz && szk.indexOf(prevSz) >= 0 ? prevSz : '';
+  }
+  
+  // Filter products
+  fobPtscFilterProducts();
+}
+
 function fobPtscFilterProducts() {
   var sel = document.getElementById('fobProduct');
   var searchEl = document.getElementById('fobSearchInput');

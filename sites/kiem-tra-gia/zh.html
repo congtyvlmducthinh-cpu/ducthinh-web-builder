@@ -9372,16 +9372,24 @@ function fobPtscFilterCalc() {
   if (!me || !se) return;
   var m = me.value, s = se.value;
   
-  // Collect standards by machine, sizes by machine+standard
-  var standardsByMach = {}, sizesByMachStd = {};
+  // Collect machines by standard, standards by machine, sizes by machine+standard
+  var machinesByStd = {}, standardsByMach = {}, sizesByMachStd = {};
   if (typeof DATA_PRODUCTS !== 'undefined') {
     DATA_PRODUCTS.forEach(function(p) {
       var machOk = !m || String(p.machine) === m;
       var stdOk = !s || p.standard === s;
+      if (stdOk) machinesByStd[String(p.machine)] = true;
       if (machOk) standardsByMach[p.standard] = true;
       if (machOk && stdOk && sze) sizesByMachStd[p.size] = true;
     });
   }
+  
+  // Rebuild machine dropdown (bi-directional filter)
+  var prevM = me.value;
+  me.innerHTML = '<option value="">— 选择机器 —</option>';
+  var mk = Object.keys(machinesByStd).sort();
+  mk.forEach(function(k) { me.innerHTML += '<option value="' + k.replace(/"/g,'&quot;') + '">' + k + '</option>'; });
+  me.value = prevM && mk.indexOf(prevM) >= 0 ? prevM : '';
   
   // Rebuild standard dropdown
   var prevStd = se.value;
