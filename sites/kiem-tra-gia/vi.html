@@ -3668,7 +3668,6 @@ function manageFromPwModal() { checkPassword(); }
 // ====== GLOBAL SEARCH ======
 function globalSearch() {
   if (activeTab === "quotation") {
-    quotRefreshProdDropdowns();
     quotFilterProds();
   } else {
     render();
@@ -8211,7 +8210,7 @@ function getQuotFilteredProducts() {
   for(var i=0;i<DATA_PRODUCTS.length;i++){
     var p=DATA_PRODUCTS[i];
     if((!m||String(p.machine)===m)&&(!s||p.standard===s)&&(!sz||p.size===sz)){
-      if (search && (!p.code || p.code.toLowerCase().indexOf(search) < 0) && (!p.size || p.size.toLowerCase().indexOf(search) < 0) && (!p.machine || p.machine.toLowerCase().indexOf(search) < 0) && (!p.standard || p.standard.toLowerCase().indexOf(search) < 0)) { continue; }
+      if (search && (!p.code || String(p.code).toLowerCase().indexOf(search) < 0) && (!p.size || String(p.size).toLowerCase().indexOf(search) < 0) && (!p.machine || String(p.machine).toLowerCase().indexOf(search) < 0) && (!p.standard || String(p.standard).toLowerCase().indexOf(search) < 0)) { continue; }
       list.push(p);
     }
   }
