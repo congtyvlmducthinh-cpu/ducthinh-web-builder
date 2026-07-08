@@ -9558,23 +9558,6 @@ function fobPtscFilterProducts() {
 
 // FOB PTSC bag spec change
 function fobBagSpecChange() {
-  var spec = document.getElementById('fobBagSpec').value;
-  var bagEl = document.getElementById('fobBag');
-  if (!bagEl) return;
-  bagEl.innerHTML = '<option value="">â€” Chá»�n bao â€”</option>';
-  if (!spec || spec === 'KhÃ¡c' || typeof DATA_BAGS === 'undefined') {
-    fobPtscCalc();
-    return;
-  }
-  DATA_BAGS.forEach(function(b) {
-    if (b.spec === spec) {
-      bagEl.innerHTML += '<option value="' + b.code.replace(/"/g,'&quot;') + '" data-price="' + b.price + '">' + b.code + ' (' + Math.round(b.price).toLocaleString() + ' VNÄ)</option>';
-    }
-  });
-  fobPtscCalc();
-}
-
-function fobBagSpecChange() {
   var sp = document.getElementById('fobBagSpec');
   var spv = sp ? sp.value : '';
   var be = document.getElementById('fobBag');
