@@ -9793,7 +9793,7 @@ function fobPtscCalc() {
   var totalForShipment = Math.round(finalCost * tonnage);
   h += '<div class="summary">';
   h += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">';
-  h += '<div><div class="lbl">Giá thành FOB / tấn</div><div class="big">' + finalCost.toLocaleString() + ' ' + ccySymbol + '</div></div>';
+  h += '<div><div class="lbl">Giá thành FOB / tấn</div><div class="big">' + fmt(finalCost) + ' ' + ccySymbol + '</div></div>';
   h += '<div><div class="lbl">Tổng giá thành lô hàng (' + tonnage + ' tấn)</div><div class="big">' + fmt(totalForShipment) + ' ' + ccySymbol + '</div></div>';
   h += '</div>';
   
@@ -9802,7 +9802,7 @@ function fobPtscCalc() {
     var totalFeesShip = Math.round(totalFees * tonnage);
     var totalTaxShip = Math.round(exportTax * tonnage);
     h += '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #86efac;font-size:12px;color:var(--muted)">';
-    h += 'EXW: ' + totalExw.toLocaleString() + ' | Bao bì: ' + Math.round(bagPrice * tonnage).toLocaleString() + ' ' + ccySymbol + ' | Phí: ' + totalFeesShip.toLocaleString() + ' ' + ccySymbol + ' | Thuế XK: ' + totalTaxShip.toLocaleString() + ' ' + ccySymbol;
+    h += 'EXW: ' + fmt(totalExw) + ' | Bao bì: ' + fmt(bagPrice * tonnage) + ' ' + ccySymbol + ' | Phí: ' + fmt(totalFeesShip) + ' ' + ccySymbol + ' | Thuế XK: ' + fmt(totalTaxShip) + ' ' + ccySymbol;
     h += '</div>';
   }
   
@@ -9810,11 +9810,11 @@ function fobPtscCalc() {
   
   // Commission section
   h += '<div class="calc-comm-result" style="margin-top:8px">';
-  h += '<div class="calc-comm-row"><span>💰 Giá bán</span><strong>' + Math.round(sellPrice).toLocaleString() + ' ' + ccySymbol + '/tấn</strong></div>';
-  h += '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + Math.round(effCommBase).toLocaleString() + ' ' + ccySymbol + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + Math.round(commissionVar).toLocaleString() + ' ' + ccySymbol + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>💰 Giá bán</span><strong>' + fmt(sellPrice) + ' ' + ccySymbol + '/tấn</strong></div>';
+  h += '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + fmt(effCommBase) + ' ' + ccySymbol + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + fmt(commissionVar) + ' ' + ccySymbol + '</strong></div>';
   h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + fmt(finalCost) + ' ' + ccySymbol + '</strong></div>';
-  h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + Math.round(totalComm).toLocaleString() + ' ' + ccySymbol + '</strong></div>';
+  h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + fmt(totalComm) + ' ' + ccySymbol + '</strong></div>';
   h += '</div>'; // close comm
   
   h += '</div>'; // close fobptsc-result
