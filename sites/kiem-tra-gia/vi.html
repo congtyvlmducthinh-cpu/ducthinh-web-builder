@@ -9527,11 +9527,9 @@ function fobPtscFilterCalc() {
 
 function fobPtscFilterProducts() {
   var sel = document.getElementById('fobProduct');
-  var searchEl = document.getElementById('fobSearchInput');
-  if (!sel || !searchEl) return;
-  var q = searchEl.value.toLowerCase().trim();
+  if (!sel) return;
   var curVal = sel.value;
-  // Also apply cascading filters
+  // Apply cascading filters
   var me = document.getElementById('fobCalcMachine');
   var se = document.getElementById('fobCalcStandard');
   var sze = document.getElementById('fobCalcSize');
@@ -9546,10 +9544,6 @@ function fobPtscFilterProducts() {
       if (sz && p.size !== sz) return;
       var label = p.code + ' | ' + (p.standard || p.spec_raw || '') + ' | ' + p.size;
       if (p.machine) label += ' | ' + p.machine;
-      if (q) {
-        var haystack = (p.code + ' ' + (p.standard || p.spec_raw || '') + ' ' + p.size + ' ' + (p.machine||'')).toLowerCase();
-        if (haystack.indexOf(q) < 0) return;
-      }
       var opt = document.createElement('option');
       opt.value = p.code;
       opt.textContent = label;
