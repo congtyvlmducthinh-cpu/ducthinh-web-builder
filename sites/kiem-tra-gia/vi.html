@@ -2701,10 +2701,10 @@ function populateFilters() {
   // Helper: check if a product matches search
   function matchesSearch(p) {
     if (!search) return true;
-    return (p.code && p.code.toLowerCase().indexOf(search) >= 0) ||
-           (p.size && p.size.toLowerCase().indexOf(search) >= 0) ||
-           (p.machine && p.machine.toLowerCase().indexOf(search) >= 0) ||
-           (p.standard && p.standard.toLowerCase().indexOf(search) >= 0);
+    return (p.code && String(p.code).toLowerCase().indexOf(search) >= 0) ||
+           (p.size && String(p.size).toLowerCase().indexOf(search) >= 0) ||
+           (p.machine && String(p.machine).toLowerCase().indexOf(search) >= 0) ||
+           (p.standard && String(p.standard).toLowerCase().indexOf(search) >= 0);
   }
 
   // === specFilter: show standards available given search + machine + size ===
