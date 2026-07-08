@@ -529,23 +529,7 @@ tbody tr:hover td{background:#eff6ff}
 <div class="fobptsc-field"><label>⚖️ Tonnage</label><input type="number" id="fobTonnage" min="0" step="0.1" oninput="fobPtscCalc()"></div>
 <div class="fobptsc-field"><label>📅 Warehouse days</label><input type="number" id="fobWarehouseDays" value="3" min="0" oninput="fobPtscCalc()"></div>
 
-<div class="fobptsc-row">
-<div class="fobptsc-field" style="flex:1">
-<label>💰 Sell price (VND/ton) <span style="font-weight:400;font-size:11px;color:var(--muted)">auto min price</span></label>
-<input type="number" id="fobSellPrice" min="0" step="1000" oninput="fobPtscCalc()">
-</div>
-</div>
 
-<div     <div class="fobptsc-row">
-      <div class="fobptsc-field" style="flex:1">
-        <label>📦 Bao bì</label>
-        <select id="fobBagSpec" onchange="fobBagSpecChange()" style="width:100%">
-          <option value="">-- Loại bao --</option>
-        </select>
-        <select id="fobBag" onchange="fobPtscCalc()" style="width:100%;margin-top:4px">
-          <option value="">-- Mã bao --</option>
-        </select>
-      </div>
       <div class="fobptsc-field" style="flex:1">
         <label>📋 QC khác</label>
         <select id="fobOther" onchange="fobPtscCalc()" style="width:100%">
