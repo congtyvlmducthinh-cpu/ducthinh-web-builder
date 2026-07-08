@@ -9580,7 +9580,7 @@ function fobPtscCalc() {
   var mode = FOB_PTSC_MODE || 'direct';
   
   if (!productCode || tonnage <= 0) {
-    resultEl.innerHTML = '<div class="fobptsc-empty"><div class="icon">🚢</div><div>Chọn sản phẩm và nhập số tấn để tính giá</div></div>';
+    resultEl.innerHTML = '<div class="fobptsc-empty"><div class="icon">🚢</div><div>Select product and enter tonnage to calculate</div></div>';
     return;
   }
   
@@ -9591,7 +9591,7 @@ function fobPtscCalc() {
     }
   }
   if (!prod) {
-    resultEl.innerHTML = '<div class="fobptsc-empty"><div class="icon">❌</div><div>Không tìm thấy sản phẩm</div></div>';
+    resultEl.innerHTML = '<div class="fobptsc-empty"><div class="icon">❌</div><div>Product not found</div></div>';
     return;
   }
   
@@ -9640,20 +9640,20 @@ function fobPtscCalc() {
   var cfg = FOB_PTSC_CONFIG || FOB_PTSC_DEFAULTS;
   var fees = [];
   
-  fees.push({ label: '🚛 Vận chuyển NM → PTSC', value: (cfg.transport || 0) / (ccy === 'usd' ? 26000 : 1) });
-  fees.push({ label: '🚢 Bốc xếp & giao nhận (cầu cảng → tàu)', value: (cfg.loadShip || 0) / (ccy === 'usd' ? 26000 : 1) });
+  fees.push({ label: '🚛 Factory → Port transport', value: (cfg.transport || 0) / (ccy === 'usd' ? 26000 : 1) });
+  fees.push({ label: '🚢 Loading & handling (wharf → ship)', value: (cfg.loadShip || 0) / (ccy === 'usd' ? 26000 : 1) });
   
   if (mode === 'warehouse') {
-    fees.push({ label: '🚛 Bốc dỡ & giao nhận (ô tô → kho cảng)', value: (cfg.unloadTruck || 0) / (ccy === 'usd' ? 26000 : 1) });
-    fees.push({ label: '🏗️ Bốc xếp & giao nhận (kho → cầu cảng)', value: (cfg.loadWharf || 0) / (ccy === 'usd' ? 26000 : 1) });
-    fees.push({ label: '🔄 Chuyển tải hàng hóa', value: (cfg.transship || 0) / (ccy === 'usd' ? 26000 : 1) });
+    fees.push({ label: '🚛 Unloading & handling (truck → port warehouse)', value: (cfg.unloadTruck || 0) / (ccy === 'usd' ? 26000 : 1) });
+    fees.push({ label: '🏗️ Loading & handling (warehouse → wharf)', value: (cfg.loadWharf || 0) / (ccy === 'usd' ? 26000 : 1) });
+    fees.push({ label: '🔄 Transshipment', value: (cfg.transship || 0) / (ccy === 'usd' ? 26000 : 1) });
     var whCost = ((cfg.warehouseDay || 0) * whDays) / (ccy === 'usd' ? 26000 : 1);
-    fees.push({ label: '🏭 Thuê kho cảng (' + whDays + ' ngày)', value: whCost });
-    fees.push({ label: '📦 Vận hành kho (pallet + KCS)', value: (cfg.warehouseOps || 0) / (ccy === 'usd' ? 26000 : 1) });
+    fees.push({ label: '🏭 Port warehouse rental (' + whDays + ' ngày)', value: whCost });
+    fees.push({ label: '📦 Warehouse ops (pallet + KCS)', value: (cfg.warehouseOps || 0) / (ccy === 'usd' ? 26000 : 1) });
   }
   
   if (isExport) {
-    fees.push({ label: '📋 Hải quan (lấy mẫu + Vilas + Tham vấn)', value: (cfg.customs || 0) / (ccy === 'usd' ? 26000 : 1) });
+    fees.push({ label: '📋 Customs (sampling + Vilas + Consultation)', value: (cfg.customs || 0) / (ccy === 'usd' ? 26000 : 1) });
   }
   
   var totalFees = 0;
@@ -9694,7 +9694,7 @@ function fobPtscCalc() {
   var h = '<div class="fobptsc-result">';
   h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
   h += '<div><strong>' + (prod.code || '') + '</strong> | ' + (prod.standard || '') + ' | ' + (prod.size || '') + '</div>';
-  h += '<div style="font-size:13px;color:var(--muted)">' + tonnage + ' tấn | ' + (mode === 'direct' ? 'Không lưu kho' : 'Có lưu kho') + (isExport ? ' | 🌍 Xuất khẩu' : '') + '</div>';
+  h += '<div style="font-size:13px;color:var(--muted)">' + tonnage + ' tấn | ' + (mode === 'direct' ? 'No warehouse storage' : 'With warehouse storage') + (isExport ? ' | 🌍 Export' : '') + '</div>';
   h += '</div>';
   
   h += '<table class="fobptsc-result-table">';
@@ -9706,29 +9706,29 @@ function fobPtscCalc() {
     h += '<tr><td>💰 EXW (incl. packaging)</td><td>' + fmt(totalExwBag) + ' ' + ccySymbol + '/tấn</td></tr>';
   }
   h += '<tr><td>📦 Bao bì</td><td>' + fmt(bagPrice) + ' ' + ccySymbol + '/tấn</td></tr>';
-  h += '<tr id="fobJumboRowInfo" style="display:none"><td colspan="3" style="text-align:right;font-size:0.85em;color:#666">Bao: <span id="fobJumboTonsDisplay">1</span> tấn/bao</td></tr>';
+  h += '<tr id="fobJumboRowInfo" style="display:none"><td colspan="3" style="text-align:right;font-size:0.85em;color:#666">Bao: <span id="fobJumboTonsDisplay">1</span> tons/bag</td></tr>';
   h += '<tr><td>📋 QC khác</td><td>' + fmt(otherPrice) + ' ' + ccySymbol + '/tấn</td></tr>';
   
   fees.forEach(function(f) {
     h += '<tr><td>' + f.label + '</td><td>' + fmt(f.value) + ' ' + ccySymbol + '/tấn</td></tr>';
   });
   
-  h += '<tr class="total-row"><td>📊 Tổng chi phí FOB / tấn</td><td>' + fmt(totalFees) + ' ' + ccySymbol + '</td></tr>';
-  h += '<tr><td style="font-weight:600">Giá thành FOB (chưa thuế)</td><td style="font-weight:600">' + fmt(costBeforeTax) + ' ' + ccySymbol + '/tấn</td></tr>';
+  h += '<tr class="total-row"><td>📊 Total FOB costs / ton</td><td>' + fmt(totalFees) + ' ' + ccySymbol + '</td></tr>';
+  h += '<tr><td style="font-weight:600">FOB cost (before tax)</td><td style="font-weight:600">' + fmt(costBeforeTax) + ' ' + ccySymbol + '/tấn</td></tr>';
   
   if (isExport) {
-    h += '<tr><td>📋 Thuế xuất khẩu 5%</td><td>' + fmt(exportTax) + ' ' + ccySymbol + '/tấn</td></tr>';
-    h += '<tr class="grand-row"><td>💰💎 Giá thành FOB (đã bao gồm XK)</td><td>' + fmt(finalCost) + ' ' + ccySymbol + '/tấn</td></tr>';
+    h += '<tr><td>📋 Export tax 5%</td><td>' + fmt(exportTax) + ' ' + ccySymbol + '/tấn</td></tr>';
+    h += '<tr class="grand-row"><td>💰💎 FOB cost (incl. export tax)</td><td>' + fmt(finalCost) + ' ' + ccySymbol + '/tấn</td></tr>';
   }
   
-  h += '<tr class="total-row"><td>🔽 Giá tối thiểu (có thể bán)</td><td>' + fmt(minPrice) + ' ' + ccySymbol + '/tấn</td></tr>';
+  h += '<tr class="total-row"><td>🔽 Min. selling price</td><td>' + fmt(minPrice) + ' ' + ccySymbol + '/tấn</td></tr>';
   
   h += '</table>';
   
   var totalForShipment = Math.round(finalCost * tonnage);
   h += '<div class="summary">';
   h += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">';
-  h += '<div><div class="lbl">Giá thành FOB / tấn</div><div class="big">' + fmt(finalCost) + ' ' + ccySymbol + '</div></div>';
+  h += '<div><div class="lbl">FOB cost / ton</div><div class="big">' + fmt(finalCost) + ' ' + ccySymbol + '</div></div>';
   h += '<div><div class="lbl">Tổng giá thành lô hàng (' + tonnage + ' tấn)</div><div class="big">' + fmt(totalForShipment) + ' ' + ccySymbol + '</div></div>';
   h += '</div>';
   
@@ -9737,7 +9737,7 @@ function fobPtscCalc() {
     var totalFeesShip = Math.round(totalFees * tonnage);
     var totalTaxShip = Math.round(exportTax * tonnage);
     h += '<div style="margin-top:8px;padding-top:8px;border-top:1px solid #86efac;font-size:12px;color:var(--muted)">';
-    h += 'EXW: ' + fmt(totalExw) + ' | Bao bì: ' + fmt(bagPrice * tonnage) + ' ' + ccySymbol + ' | Phí: ' + fmt(totalFeesShip) + ' ' + ccySymbol + ' | Thuế XK: ' + fmt(totalTaxShip) + ' ' + ccySymbol;
+    h += 'EXW: ' + fmt(totalExw) + ' | Packaging: ' + fmt(bagPrice * tonnage) + ' ' + ccySymbol + ' | Fees: ' + fmt(totalFeesShip) + ' ' + ccySymbol + ' | Export tax: ' + fmt(totalTaxShip) + ' ' + ccySymbol;
     h += '</div>';
   }
   
@@ -9745,11 +9745,11 @@ function fobPtscCalc() {
   
   // Commission section
   h += '<div class="calc-comm-result" style="margin-top:8px">';
-  h += '<div class="calc-comm-row"><span>💰 Giá bán</span><strong>' + fmt(sellPrice) + ' ' + ccySymbol + '/tấn</strong></div>';
-  h += '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + fmt(effCommBase) + ' ' + ccySymbol + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + fmt(commissionVar) + ' ' + ccySymbol + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + fmt(finalCost) + ' ' + ccySymbol + '</strong></div>';
-  h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + fmt(totalComm) + ' ' + ccySymbol + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>💰 Selling price</span><strong>' + fmt(sellPrice) + ' ' + ccySymbol + '/tấn</strong></div>';
+  h += '<div class="calc-comm-row"><span>Base commission</span><strong>' + fmt(effCommBase) + ' ' + ccySymbol + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>Difference (30%)</span><strong>' + fmt(commissionVar) + ' ' + ccySymbol + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>Total cost</span><strong>' + fmt(finalCost) + ' ' + ccySymbol + '</strong></div>';
+  h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Total commission</span><strong style="color:var(--primary);font-size:16px">' + fmt(totalComm) + ' ' + ccySymbol + '</strong></div>';
   h += '</div>'; // close comm
   
   h += '</div>'; // close fobptsc-result
