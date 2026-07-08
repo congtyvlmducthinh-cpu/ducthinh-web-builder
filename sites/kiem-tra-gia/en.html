@@ -9644,7 +9644,7 @@ function fobPtscCalc() {
     fees.push({ label: '🚛 Bốc dỡ & giao nhận (ô tô → kho cảng)', value: (cfg.unloadTruck || 0) / (ccy === 'usd' ? 26000 : 1) });
     fees.push({ label: '🏗️ Bốc xếp & giao nhận (kho → cầu cảng)', value: (cfg.loadWharf || 0) / (ccy === 'usd' ? 26000 : 1) });
     fees.push({ label: '🔄 Chuyển tải hàng hóa', value: (cfg.transship || 0) / (ccy === 'usd' ? 26000 : 1) });
-    var whCost = (cfg.warehouseDay || 0) * whDays;
+    var whCost = ((cfg.warehouseDay || 0) * whDays) / (ccy === 'usd' ? 26000 : 1);
     fees.push({ label: '🏭 Thuê kho cảng (' + whDays + ' ngày)', value: whCost });
     fees.push({ label: '📦 Vận hành kho (pallet + KCS)', value: (cfg.warehouseOps || 0) / (ccy === 'usd' ? 26000 : 1) });
   }
