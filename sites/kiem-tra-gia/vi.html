@@ -9389,7 +9389,7 @@ function fobPtscInitCalc() {
   }
     // Sync toggle button states
   setTimeout(function() {
-    var curCcy = (typeof currency !== 'undefined') ? currency : 'VND';
+    var curCcy = (typeof currency !== 'undefined') ? String(currency).toUpperCase() : 'VND';
     document.querySelectorAll('.fobptsc-toggle[data-fobccy]').forEach(function(b) {
       b.classList.toggle('active', b.dataset.fobccy === (curCcy === 'USD' ? 'usd' : 'vnd'));
     });
@@ -9502,14 +9502,14 @@ function fobPtscFilterProducts() {
 
 // FOB PTSC currency toggle
 function fobPtscSetCurrency(ccy) {
-  if (typeof currency !== 'undefined') currency = ccy;
+  if (typeof currency !== 'undefined') currency = ccy === 'usd' ? 'USD' : 'VND';
   // Update button active states
   document.querySelectorAll('.fobptsc-toggle[data-fobccy]').forEach(function(b) {
     b.classList.toggle('active', b.dataset.fobccy === ccy);
   });
   // Update sell price label
   var lbl = document.getElementById('fobCcyLbl');
-  if (lbl) lbl.textContent = ccy;
+  if (lbl) lbl.textContent = ccy === 'usd' ? 'USD' : 'VNĐ';
   // Recalc
   fobPtscCalc();
 }
@@ -9571,7 +9571,7 @@ function fobPtscCalc() {
     return;
   }
   
-  var ccy = (typeof currency !== 'undefined' && currency === 'USD') ? 'usd' : 'vnd';
+  var ccy = (typeof currency !== 'undefined' && String(currency).toUpperCase() === 'USD') ? 'usd' : 'vnd';
   var ccySymbol = ccy === 'usd' ? 'USD' : 'VNĐ';
   var exwPrice = prod['exw_' + ccy] || 0;
   var cfg = FOB_PTSC_CONFIG || FOB_PTSC_DEFAULTS;
