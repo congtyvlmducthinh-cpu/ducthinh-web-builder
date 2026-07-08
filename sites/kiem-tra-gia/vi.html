@@ -9678,11 +9678,11 @@ function fobPtscCalc() {
     exwPrice = prod['exw_' + ccy] || 0;
     for (var bi = 0; bi < DATA_BAGS.length; bi++) {
       if (DATA_BAGS[bi].code === bagCode && DATA_BAGS[bi].spec === bagSpec) {
-        bagPrice = ccy === 'usd' ? Math.round(DATA_BAGS[bi].price / 26000) : DATA_BAGS[bi].price;
+        bagPrice = ccy === 'usd' ? DATA_BAGS[bi].price / 26000 : DATA_BAGS[bi].price;
         break;
       }
     }
-      if(isJumbo&&bagTons>0)bagPrice=Math.round(bagPrice/bagTons);
+      if(isJumbo&&bagTons>0)bagPrice=bagPrice/bagTons;
   } else {
     // No specific bag: use product price with standard packaging
     exwPrice = isJumbo ? (prod['jumbo_' + ccy] || 0) : (prod['pkg25_' + ccy] || 0);
@@ -9693,11 +9693,11 @@ function fobPtscCalc() {
     for (var oi = 0; oi < DATA_OTHERS.length; oi++) {
       if (DATA_OTHERS[oi].code === otherCode) {
         var raw = DATA_OTHERS[oi].price;
-        otherPrice = ccy === 'usd' ? Math.round(raw / 26000) : raw;
+        otherPrice = ccy === 'usd' ? raw / 26000 : raw;
         break;
       }
     }
-    if (!isJumbo && otherTons > 0) otherPrice = Math.round(otherPrice / otherTons);if(isJumbo&&bagTons>0)otherPrice=Math.round(otherPrice/bagTons);
+    if (!isJumbo && otherTons > 0) otherPrice = otherPrice / otherTons;if(isJumbo&&bagTons>0)otherPrice=otherPrice/bagTons;
   }
   
   var totalBagOther = bagPrice + otherPrice;
@@ -9729,17 +9729,17 @@ function fobPtscCalc() {
   var finalCost = costBeforeTax;
   
   if (isExport) {
-    exportTax = Math.round(costBeforeTax * 0.05);
+    exportTax = costBeforeTax * 0.05;
     finalCost = costBeforeTax + exportTax;
   }
   
   // Sell price + commission
   var sellPrice = spEl ? parseFloat(spEl.value) : 0;
-  var minPrice = isExport ? Math.round(finalCost) : finalCost;
+  var minPrice = finalCost;
   
   // Auto-fill min price if sell price is empty or 0
   if (spEl && (!spEl.value || parseFloat(spEl.value) <= 0)) {
-    spEl.value = ccy === 'usd' ? minPrice.toFixed(2) : Math.round(minPrice);
+    spEl.value = minPrice.toFixed(2);
     sellPrice = minPrice;
   }
   
