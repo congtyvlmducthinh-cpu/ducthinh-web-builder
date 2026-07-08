@@ -205,7 +205,7 @@ tbody tr:hover td{background:#eff6ff}
 .quot-filter-sm{flex:1;min-width:0;font-size:12px;padding:7px 10px}
 .quot-add-btn{padding:5px 14px;border:none;border-radius:6px;background:linear-gradient(135deg,#059669,#10b981);color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
 .quot-add-btn:hover{opacity:.9}
-.quot-prod-row{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px}
+.quot-data-row{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px}
 .quot-row-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .quot-row-num{font-size:12px;font-weight:600;color:var(--muted)}
 .quot-remove-btn{width:24px;height:24px;border:none;border-radius:6px;background:#fee2e2;color:#dc2626;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
@@ -8226,7 +8226,7 @@ function quotFilterProds() {
   var sz=document.getElementById("quotSizeFilter").value;
   var searchEl = document.getElementById("searchInput");
   var search = searchEl ? searchEl.value.toLowerCase().trim() : "";
-  document.querySelectorAll(".quot-prod-row").forEach(function(row){
+  document.querySelectorAll(".quot-data-row").forEach(function(row){
     var pm=row.dataset.machine||"", ps=row.dataset.standard||"", pz=row.dataset.size||"";
     var pc=row.dataset.code||"", pn=row.dataset.name||"";
     // Skip empty rows (no product selected) - keep them visible
