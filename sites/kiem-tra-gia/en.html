@@ -9671,7 +9671,7 @@ function fobPtscCalc() {
   
   // Auto-fill min price if sell price is empty or 0
   if (spEl && (!spEl.value || parseFloat(spEl.value) <= 0)) {
-    spEl.value = minPrice;
+    spEl.value = ccy === 'usd' ? minPrice.toFixed(2) : Math.round(minPrice);
     sellPrice = minPrice;
   }
   
@@ -9687,6 +9687,7 @@ function fobPtscCalc() {
   effCommBase = sellPrice < finalCost ? 0 : commBase;
   totalComm = effCommBase + commissionVar;
   
+  var fmt = function(v) { return ccy === 'usd' ? v.toFixed(2) : Math.round(v).toLocaleString(); };
   var h = '<div class="fobptsc-result">';
   h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
   h += '<div><strong>' + (prod.code || '') + '</strong> | ' + (prod.standard || '') + ' | ' + (prod.size || '') + '</div>';
@@ -9696,28 +9697,28 @@ function fobPtscCalc() {
   h += '<table class="fobptsc-result-table">';
     var hasBagCode = !!bagCode;
   var exwLabel = hasBagCode ? '💰 EXW (w/o packaging)' : '💰 EXW (incl. packaging)';
-  h += '<tr><td>' + exwLabel + '</td><td>' + Math.round(exwPrice).toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
+  h += '<tr><td>' + exwLabel + '</td><td>' + fmt(exwPrice) + ' ' + ccySymbol + '/tấn</td></tr>';
   if (hasBagCode) {
     var totalExwBag = exwPrice + bagPrice;
-    h += '<tr><td>💰 EXW (incl. packaging)</td><td>' + Math.round(totalExwBag).toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
+    h += '<tr><td>💰 EXW (incl. packaging)</td><td>' + fmt(totalExwBag) + ' ' + ccySymbol + '/tấn</td></tr>';
   }
-  h += '<tr><td>📦 Bao bì</td><td>' + Math.round(bagPrice).toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>
+  h += '<tr><td>📦 Bao bì</td><td>' + fmt(bagPrice) + ' ' + ccySymbol + '/tấn</td></tr>
   h += '<tr id="fobJumboRowInfo" style="display:none"><td colspan="3" style="text-align:right;font-size:0.85em;color:#666">Bao: <span id="fobJumboTonsDisplay">1</span> tấn/bao</td></tr>';
-  h += '<tr><td>📋 QC khác</td><td>' + Math.round(otherPrice).toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
+  h += '<tr><td>📋 QC khác</td><td>' + fmt(otherPrice) + ' ' + ccySymbol + '/tấn</td></tr>';
   
   fees.forEach(function(f) {
-    h += '<tr><td>' + f.label + '</td><td>' + f.value.toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
+    h += '<tr><td>' + f.label + '</td><td>' + fmt(f.value) + ' ' + ccySymbol + '/tấn</td></tr>';
   });
   
-  h += '<tr class="total-row"><td>📊 Tổng chi phí FOB / tấn</td><td>' + totalFees.toLocaleString() + ' ' + ccySymbol + '</td></tr>';
-  h += '<tr><td style="font-weight:600">Giá thành FOB (chưa thuế)</td><td style="font-weight:600">' + costBeforeTax.toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
+  h += '<tr class="total-row"><td>📊 Tổng chi phí FOB / tấn</td><td>' + fmt(totalFees) + ' ' + ccySymbol + '</td></tr>';
+  h += '<tr><td style="font-weight:600">Giá thành FOB (chưa thuế)</td><td style="font-weight:600">' + fmt(costBeforeTax) + ' ' + ccySymbol + '/tấn</td></tr>';
   
   if (isExport) {
-    h += '<tr><td>📋 Thuế xuất khẩu 5%</td><td>' + exportTax.toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
-    h += '<tr class="grand-row"><td>💰💎 Giá thành FOB (đã bao gồm XK)</td><td>' + finalCost.toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
+    h += '<tr><td>📋 Thuế xuất khẩu 5%</td><td>' + fmt(exportTax) + ' ' + ccySymbol + '/tấn</td></tr>';
+    h += '<tr class="grand-row"><td>💰💎 Giá thành FOB (đã bao gồm XK)</td><td>' + fmt(finalCost) + ' ' + ccySymbol + '/tấn</td></tr>';
   }
   
-  h += '<tr class="total-row"><td>🔽 Giá tối thiểu (có thể bán)</td><td>' + minPrice.toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
+  h += '<tr class="total-row"><td>🔽 Giá tối thiểu (có thể bán)</td><td>' + fmt(minPrice) + ' ' + ccySymbol + '/tấn</td></tr>';
   
   h += '</table>';
   
@@ -9725,7 +9726,7 @@ function fobPtscCalc() {
   h += '<div class="summary">';
   h += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">';
   h += '<div><div class="lbl">Giá thành FOB / tấn</div><div class="big">' + finalCost.toLocaleString() + ' ' + ccySymbol + '</div></div>';
-  h += '<div><div class="lbl">Tổng giá thành lô hàng (' + tonnage + ' tấn)</div><div class="big">' + totalForShipment.toLocaleString() + ' ' + ccySymbol + '</div></div>';
+  h += '<div><div class="lbl">Tổng giá thành lô hàng (' + tonnage + ' tấn)</div><div class="big">' + fmt(totalForShipment) + ' ' + ccySymbol + '</div></div>';
   h += '</div>';
   
   if (isExport) {
@@ -9744,7 +9745,7 @@ function fobPtscCalc() {
   h += '<div class="calc-comm-row"><span>💰 Giá bán</span><strong>' + Math.round(sellPrice).toLocaleString() + ' ' + ccySymbol + '/tấn</strong></div>';
   h += '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + Math.round(effCommBase).toLocaleString() + ' ' + ccySymbol + '</strong></div>';
   h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + Math.round(commissionVar).toLocaleString() + ' ' + ccySymbol + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + Math.round(finalCost).toLocaleString() + ' ' + ccySymbol + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + fmt(finalCost) + ' ' + ccySymbol + '</strong></div>';
   h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + Math.round(totalComm).toLocaleString() + ' ' + ccySymbol + '</strong></div>';
   h += '</div>'; // close comm
   
