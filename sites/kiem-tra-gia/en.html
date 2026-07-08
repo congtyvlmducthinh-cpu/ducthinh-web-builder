@@ -9694,7 +9694,13 @@ function fobPtscCalc() {
   h += '</div>';
   
   h += '<table class="fobptsc-result-table">';
-  h += '<tr><td>💰 Giá EXW gốc</td><td>' + Math.round(exwPrice).toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
+    var hasBagCode = !!bagCode;
+  var exwLabel = hasBagCode ? '💰 EXW (w/o packaging)' : '💰 EXW (incl. packaging)';
+  h += '<tr><td>' + exwLabel + '</td><td>' + Math.round(exwPrice).toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
+  if (hasBagCode) {
+    var totalExwBag = exwPrice + bagPrice;
+    h += '<tr><td>💰 EXW (incl. packaging)</td><td>' + Math.round(totalExwBag).toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
+  }
   h += '<tr><td>📦 Bao bì</td><td>' + Math.round(bagPrice).toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>
   h += '<tr id="fobJumboRowInfo" style="display:none"><td colspan="3" style="text-align:right;font-size:0.85em;color:#666">Bao: <span id="fobJumboTonsDisplay">1</span> tấn/bao</td></tr>';
   h += '<tr><td>📋 QC khác</td><td>' + Math.round(otherPrice).toLocaleString() + ' ' + ccySymbol + '/tấn</td></tr>';
