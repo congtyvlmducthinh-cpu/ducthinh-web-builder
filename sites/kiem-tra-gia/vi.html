@@ -156,7 +156,7 @@ tbody tr:hover td{background:#eff6ff}
 .freight-modal-body tbody tr.selected td{background:#dbeafe;font-weight:600}
 .freight-val{font-weight:700;color:var(--primary)}
 .freight-modal-footer{display:flex;justify-content:flex-end;align-items:center;gap:8px;padding:14px 24px;border-top:1px solid var(--border)}
-@media(max-width:768px){body{padding:12px}.calc-grid{grid-template-columns:1fr}.q-modal-form{grid-template-columns:1fr}.summary-bar{flex-direction:column;gap:6px}.summary-card{padding:10px 14px}.calc-row-inline{flex-direction:column;gap:6px}}}
+@media(max-width:768px){body{padding:12px}.calc-grid{grid-template-columns:1fr}.q-modal-form{grid-template-columns:1fr}.summary-bar{flex-direction:column;gap:6px}.summary-card{padding:10px 14px}.calc-row-inline{flex-direction:column;gap:6px}}@media(max-width:768px){.hide-mobile{display:none!important}.table-wrap{max-width:100vw;-webkit-overflow-scrolling:touch}}
 .pricelist{margin-top:0}
 .badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;font-size:14px;line-height:1;flex-shrink:0}
 .badge.blue{background:#dbeafe;color:#1e40af}
@@ -397,13 +397,13 @@ tbody tr:hover td{background:#eff6ff}
 
 <div class="tabs" id="tabs">
 <button class="tab-btn active" data-tab="pricelist" onclick="switchTab('pricelist')"><span>📋 Giá bán</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Bảng giá sản phẩm</small></button>
+<button class="tab-btn" data-tab="calc" onclick="switchTab('calc')"><span>📝 Tính giá</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Tính giá bán</small></button>
+<button class="tab-btn" data-tab="quotation" onclick="switchTab('quotation')"><span>📄 Báo giá</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Lên báo giá</small></button>
+<button class="tab-btn" data-tab="fobptsc" onclick="switchTab('fobptsc')"><span>🚢 FOB PTSC</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Tàu rời & chi phí</small></button>
+<button class="tab-btn" data-tab="apps" onclick="switchTab('apps')"><span>📋 Ứng Dụng</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Sản phẩm theo ứng dụng</small></button>
+<button class="tab-btn" data-tab="manage" onclick="switchTab('manage')"><span>⚙️ Quản lý</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Dữ liệu & upload</small></button>
 <button class="tab-btn" data-tab="bags" onclick="switchTab('bags')"><span>📦 Bao bì</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Giá bao bì</small></button>
 <button class="tab-btn" data-tab="others" onclick="switchTab('others')"><span>📐 Quy cách khác</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Các quy cách khác</small></button>
-<button class="tab-btn" data-tab="calc" onclick="switchTab('calc')"><span>📝 Tính giá</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Tính giá bán</small></button>
-<button class="tab-btn" data-tab="manage" onclick="switchTab('manage')"><span>⚙️ Quản lý</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Dữ liệu & upload</small></button>
-            <button class="tab-btn" data-tab="quotation" onclick="switchTab('quotation')"><span>📄 Báo giá</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Lên báo giá</small></button>
-<button class="tab-btn" data-tab="apps" onclick="switchTab('apps')"><span>📋 Ứng Dụng</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Sản phẩm theo ứng dụng</small></button><button class="tab-btn" data-tab="fobptsc" onclick="switchTab('fobptsc')"><span>🚢 FOB PTSC</span><br><small style="font-weight:400;font-size:10px;opacity:.7">Tàu rời & chi phí</small></button>
-</div>
 
 <div class="controls" id="controlBar">
     
@@ -1084,14 +1084,14 @@ function renderPriceTab() {
     if (p.exw_vnd && p.exw_vnd > 0) { sumExw += p.exw_vnd; cntExw++; if (p.exw_vnd > maxExw) maxExw = p.exw_vnd; }
   });
   var fmt = function(v) { return (v || 0).toLocaleString('vi-VN'); };
-  h += '<div class="summary-bar">';
+  h += '<div class="summary-bar hide-mobile">';
   h += '<div class="summary-card"><div class="lbl">Sản phẩm</div><div class="val">' + filtered.length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Tiêu chuẩn</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Máy</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Ngày báo giá</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
   h += '</div>';
   h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">📋 Hiện max tải</button>\n<div class="market-group">\n<span class="ext-label">🌏 Thị trường:</span>\n<button class="btn-sm' + (currentMarket === 'cn' ? ' active' : '') + '" id="marketCn" onclick="setMarket(\'cn\')">🇨🇳 TQ</button>\n<button class="btn-sm' + (currentMarket === 'other' ? ' active' : '') + '" id="marketOther" onclick="setMarket(\'other\')">🌏 Khác</button>\n</div>'
-  h += '<div class="summary-bar" style="margin-top:4px;gap:6px">';
+  h += '<div class="summary-bar hide-mobile" style="margin-top:4px;gap:6px">';
   h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">TB 25KG</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
   h += '<div class="summary-card" style="padding:8px 12px;background:#fef2f2;border-color:#fecaca"><div class="lbl" style="font-size:10px">C.nhất 25KG</div><div class="val" style="font-size:15px">' + fmt(max25) + '</div></div>';
   h += '<div class="summary-card" style="padding:8px 12px;background:#f0fdf4;border-color:#bbf7d0"><div class="lbl" style="font-size:10px">TB Jumbo</div><div class="val" style="font-size:15px">' + fmt(cntJ?Math.round(sumJ/cntJ):0) + '</div></div>';
@@ -2696,14 +2696,14 @@ function renderPriceTab() {
     if (p.exw_vnd && p.exw_vnd > 0) { sumExw += p.exw_vnd; cntExw++; if (p.exw_vnd > maxExw) maxExw = p.exw_vnd; }
   });
   var fmt = function(v) { return (v || 0).toLocaleString('vi-VN'); };
-  h += '<div class="summary-bar">';
+  h += '<div class="summary-bar hide-mobile">';
   h += '<div class="summary-card"><div class="lbl">Sản phẩm</div><div class="val">' + filtered.length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Tiêu chuẩn</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Máy</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Ngày báo giá</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
   h += '</div>';
   h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">📋 Hiện max tải</button>\n<div class="market-group">\n<span class="ext-label">🌏 Thị trường:</span>\n<button class="btn-sm' + (currentMarket === 'cn' ? ' active' : '') + '" id="marketCn" onclick="setMarket(\'cn\')">🇨🇳 TQ</button>\n<button class="btn-sm' + (currentMarket === 'other' ? ' active' : '') + '" id="marketOther" onclick="setMarket(\'other\')">🌏 Khác</button>\n</div>'
-  h += '<div class="summary-bar" style="margin-top:4px;gap:6px">';
+  h += '<div class="summary-bar hide-mobile" style="margin-top:4px;gap:6px">';
   h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">TB 25KG</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
   h += '<div class="summary-card" style="padding:8px 12px;background:#fef2f2;border-color:#fecaca"><div class="lbl" style="font-size:10px">C.nhất 25KG</div><div class="val" style="font-size:15px">' + fmt(max25) + '</div></div>';
   h += '<div class="summary-card" style="padding:8px 12px;background:#f0fdf4;border-color:#bbf7d0"><div class="lbl" style="font-size:10px">TB Jumbo</div><div class="val" style="font-size:15px">' + fmt(cntJ?Math.round(sumJ/cntJ):0) + '</div></div>';
