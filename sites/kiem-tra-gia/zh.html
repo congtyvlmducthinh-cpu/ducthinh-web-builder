@@ -473,9 +473,9 @@ tbody tr:hover td{background:#eff6ff}
 
 <!-- FOB PTSC PANEL -->
 <div class="fobptsc-panel" id="fobptscPanel" style="display:none">
-<div class="fobptsc-section"><h3>⚙️ FOB PTSC 费用设置</h3>
+<div class="fobptsc-section"><h3>⚙️ FOB PTSC 费用设置</h3><button onclick="fobPtscToggleCfg()" style="float:right;font-size:12px;padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:var(--card);cursor:pointer;font-family:var(--font)" id="fobCfgToggleBtn">🔽 Show config</button>
 <p style="font-size:13px;color:var(--muted);margin:-8px 0 16px">输入每项费用的默认值（越南盾/吨）。计算时可调整。</p>
-<div class="fobptsc-grid">
+<div id="fobCfgBody" class="fobptsc-config-body" style="display:none"><div class="fobptsc-grid">
 <div class="fobptsc-field"><label>🚛 运输：工厂 → PTSC</label><input type="number" id="fobCfgTransport" oninput="fobPtscSaveCfg()"></div>
 <div class="fobptsc-field"><label>🚛 卸货与交接（卡车 → 港口仓库）</label><input type="number" id="fobCfgUnloadTruck" oninput="fobPtscSaveCfg()"></div>
 <div class="fobptsc-field"><label>🏗️ 装货与交接（仓库 → 码头）</label><input type="number" id="fobCfgLoadWharf" oninput="fobPtscSaveCfg()"></div>
@@ -490,7 +490,7 @@ tbody tr:hover td{background:#eff6ff}
 <button class="btn-cancel" onclick="alert('✅ 设置已保存（本次会话有效）。')">💾 保存</button>
 </div></div>
 
-<div class="fobptsc-section"><h3>🚢 FOB PTSC 价格计算</h3>
+<div class="fobptsc-section"</div>><h3>🚢 FOB PTSC 价格计算</h3>
 <div class="fobptsc-radio-group">
 <button class="fobptsc-radio-btn active" data-fobmode="direct" onclick="fobPtscSetMode('direct')">🚛 不含仓储</button>
 <button class="fobptsc-radio-btn" data-fobmode="warehouse" onclick="fobPtscSetMode('warehouse')">📦 含仓储</button>
@@ -9294,6 +9294,16 @@ function toggleQuotSection(titleEl) {
 
 // ====== FOB PTSC ======
 var FOB_PTSC_MODE = 'direct';
+
+
+function fobPtscToggleCfg() {
+  var body = document.getElementById('fobCfgBody');
+  var btn = document.getElementById('fobCfgToggleBtn');
+  if (!body || !btn) return;
+  var visible = body.style.display !== 'none';
+  body.style.display = visible ? 'none' : 'block';
+  btn.textContent = visible ? '🔽 Show config' : '🔼 Hide config';
+}
 
 function fobPtscSetMode(mode) {
   FOB_PTSC_MODE = mode;

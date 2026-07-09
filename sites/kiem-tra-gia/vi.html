@@ -486,9 +486,9 @@ tbody tr:hover td{background:#eff6ff}
 <div class="fobptsc-panel" id="fobptscPanel" style="display:none">
   <!-- === SETUP === -->
   <div class="fobptsc-section">
-    <h3>⚙️ Cấu hình chi phí FOB PTSC</h3>
+    <h3>⚙️ Cấu hình chi phí FOB PTSC</h3><button onclick="fobPtscToggleCfg()" style="float:right;font-size:12px;padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:var(--card);cursor:pointer;font-family:var(--font)" id="fobCfgToggleBtn">🔽 Hiện cấu hình</button>
     <p style="font-size:13px;color:var(--muted);margin:-8px 0 16px">Nhập giá mặc định (VNĐ/tấn) cho từng khoản phí. Có thể sửa lại khi tính.</p>
-    <div class="fobptsc-grid">
+    <div id="fobCfgBody" class="fobptsc-config-body" style="display:none"><div class="fobptsc-grid">
       <div class="fobptsc-field"><label>🚛 Vận chuyển NM → PTSC</label><input type="number" id="fobCfgTransport" oninput="fobPtscSaveCfg()"></div>
       <div class="fobptsc-field"><label>🚛 Bốc dỡ & giao nhận (ô tô → kho cảng)</label><input type="number" id="fobCfgUnloadTruck" oninput="fobPtscSaveCfg()"></div>
       <div class="fobptsc-field"><label>🏗️ Bốc xếp & giao nhận (kho cảng → cầu cảng)</label><input type="number" id="fobCfgLoadWharf" oninput="fobPtscSaveCfg()"></div>
@@ -505,7 +505,7 @@ tbody tr:hover td{background:#eff6ff}
   </div>
 
   <!-- === TÍNH TOÁN === -->
-  <div class="fobptsc-section">
+  </div><div class="fobptsc-section">
     <h3>🚢 Tính giá FOB PTSC</h3>
     
     <div class="fobptsc-radio-group">
@@ -9360,6 +9360,16 @@ function toggleQuotSection(titleEl) {
 
 // ====== FOB PTSC ======
 var FOB_PTSC_MODE = 'direct';
+
+
+function fobPtscToggleCfg() {
+  var body = document.getElementById('fobCfgBody');
+  var btn = document.getElementById('fobCfgToggleBtn');
+  if (!body || !btn) return;
+  var visible = body.style.display !== 'none';
+  body.style.display = visible ? 'none' : 'block';
+  btn.textContent = visible ? '🔽 Hiện cấu hình' : '🔼 Ẩn cấu hình';
+}
 
 function fobPtscSetMode(mode) {
   FOB_PTSC_MODE = mode;
