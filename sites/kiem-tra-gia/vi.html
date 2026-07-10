@@ -5975,8 +5975,12 @@ function downloadFile(type) {
     fn = "Ung_dung.xlsx";
     data = JSON.parse(JSON.stringify(DATA_APPLICATIONS));
     sheetName = "Applications";
+  } else if (type === 5) {
+    fn = "Cuoc_noi_dia.xlsx";
+    data = JSON.parse(JSON.stringify(DATA_DOMESTIC_FREIGHT));
+    sheetName = "Freight";
   }
-  if (!data.length) return;
+if (!data.length) return;
   var ws = XLSX.utils.json_to_sheet(data);
   var wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, sheetName);
