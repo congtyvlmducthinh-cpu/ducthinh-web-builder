@@ -629,37 +629,156 @@ tbody tr:hover td{background:#eff6ff}
 <script>
 
 var DATA_DOMESTIC_FREIGHT = [
-  {province:"HCM",ward:"Cang Ben Nghe",address:"Cang Ben Nghe (OTI)",freight:14220000},
-  {province:"HCM",ward:"Cang Ben Nghe",address:"Cang Ben Nghe (CY)",freight:12924000},
-  {province:"HCM",ward:"KCN VSIP 2",address:"KCN VSIP 2",freight:17460000},
-  {province:"HCM",ward:"KCN Vinh Loc A",address:"KCN Vinh Loc A",freight:16596000},
-  {province:"Dong Nai",ward:"KCN Bien Hoa 2",address:"KCN Bien Hoa 2",freight:17136000},
-  {province:"HCM",ward:"Phuong Thuan Giao",address:"So 215/15 Duong An Phu 19 Khu Pho Binh Phuoc B",freight:17136000},
-  {province:"Tay Ninh",ward:"Xa My Hanh",address:"Ap 5",freight:17460000},
-  {province:"Tay Ninh",ward:"Xa Duc Hoa",address:"KCN Hai Son / KCN Tan Duc",freight:17460000},
-  {province:"Tay Ninh",ward:"Xa Luong Hoa",address:"So 138 Ap 9",freight:17460000},
-  {province:"Tay Ninh",ward:"Xa Tan Hoi",address:"Cum cong nghiep Tan Hoi 2 ap Hoi An",freight:21240000},
-  {province:"HCM",ward:"Phuong Binh Phu",address:"172/156 An Duong Vuong",freight:17136000},
-  {province:"HCM",ward:"Xa Tan Nhut",address:"Khu TTCN Le Minh Xuan",freight:16920000},
-  {province:"HCM",ward:"Phuong Tan Tao",address:"KCN Tan Tao",freight:16920000},
-  {province:"HCM",ward:"Phuong Tan Dong Hiep",address:"Phuong Tan Dong Hiep",freight:17136000},
-  {province:"HCM",ward:"Phuong Dong Hoa",address:"Phuong Dong Hoa",freight:17136000},
-  {province:"HCM",ward:"Phuong An Phu Dong",address:"11A Duong TL 43",freight:17460000},
-  {province:"HCM",ward:"Xa Dong Thanh",address:"Xa Dong Thanh",freight:17460000},
-  {province:"HCM",ward:"Xa Ba Diem",address:"Xa Ba Diem",freight:17460000},
-  {province:"HCM",ward:"Phuong Tan Hiep",address:"Khu Pho Binh Chanh",freight:18000000},
-  {province:"HCM",ward:"Phuong Tay Nam",address:"Lo E5-1 khu B4 duong D9 KCN Rach Bap",freight:18500000},
-  {province:"HCM",ward:"Phuong Vinh Tan",address:"742/11 duong DH 410 khu pho 6",freight:18540000},
-  {province:"HCM",ward:"Phuong Thoi Hoa",address:"KCN My Phuoc 3",freight:18540000},
-  {province:"Dong Nai",ward:"Phuong Phuoc Tan",address:"So 36 QL51",freight:17460000},
-  {province:"HCM",ward:"Xa An Long",address:"Thua dat so 686 to ban do so 40 ap 7",freight:20280000},
-  {province:"HCM",ward:"Cang Ben Nghe",address:"Cang Ben Nghe rut ruot bao jumbo xuong ghe",freight:14800000},
-  {province:"HCM",ward:"Phuong Binh Tan",address:"27/8A Tay Lan",freight:17460000},
-  {province:"HCM",ward:"Phuong Binh Hung Hoa",address:"800 QL1A",freight:17460000},
-  {province:"Tay Ninh",ward:"Phuong An Tinh",address:"KCN Linh Trung 3",freight:18660000},
-  {province:"HCM",ward:"Cang Ben Nghe VICT",address:"Rut ruot hang tu container sang xe tai",freight:14800000},
-  {province:"HCM",ward:"Phuong Tan Uyen",address:"Phuong Tan Uyen",freight:18540000},
-  {province:"HCM",ward:"Phuong Tan Khanh",address:"Phuong Tan Khanh",freight:18540000}
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "Cảng Bến Nghé",
+    "address": "Cảng Bến Nghé, HCM (OTI)",
+    "freight": 12518518.518518517
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "Cảng Bến Nghé",
+    "address": "Cảng Bến Nghé, HCM (CY)",
+    "freight": 11318518.518518519
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "KCN VSIP 2",
+    "address": "KCN VSIP 2, HCM",
+    "freight": 15518518.518518517
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "KCN Vĩnh Lộc A",
+    "address": "KCN Vĩnh Lộc A, HCM",
+    "freight": 14718518.518518517
+  },
+  {
+    "province": "Đồng Nai",
+    "ward": "KCN Biên Hòa 2",
+    "address": "KCN Biên Hòa 2, Đồng Nai",
+    "freight": 15218518.518518517
+  },
+  {
+    "province": "HCM",
+    "ward": "Số 215/15, Đường An Phú 19, Khu Phố Bình Phước B, Phường Thuận Giao, HCM",
+    "address": "Số 215/15, Đường An Phú 19, Khu Phố Bình Phước B, Phường Thuận Giao, HCM",
+    "freight": 15218518.518518517
+  },
+  {
+    "province": "Tây Ninh",
+    "ward": "Ấp 5 xã Mỹ Hạnh",
+    "address": "Ấp 5 xã Mỹ Hạnh, Tỉnh Tây Ninh",
+    "freight": 15518518.518518517
+  },
+  {
+    "province": "Tây Ninh",
+    "ward": "KCN Hải Sơn/KCN Tân Đức",
+    "address": "KCN Hải Sơn/KCN Tân Đức, xã Đức Hòa, Tây Ninh + Số 138, Ấp 9, Xã Lương Hòa, Tây Ninh",
+    "freight": 15518518.518518517
+  },
+  {
+    "province": "Tây Ninh",
+    "ward": "Cụm công nghiệp Tân Hội 2 ấp Hội An",
+    "address": "Cụm công nghiệp Tân Hội 2 ấp Hội An, Xã Tân Hội, Tây Ninh",
+    "freight": 19018518.51851852
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "Phường Bình Phú",
+    "address": "172/156 An Dương Vương, Phường Bình Phú, HCM",
+    "freight": 15218518.518518517
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "Khu TTCN Lê Minh Xuân",
+    "address": "Khu TTCN Lê Minh Xuân, Xã Tân Nhựt, HCM + KCN Tân Tạo, Phường Tân Tạo, HCM",
+    "freight": 15018518.518518517
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "Phường Tân Đông Hiệp",
+    "address": "Phường Tân Đông Hiệp, HCM / Phường Đông Hòa, HCM",
+    "freight": 15218518.518518517
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "Phường An Phú Đông",
+    "address": "11A Đ. TL 43, Phường An Phú Đông, HCM / Xã Đông Thạnh, HCM / Xã Bà Điểm, HCM",
+    "freight": 15518518.518518517
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "Khu Phố Bình Chánh",
+    "address": "Khu Phố Bình Chánh, Phường Tân Hiệp, HCM",
+    "freight": 16018518.518518517
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "Lô E5-1 (khu B4), đường D9, KCN Rạch Bắp, Phường Tây Nam, HCM",
+    "address": "Lô E5-1 (khu B4), đường D9, KCN Rạch Bắp, Phường Tây Nam, HCM",
+    "freight": 16481481.48148148
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "742/11, đường DH 410, khu phố 6, Phường Vĩnh Tân, HCM",
+    "address": "742/11, đường DH 410, khu phố 6, Phường Vĩnh Tân, HCM",
+    "freight": 16518518.518518517
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "KCN Mỹ Phước 3",
+    "address": "KCN Mỹ Phước 3, Phường Thới Hòa, HCM",
+    "freight": 16518518.518518517
+  },
+  {
+    "province": "Đồng Nai",
+    "ward": "Phường Phước Tân",
+    "address": "Số 36 QL51, Phường Phước Tân, Đồng Nai",
+    "freight": 15518518.518518517
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "tờ bản đồ số 40",
+    "address": "Thửa đất số 686, tờ bản đồ số 40, ấp 7, xã An Long, HCM",
+    "freight": 18129629.629629627
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "phường Bình Tân",
+    "address": "27/8A Tây Lân, phường Bình Tân, tp HCM + 800 QL1A, phường Bình Hưng Hòa, TP HCM",
+    "freight": 15518518.518518517
+  },
+  {
+    "province": "Tây Ninh",
+    "ward": "KCN Linh Trung 3",
+    "address": "KCN Linh Trung 3, phường An Tịnh, Tây Ninh",
+    "freight": 16629629.629629629
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "Phường Bình Cơ/Phường Tân Uyên/Phường Tân Khánh",
+    "address": "Phường Bình Cơ/Phường Tân Uyên/Phường Tân Khánh, HCM",
+    "freight": 16518518.518518517
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "Số 46,Đường DT748, Ấp Kiến Điền, Phường Long Nguyên, HCM",
+    "address": "Số 46,Đường DT748, Ấp Kiến Điền, Phường Long Nguyên, HCM",
+    "freight": 17407407.407407407
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "Cảng Bến Nghé/VICT (Rút ruột hàng từ Cont sang Xe tải)",
+    "address": "Cảng Bến Nghé/VICT (Rút ruột hàng từ Cont sang Xe tải)",
+    "freight": 14351851.85185185
+  },
+  {
+    "province": "TP Hồ Chí Minh",
+    "ward": "Cảng Bến Nghé",
+    "address": "Cảng Bến Nghé, HCM (Rút ruột bao jumbo xuống ghe tại cảng)",
+    "freight": 14351851.85185185
+  }
 ];
 var DATA_PRODUCTS = [
   {
@@ -2932,15 +3051,15 @@ var DATA_OTHERS = [
     "price": 38500,
     "profit": 0.1
   }
-];var activeTab = "pricelist";
-var priceMode = "exw";
-var lccType = "no";
-var freightUSD = 0;
-var managePassword = "Ducthinh@1";
+];var activeTab = "pricelist";
+var priceMode = "exw";
+var lccType = "no";
+var freightUSD = 0;
+var managePassword = "Ducthinh@1";
 var currency = "VND";
-var calcPriceMode = "exw";
-var calcLccType = "no";
-var calcFreightUSD = 0;
+var calcPriceMode = "exw";
+var calcLccType = "no";
+var calcFreightUSD = 0;
 var FREIGHT_DATA = [{"port": "Shanghai", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Ningbo", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Qingdao", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Nansha", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "ShanTou", "country": "CHINA", "freight": 50, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Xiamen", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "RiZhao", "country": "CHINA", "freight": 165, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Changzhou", "country": "CHINA", "freight": 135, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Tianjin Xingang", "country": "CHINA", "freight": 12, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Wuhu", "country": "CHINA", "freight": 95, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "ZhenJiang", "country": "CHINA", "freight": 105, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Wuzhou", "country": "CHINA", "freight": 160, "forwarder": "KTO", "via": "ALL IN"}, {"port": "Fuzhou", "country": "CHINA", "freight": 100, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Jiangyin", "country": "CHINA", "freight": 105, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Wenzhou", "country": "CHINA", "freight": 195, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Yangzhou", "country": "CHINA", "freight": 150, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Zhapu", "country": "CHINA", "freight": 50, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Dalian", "country": "CHINA", "freight": 12, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Nanchang", "country": "CHINA", "freight": 200, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Zhongshan", "country": "CHINA", "freight": 100, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Yangpu", "country": "CHINA", "freight": 65, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "TaiCang", "country": "CHINA", "freight": 25, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Taizhou", "country": "CHINA", "freight": 105, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Jiujiang", "country": "CHINA", "freight": 90, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Nanjing", "country": "CHINA", "freight": 110, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "ShanShan", "country": "CHINA", "freight": 90, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Chongqing", "country": "CHINA", "freight": 225, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "SURABAYA", "country": "INDONEXIA", "freight": 210, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "MEDAN (Belawan)", "country": "INDONEXIA", "freight": 245, "forwarder": "Nagel", "via": "Sub LCC"}, {"port": "JAKARTA", "country": "INDONEXIA", "freight": 310, "forwarder": "KMG", "via": "Sub LCC"}, {"port": "SEMARANG", "country": "INDONEXIA", "freight": 290, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "PORT KLANG", "country": "MALAYSIA", "freight": 250, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "PENANG", "country": "MALAYSIA", "freight": 250, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "YANGON", "country": "MYANMAR", "freight": 480, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "BANGKOK", "country": "THAILAND", "freight": 265, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "LAEM CHABANG", "country": "THAILAND", "freight": 235, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "MANILA", "country": "PHILIPPINE", "freight": 120, "forwarder": "Nagel", "via": "Sub LCC"}, {"port": "CEBU", "country": "PHILIPPINE", "freight": 220, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "DAVAO", "country": "PHILIPPINE", "freight": 220, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "SIHANOUKVILLE", "country": "CAMBODIA", "freight": 150, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "CHITTAGONG", "country": "BANGLADESH", "freight": 950, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "NHAVA SHEVA", "country": "INDIA", "freight": 830, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "MUNDRA", "country": "INDIA", "freight": 830, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "CHENNAI", "country": "INDIA", "freight": 830, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "VIZAG", "country": "INDIA", "freight": 1350, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "KARACHI", "country": "INDIA", "freight": 1250, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "TUTICORIN", "country": "INDIA", "freight": 1350, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "COLOMBO", "country": "INDIA", "freight": 1350, "forwarder": "ITI", "via": "Sub LCC"}] // Empty - removed from pricelist table
 
 var FOB_PTSC_DEFAULTS = {"transport":50000,"unloadTruck":20000,"loadWharf":15000,"transship":10000,"loadShip":25000,"warehouseDay":8000,"warehouseOps":12000,"customs":25000};
