@@ -644,6 +644,7 @@ tbody tr:hover td{background:#eff6ff}
   </div>
 </div>
 
+</div>
 <script>
 
 var DATA_DOMESTIC_FREIGHT = [
@@ -4261,6 +4262,7 @@ function manageLogin() {
     document.getElementById("mBagCnt").textContent = DATA_BAGS.length;
     document.getElementById("mOtherCnt").textContent = DATA_OTHERS.length;
     if (document.getElementById("mAppCnt")) document.getElementById("mAppCnt").textContent = DATA_APPLICATIONS.length;
+    if (document.getElementById("mFreightCnt")) document.getElementById("mFreightCnt").textContent = DATA_DOMESTIC_FREIGHT ? DATA_DOMESTIC_FREIGHT.length : 0;
   } else {
     document.getElementById("manageError").textContent = "\u274c Sai m\u1eadt kh\u1ea9u!";
     document.getElementById("manageError").style.display = "block";
@@ -4281,6 +4283,9 @@ function downloadTemplate(type) {
   } else if (type === 3) {
     fn = "Mau_max_tai.xlsx";
     headers = ["SẢN PHẨM","Max Loading 25KG","Max Loading Jumbo"];
+  } else if (type === 4) {
+    fn = "Mau_cuoc_noi_dia.xlsx";
+    headers = ["province","ward","address","freight"];
   }
   var ws = XLSX.utils.aoa_to_sheet([headers]);
   var wb = XLSX.utils.book_new();
@@ -5889,6 +5894,7 @@ function manageLogin() {
     document.getElementById("mBagCnt").textContent = DATA_BAGS.length;
     document.getElementById("mOtherCnt").textContent = DATA_OTHERS.length;
     if (document.getElementById("mAppCnt")) document.getElementById("mAppCnt").textContent = DATA_APPLICATIONS.length;
+    if (document.getElementById("mFreightCnt")) document.getElementById("mFreightCnt").textContent = DATA_DOMESTIC_FREIGHT ? DATA_DOMESTIC_FREIGHT.length : 0;
   } else {
     document.getElementById("manageError").textContent = "❌ Sai mật khẩu!";
     document.getElementById("manageError").style.display = "block";
@@ -5909,6 +5915,9 @@ function downloadTemplate(type) {
   } else if (type === 3) {
     fn = "Mau_max_tai.xlsx";
     headers = ["SẢN PHẨM","Max Loading 25KG","Max Loading Jumbo"];
+  } else if (type === 4) {
+    fn = "Mau_cuoc_noi_dia.xlsx";
+    headers = ["province","ward","address","freight"];
   }
   var ws = XLSX.utils.aoa_to_sheet([headers]);
   var wb = XLSX.utils.book_new();
@@ -6123,8 +6132,8 @@ function handleManageFile(file) {
       if (appSheet) {
         var s = XLSX.utils.sheet_to_json(wb.Sheets[appSheet]);
         if (s.length > 0) { DATA_APPLICATIONS = s; updated++; }
-      }
-      
+  }
+  
       applyMarket();
       localStorage.setItem("dq_products", JSON.stringify(DATA_PRODUCTS));
       localStorage.setItem("dq_bags", JSON.stringify(DATA_BAGS));
@@ -6132,10 +6141,12 @@ function handleManageFile(file) {
       localStorage.setItem("dq_maxLoading", JSON.stringify(DATA_MAX_LOADING));
       localStorage.setItem("dq_costFOB", JSON.stringify(DATA_COST_FOB));
       localStorage.setItem("dq_applications", JSON.stringify(DATA_APPLICATIONS));
+      localStorage.setItem("dq_domestic_freight", JSON.stringify(DATA_DOMESTIC_FREIGHT));
       document.getElementById("mProdCnt").textContent = DATA_PRODUCTS.length;
       document.getElementById("mBagCnt").textContent = DATA_BAGS.length;
       document.getElementById("mOtherCnt").textContent = DATA_OTHERS.length;
       if (document.getElementById("mAppCnt")) document.getElementById("mAppCnt").textContent = DATA_APPLICATIONS.length;
+      if (document.getElementById("mFreightCnt")) document.getElementById("mFreightCnt").textContent = DATA_DOMESTIC_FREIGHT ? DATA_DOMESTIC_FREIGHT.length : 0;
       populateFilters();
       render();
       status.className = "manage-status-sm ok";
