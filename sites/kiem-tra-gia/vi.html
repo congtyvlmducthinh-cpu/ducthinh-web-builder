@@ -4114,7 +4114,7 @@ function domesticFindProduct(key) {
   return null;
 }
 function renderDomesticTab(){
-var provinces={};DATA_DOMESTIC_FREIGHT.forEach(function(f){provinces[f.province]=true;});
+var dm=getDomesticMode(),provinces={};DATA_DOMESTIC_FREIGHT.forEach(function(f){if(!f.freight_mooc||f.freight_mooc===dm)provinces[f.province]=true;});
 var pOpts=Object.keys(provinces).sort().map(function(p){return '<option value="'+domEscape(p)+'">'+domEscape(p)+'</option>';}).join('');
 var h='<div class="calc-grid"><div class="calc-left">';
 h+='<div class="dom-card"><div class="dom-card-header"><span class="badge blue">📦</span><span class="title-text">Sản phẩm</span><button id="resetDomBtn" onclick="resetDomFilters()" title="Bỏ lọc" style="margin-left:auto;width:28px;height:28px;padding:0;border:1.5px solid var(--border);border-radius:6px;background:var(--card);color:var(--text-secondary);font-size:13px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center">↺</button></div><div class="dom-card-body"><div class="calc-form-group"><div class="calc-row-inline"><div><label class="calc-form-label">🏭 Máy</label><select class="calc-select" id="domMachine" onchange="filterDomesticProducts()"><option value="">— Chọn máy —</option></select></div><div><label class="calc-form-label">📋 Tiêu chuẩn</label><select class="calc-select" id="domStandard" onchange="filterDomesticProducts()"><option value="">— Chọn tiêu chuẩn —</option></select></div></div></div><div class="calc-form-group"><div class="calc-row-inline"><div><label class="calc-form-label">📐 Kích thước</label><select class="calc-select" id="domSize" onchange="filterDomesticProducts()"><option value="">— Chọn kích thước —</option></select></div><div><label class="calc-form-label">🛒 Sản phẩm</label><select class="calc-select" id="domProduct" onchange="calcDomesticPrice();setTimeout(filterDomesticFreight,100)"><option value="">— Chọn sản phẩm —</option></select></div></div></div></div></div>';
@@ -4168,7 +4168,24 @@ function setDomesticMode(mode) {
   // Show/hide max load row
   var mlRow = document.getElementById("domMaxLoadRow");
   if (mlRow) mlRow.style.display = mode === "cont" ? "flex" : "none";
-  filterDomesticFreight(); calcDomesticPrice();
+  rebuildDomesticProvinces(); setTimeout(filterDomesticFreight, 50); calcDomesticPrice();
+}
+
+
+function rebuildDomesticProvinces() {
+  var sel = document.getElementById("domProvince");
+  if (!sel) return;
+  var curVal = sel.value;
+  var mode = getDomesticMode();
+  sel.innerHTML = '<option value="">\u2014 T\u1ea5t c\u1ea3 \u2014</option>';
+  var provinces = {};
+  DATA_DOMESTIC_FREIGHT.forEach(function(f) {
+    if (!f.freight_mooc || f.freight_mooc === mode) provinces[f.province] = true;
+  });
+  Object.keys(provinces).sort().forEach(function(p) {
+    sel.innerHTML += '<option value="' + domEscape(p) + '">' + domEscape(p) + '</option>';
+  });
+  if (sel.value !== curVal && curVal) sel.value = curVal;
 }
 
 function getDomesticMode() {
