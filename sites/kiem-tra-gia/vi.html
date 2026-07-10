@@ -4142,6 +4142,12 @@ function renderDomesticTab() {
   }
   h += '</select></div>';
   h += '</div></div>';
+  // ==== PHƯƠNG THỨC VẬN CHUYỂN ====
+  h += '<div class="calc-section-title" style="margin-top:18px"><span class="badge orange">🚚</span><span class="title-text">Phương thức vận chuyển</span></div>';
+  h += '<div class="calc-form-group"><div class="price-mode-bar">';
+  h += '<button id="domModeCont" class="mode-btn active" data-mode="cont" onclick="setDomesticMode(this.dataset.mode)" style="flex:1">🚛 Container</button>';
+  h += '<button id="domModeMooc" class="mode-btn" data-mode="mooc" onclick="setDomesticMode(this.dataset.mode)" style="flex:1">🚚 Mooc rời</button>';
+  h += '</div></div>';
   // ==== \u0110I\u1ec2M GIAO H\u00c0NG ====
   h += '<div class="calc-section-title" style="margin-top:18px"><span class="badge blue">\ud83d\udccd</span><span class="title-text">\u0110i\u1ec3m giao h\u00e0ng</span></div>';
   h += '<div class="calc-form-group"><div class="calc-row-inline">';
