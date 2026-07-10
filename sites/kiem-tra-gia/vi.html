@@ -4165,6 +4165,9 @@ function setDomesticMode(mode) {
   document.getElementById("domModeCont").className = mode === "cont" ? "mode-btn active" : "mode-btn";
   document.getElementById("domModeMooc").className = mode === "mooc" ? "mode-btn active" : "mode-btn";
   localStorage.setItem("dq_domestic_mode", mode);
+  // Show/hide max load row
+  var mlRow = document.getElementById("domMaxLoadRow");
+  if (mlRow) mlRow.style.display = mode === "cont" ? "flex" : "none";
   filterDomesticFreight(); calcDomesticPrice();
 }
 
