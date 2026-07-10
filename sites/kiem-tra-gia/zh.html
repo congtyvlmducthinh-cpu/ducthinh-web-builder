@@ -3914,7 +3914,7 @@ function renderDomesticTab() {
   h += '<div><label class="calc-form-label">Tìm địa điểm</label><input class="calc-input" id="domFreightSearch" oninput="filterDomesticFreight()" placeholder="Phường/xã, KCN, cảng..."></div></div></div>';
   h += '<div class="calc-form-group"><label class="calc-form-label">Địa chỉ cụ thể</label><select class="calc-select" id="domFreight" onchange="calcDomesticPrice()"><option value="">— Chọn điểm giao —</option></select></div>';
   h += '<div class="calc-form-group"><div class="calc-row-inline">';
-  h += '<div><label class="calc-form-label">Hoa hồng (đ/kg)</label><input class="calc-input" type="number" id="domCommission" value="0" min="0" step="100" oninput="calcDomesticPrice()"></div>';
+  h += '<div><label class="calc-form-label">Giá bán (đ/tấn)</label><input class="calc-input" type="number" id="domSellPrice" value="0" min="0" step="1000" oninput="calcDomesticPrice()"></div>';
   h += '<div><label class="calc-form-label">VAT</label><select class="calc-select" id="domVat" onchange="calcDomesticPrice()"><option value="0">Không VAT</option><option value="0.08">VAT 8%</option><option value="0.10">VAT 10%</option></select></div></div></div>';
   h += '</div><div class="calc-right"><div class="calc-right-header"><h3>📊 Kết quả nội địa</h3></div><div id="domResult" class="calc-result"><div class="calc-empty">👈 Chọn sản phẩm và điểm giao hàng</div></div></div></div>';
   return h;
@@ -3965,32 +3965,36 @@ function calcDomesticPrice() {
   if(!maxLoad || maxLoad<=0) { res.innerHTML = '<div class="calc-empty">⚠️ Sản phẩm chưa có max loading, không tính được cước nội địa</div>'; return; }
   var exw=0, bagPrice=0, otherPrice=0, baseLabel='';
   if(mode==='custom') {
-    exw = prod.exw_vnd||0; baseLabel='EXW chưa bao bì';
+    exw = prod.exw_vnd_other||0; baseLabel='EXW chưa bao bì (hàng nhập khẩu)';
     var bcode=(document.getElementById('domBag')||{}).value||'', ocode=(document.getElementById('domOther')||{}).value||'';
     DATA_BAGS.forEach(function(b){if(!bagPrice&&b.code===bcode)bagPrice=b.price||0;});
     DATA_OTHERS.forEach(function(o){if(!otherPrice&&o.code===ocode)otherPrice=o.price||0;});
-  } else if(mode==='jumbo') { exw = prod.jumbo_vnd||0; baseLabel='EXW Jumbo có bao bì tiêu chuẩn'; }
-  else { exw = prod.pkg25_vnd||0; baseLabel='EXW 25KG có bao bì tiêu chuẩn'; }
-  var freightPerKg = freight.freight / (maxLoad * 1000);
-  var commission = parseFloat((document.getElementById('domCommission')||{}).value)||0;
+  } else if(mode==='jumbo') { exw = prod.jumbo_vnd_other||0; baseLabel='EXW Jumbo có bao bì tiêu chuẩn (hàng nhập khẩu)'; }
+  else { exw = prod.pkg25_vnd_other||0; baseLabel='EXW 25KG có bao bì tiêu chuẩn (hàng nhập khẩu)'; }
+  var freightPerTon = freight.freight / maxLoad;
+  var sellingPrice = parseFloat((document.getElementById('domSellPrice')||{}).value)||0;
   var vat = parseFloat((document.getElementById('domVat')||{}).value)||0;
   var factory = exw + bagPrice + otherPrice;
-  var beforeVat = factory + freightPerKg + commission;
-  var afterVat = beforeVat * (1+vat);
+  var cost = factory + freightPerTon;
+  var profit = 0, profitPct = 0;
+  if(sellingPrice > 0) { profit = sellingPrice - cost; profitPct = (profit / cost) * 100; }
   var h = '<div class="calc-result-summary">';
   h += '<div class="calc-result-item"><span class="calc-rl">📦 Sản phẩm</span><span class="calc-rv">'+domEscape(prod.code)+'</span></div>';
   h += '<div class="calc-result-item"><span class="calc-rl">📐 Quy cách</span><span class="calc-rv">'+domEscape((prod.size||'')+' · '+(prod.standard||''))+'</span></div>';
-  h += '<div class="calc-result-item"><span class="calc-rl">💰 '+baseLabel+'</span><span class="calc-rv exw">'+fmtVnd(exw)+' đ/kg</span></div>';
-  if(bagPrice) h+='<div class="calc-result-item"><span class="calc-rl">🛐 Bao bì</span><span class="calc-rv bag">'+fmtVnd(bagPrice)+' đ/kg</span></div>';
-  if(otherPrice) h+='<div class="calc-result-item"><span class="calc-rl">📐 Quy cách khác</span><span class="calc-rv other">'+fmtVnd(otherPrice)+' đ/kg</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">💰 '+baseLabel+'</span><span class="calc-rv exw">'+fmtVnd(exw)+' đ/tấn</span></div>';
+  if(bagPrice) h+='<div class="calc-result-item"><span class="calc-rl">🛐 Bao bì</span><span class="calc-rv bag">'+fmtVnd(bagPrice)+' đ/tấn</span></div>';
+  if(otherPrice) h+='<div class="calc-result-item"><span class="calc-rl">📐 Quy cách khác</span><span class="calc-rv other">'+fmtVnd(otherPrice)+' đ/tấn</span></div>';
   h += '<div class="calc-result-item"><span class="calc-rl">📍 Điểm giao</span><span class="calc-rv">'+domEscape(freight.province+' – '+freight.ward)+'</span></div>';
   h += '<div class="calc-result-item"><span class="calc-rl">🚚 Cước chuyến</span><span class="calc-rv other">'+fmtVnd(freight.freight)+' đ/container</span></div>';
   h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">'+maxLoad+' tấn</span></div>';
-  h += '<div class="calc-result-item"><span class="calc-rl">🚚 Cước phân bổ</span><span class="calc-rv other">'+fmtVnd(freightPerKg)+' đ/kg</span></div>';
-  if(commission) h+='<div class="calc-result-item"><span class="calc-rl">💼 Hoa hồng</span><span class="calc-rv other">'+fmtVnd(commission)+' đ/kg</span></div>';
-  h += '<div class="calc-result-total-row"><span class="calc-rl">🏷️ Giá chưa VAT</span><span class="calc-rv total">'+fmtVnd(beforeVat)+' đ/kg</span></div>';
-  h += '<div class="calc-result-total-row"><span class="calc-rl">🧾 Giá có VAT '+(vat*100).toFixed(0)+'%</span><span class="calc-rv total">'+fmtVnd(afterVat)+' đ/kg</span></div>';
-  h += '<div class="calc-result-item"><span style="font-size:11px;color:#64748b">Công thức: giá xuất xưởng + cước / (max_loading × 1000) + hoa hồng, VAT tính sau cùng.</span></div>';
+  h += '<div class="calc-result-item"><span class="calc-rl">🚚 Cước phân bổ</span><span class="calc-rv other">'+fmtVnd(freightPerTon)+' đ/tấn</span></div>';
+  h += '<div class="calc-result-total-row"><span class="calc-rl">💰 Giá vốn</span><span class="calc-rv total">'+fmtVnd(cost)+' đ/tấn</span></div>';
+  if(sellingPrice > 0) {
+    h += '<div class="calc-result-item"><span class="calc-rl">🧾 Giá bán</span><span class="calc-rv sell">'+fmtVnd(sellingPrice)+' đ/tấn</span></div>';
+    h += '<div class="calc-result-item"><span class="calc-rl" style="color:'+(profit<0?'#ef4444':'#10b981')+'">📈 Lợi nhuận</span><span class="calc-rv" style="color:'+(profit<0?'#ef4444':'#10b981')+'">'+fmtVnd(profit)+' đ/tấn ('+profitPct.toFixed(1)+'%)</span></div>';
+  }
+  h += '<div class="calc-result-total-row"><span class="calc-rl">🧾 Giá có VAT '+(vat*100).toFixed(0)+'%</span><span class="calc-rv total">'+fmtVnd(sellingPrice*(1+vat))+' đ/tấn</span></div>';
+  h += '<div class="calc-result-item"><span style="font-size:11px;color:#64748b">Công thức: giá xuất xưởng + cước nội địa, VAT tính sau cùng.</span></div>';
   h += '</div>'; res.innerHTML = h;
 }
 function resetCalcFilters() {
