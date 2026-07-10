@@ -4192,7 +4192,7 @@ function getDomesticMode() {
   return localStorage.getItem("dq_domestic_mode") || "cont";
 }
 
-function initDomesticTab() {
+function initDomesticTab(){
   var machines = {}, standards = {}, sizes = {};
   DATA_PRODUCTS.forEach(function(p){if(p.machine)machines[p.machine]=1;if(p.standard)standards[p.standard]=1;if(p.size)sizes[p.size]=1;});
   var m = document.getElementById('domMachine'), s = document.getElementById('domStandard'), sz = document.getElementById('domSize');
@@ -4202,7 +4202,9 @@ function initDomesticTab() {
   filterDomesticProducts();
   filterDomesticBagSpec();
   filterDomesticFreight();
-}
+
+  // Re-assert mode on page load (read from localStorage)
+  setDomesticMode(getDomesticMode());}
 function filterDomesticProducts() {
   var me = document.getElementById("domMachine"), se = document.getElementById("domStandard"), sze = document.getElementById("domSize"), pe = document.getElementById("domProduct");
   if(!me||!se||!pe) return;
