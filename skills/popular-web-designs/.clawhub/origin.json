@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "registry": "https://clawhub.ai",
+  "slug": "popular-web-designs",
+  "installedVersion": "1.2.0",
+  "installedAt": 1783691131458,
+  "artifact": {
+    "kind": "archive",
+    "sha256": "65c7bf860b8485e11ee3b67e55c94d800ffa503197d8c8dbd857d5268866d889",
+    "integrity": "sha256-Zce/hguEheEe47Z+VclNgA/6UDGX2Mjb2FfVJohm2Ik="
+  },
+  "skillFile": {
+    "path": "SKILL.md",
+    "sha256": "9fdab6de7cc27bad41e7236380c8fde3b2123c351be701134deb343712f94516"
+  }
+}

@@ -463,7 +463,7 @@ tbody tr:hover td{background:#eff6ff}
 <button class="btn-confirm" onclick="downloadFile(0)">📋 Bảng giá</button>
 <button class="btn-confirm" onclick="downloadFile(1)">📦 Bao bì</button>
 <button class="btn-confirm" onclick="downloadFile(2)">📐 Quy cách khác</button>
-<button class="btn-confirm" onclick="downloadFile(3)">📋 Ứng Dụng</button>
+<button class="btn-confirm" onclick="downloadFile(3)">📋 Ứng Dụng</button><button class="btn-confirm" onclick="downloadFile(5)">🚚 Cước nội địa</button>
 </div>
 <div class="btn-row">
 <button class="btn-confirm" onclick="downloadAsExcel()">ðŸ“Š Excel</button>
@@ -4340,6 +4340,10 @@ function downloadFile(type) {
     fn = "Ung_dung.xlsx";
     data = JSON.parse(JSON.stringify(DATA_APPLICATIONS));
     sheetName = "Applications";
+  } else if (type === 5) {
+    fn = "Cuoc_noi_dia.xlsx";
+    data = JSON.parse(JSON.stringify(DATA_DOMESTIC_FREIGHT));
+    sheetName = "Freight";
   }
   if (!data.length) return;
   var ws = XLSX.utils.json_to_sheet(data);
@@ -4347,7 +4351,6 @@ function downloadFile(type) {
   XLSX.utils.book_append_sheet(wb, ws, sheetName);
   XLSX.writeFile(wb, fn);
 }
-
 function downloadAsExcel() {
   var dt = new Date();
   var fn = "DT-FullData-" + dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate() + ".xlsx";
@@ -6134,7 +6137,12 @@ function handleManageFile(file) {
         if (s.length > 0) { DATA_APPLICATIONS = s; updated++; }
   }
   
-      applyMarket();
+            var freightSheet = hasSheet(["Freight", "freight", "Cuoc noi dia", "cuoc noi dia", "CuocNoiDia", "Domestic Freight", "domestic_freight"]);
+      if (freightSheet) {
+        var s = XLSX.utils.sheet_to_json(wb.Sheets[freightSheet]);
+        if (s.length > 0) { DATA_DOMESTIC_FREIGHT = s; updated++; }
+  }
+applyMarket();
       localStorage.setItem("dq_products", JSON.stringify(DATA_PRODUCTS));
       localStorage.setItem("dq_bags", JSON.stringify(DATA_BAGS));
       localStorage.setItem("dq_others", JSON.stringify(DATA_OTHERS));
@@ -6354,6 +6362,7 @@ function saveToServer() {
       DATA_OTHERS: "var DATA_OTHERS = " + JSON.stringify(DATA_OTHERS, null, 2) + ";",
       DATA_MAX_LOADING: "var DATA_MAX_LOADING = " + JSON.stringify(DATA_MAX_LOADING, null, 2) + ";",
       DATA_COST_FOB: "var DATA_COST_FOB = " + JSON.stringify(DATA_COST_FOB, null, 2) + ";",
+      DATA_DOMESTIC_FREIGHT: "var DATA_DOMESTIC_FREIGHT = " + JSON.stringify(DATA_DOMESTIC_FREIGHT, null, 2) + ";",
       DATA_APPLICATIONS: "var DATA_APPLICATIONS = " + JSON.stringify(DATA_APPLICATIONS, null, 2) + ";"
     }
   };

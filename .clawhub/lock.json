@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "skills": {
+    "popular-web-designs": {
+      "version": "1.2.0",
+      "installedAt": 1783691131458,
+      "registry": "https://clawhub.ai",
+      "artifact": {
+        "kind": "archive",
+        "sha256": "65c7bf860b8485e11ee3b67e55c94d800ffa503197d8c8dbd857d5268866d889",
+        "integrity": "sha256-Zce/hguEheEe47Z+VclNgA/6UDGX2Mjb2FfVJohm2Ik="
+      },
+      "skillFile": {
+        "path": "SKILL.md",
+        "sha256": "9fdab6de7cc27bad41e7236380c8fde3b2123c351be701134deb343712f94516"
+      },
+      "verification": {
+        "schema": "clawhub.skill.verify.v1",
+        "ok": true,
+        "decision": "pass",
+        "reasons": [],
+        "card": {
+          "available": true,
+          "path": "skill-card.md",
+          "url": "https://wry-manatee-359.convex.site/api/v1/skills/popular-web-designs/card?ownerHandle=minirr890112-byte&version=1.2.0",
+          "sha256": "c22bc556e1179b83aaa02aeaaedf84af8cb43d20bfc039203a895dae249b828a",
+          "size": 1921,
+          "contentType": "text/markdown; charset=utf-8"
+        },
+        "artifact": {
+          "sourceFingerprint": "1f4c6b82b845c01ae247fe640f9126b813fa5c62216e1ee6f855469ea97ad2af",
+          "bundleFingerprints": [
+            "89556ea6a3571c511c2de398c3433df81b5731e0ab8f9db57444950162e3424f"
+          ],
+          "files": [
+            {
+              "path": "README.md",
+              "size": 12784,
+              "sha256": "877700a3abbdb90cd371fbe98e6ed085b7cee115705c5b871d59b47aa744384f",
+              "contentType": "text/markdown"
+            },
+            {
+              "path": "SKILL.md",
+              "size": 2553,
+              "sha256": "9fdab6de7cc27bad41e7236380c8fde3b2123c351be701134deb343712f94516",
+              "contentType": "text/markdown"
+            },
+            {
+              "path": "popular_web_designs/__init__.py",
+              "size": 374,
+              "sha256": "81a2ea1ecfdc97d012afd1e90972821a5931bf20cda694ea7ec06dea5f6bed77",
+              "contentType": "text/plain"
+            },
+            {
+              "path": "popular_web_designs/catalog.py",
+              "size": 35579,
+              "sha256": "f714c01e49370b1439c3e7a461655c868e70c3592fb239879182759914e08a86",
+              "contentType": "text/plain"
+            },
+            {
+              "path": "popular_web_designs/cli.py",
+              "size": 19008,
+              "sha256": "0dd3f15286d8b06900aaaa940732bd6269c2da58ba20fa87a8fa293f9fadc740",
+              "contentType": "text/plain"
+            },
+            {
+              "path": "setup.py",
+              "size": 1823,
+              "sha256": "6da181d9c036e31840dd843c130ef08d0a0e57f5aafb322d0759322eb5921f8d",
+              "contentType": "text/plain"
+            }
+          ]
+        },
+        "provenance": {
+          "source": "unavailable",
+          "reason": "No server-resolved GitHub import provenance is stored for this version."
+        },
+        "security": {
+          "status": "clean",
+          "passed": true,
+          "rawStatus": "clean",
+          "verdict": "benign",
+          "confidence": "high",
+          "summary": "This skill is a design-template package that provides HTML/CSS design tokens and only writes files when the user invokes its generation/output commands.",
+          "model": "gpt-5.5",
+          "checkedAt": 1781848650080,
+          "signals": {
+            "staticScan": {
+              "status": "clean",
+              "rawStatus": "clean",
+              "reasonCodes": [],
+              "summary": "No suspicious patterns detected.",
+              "engineVersion": "v2.4.25",
+              "checkedAt": 1781827206173
+            },
+            "virusTotal": {
+              "status": "clean",
+              "rawStatus": "clean",
+              "verdict": null,
+              "analysis": null,
+              "source": "engines",
+              "scanner": null,
+              "engineStats": {
+                "harmless": 0,
+                "malicious": 0,
+                "suspicious": 0,
+                "undetected": 64
+              },
+              "checkedAt": 1781827306749
+            },
+            "skillSpector": {
+              "status": "clean",
+              "rawStatus": "clean",
+              "score": 6,
+              "severity": "LOW",
+              "recommendation": "SAFE",
+              "issueCount": 1,
+              "scannerVersion": "2.2.3",
+              "summary": null,
+              "error": null,
+              "checkedAt": 1781848611462
+            },
+            "dependencyRegistry": null
+          }
+        },
+        "signature": {
+          "status": "unsigned"
+        }
+      }
+    }
+  }
+}
