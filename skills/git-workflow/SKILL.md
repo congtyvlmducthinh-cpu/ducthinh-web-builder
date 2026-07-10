@@ -42,7 +42,13 @@ git merge feature/ten-tool
 # Nếu có conflict → xử lý conflict, rồi git add + git commit
 ```
 
-### 5. Push lên GitHub
+### 5. Validate (bắt buộc)
+
+Kiểm tra syntax JS: `node --check app.js`
+
+Kiểm tra balanced braces: `node -e "var h=require('fs').readFileSync('index.html','utf8');console.log((h.match(/{/g)||[]).length===(h.match(/}/g)||[]).length)"`
+
+6. Push lên GitHub
 
 ```powershell
 git push

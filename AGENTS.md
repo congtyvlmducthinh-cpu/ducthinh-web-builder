@@ -18,6 +18,12 @@ Mọi thao tác code (tạo mới, sửa, xoá) đều phải đi qua Git. KHÔN
 3. **Commit**: `git add . && git commit -m "Mô tả ngắn gọn"`
 4. **Về main + merge**: `git checkout main && git merge feature/ten-tool`
 5. **Push lên GitHub**: `git push`
+6. **Validate** (bắt buộc trước commit):
+   - `node --check file.js` — kiểm tra syntax JS
+   - Đếm `{` vs `}` — phải bằng nhau (dùng validate.js)
+   - Đếm `<div>` vs `</div>` — phải bằng nhau
+   - Kiểm tra CRLF: file dùng LF, không CRLF
+   - Nếu dùng string replace: kiểm tra kết quả khác input
 
 ### Khi gặp lỗi
 - Hỏng → xoá nhánh lỗi, `git checkout main` → code lại từ nhánh mới

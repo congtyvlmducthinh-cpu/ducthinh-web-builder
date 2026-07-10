@@ -5,6 +5,13 @@
 - Lưu vào `sites/{tool-name}/index.html` trong workspace
 - Đảm bảo responsive, đẹp, dùng được ngay
 
+## CODE — QUY TẮC CỨNG
+
+- **Luôn normalise CRLF → LF** trước khi thao tác file
+- **Luôn kiểm tra kết quả replace**: nếu input === output → báo lỗi, không ignore
+- **Luôn validate syntax** trước commit (braces, divs, JS parse)
+- **Split file** nếu HTML > 50KB
+
 ## GIT — QUY TẮC SỐ 1
 **KHÔNG code, sửa, xoá gì nếu chưa qua Git workflow.**
 - Code mới → tạo nhánh feature

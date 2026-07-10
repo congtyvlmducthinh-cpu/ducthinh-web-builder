@@ -12,7 +12,16 @@ description: "Xây dựng website tool nội bộ bằng HTML/CSS/JS thuần —
 ## Nguyên tắc chung
 
 - **HTML/CSS/JS thuần** — KHÔNG dùng framework, không cần build tool
-- **1 file là xong:** mỗi tool = 1 file `sites/{tool-name}/index.html`
+- **1 file cho tool nhỏ (< 50KB). File ≥ 50KB → split CSS ra .css, JS ra .js, data ra JSON riêng.**
+  Layout đề xuất cho tool lớn:
+  ```
+  sites/{tool-name}/
+    index.html      (khung HTML + inline critical CSS)
+    app.js          (toàn bộ logic JS)
+    style.css       (phần CSS không critical)
+    data/           (dữ liệu JSON)
+    i18n/           (bản dịch nếu multi-lang)
+  ```
 - **Giao diện tiếng Việt** (trừ yêu cầu tiếng Anh)
 - **Mobile-first** — viết cho mobile trước, scale lên desktop sau
 - **Mọi thao tác code đều qua Git workflow** (branch → commit → merge → push)
@@ -452,3 +461,51 @@ Khi cần giao diện đẹp, mượn design tokens từ các hệ thống nổi
 - **Debug server / restart NSSM** → skill `server-debug` hoặc `nssm-server`
 - **Git conflict / push lỗi** → skill `git-workflow`
 - **Design system tokens** → skill `popular-web-designs` (54 templates)
+
+---
+
+## 11. 🛡️ Validation Rules — BẮT BUỘC trước mỗi commit
+
+> Mọi thay đổi code PHẢI được validate trước khi commit. KHÔNG commit nếu validation fail.
+
+### 11.1 CRLF / LF Normalization
+
+**Nguyên nhân:** File dùng `\r\n` (CRLF) khác `\n` (LF) làm `.replace()` trong script fails silent.
+
+**Quy tắc:**
+- Code mới tạo: **luôn dùng LF (`\n`)**
+- Khi sửa file cũ: **chuẩn hoá về LF trước khi thao tác**:
+  ```js
+  h = h.replace(/\r\n/g, '\n');
+  ```
+- Khi viết file: **ghi với 'utf8', không thêm CRLF**
+
+### 11.2 Balanced Braces Check
+
+Kiểm tra `{` = `}` và `[` = `]`:
+```js
+var opens = (code.match(/{/g) || []).length;
+var closes = (code.match(/}/g) || []).length;
+if (opens !== closes) { console.error('FAIL: ' + opens + ' { vs ' + closes + ' }'); process.exit(1); }
+```
+
+### 11.3 Balanced HTML Tags Check
+
+```js
+var openDivs = (html.match(/<div[^>]*>/g) || []).length;
+var closeDivs = (html.match(/<\/div>/g) || []).length;
+if (openDivs !== closeDivs) { console.error('FAIL: div imbalance'); process.exit(1); }
+```
+
+### 11.4 JS Syntax Check
+
+```bash
+node --check file.js
+```
+
+### 11.5 String Replacement Fallback
+
+KHI DÙNG `file.replace(old, new)`:
+- **Luôn kiểm tra kết quả:** nếu kết quả giống input → warn + hỏi abort
+- **Luôn có fallback CRLF:** thử `/\r?\n/` nếu LF fails
+- **Luôn in log:** `console.log('REPLACE: match found → OK')`
