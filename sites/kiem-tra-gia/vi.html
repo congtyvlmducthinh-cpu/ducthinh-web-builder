@@ -512,7 +512,7 @@ tbody tr:hover td{background:#eff6ff}
     </div>
     <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
       <button class="btn-confirm" onclick="fobPtscResetCfg()">↺ Đặt lại mặc định</button>
-      <button class="btn-cancel" onclick="alert('✅ Cấu hình đã lưu (dùng trong phiên này).')">💾 Lưu</button>
+      <button class="btn-cancel" onclick="fobPtscSaveCfg();saveToServer()">💾 Lưu</button>
     </div>
   </div>
 
@@ -3142,7 +3142,9 @@ var FOB_PTSC_DEFAULTS = {
   warehouseOps: 12000,
   customs: 25000
 };
+<!-- KTG-DATA:FOB_PTSC_CONFIG -->
 var FOB_PTSC_CONFIG = JSON.parse(JSON.stringify(FOB_PTSC_DEFAULTS));
+<!-- /KTG-DATA:FOB_PTSC_CONFIG -->
 var FOB_PTSC_WAREHOUSE_DAYS = 3;
 
 var DATA_COST_FOB = {
@@ -6552,7 +6554,9 @@ function saveToServer() {
       DATA_COST_FOB: "var DATA_COST_FOB = " + JSON.stringify(DATA_COST_FOB, null, 2) + ";",
       DATA_DOMESTIC_FREIGHT: "var DATA_DOMESTIC_FREIGHT = " + JSON.stringify(DATA_DOMESTIC_FREIGHT, null, 2) + ";",
       DATA_APPLICATIONS: "var DATA_APPLICATIONS = " + JSON.stringify(DATA_APPLICATIONS, null, 2) + ";"
-    }
+    ,
+      FOB_PTSC_CONFIG: "var FOB_PTSC_CONFIG = " + JSON.stringify(FOB_PTSC_CONFIG, null, 2) + ";",
+      FOB_PTSC_DEFAULTS: "var FOB_PTSC_DEFAULTS = " + JSON.stringify(FOB_PTSC_DEFAULTS, null, 2) + ";"}
   };
 
   var xhr = new XMLHttpRequest();
