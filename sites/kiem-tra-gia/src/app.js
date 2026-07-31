@@ -360,10 +360,10 @@ function calcCommission() {
   if (ocode) { for (var i = 0; i < DATA_OTHERS.length; i++) { if (DATA_OTHERS[i].code === ocode) { otherPrice = DATA_OTHERS[i].price; break; } } if (!isJumbo && otherTons > 0) otherPrice = otherPrice / otherTons; }
   var totalCost = exwMin + bagPrice + otherPrice;
   var diff = Math.max(0, sellPrice - totalCost);
-  var commissionVar = diff * 0.3;
+  var commissionVar = diff * 0.2;
   var totalComm = commBase + commissionVar;
   var h = '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + Math.round(commBase).toLocaleString() + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + Math.round(commissionVar).toLocaleString() + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>Chênh lệch (20%)</span><strong>' + Math.round(commissionVar).toLocaleString() + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + Math.round(totalCost).toLocaleString() + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + Math.round(totalComm).toLocaleString() + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   cr.innerHTML = h;

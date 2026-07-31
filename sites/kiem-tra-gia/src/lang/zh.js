@@ -66,7 +66,7 @@ var LANG_TEMPLATE = {
   CALC_QTY: "数量 (吨):",
   CALC_DELIVERY: "交货:",
   CALC_COST: "成本:",
-  CALC_COMMISSION: "佣金 ~30%:",
+  CALC_COMMISSION: "佣金 ~20%:",
   CALC_MIN_PRICE: "最低价:",
   CALC_RECOMMENDED_PRICE_EXW: "建议售价 (EXW):",
   CALC_RECOMMENDED_PRICE: "建议售价 ({mode}):",

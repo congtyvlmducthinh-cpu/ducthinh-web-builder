@@ -71,7 +71,7 @@ var LANG_TEMPLATE = {
   CALC_QTY: "Số lượng (tấn):",
   CALC_DELIVERY: "Điều kiện:",
   CALC_COST: "Giá gốc:",
-  CALC_COMMISSION: "Hoa hồng ~30%:",
+  CALC_COMMISSION: "Hoa hồng ~20%:",
   CALC_MIN_PRICE: "Giá tối thiểu:",
   CALC_RECOMMENDED_PRICE_EXW: "Giá bán đề xuất (EXW):",
   CALC_RECOMMENDED_PRICE: "Giá bán đề xuất ({mode}):",

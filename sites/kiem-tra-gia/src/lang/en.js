@@ -66,7 +66,7 @@ var LANG_TEMPLATE = {
   CALC_QTY: "Quantity (tons):",
   CALC_DELIVERY: "Delivery:",
   CALC_COST: "Base cost:",
-  CALC_COMMISSION: "Comm ~30%:",
+  CALC_COMMISSION: "Comm ~20%:",
   CALC_MIN_PRICE: "Min price:",
   CALC_RECOMMENDED_PRICE_EXW: "Recommended price (EXW):",
   CALC_RECOMMENDED_PRICE: "Recommended price ({mode}):",

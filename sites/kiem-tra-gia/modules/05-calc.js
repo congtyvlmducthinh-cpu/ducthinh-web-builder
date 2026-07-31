@@ -311,9 +311,9 @@ function calcCommission() {
     if (calcPriceMode === "cif" && cml > 0) {
       totalCost += isUsd ? (calcFreightUSD + 10) / cml : (calcFreightUSD + 10) * EXCHANGE_RATE / cml;
     }
-    // Hoa hong FOB/CIF: commBase + (gia ban - gia fob) / 1.05 * 30%
+    // Hoa hong FOB/CIF: commBase + (gia ban - gia fob) / 1.05 * 20%
     var diff = Math.max(0, (sellPrice - totalCost) / 1.05);
-    var commissionVar = diff * 0.3;
+    var commissionVar = diff * 0.2;
     var effCommBase = sellPrice < totalCost ? 0 : commBase;
     var totalComm = effCommBase + commissionVar;
   } else {
@@ -323,12 +323,12 @@ function calcCommission() {
     }
     totalCost = exwBase + bagPrice + otherPrice;
     var diff = Math.max(0, sellPrice - totalCost);
-    var commissionVar = diff * 0.3;
+    var commissionVar = diff * 0.2;
     var effCommBase = sellPrice < totalCost ? 0 : commBase;
     var totalComm = effCommBase + commissionVar;
   }
   var h = '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>Chênh lệch (20%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + fmtNum(totalCost, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + fmtNum(totalComm, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   cr.innerHTML = h;
@@ -446,7 +446,7 @@ var total = 0;
   res.innerHTML = h;
 }
 
-
+
 
 
 // ====== RESET CALC FILTERS ======

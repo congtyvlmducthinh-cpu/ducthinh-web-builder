@@ -138,15 +138,15 @@ function setMarket(mkt) {
   applyMarket();
 }
 
-var DATA_OTHERS = [   {     "code": "PALLET TÁI SỬ DỤNG",     "cost": 70000,     "price": 77000,     "profit": 0.1   },   {     "code": "PALLET MỚI",     "cost": 120000,     "price": 132000,     "profit": 0.1   },   {     "code": "NẸP ĐAI",     "cost": 5000,     "price": 5500,     "profit": 0.1   },   {     "code": "QUẤN MÀNG",     "cost": 18000,     "price": 19800,     "profit": 0.1   },   {     "code": "PALLET TRÁNG PHỦ",     "cost": 160000,     "price": 176000,     "profit": 0.1   },   {     "code": "JUMBO MỞ NẮP (SLING)",     "cost": 95000,     "price": 104500,     "profit": 0.1   },   {     "code": "PALLET MỚI + NẸP ĐAI + QUẤN MÀNG",     "cost": 143000,     "price": 157300,     "profit": 0.1   },   {     "code": "JUMBO MỞ NẮP (SLING) CỦA KHÁCH",     "cost": 35000,     "price": 38500,     "profit": 0.1   } ];var activeTab = "pricelist";
-var priceMode = "exw";
-var lccType = "no";
-var freightUSD = 0;
-var managePassword = "Ducthinh@1";
+var DATA_OTHERS = [   {     "code": "PALLET TÁI SỬ DỤNG",     "cost": 70000,     "price": 77000,     "profit": 0.1   },   {     "code": "PALLET MỚI",     "cost": 120000,     "price": 132000,     "profit": 0.1   },   {     "code": "NẸP ĐAI",     "cost": 5000,     "price": 5500,     "profit": 0.1   },   {     "code": "QUẤN MÀNG",     "cost": 18000,     "price": 19800,     "profit": 0.1   },   {     "code": "PALLET TRÁNG PHỦ",     "cost": 160000,     "price": 176000,     "profit": 0.1   },   {     "code": "JUMBO MỞ NẮP (SLING)",     "cost": 95000,     "price": 104500,     "profit": 0.1   },   {     "code": "PALLET MỚI + NẸP ĐAI + QUẤN MÀNG",     "cost": 143000,     "price": 157300,     "profit": 0.1   },   {     "code": "JUMBO MỞ NẮP (SLING) CỦA KHÁCH",     "cost": 35000,     "price": 38500,     "profit": 0.1   } ];var activeTab = "pricelist";
+var priceMode = "exw";
+var lccType = "no";
+var freightUSD = 0;
+var managePassword = "Ducthinh@1";
 var currency = "VND";
-var calcPriceMode = "exw";
-var calcLccType = "no";
-var calcFreightUSD = 0;
+var calcPriceMode = "exw";
+var calcLccType = "no";
+var calcFreightUSD = 0;
 var FREIGHT_DATA = [{"port": "Shanghai", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Ningbo", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Qingdao", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Nansha", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "ShanTou", "country": "CHINA", "freight": 50, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Xiamen", "country": "CHINA", "freight": 2, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "RiZhao", "country": "CHINA", "freight": 165, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Changzhou", "country": "CHINA", "freight": 135, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Tianjin Xingang", "country": "CHINA", "freight": 12, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Wuhu", "country": "CHINA", "freight": 95, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "ZhenJiang", "country": "CHINA", "freight": 105, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Wuzhou", "country": "CHINA", "freight": 160, "forwarder": "KTO", "via": "ALL IN"}, {"port": "Fuzhou", "country": "CHINA", "freight": 100, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Jiangyin", "country": "CHINA", "freight": 105, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Wenzhou", "country": "CHINA", "freight": 195, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Yangzhou", "country": "CHINA", "freight": 150, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Zhapu", "country": "CHINA", "freight": 50, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Dalian", "country": "CHINA", "freight": 12, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Nanchang", "country": "CHINA", "freight": 200, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Zhongshan", "country": "CHINA", "freight": 100, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Yangpu", "country": "CHINA", "freight": 65, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "TaiCang", "country": "CHINA", "freight": 25, "forwarder": "Nagel", "via": "Sub Telex"}, {"port": "Taizhou", "country": "CHINA", "freight": 105, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Jiujiang", "country": "CHINA", "freight": 90, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Nanjing", "country": "CHINA", "freight": 110, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "ShanShan", "country": "CHINA", "freight": 90, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "Chongqing", "country": "CHINA", "freight": 225, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "SURABAYA", "country": "INDONEXIA", "freight": 210, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "MEDAN (Belawan)", "country": "INDONEXIA", "freight": 245, "forwarder": "Nagel", "via": "Sub LCC"}, {"port": "JAKARTA", "country": "INDONEXIA", "freight": 310, "forwarder": "KMG", "via": "Sub LCC"}, {"port": "SEMARANG", "country": "INDONEXIA", "freight": 290, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "PORT KLANG", "country": "MALAYSIA", "freight": 250, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "PENANG", "country": "MALAYSIA", "freight": 250, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "YANGON", "country": "MYANMAR", "freight": 480, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "BANGKOK", "country": "THAILAND", "freight": 265, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "LAEM CHABANG", "country": "THAILAND", "freight": 235, "forwarder": "Nagel", "via": "ALL IN"}, {"port": "MANILA", "country": "PHILIPPINE", "freight": 120, "forwarder": "Nagel", "via": "Sub LCC"}, {"port": "CEBU", "country": "PHILIPPINE", "freight": 220, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "DAVAO", "country": "PHILIPPINE", "freight": 220, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "SIHANOUKVILLE", "country": "CAMBODIA", "freight": 150, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "CHITTAGONG", "country": "BANGLADESH", "freight": 950, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "NHAVA SHEVA", "country": "INDIA", "freight": 830, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "MUNDRA", "country": "INDIA", "freight": 830, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "CHENNAI", "country": "INDIA", "freight": 830, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "VIZAG", "country": "INDIA", "freight": 1350, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "KARACHI", "country": "INDIA", "freight": 1250, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "TUTICORIN", "country": "INDIA", "freight": 1350, "forwarder": "ITI", "via": "Sub LCC"}, {"port": "COLOMBO", "country": "INDIA", "freight": 1350, "forwarder": "ITI", "via": "Sub LCC"}] // Empty - removed from pricelist table
 var DATA_COST_FOB = {   "14": {     "no": 907500,     "sub": 1196800   },   "20": {     "no": 634700,     "sub": 838200   },   "22": {     "no": 577500,     "sub": 761200   },   "24": {     "no": 529100,     "sub": 698500   },   "25": {     "no": 508200,     "sub": 669900   },   "26": {     "no": 488400,     "sub": 644600   },   "27": {     "no": 470800,     "sub": 620400   },   "28": {     "no": 454300,     "sub": 598400   } };var activeTab = "pricelist";
 var priceMode = "exw";
@@ -578,7 +578,7 @@ function renderBagsTab() {
   h += '</div>';
   return h;
 }
-
+
 
 // 04-others.js
 // ====== RENDER OTHERS TAB ======
@@ -601,7 +601,7 @@ function renderOthersTab() {
   h += '</div>';
   return h;
 }
-
+
 
 // 05-calc.js
 // ====== RENDER CALC TAB ======
@@ -917,9 +917,9 @@ function calcCommission() {
     if (calcPriceMode === "cif" && cml > 0) {
       totalCost += isUsd ? (calcFreightUSD + 10) / cml : (calcFreightUSD + 10) * EXCHANGE_RATE / cml;
     }
-    // Hoa hong FOB/CIF: commBase + (gia ban - gia fob) / 1.05 * 30%
+    // Hoa hong FOB/CIF: commBase + (gia ban - gia fob) / 1.05 * 20%
     var diff = Math.max(0, (sellPrice - totalCost) / 1.05);
-    var commissionVar = diff * 0.3;
+    var commissionVar = diff * 0.2;
     var effCommBase = sellPrice < totalCost ? 0 : commBase;
     var totalComm = effCommBase + commissionVar;
   } else {
@@ -929,12 +929,12 @@ function calcCommission() {
     }
     totalCost = exwBase + bagPrice + otherPrice;
     var diff = Math.max(0, sellPrice - totalCost);
-    var commissionVar = diff * 0.3;
+    var commissionVar = diff * 0.2;
     var effCommBase = sellPrice < totalCost ? 0 : commBase;
     var totalComm = effCommBase + commissionVar;
   }
   var h = '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>Chênh lệch (20%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + fmtNum(totalCost, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + fmtNum(totalComm, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   cr.innerHTML = h;
@@ -1052,7 +1052,7 @@ var total = 0;
   res.innerHTML = h;
 }
 
-
+
 
 
 // ====== RESET CALC FILTERS ======
