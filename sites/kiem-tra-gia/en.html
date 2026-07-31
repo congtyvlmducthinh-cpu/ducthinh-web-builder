@@ -3703,13 +3703,14 @@ function renderPriceTab() {
 
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
-  h += '<tr><th colspan="4">Information</th><th colspan="2" class="ml-toggle">Max load</th><th colspan="2">' + (priceMode==="exw"?"Selling price (EXW)":"Price includes packaging") + '</th>';
+  h += '<tr><th colspan="4">Information</th><th colspan="2" class="ml-toggle">Max load</th><th colspan="' + (showFobCif ? 3 : 2) + '">' + (priceMode==="exw"?"Selling price (EXW)":"Price includes packaging") + '</th>';
   if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"EXW without packaging":"Selling price (EXW)") + '</th>';
   h += '</tr>';
   h += '<tr><th>Code</th><th>Size</th><th>Standard</th><th>Machine</th><th class="ml-toggle">Max 25KG <span class="info-row">(tons)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(tons)</span></th><th>' + (priceMode==="exw"?"EXW 25KG standard bag":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW jumbo standard bag":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
   if (!showFobCif) {
     h += '<th>' + (priceMode==="exw"?"EXW without packaging":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"Base commission":"Commission") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   }
+  if (showFobCif) h += '<th>Base commission <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   h += '</tr></thead><tbody>';
 
   for (var i = 0; i < filtered.length; i++) {
@@ -3732,6 +3733,7 @@ function renderPriceTab() {
       h += '<td class="text-right">' + (p.pkg25_vnd ? (isUsd ? formatCurrency(p.pkg25_usd, true) : formatCurrency(p.pkg25_vnd, false)) : '—') + '</td>';
       h += '<td class="text-right">' + (p.jumbo_vnd ? (isUsd ? formatCurrency(p.jumbo_usd, true) : formatCurrency(p.jumbo_vnd, false)) : '—') + '</td>';
     }
+    if (showFobCif) h += '<td class="text-right"><span class="tag-profit">' + formatCurrency(isUsd ? p.comm_usd : p.comm_vnd, isUsd) + '</span></td>';
     if (!showFobCif) {
       h += '<td class="text-right"><strong>' + formatCurrency(isUsd ? p.exw_usd : p.exw_vnd, isUsd) + '</strong></td>';
       h += '<td class="text-right"><span class="tag-profit">' + formatCurrency(isUsd ? p.comm_usd : p.comm_vnd, isUsd) + '</span></td>';
@@ -5607,13 +5609,14 @@ function renderPriceTab() {
 
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
-  h += '<tr><th colspan="4">Information</th><th colspan="2" class="ml-toggle">Max load</th><th colspan="2">' + (priceMode==="exw"?"Selling price (EXW)":"Price includes packaging") + '</th>';
+  h += '<tr><th colspan="4">Information</th><th colspan="2" class="ml-toggle">Max load</th><th colspan="' + (showFobCif ? 3 : 2) + '">' + (priceMode==="exw"?"Selling price (EXW)":"Price includes packaging") + '</th>';
   if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"EXW without packaging":"Selling price (EXW)") + '</th>';
   h += '</tr>';
   h += '<tr><th>Code</th><th>Size</th><th>Standard</th><th>Machine</th><th class="ml-toggle">Max 25KG <span class="info-row">(tons)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(tons)</span></th><th>' + (priceMode==="exw"?"EXW 25KG standard bag":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW jumbo standard bag":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
   if (!showFobCif) {
     h += '<th>' + (priceMode==="exw"?"EXW without packaging":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"Base commission":"Commission") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   }
+  if (showFobCif) h += '<th>Base commission <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   h += '</tr></thead><tbody>';
 
   for (var i = 0; i < filtered.length; i++) {
@@ -5636,6 +5639,7 @@ function renderPriceTab() {
       h += '<td class="text-right">' + (p.pkg25_vnd ? (isUsd ? formatCurrency(p.pkg25_usd, true) : formatCurrency(p.pkg25_vnd, false)) : '—') + '</td>';
       h += '<td class="text-right">' + (p.jumbo_vnd ? (isUsd ? formatCurrency(p.jumbo_usd, true) : formatCurrency(p.jumbo_vnd, false)) : '—') + '</td>';
     }
+    if (showFobCif) h += '<td class="text-right"><span class="tag-profit">' + formatCurrency(isUsd ? p.comm_usd : p.comm_vnd, isUsd) + '</span></td>';
     if (!showFobCif) {
       h += '<td class="text-right"><strong>' + formatCurrency(isUsd ? p.exw_usd : p.exw_vnd, isUsd) + '</strong></td>';
       h += '<td class="text-right"><span class="tag-profit">' + formatCurrency(isUsd ? p.comm_usd : p.comm_vnd, isUsd) + '</span></td>';

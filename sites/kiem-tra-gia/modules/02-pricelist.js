@@ -84,10 +84,11 @@ function renderPriceTab() {
 
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
-  h += '<tr><th colspan="4">Thông tin</th><th colspan="2" class="ml-toggle">Max tải</th><th colspan="2">' + (priceMode==="exw"?"Giá bán (EXW)":"Giá bao gồm bao bì") + '</th>';
+  h += '<tr><th colspan="4">Thông tin</th><th colspan="2" class="ml-toggle">Max tải</th><th colspan="' + (showFobCif ? 3 : 2) + '">' + (priceMode==="exw"?"Giá bán (EXW)":"Giá bao gồm bao bì") + '</th>';
   if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"EXW chưa bao bì":"Giá bán (EXW)") + '</th>';
   h += '</tr>';
   h += '<tr><th>Mã</th><th>Kích thước</th><th>Tiêu chuẩn</th><th>Máy</th><th class="ml-toggle">Max 25KG <span class="info-row">(tấn)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(tấn)</span></th><th>' + (priceMode==="exw"?"EXW 25KG bao tiêu chuẩn":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW jumbo bao tiêu chuẩn":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
+  if (showFobCif) h += '<th>Hoa hồng cơ bản <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   if (!showFobCif) {
     h += '<th>' + (priceMode==="exw"?"EXW chưa bao bì":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"Hoa hồng cơ bản":"Hoa hồng") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   }
@@ -113,6 +114,7 @@ function renderPriceTab() {
       h += '<td class="text-right">' + (p.pkg25_vnd ? (isUsd ? formatCurrency(p.pkg25_usd, true) : formatCurrency(p.pkg25_vnd, false)) : '—') + '</td>';
       h += '<td class="text-right">' + (p.jumbo_vnd ? (isUsd ? formatCurrency(p.jumbo_usd, true) : formatCurrency(p.jumbo_vnd, false)) : '—') + '</td>';
     }
+    if (showFobCif) h += '<td class="text-right"><span class="tag-profit">' + formatCurrency(isUsd ? p.comm_usd : p.comm_vnd, isUsd) + '</span></td>';
     if (!showFobCif) {
       h += '<td class="text-right"><strong>' + formatCurrency(isUsd ? p.exw_usd : p.exw_vnd, isUsd) + '</strong></td>';
       h += '<td class="text-right"><span class="tag-profit">' + formatCurrency(isUsd ? p.comm_usd : p.comm_vnd, isUsd) + '</span></td>';

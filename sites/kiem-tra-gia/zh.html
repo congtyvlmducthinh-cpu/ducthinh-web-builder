@@ -3703,13 +3703,14 @@ function renderPriceTab() {
 
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
-  h += '<tr><th colspan="4">信息</th><th colspan="2" class="ml-toggle">最大载重</th><th colspan="2">' + (priceMode==="exw"?"售价 (EXW)":"价格含包装") + '</th>';
+  h += '<tr><th colspan="4">信息</th><th colspan="2" class="ml-toggle">最大载重</th><th colspan="' + (showFobCif ? 3 : 2) + '">' + (priceMode==="exw"?"售价 (EXW)":"价格含包装") + '</th>';
   if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"EXW不含包装":"售价 (EXW)") + '</th>';
   h += '</tr>';
   h += '<tr><th>代码</th><th>尺寸</th><th>标准</th><th>机器</th><th class="ml-toggle">Max 25KG <span class="info-row">(吨)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(吨)</span></th><th>' + (priceMode==="exw"?"EXW 25KG标准袋":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW Jumbo标准袋":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
   if (!showFobCif) {
     h += '<th>' + (priceMode==="exw"?"EXW不含包装":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"基本佣金":"佣金") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   }
+  if (showFobCif) h += '<th>基本佣金 <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   h += '</tr></thead><tbody>';
 
   for (var i = 0; i < filtered.length; i++) {
@@ -3732,6 +3733,7 @@ function renderPriceTab() {
       h += '<td class="text-right">' + (p.pkg25_vnd ? (isUsd ? formatCurrency(p.pkg25_usd, true) : formatCurrency(p.pkg25_vnd, false)) : '—') + '</td>';
       h += '<td class="text-right">' + (p.jumbo_vnd ? (isUsd ? formatCurrency(p.jumbo_usd, true) : formatCurrency(p.jumbo_vnd, false)) : '—') + '</td>';
     }
+    if (showFobCif) h += '<td class="text-right"><span class="tag-profit">' + formatCurrency(isUsd ? p.comm_usd : p.comm_vnd, isUsd) + '</span></td>';
     if (!showFobCif) {
       h += '<td class="text-right"><strong>' + formatCurrency(isUsd ? p.exw_usd : p.exw_vnd, isUsd) + '</strong></td>';
       h += '<td class="text-right"><span class="tag-profit">' + formatCurrency(isUsd ? p.comm_usd : p.comm_vnd, isUsd) + '</span></td>';
@@ -5607,13 +5609,14 @@ function renderPriceTab() {
 
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
-  h += '<tr><th colspan="4">信息</th><th colspan="2" class="ml-toggle">最大载重</th><th colspan="2">' + (priceMode==="exw"?"售价 (EXW)":"价格含包装") + '</th>';
+  h += '<tr><th colspan="4">信息</th><th colspan="2" class="ml-toggle">最大载重</th><th colspan="' + (showFobCif ? 3 : 2) + '">' + (priceMode==="exw"?"售价 (EXW)":"价格含包装") + '</th>';
   if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"EXW不含包装":"售价 (EXW)") + '</th>';
   h += '</tr>';
   h += '<tr><th>代码</th><th>尺寸</th><th>标准</th><th>机器</th><th class="ml-toggle">Max 25KG <span class="info-row">(吨)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(吨)</span></th><th>' + (priceMode==="exw"?"EXW 25KG标准袋":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW Jumbo标准袋":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
   if (!showFobCif) {
     h += '<th>' + (priceMode==="exw"?"EXW不含包装":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"基本佣金":"佣金") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   }
+  if (showFobCif) h += '<th>基本佣金 <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
   h += '</tr></thead><tbody>';
 
   for (var i = 0; i < filtered.length; i++) {
@@ -5636,6 +5639,7 @@ function renderPriceTab() {
       h += '<td class="text-right">' + (p.pkg25_vnd ? (isUsd ? formatCurrency(p.pkg25_usd, true) : formatCurrency(p.pkg25_vnd, false)) : '—') + '</td>';
       h += '<td class="text-right">' + (p.jumbo_vnd ? (isUsd ? formatCurrency(p.jumbo_usd, true) : formatCurrency(p.jumbo_vnd, false)) : '—') + '</td>';
     }
+    if (showFobCif) h += '<td class="text-right"><span class="tag-profit">' + formatCurrency(isUsd ? p.comm_usd : p.comm_vnd, isUsd) + '</span></td>';
     if (!showFobCif) {
       h += '<td class="text-right"><strong>' + formatCurrency(isUsd ? p.exw_usd : p.exw_vnd, isUsd) + '</strong></td>';
       h += '<td class="text-right"><span class="tag-profit">' + formatCurrency(isUsd ? p.comm_usd : p.comm_vnd, isUsd) + '</span></td>';
