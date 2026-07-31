@@ -4236,9 +4236,9 @@ function calcCommission() {
     if (calcPriceMode === "cif" && cml > 0) {
       totalCost += isUsd ? (calcFreightUSD + 10) / cml : (calcFreightUSD + 10) * EXCHANGE_RATE / cml;
     }
-    // Hoa hong FOB/CIF: commBase + (gia ban - gia fob) / 1.05 * 30%
+    // Hoa hong FOB/CIF: commBase + (gia ban - gia fob) / 1.05 * 20%
     var diff = Math.max(0, (sellPrice - totalCost) / 1.05);
-    var commissionVar = diff * 0.3;
+    var commissionVar = diff * 0.2;
     var effCommBase = sellPrice < totalCost ? 0 : commBase;
     var totalComm = effCommBase + commissionVar;
   } else {
@@ -4248,12 +4248,12 @@ function calcCommission() {
     }
     totalCost = exwBase + bagPrice + otherPrice;
     var diff = Math.max(0, sellPrice - totalCost);
-    var commissionVar = diff * 0.3;
+    var commissionVar = diff * 0.2;
     var effCommBase = sellPrice < totalCost ? 0 : commBase;
     var totalComm = effCommBase + commissionVar;
   }
   var h = '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>Chênh lệch (20%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + fmtNum(totalCost, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + fmtNum(totalComm, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   cr.innerHTML = h;
@@ -4630,11 +4630,11 @@ function calcDomesticPrice()
     // Commission breakdown
     if(totalComm>0){
       h+='<div class="calc-comm-row" style="margin-top:8px;padding:8px 0 4px;border-top:1px dashed var(--border)"><span>Hoa h\u1ed3ng c\u01a1 b\u1ea3n</span><strong>'+fmtVnd(effCommBase)+' VND</strong></div>';
-      h+='<div class="calc-comm-row"><span>Ch\u00eanh l\u1ec7ch (30%)</span><strong>'+fmtVnd(commissionVar)+' VND</strong></div>';
+      h+='<div class="calc-comm-row"><span>Ch\u00eanh l\u1ec7ch (20%)</span><strong>'+fmtVnd(commissionVar)+' VND</strong></div>';
       h+='<div class="calc-comm-row calc-total" style="padding:8px 0;border-top:2px solid var(--primary)"><span>T\u1ed5ng hoa h\u1ed3ng</span><strong style="color:var(--primary)">'+fmtVnd(totalComm)+' VND</strong></div>';
     }
   }
-  h+='<div class="calc-result-item"><span style="font-size:11px;color:#64748b">C\u00f4ng th\u1ee9c: EXW + bao b\u00ec + quy c\u00e1ch kh\u00e1c + c\u01b0\u1edbc n\u1ed9i \u0111\u1ecba. VAT t\u00ednh v\u00e0o gi\u00e1 v\u1ed1n. Hoa h\u1ed3ng = c\u01a1 b\u1ea3n + (gi\u00e1 b\u00e1n \u2212 gi\u00e1 v\u1ed1n c\u00f3 VAT) \u00d7 30%</span></div>';
+  h+='<div class="calc-result-item"><span style="font-size:11px;color:#64748b">C\u00f4ng th\u1ee9c: EXW + bao b\u00ec + quy c\u00e1ch kh\u00e1c + c\u01b0\u1edbc n\u1ed9i \u0111\u1ecba. VAT t\u00ednh v\u00e0o gi\u00e1 v\u1ed1n. Hoa h\u1ed3ng = c\u01a1 b\u1ea3n + (gi\u00e1 b\u00e1n \u2212 gi\u00e1 v\u1ed1n c\u00f3 VAT) \u00d7 20%</span></div>';
   h+='</div>';
   res.innerHTML=h;
 }
@@ -6165,9 +6165,9 @@ function calcCommission() {
     if (calcPriceMode === "cif" && cml > 0) {
       totalCost += isUsd ? (calcFreightUSD + 10) / cml : (calcFreightUSD + 10) * EXCHANGE_RATE / cml;
     }
-    // Hoa hong FOB/CIF: commBase + (gia ban - gia fob) / 1.05 * 30%
+    // Hoa hong FOB/CIF: commBase + (gia ban - gia fob) / 1.05 * 20%
     var diff = Math.max(0, (sellPrice - totalCost) / 1.05);
-    var commissionVar = diff * 0.3;
+    var commissionVar = diff * 0.2;
     var effCommBase = sellPrice < totalCost ? 0 : commBase;
     var totalComm = effCommBase + commissionVar;
   } else {
@@ -6177,12 +6177,12 @@ function calcCommission() {
     }
     totalCost = exwBase + bagPrice + otherPrice;
     var diff = Math.max(0, sellPrice - totalCost);
-    var commissionVar = diff * 0.3;
+    var commissionVar = diff * 0.2;
     var effCommBase = sellPrice < totalCost ? 0 : commBase;
     var totalComm = effCommBase + commissionVar;
   }
   var h = '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>Chênh lệch (20%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + fmtNum(totalCost, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + fmtNum(totalComm, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
   cr.innerHTML = h;
@@ -11657,7 +11657,7 @@ function recalcQuotCart() {
       } else {
         diff = Math.max(0, sellPrice - totalCost);
       }
-      commissionVar = diff * 0.3;
+      commissionVar = diff * 0.2;
       totalComm = effCommBase + commissionVar;
     }
 
@@ -11668,7 +11668,7 @@ function recalcQuotCart() {
       var h='💵 HH: <span class="quot-comm-val">'+fmtNum(totalComm,isUsd)+' '+cc+'</span>';
       h+='<div style="font-size:10px;color:var(--muted);margin-top:2px">';
       if(effCommBase>0) h+='Base: '+fmtNum(effCommBase,isUsd)+' | ';
-      h+='30% chênh: '+fmtNum(commissionVar,isUsd)+' '+cc+'</div>';
+      h+='20% chênh: '+fmtNum(commissionVar,isUsd)+' '+cc+'</div>';
       commEl.innerHTML=h;
     }
   }
@@ -12760,7 +12760,7 @@ function fobPtscCalc() {
   } else {
     diff = Math.max(0, sellPrice - finalCost);
   }
-  commissionVar = diff * 0.3;
+  commissionVar = diff * 0.2;
   effCommBase = sellPrice < finalCost ? 0 : commBase;
   totalComm = effCommBase + commissionVar;
   
@@ -12821,7 +12821,7 @@ function fobPtscCalc() {
   h += '<div class="calc-comm-result" style="margin-top:8px">';
   h += '<div class="calc-comm-row"><span>💰 Giá bán</span><strong>' + fmt(sellPrice) + ' ' + ccySymbol + '/tấn</strong></div>';
   h += '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + fmt(effCommBase) + ' ' + ccySymbol + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>Chênh lệch (30%)</span><strong>' + fmt(commissionVar) + ' ' + ccySymbol + '</strong></div>';
+  h += '<div class="calc-comm-row"><span>Chênh lệch (20%)</span><strong>' + fmt(commissionVar) + ' ' + ccySymbol + '</strong></div>';
   h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + fmt(finalCost) + ' ' + ccySymbol + '</strong></div>';
   h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + fmt(totalComm) + ' ' + ccySymbol + '</strong></div>';
   h += '</div>'; // close comm
