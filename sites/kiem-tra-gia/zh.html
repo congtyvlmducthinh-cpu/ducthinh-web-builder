@@ -3692,14 +3692,6 @@ function renderPriceTab() {
   h += '<div class="summary-card"><div class="lbl">日期</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
   h += '</div>';
   h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">📋 显示最大载重</button>\n<div class="market-group">\n<span class="ext-label">🌏 市场:</span>\n<button class="btn-sm' + (currentMarket === 'cn' ? ' active' : '') + '" id="marketCn" onclick="setMarket(\'cn\')">🇨🇳 TQ</button>\n<button class="btn-sm' + (currentMarket === 'other' ? ' active' : '') + '" id="marketOther" onclick="setMarket(\'other\')">🌏 其他</button>\n</div>'
-  h += '<div class="summary-bar hide-mobile" style="margin-top:4px;gap:6px hide-mobile">';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">TB 25KG</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#fef2f2;border-color:#fecaca"><div class="lbl" style="font-size:10px">最优25KG</div><div class="val" style="font-size:15px">' + fmt(max25) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#f0fdf4;border-color:#bbf7d0"><div class="lbl" style="font-size:10px">TB Jumbo</div><div class="val" style="font-size:15px">' + fmt(cntJ?Math.round(sumJ/cntJ):0) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#fefce8;border-color:#fde68a"><div class="lbl" style="font-size:10px">最优Jumbo</div><div class="val" style="font-size:15px">' + fmt(maxJ) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#f5f3ff;border-color:#ddd6fe"><div class="lbl" style="font-size:10px">TB EXW</div><div class="val" style="font-size:15px">' + fmt(cntExw?Math.round(sumExw/cntExw):0) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#fff1f2;border-color:#fecdd3"><div class="lbl" style="font-size:10px">最优EXW</div><div class="val" style="font-size:15px">' + fmt(maxExw) + '</div></div>';
-  h += '</div>';
 
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
@@ -5598,14 +5590,6 @@ function renderPriceTab() {
   h += '<div class="summary-card"><div class="lbl">日期</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
   h += '</div>';
   h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">📋 显示最大载重</button>\n<div class="market-group">\n<span class="ext-label">🌏 市场:</span>\n<button class="btn-sm' + (currentMarket === 'cn' ? ' active' : '') + '" id="marketCn" onclick="setMarket(\'cn\')">🇨🇳 TQ</button>\n<button class="btn-sm' + (currentMarket === 'other' ? ' active' : '') + '" id="marketOther" onclick="setMarket(\'other\')">🌏 其他</button>\n</div>'
-  h += '<div class="summary-bar hide-mobile" style="margin-top:4px;gap:6px hide-mobile">';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#f0f9ff;border-color:#bae6fd"><div class="lbl" style="font-size:10px">TB 25KG</div><div class="val" style="font-size:15px">' + fmt(cnt25?Math.round(sum25/cnt25):0) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#fef2f2;border-color:#fecaca"><div class="lbl" style="font-size:10px">最优25KG</div><div class="val" style="font-size:15px">' + fmt(max25) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#f0fdf4;border-color:#bbf7d0"><div class="lbl" style="font-size:10px">TB Jumbo</div><div class="val" style="font-size:15px">' + fmt(cntJ?Math.round(sumJ/cntJ):0) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#fefce8;border-color:#fde68a"><div class="lbl" style="font-size:10px">最优Jumbo</div><div class="val" style="font-size:15px">' + fmt(maxJ) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#f5f3ff;border-color:#ddd6fe"><div class="lbl" style="font-size:10px">TB EXW</div><div class="val" style="font-size:15px">' + fmt(cntExw?Math.round(sumExw/cntExw):0) + '</div></div>';
-  h += '<div class="summary-card" style="padding:8px 12px;background:#fff1f2;border-color:#fecdd3"><div class="lbl" style="font-size:10px">最优EXW</div><div class="val" style="font-size:15px">' + fmt(maxExw) + '</div></div>';
-  h += '</div>';
 
   // Table
   h += '<div class="table-wrap pricelist"><table><thead>';
