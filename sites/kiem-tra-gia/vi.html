@@ -4254,9 +4254,9 @@ function calcCommission() {
     var cfobCost = getCostFobVND(cml, calcLccType);
     // Convert to USD if needed
     if (isUsd) {
-      bagPrice = Math.round(bagPrice / EXCHANGE_RATE);
-      otherPrice = Math.round(otherPrice / EXCHANGE_RATE);
-      cfobCost = Math.round(cfobCost / EXCHANGE_RATE);
+      bagPrice = bagPrice / EXCHANGE_RATE;
+      otherPrice = otherPrice / EXCHANGE_RATE;
+      cfobCost = cfobCost / EXCHANGE_RATE;
     }
     totalCost = (exwBase + bagPrice + otherPrice + cfobCost) * 1.05;
     if (calcPriceMode === "cif" && cml > 0) {
@@ -4269,8 +4269,8 @@ function calcCommission() {
     var totalComm = effCommBase + commissionVar;
   } else {
     if (isUsd) {
-      bagPrice = Math.round(bagPrice / EXCHANGE_RATE);
-      otherPrice = Math.round(otherPrice / EXCHANGE_RATE);
+      bagPrice = bagPrice / EXCHANGE_RATE;
+      otherPrice = otherPrice / EXCHANGE_RATE;
     }
     totalCost = exwBase + bagPrice + otherPrice;
     var diff = Math.max(0, sellPrice - totalCost);
@@ -4348,9 +4348,9 @@ function calcPrice() {
   }
   // Convert to USD if needed
   if (isUsd) {
-    otherPrice = Math.round(otherPrice / EXCHANGE_RATE);
-    bagPrice = Math.round(bagPrice / EXCHANGE_RATE);
-    fobCostPerTon = Math.round(fobCostPerTon / EXCHANGE_RATE);
+    otherPrice = otherPrice / EXCHANGE_RATE;
+    bagPrice = bagPrice / EXCHANGE_RATE;
+    fobCostPerTon = fobCostPerTon / EXCHANGE_RATE;
   }
 var total = 0;
   if (isFobMode || isCifMode) {
@@ -6181,9 +6181,9 @@ function calcCommission() {
     var cfobCost = getCostFobVND(cml, calcLccType);
     // Convert to USD if needed
     if (isUsd) {
-      bagPrice = Math.round(bagPrice / EXCHANGE_RATE);
-      otherPrice = Math.round(otherPrice / EXCHANGE_RATE);
-      cfobCost = Math.round(cfobCost / EXCHANGE_RATE);
+      bagPrice = bagPrice / EXCHANGE_RATE;
+      otherPrice = otherPrice / EXCHANGE_RATE;
+      cfobCost = cfobCost / EXCHANGE_RATE;
     }
     totalCost = (exwBase + bagPrice + otherPrice + cfobCost) * 1.05;
     if (calcPriceMode === "cif" && cml > 0) {
@@ -6196,8 +6196,8 @@ function calcCommission() {
     var totalComm = effCommBase + commissionVar;
   } else {
     if (isUsd) {
-      bagPrice = Math.round(bagPrice / EXCHANGE_RATE);
-      otherPrice = Math.round(otherPrice / EXCHANGE_RATE);
+      bagPrice = bagPrice / EXCHANGE_RATE;
+      otherPrice = otherPrice / EXCHANGE_RATE;
     }
     totalCost = exwBase + bagPrice + otherPrice;
     var diff = Math.max(0, sellPrice - totalCost);
@@ -6275,9 +6275,9 @@ function calcPrice() {
   }
   // Convert to USD if needed
   if (isUsd) {
-    otherPrice = Math.round(otherPrice / EXCHANGE_RATE);
-    bagPrice = Math.round(bagPrice / EXCHANGE_RATE);
-    fobCostPerTon = Math.round(fobCostPerTon / EXCHANGE_RATE);
+    otherPrice = otherPrice / EXCHANGE_RATE;
+    bagPrice = bagPrice / EXCHANGE_RATE;
+    fobCostPerTon = fobCostPerTon / EXCHANGE_RATE;
   }
 var total = 0;
   if (isFobMode || isCifMode) {
