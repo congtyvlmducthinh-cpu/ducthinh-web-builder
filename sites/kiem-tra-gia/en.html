@@ -606,8 +606,8 @@ tbody tr:hover td{background:#eff6ff}
     <div class="freight-modal-header">
       <h3>🚢 Freight</h3>
       <button class="freight-modal-close" onclick="closeFreightPopup()">✕</button>
-      <button class="freight-modal-close" onclick="closeFreightPopup()">&times;</button>
         <div style="padding:0 16px 8px"><input type="text" id="freightSearch" placeholder="🔍 Search..." oninput="filterFreightRoutes()" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;font-family:var(--font);color:var(--text);background:var(--card)"></div>
+    </div>
     <div class="freight-modal-filters">
       <select id="freightCountryFilter" onchange="filterFreightRoutes()"><option value="">All countries</option></select>
       <select id="freightForwarderFilter" onchange="filterFreightRoutes()"><option value="">All brands</option></select>
@@ -625,7 +625,6 @@ tbody tr:hover td{background:#eff6ff}
       <button class="btn-confirm" onclick="selectFreightRoute()">🚢 Select route</button>
     </div>
   </div>
-</div>
 </div>
 
 <script>

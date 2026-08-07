@@ -634,8 +634,8 @@ tbody tr:hover td{background:#eff6ff}
     <div class="freight-modal-header">
       <h3>🚢 Cước vận chuyển</h3>
       <button class="freight-modal-close" onclick="closeFreightPopup()">✕</button>
-      <button class="freight-modal-close" onclick="closeFreightPopup()">&times;</button>
         <div style="padding:0 16px 8px"><input type="text" id="freightSearch" placeholder="🔍 Tìm kiếm..." oninput="filterFreightRoutes()" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;font-family:var(--font);color:var(--text);background:var(--card)"></div>
+    </div>
     <div class="freight-modal-filters">
       <select id="freightCountryFilter" onchange="filterFreightRoutes()"><option value="">Tất cả nước</option></select>
       <select id="freightForwarderFilter" onchange="filterFreightRoutes()"><option value="">Tất cả hãng</option></select>
@@ -655,7 +655,6 @@ tbody tr:hover td{background:#eff6ff}
   </div>
 </div>
 
-</div>
 <script>
 
 var DATA_DOMESTIC_FREIGHT = [
