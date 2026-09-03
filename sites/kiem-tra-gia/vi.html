@@ -3344,22 +3344,7 @@ var DATA_PRODUCTS = [
     });
     // Read market-specific overrides (cn/other) if present in template
     var marketSuffixes = ["_cn","_other"];
-    function readMarketField(r, obj, key, suffix) {
-      // Try suffixed user-friendly names first, then raw key+suffix
-      var baseNames = ["EXW (VND)","EXW (USD)","Hoa hồng (VND)","Hoa hồng (USD)","25kg (VND)","25kg (USD)","Jumbo (VND)","Jumbo (USD)"];
-      for (var si = 0; si < baseNames.length; si++) {
-        var fullName = baseNames[si] + suffix;
-        if (r[fullName] !== undefined && r[fullName] !== null && r[fullName] !== "") {
-          obj[key + suffix] = Number(r[fullName]);
-          return true;
-        }
-      }
-      if (r[key + suffix] !== undefined && r[key + suffix] !== null && r[key + suffix] !== "") {
-        obj[key + suffix] = Number(r[key + suffix]);
-        return true;
-      }
-      return false;
-    }
+    
     marketSuffixes.forEach(function(sfx) {
       readMarketField(r, obj, "exw_vnd", sfx);
       readMarketField(r, obj, "exw_usd", sfx);
@@ -3716,40 +3701,9 @@ var DATA_BAGS = [
     "price": 104500.00000000001,
     "profit": 0.1
   }
-];function applyMarket() {
-  var suffix = "_" + currentMarket;
-  DATA_PRODUCTS.forEach(function(p) {
-    // Use suffix field if available, fall back to base field
-    p.exw_vnd = p["exw_vnd" + suffix] !== undefined ? p["exw_vnd" + suffix] : p.exw_vnd;
-    p.exw_usd = p["exw_usd" + suffix] !== undefined ? p["exw_usd" + suffix] : p.exw_usd;
-    p.comm_vnd = p["comm_vnd" + suffix] !== undefined ? p["comm_vnd" + suffix] : p.comm_vnd;
-    p.comm_usd = p["comm_usd" + suffix] !== undefined ? p["comm_usd" + suffix] : p.comm_usd;
-    p.pkg25_vnd = p["pkg25_vnd" + suffix] !== undefined ? p["pkg25_vnd" + suffix] : p.pkg25_vnd;
-    p.pkg25_usd = p["pkg25_usd" + suffix] !== undefined ? p["pkg25_usd" + suffix] : p.pkg25_usd;
-    p.jumbo_vnd = p["jumbo_vnd" + suffix] !== undefined ? p["jumbo_vnd" + suffix] : p.jumbo_vnd;
-    p.jumbo_usd = p["jumbo_usd" + suffix] !== undefined ? p["jumbo_usd" + suffix] : p.jumbo_usd;
-  });
-  // Re-render
-  render();
-}
+];
 
-function setMarket(mkt) {
-  currentMarket = mkt;
-  // Update UI toggle buttons
-  var cnBtn = document.getElementById("marketCn");
-  var otherBtn = document.getElementById("marketOther");
-  if (cnBtn && otherBtn) {
-    cnBtn.classList.toggle("active", mkt === "cn");
-    otherBtn.classList.toggle("active", mkt === "other");
-    cnBtn.style.background = mkt === "cn" ? "#1a56db" : "#fff";
-    cnBtn.style.color = mkt === "cn" ? "#fff" : "#333";
-    cnBtn.style.borderColor = mkt === "cn" ? "#1a56db" : "#d0d5dd";
-    otherBtn.style.background = mkt === "other" ? "#1a56db" : "#fff";
-    otherBtn.style.color = mkt === "other" ? "#fff" : "#333";
-    otherBtn.style.borderColor = mkt === "other" ? "#1a56db" : "#d0d5dd";
-  }
-  applyMarket();
-}
+
 
 var DATA_OTHERS = [
   {
@@ -4407,15 +4361,7 @@ function filterCalcProducts() {
     sze.value = prevSz && szk.indexOf(prevSz) >= 0 ? prevSz : "";
   }
   filterCalcProducts_products();
-}function filterCalcProducts_products() {
-  var me = document.getElementById("calcMachine"), se = document.getElementById("calcStandard"), sze = document.getElementById("calcSize"), pe = document.getElementById("calcProduct");
-  if (!me || !se || !pe) return;
-  var m = me.value, s = se.value, sz = sze ? sze.value : "";
-  var prevProd = pe.value;
-  pe.innerHTML = '<option value="">— Chọn sản phẩm —</option>';
-  DATA_PRODUCTS.forEach(function(p) { if ((!m || String(p.machine) === m) && (!s || p.standard === s) && (!sz || p.size === sz)) pe.innerHTML += '<option value="' + p.code + '||' + p.standard + '">' + p.code + ' — ' + p.size + '</option>'; });
-  pe.value = prevProd;
-}function onCalcProductChange() { populateCalcMaxLoad(); calcPrice(); }
+}
 function populateCalcMaxLoad() {
   var psel = document.getElementById("calcProduct"), mlsel = document.getElementById("calcMaxLoad");
   if (!psel || !mlsel) return;
@@ -4781,70 +4727,8 @@ function manageLogin() {
 
 
 
-function downloadFile(type) {
-  var fn = "", data = [], sheetName = "";
-  if (type === 0) { fn = "Gia_ban_toi_thieu.xlsx"; data = DATA_PRODUCTS; sheetName = "Products"; }
-  else if (type === 1) { fn = "Surcharge_bao_bi.xlsx"; data = DATA_BAGS; sheetName = "Bags"; }
-  else if (type === 2) { fn = "Quy_cach_khac.xlsx"; data = DATA_OTHERS; sheetName = "Others"; }
-  else if (type === 3) {
-    fn = "Max_loadding.xlsx";
-    var mlArr = [];
-    if (DATA_MAX_LOADING && Object.keys(DATA_MAX_LOADING).length > 0) {
-      Object.keys(DATA_MAX_LOADING).forEach(function(k) {
-        var o = {"SẢN PHẨM": k};
-        if (DATA_MAX_LOADING[k].max25 !== undefined) o["Max Loading 25KG"] = DATA_MAX_LOADING[k].max25;
-        if (DATA_MAX_LOADING[k].maxJumbo !== undefined) o["Max Loading Jumbo"] = DATA_MAX_LOADING[k].maxJumbo;
-        mlArr.push(o);
-      });
-    }
-    data = mlArr;
-    sheetName = "MaxLoading";
-  } else if (type === 4) {
-    fn = "Ung_dung.xlsx";
-    data = JSON.parse(JSON.stringify(DATA_APPLICATIONS));
-    sheetName = "Applications";
-  } else if (type === 5) {
-    fn = "Cuoc_noi_dia.xlsx";
-    data = JSON.parse(JSON.stringify(DATA_DOMESTIC_FREIGHT));
-    sheetName = "Freight";
-  }
-  if (!data.length) return;
-  var ws = XLSX.utils.json_to_sheet(data);
-  var wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, sheetName);
-  XLSX.writeFile(wb, fn);
-}
-function downloadAsExcel() {
-  var dt = new Date();
-  var fn = "DT-FullData-" + dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate() + ".xlsx";
-  var wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(DATA_PRODUCTS), "Products");
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(DATA_BAGS), "Bags");
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(DATA_OTHERS), "Others");
-  // Export MaxLoading if data exists
-  if (DATA_MAX_LOADING && Object.keys(DATA_MAX_LOADING).length > 0) {
-    var mlArr = [];
-    Object.keys(DATA_MAX_LOADING).forEach(function(k) {
-      var o = {code: k};
-      if (DATA_MAX_LOADING[k].max25 !== undefined) o.max25 = DATA_MAX_LOADING[k].max25;
-      if (DATA_MAX_LOADING[k].maxJumbo !== undefined) o.maxJumbo = DATA_MAX_LOADING[k].maxJumbo;
-      mlArr.push(o);
-    });
-    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(mlArr), "MaxLoading");
-  }
-  // Export CostFOB if data exists
-  if (DATA_COST_FOB && Object.keys(DATA_COST_FOB).length > 0) {
-    var cfArr = [];
-    Object.keys(DATA_COST_FOB).forEach(function(k) {
-      var o = {maxLoading: Number(k)};
-      if (DATA_COST_FOB[k].no !== undefined) o.no = DATA_COST_FOB[k].no;
-      if (DATA_COST_FOB[k].sub !== undefined) o.sub = DATA_COST_FOB[k].sub;
-      cfArr.push(o);
-    });
-    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(cfArr), "CostFOB");
-  }
-  XLSX.writeFile(wb, fn);
-}
+
+
 
 
 // ====== PASSWORD MODAL ======
@@ -12325,7 +12209,7 @@ function toggleQuotSection(titleEl) {
 // Init — dữ liệu đã có sẵn trong data.js
 (function() {
 // === Load data tu localStorage (upload tu tab Quan ly) ===
-(function() { var keys = [['dq_products','DATA_PRODUCTS'],['dq_bags','DATA_BAGS'],['dq_others','DATA_OTHERS'],['dq_maxLoading','DATA_MAX_LOADING'],['dq_costFOB','DATA_COST_FOB'],['dq_applications','DATA_APPLICATIONS']]; keys.forEach(function(k){var s;try{s=JSON.parse(localStorage.getItem(k[0]))}catch(e){};if(s){window[k[1]]=s}}); })();
+/* [disabled] localStorage auto-restore (dq_*) - server/injected data is authoritative */
 
   applyMarket(); setMarket("other");
   switchTab("pricelist");

@@ -3316,22 +3316,7 @@ var DATA_PRODUCTS = [
     });
     // Read market-specific overrides (cn/other) if present in template
     var marketSuffixes = ["_cn","_other"];
-    function readMarketField(r, obj, key, suffix) {
-      // Try suffixed user-friendly names first, then raw key+suffix
-      var baseNames = ["EXW (VND)","EXW (USD)","佣金 (VND)","佣金 (USD)","25kg (VND)","25kg (USD)","Jumbo (VND)","Jumbo (USD)"];
-      for (var si = 0; si < baseNames.length; si++) {
-        var fullName = baseNames[si] + suffix;
-        if (r[fullName] !== undefined && r[fullName] !== null && r[fullName] !== "") {
-          obj[key + suffix] = Number(r[fullName]);
-          return true;
-        }
-      }
-      if (r[key + suffix] !== undefined && r[key + suffix] !== null && r[key + suffix] !== "") {
-        obj[key + suffix] = Number(r[key + suffix]);
-        return true;
-      }
-      return false;
-    }
+    
     marketSuffixes.forEach(function(sfx) {
       readMarketField(r, obj, "exw_vnd", sfx);
       readMarketField(r, obj, "exw_usd", sfx);
@@ -3688,40 +3673,9 @@ var DATA_BAGS = [
     "price": 104500.00000000001,
     "profit": 0.1
   }
-];function applyMarket() {
-  var suffix = "_" + currentMarket;
-  DATA_PRODUCTS.forEach(function(p) {
-    // Use suffix field if available, fall back to base field
-    p.exw_vnd = p["exw_vnd" + suffix] !== undefined ? p["exw_vnd" + suffix] : p.exw_vnd;
-    p.exw_usd = p["exw_usd" + suffix] !== undefined ? p["exw_usd" + suffix] : p.exw_usd;
-    p.comm_vnd = p["comm_vnd" + suffix] !== undefined ? p["comm_vnd" + suffix] : p.comm_vnd;
-    p.comm_usd = p["comm_usd" + suffix] !== undefined ? p["comm_usd" + suffix] : p.comm_usd;
-    p.pkg25_vnd = p["pkg25_vnd" + suffix] !== undefined ? p["pkg25_vnd" + suffix] : p.pkg25_vnd;
-    p.pkg25_usd = p["pkg25_usd" + suffix] !== undefined ? p["pkg25_usd" + suffix] : p.pkg25_usd;
-    p.jumbo_vnd = p["jumbo_vnd" + suffix] !== undefined ? p["jumbo_vnd" + suffix] : p.jumbo_vnd;
-    p.jumbo_usd = p["jumbo_usd" + suffix] !== undefined ? p["jumbo_usd" + suffix] : p.jumbo_usd;
-  });
-  // Re-render
-  render();
-}
+];
 
-function setMarket(mkt) {
-  currentMarket = mkt;
-  // Update UI toggle buttons
-  var cnBtn = document.getElementById("marketCn");
-  var otherBtn = document.getElementById("marketOther");
-  if (cnBtn && otherBtn) {
-    cnBtn.classList.toggle("active", mkt === "cn");
-    otherBtn.classList.toggle("active", mkt === "other");
-    cnBtn.style.background = mkt === "cn" ? "#1a56db" : "#fff";
-    cnBtn.style.color = mkt === "cn" ? "#fff" : "#333";
-    cnBtn.style.borderColor = mkt === "cn" ? "#1a56db" : "#d0d5dd";
-    otherBtn.style.background = mkt === "other" ? "#1a56db" : "#fff";
-    otherBtn.style.color = mkt === "other" ? "#fff" : "#333";
-    otherBtn.style.borderColor = mkt === "other" ? "#1a56db" : "#d0d5dd";
-  }
-  applyMarket();
-}
+
 
 var DATA_OTHERS = [
   {
@@ -4126,7 +4080,7 @@ function filterCalcProducts_products() {
   pe.innerHTML = '<option value="">— 选择产品 —</option>';
   DATA_PRODUCTS.forEach(function(p) { if ((!m || String(p.machine) === m) && (!s || p.standard === s) && (!sz || p.size === sz)) pe.innerHTML += '<option value="' + p.code + '||' + p.standard + '">' + p.code + ' — ' + p.size + '</option>'; });
   pe.value = prevProd;
-}function onCalcProductChange() { populateCalcMaxLoad(); calcPrice(); }
+}
 function populateCalcMaxLoad() {
   var psel = document.getElementById("calcProduct"), mlsel = document.getElementById("calcMaxLoad");
   if (!psel || !mlsel) return;
@@ -11949,7 +11903,7 @@ function fobPtscSetMode(mode) {
 
 
 // === Load data from localStorage (uploaded via Manage tab) ===
-(function() { var keys = [['dq_products','DATA_PRODUCTS'],['dq_bags','DATA_BAGS'],['dq_others','DATA_OTHERS'],['dq_maxLoading','DATA_MAX_LOADING'],['dq_costFOB','DATA_COST_FOB'],['dq_applications','DATA_APPLICATIONS']]; keys.forEach(function(k){var s;try{s=JSON.parse(localStorage.getItem(k[0]))}catch(e){};if(s){window[k[1]]=s}}); })();
+/* [disabled] localStorage auto-restore (dq_*) - server/injected data is authoritative */
 function fobPtscLoadCfg() {
   // Load from localStorage if available
   var saved;
