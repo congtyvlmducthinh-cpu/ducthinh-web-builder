@@ -403,6 +403,7 @@ tbody tr:hover td{background:#eff6ff}
 </div>
 <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
 <div class="lang-switcher"><a href="vi.html" class=" active">VI</a><a href="en.html" class="">EN</a><a href="zh.html" class="">ZH</a></div>
+<span class="badge" id="ktgDataWrap" title="Ngày cập nhật dữ liệu bảng giá">📅 Dữ liệu: <span id="ktgDataDate">—</span></span>
 </div>
 </header>
 
@@ -808,14 +809,14 @@ var DATA_DOMESTIC_FREIGHT = [
   {
     "province": "TP Hồ Chí Minh",
     "ward": "Phường Bình Cơ/Phường Tân Uyên/Phường Tân Khánh",
-    "address": "Phường Bình Cơ/Phường Tân Uyên/Phường Tân Khánh, HCM",
+    "address": "Phường Bình Cơ/Phường Tân Uyên/Ph��ờng Tân Khánh, HCM",
     "freight": 16518518.518518517,
     "freight_mooc": "cont"
   },
   {
     "province": "TP Hồ Chí Minh",
     "ward": "Số 46,Đường DT748, Ấp Kiến Điền, Phường Long Nguyên, HCM",
-    "address": "Số 46,Đường DT748, Ấp Kiến Điền, Phường Long Nguyên, HCM",
+    "address": "Số 46,��ường DT748, Ấp Kiến Điền, Phường Long Nguyên, HCM",
     "freight": 17407407.407407407,
     "freight_mooc": "cont"
   },
@@ -3280,6 +3281,38 @@ var DATA_PRODUCTS = [
     "pkg25_usd": 61.46153846153846,
     "jumbo_vnd": 1530000,
     "jumbo_usd": 58.84615384615385
+  },
+  {
+    "code": "FS12A2C",
+    "size": "12±1 µm",
+    "standard": "A2",
+    "machine": "Coated",
+    "exw_vnd_cn": 1420000,
+    "exw_usd_cn": 54.61538461538461,
+    "comm_vnd_cn": 20000,
+    "comm_usd_cn": 0.7692307692307693,
+    "pkg25_vnd_cn": 1598000,
+    "pkg25_usd_cn": 61.46153846153846,
+    "jumbo_vnd_cn": 1530000,
+    "jumbo_usd_cn": 58.84615384615385,
+    "exw_vnd_other": 1470000,
+    "exw_usd_other": 56.53846153846154,
+    "comm_vnd_other": 21000,
+    "comm_usd_other": 0.8076923076923077,
+    "pkg25_vnd_other": 1648000,
+    "pkg25_usd_other": 63.38461538461539,
+    "jumbo_vnd_other": 1580000,
+    "jumbo_usd_other": 60.76923076923077,
+    "max25": 27,
+    "maxJumbo": 26,
+    "exw_vnd": 1470000,
+    "exw_usd": 56.53846153846154,
+    "comm_vnd": 21000,
+    "comm_usd": 0.8076923076923077,
+    "pkg25_vnd": 1648000,
+    "pkg25_usd": 63.38461538461539,
+    "jumbo_vnd": 1580000,
+    "jumbo_usd": 60.76923076923077
   }
 ];function importProducts(arr) {
   DATA_PRODUCTS = [];
@@ -4013,6 +4046,10 @@ var DATA_COST_FOB = {
     "sub": 598400
   }
 };var activeTab = "pricelist";
+var DATA_META = {"updatedAt":"2026-08-27T07:07:29.900Z"};
+function ktgDateStr(){ if (window.DATA_META && DATA_META.updatedAt) { try { var d = new Date(DATA_META.updatedAt), p = function(x){ return (x<10?'0':'')+x; }; return p(d.getDate()) + '/' + p(d.getMonth()+1) + '/' + d.getFullYear(); } catch(e){} } return ''; }
+(function(){ try { var e = document.getElementById('ktgDataDate'); if (e) { var s = ktgDateStr(); if (s) e.textContent = s; else { var w = document.getElementById('ktgDataWrap'); if (w) w.style.display = 'none'; } } var m = document.getElementById('mUptd'); if (m) { var s2 = ktgDateStr(); if (s2) m.textContent = s2; } } catch(_){} })();
+
 var priceMode = "exw";
 var lccType = "no";
 var freightUSD = 0;
@@ -4024,31 +4061,11 @@ var FREIGHT_DATA = [{"port": "Shanghai", "country": "CHINA", "freight": 2, "forw
 var EXCHANGE_RATE = 26000;
 
 // ====== UTILITY ======
-function formatUsd(v) { var n = Number(v); var dec = Math.round((n - Math.floor(n)) * 10); return Math.floor(n).toLocaleString("vi-VN") + "," + dec; }
-function formatCurrency(v, isUsd) {
-  if (v === null || v === undefined || isNaN(v)) return "\u2014";
-  var s = isUsd ? formatUsd(v) : Math.round(v).toLocaleString();
-  return s + " " + (isUsd ? "USD" : "VND");
-}
+
+
 
 // ====== MAX LOADING ======
-function getMaxLoading(code, spec) {
-  var key = code;
-  if (DATA_MAX_LOADING[key] && DATA_MAX_LOADING[key][spec] !== undefined && DATA_MAX_LOADING[key][spec] !== null) {
-    return DATA_MAX_LOADING[key][spec];
-  }
-  for (var k in DATA_MAX_LOADING) {
-    if (k.indexOf(code) === 0 && DATA_MAX_LOADING[k][spec] !== undefined && DATA_MAX_LOADING[k][spec] !== null) {
-      return DATA_MAX_LOADING[k][spec];
-    }
-  }
-  for (var k in DATA_MAX_LOADING) {
-    if (k.indexOf(code) >= 0 && DATA_MAX_LOADING[k][spec] !== undefined && DATA_MAX_LOADING[k][spec] !== null) {
-      return DATA_MAX_LOADING[k][spec];
-    }
-  }
-  return null;
-}
+
 
 // ====== COST FOB ======
 function getCostFobVND(maxLoad, lccVariant) {
@@ -4065,38 +4082,16 @@ function getCostFobVND(maxLoad, lccVariant) {
 }
 
 // ====== FOB PRICES ======
-function getFOB25PriceVND(prod, lccVariant) {
-  var ml = getMaxLoading(prod.code, "max25");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var cf = getCostFobVND(ml, lccVariant);
-  return Math.round((prod.pkg25_vnd + cf) * 1.05);
-}
-function getFOBJumboPriceVND(prod, lccVariant) {
-  var ml = getMaxLoading(prod.code, "maxJumbo");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var cf = getCostFobVND(ml, lccVariant);
-  return Math.round((prod.jumbo_vnd + cf) * 1.05);
-}
-function getFOB25PriceUSD(prod, lccVariant) { return getFOB25PriceVND(prod, lccVariant) / 26000; }
-function getFOBJumboPriceUSD(prod, lccVariant) { return getFOBJumboPriceVND(prod, lccVariant) / 26000; }
+
+
+
+
 
 // ====== CIF PRICES ======
-function getCIF25PriceVND(prod, lccVariant, freight) {
-  var ml = getMaxLoading(prod.code, "max25");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var base = getFOB25PriceVND(prod, lccVariant);
-  if (!freight || freight <= 0) return base;
-  return Math.round(base + (freight + 10 + 10) * 26000 / ml);
-}
-function getCIFJumboPriceVND(prod, lccVariant, freight) {
-  var ml = getMaxLoading(prod.code, "maxJumbo");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var base = getFOBJumboPriceVND(prod, lccVariant);
-  if (!freight || freight <= 0) return base;
-  return Math.round(base + (freight + 10 + 10) * 26000 / ml);
-}
-function getCIF25PriceUSD(prod, lccVariant, freight) { return getCIF25PriceVND(prod, lccVariant, freight) / 26000; }
-function getCIFJumboPriceUSD(prod, lccVariant, freight) { return getCIFJumboPriceVND(prod, lccVariant, freight) / 26000; }
+
+
+
+
 
 // ====== PRICE MODE CONTROLS (Gi\u00e1 b\u00e1n tab) ======
 function setPriceMode(mode) {
@@ -4111,22 +4106,9 @@ function setPriceMode(mode) {
   if (fg) fg.style.display = mode === "cif" ? "inline-flex" : "none";
   render();
 }
-function setLccType(type) {
-  lccType = type;
-  var bar = document.getElementById("priceModeBar");
-  if (bar) bar.querySelectorAll(".lcc-btn").forEach(function(b) { b.classList.toggle("active", b.dataset.lcc === type); });
-  render();
-}
-function setFreight(val) {
-  freightUSD = parseFloat(val) || 0;
-  var fi = document.getElementById("freightInput");
-  if (fi) fi.value = val;
-  render();
-}
-function onFreightChange() {
-  var fi = document.getElementById("freightInput");
-  if (fi) setFreight(fi.value);
-}
+
+
+
 
 
 // 01-utils.js
@@ -4140,198 +4122,37 @@ var PHONE = '+84 382 666 000';
 var EXT = '106';
 var MST = '2902085037';
 // ====== UTILITY ======
-function formatUsd(v) { var n = Number(v); var dec = Math.round((n - Math.floor(n)) * 10); return Math.floor(n).toLocaleString("vi-VN") + "," + dec; }
-function formatCurrency(v, isUsd) {
-  if (v === null || v === undefined || isNaN(v)) return "\u2014";
-  var s = isUsd ? formatUsd(v) : Math.round(v).toLocaleString();
-  return s + " " + (isUsd ? "USD" : "VND");
-}
-function formatMaxLoading(v) {
-  if (v && v > 0) return '<span style="font-weight:600;color:#0f766e">' + v + ' t</span>';
-  return '-';
-}
+
+
+
 
 // ====== MAX LOADING ======
-function getMaxLoading(code, spec) {
-  var key = code;
-  if (DATA_MAX_LOADING[key] && DATA_MAX_LOADING[key][spec] !== undefined && DATA_MAX_LOADING[key][spec] !== null) {
-    return DATA_MAX_LOADING[key][spec];
-  }
-  for (var k in DATA_MAX_LOADING) {
-    if (k.indexOf(code) === 0 && DATA_MAX_LOADING[k][spec] !== undefined && DATA_MAX_LOADING[k][spec] !== null) {
-      return DATA_MAX_LOADING[k][spec];
-    }
-  }
-  for (var k in DATA_MAX_LOADING) {
-    if (k.indexOf(code) >= 0 && DATA_MAX_LOADING[k][spec] !== undefined && DATA_MAX_LOADING[k][spec] !== null) {
-      return DATA_MAX_LOADING[k][spec];
-    }
-  }
-  return null;
-}
+
 
 // ====== COST FOB ======
-function getCostFobVND(maxLoad, lccVariant) {
-  if (!maxLoad || maxLoad <= 0) return 0;
-  var row = DATA_COST_FOB[maxLoad];
-  if (!row) return 0;
-  return lccVariant === "sub" ? row.sub : row.no;
-}
+
 
 // ====== FOB PRICES ======
-function getFOB25PriceVND(prod, lccVariant) {
-  var ml = getMaxLoading(prod.code, "max25");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var cf = getCostFobVND(ml, lccVariant);
-  return Math.round((prod.pkg25_vnd + cf) * 1.05);
-}
-function getFOBJumboPriceVND(prod, lccVariant) {
-  var ml = getMaxLoading(prod.code, "maxJumbo");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var cf = getCostFobVND(ml, lccVariant);
-  return Math.round((prod.jumbo_vnd + cf) * 1.05);
-}
-function getFOB25PriceUSD(prod, lccVariant) { return getFOB25PriceVND(prod, lccVariant) / 26000; }
-function getFOBJumboPriceUSD(prod, lccVariant) { return getFOBJumboPriceVND(prod, lccVariant) / 26000; }
+
+
+
+
 
 // ====== CIF PRICES ======
-function getCIF25PriceVND(prod, lccVariant, freight) {
-  var ml = getMaxLoading(prod.code, "max25");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var base = getFOB25PriceVND(prod, lccVariant);
-  if (!freight || freight <= 0) return base;
-  return Math.round(base + (freight + 10 + 10) * 26000 / ml);
-}
-function getCIFJumboPriceVND(prod, lccVariant, freight) {
-  var ml = getMaxLoading(prod.code, "maxJumbo");
-  if (!ml || ml <= 0) return prod.exw_vnd;
-  var base = getFOBJumboPriceVND(prod, lccVariant);
-  if (!freight || freight <= 0) return base;
-  return Math.round(base + (freight + 10 + 10) * 26000 / ml);
-}
-function getCIF25PriceUSD(prod, lccVariant, freight) { return getCIF25PriceVND(prod, lccVariant, freight) / 26000; }
-function getCIFJumboPriceUSD(prod, lccVariant, freight) { return getCIFJumboPriceVND(prod, lccVariant, freight) / 26000; }
+
+
+
+
 
 // 02-pricelist.js
 // ====== PRICE MODE CONTROLS (Giá bán tab) ======
-function setPriceMode(mode) {
-  priceMode = mode;
-  var bar = document.getElementById("priceModeBar");
-  if (!bar) return;
-  bar.querySelectorAll(".mode-btn").forEach(function(b) { b.classList.toggle("active", b.dataset.mode === mode); });
-  var lccGrp = document.getElementById("lccGroup");
-  if (lccGrp) lccGrp.style.display = (mode === "fob" || mode === "cif") ? "flex" : "none";
-  var fg = document.getElementById("freightGroup");
-  if (fg) fg.style.display = mode === "cif" ? "inline-flex" : "none";
-  render();
-}
-function setLccType(type) {
-  lccType = type;
-  var bar = document.getElementById("priceModeBar");
-  if (bar) bar.querySelectorAll(".lcc-btn").forEach(function(b) { b.classList.toggle("active", b.dataset.lcc === type); });
-  render();
-}
-function setFreight(val) {
-  freightUSD = parseFloat(val) || 0;
-  var fi = document.getElementById("freightInput");
-  if (fi) fi.value = val;
-  render();
-}
-function onFreightChange() {
-  var fi = document.getElementById("freightInput");
-  if (fi) setFreight(fi.value);
-}
+
+
+
+
 
 // ====== RENDER PRICE TAB ======
-function renderPriceTab() {
-  var search = (document.getElementById("searchInput") && document.getElementById("searchInput").value || "").toLowerCase();
-  var specFilter = document.getElementById("specFilter") && document.getElementById("specFilter").value || "";
-  var machineFilter = document.getElementById("machineFilter") && document.getElementById("machineFilter").value || "";
-  var sizeFilter = document.getElementById("sizeFilter") && document.getElementById("sizeFilter").value || "";
-  var isUsd = currency === "USD";
-  var filtered = DATA_PRODUCTS.filter(function(p) {
-    if (search && (!p.code || String(p.code).toLowerCase().indexOf(search) < 0) && (!p.size || String(p.size).toLowerCase().indexOf(search) < 0) && (!p.machine || String(p.machine).toLowerCase().indexOf(search) < 0) && (!p.standard || String(p.standard).toLowerCase().indexOf(search) < 0)) return false;
-    if (specFilter && p.standard !== specFilter) return false;
-    if (machineFilter && String(p.machine) !== machineFilter) return false;
-    if (sizeFilter && p.size !== sizeFilter) return false;
-    return true;
-  });
-  var isFob = priceMode === "fob";
-  var isCif = priceMode === "cif";
-  var showFobCif = isFob || isCif;
 
-  var h = "";
-
-  // Freight warning
-  if (isCif && (!freightUSD || freightUSD <= 0)) {
-    h += '<div class="freight-warning">⚠️ Chế độ CIF yêu cầu nhập cước biển. Vui lòng nhập Freight USD ở thanh công cụ bên trên.</div>';
-  }
-
-  // Summary + thống kê
-  var uniqueCodes = {}, uniqueSpecs = {}, uniqueMachines = {};
-  filtered.forEach(function(p) { uniqueCodes[p.code] = true; uniqueSpecs[p.standard] = true; uniqueMachines[String(p.machine)] = true; });
-  var sum25=0, cnt25=0, max25=0;
-  var sumJ=0, cntJ=0, maxJ=0;
-  var sumExw=0, cntExw=0, maxExw=0;
-  filtered.forEach(function(p) {
-    var v25 = isFob ? getFOB25PriceVND(p, lccType) : (isCif ? getCIF25PriceVND(p, lccType, freightUSD) : p.pkg25_vnd);
-    if (v25 && v25 > 0) { sum25 += v25; cnt25++; if (v25 > max25) max25 = v25; }
-    var vJ = isFob ? getFOBJumboPriceVND(p, lccType) : (isCif ? getCIFJumboPriceVND(p, lccType, freightUSD) : p.jumbo_vnd);
-    if (vJ && vJ > 0) { sumJ += vJ; cntJ++; if (vJ > maxJ) maxJ = vJ; }
-    if (p.exw_vnd && p.exw_vnd > 0) { sumExw += p.exw_vnd; cntExw++; if (p.exw_vnd > maxExw) maxExw = p.exw_vnd; }
-  });
-  var fmt = function(v) { return (v || 0).toLocaleString('vi-VN'); };
-  h += '<div class="summary-bar hide-mobile">';
-  h += '<div class="summary-card"><div class="lbl">Sản phẩm</div><div class="val">' + filtered.length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">Tiêu chuẩn</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">Máy</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">Ngày báo giá</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
-  h += '</div>';
-  h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">📋 Hiện max tải</button>\n<div class="market-group">\n<span class="ext-label">🌏 Thị trường:</span>\n<button class="btn-sm' + (currentMarket === 'cn' ? ' active' : '') + '" id="marketCn" onclick="setMarket(\'cn\')">🇨🇳 TQ</button>\n<button class="btn-sm' + (currentMarket === 'other' ? ' active' : '') + '" id="marketOther" onclick="setMarket(\'other\')">🌏 Khác</button>\n</div>'
-
-  // Table
-  h += '<div class="table-wrap pricelist"><table><thead>';
-  h += '<tr><th colspan="4">Thông tin</th><th colspan="2" class="ml-toggle">Max tải</th><th colspan="' + (showFobCif ? 3 : 2) + '">' + (priceMode==="exw"?"Giá bán (EXW)":"Giá bao gồm bao bì") + '</th>';
-  if (!showFobCif) h += '<th colspan="2">' + (priceMode==="exw"?"EXW chưa bao bì":"Giá bán (EXW)") + '</th>';
-  h += '</tr>';
-  h += '<tr><th>Mã</th><th>Kích thước</th><th>Tiêu chuẩn</th><th>Máy</th><th class="ml-toggle">Max 25KG <span class="info-row">(tấn)</span></th><th class="ml-toggle">Max Jumbo <span class="info-row">(tấn)</span></th><th>' + (priceMode==="exw"?"EXW 25KG bao tiêu chuẩn":"25KG") + ' <span class="info-row">(VND)</span></th><th>' + (priceMode==="exw"?"EXW jumbo bao tiêu chuẩn":"Jumbo") + ' <span class="info-row">(VND)</span></th>';
-  if (!showFobCif) {
-    h += '<th>' + (priceMode==="exw"?"EXW chưa bao bì":"EXW") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th><th>' + (priceMode==="exw"?"Hoa hồng cơ bản":"Hoa hồng") + ' <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
-  }
-  if (showFobCif) h += '<th>Hoa hồng cơ bản <span class="info-row">' + (isUsd ? '(USD)' : '(VND)') + '</span></th>';
-  h += '</tr></thead><tbody>';
-
-  for (var i = 0; i < filtered.length; i++) {
-    var p = filtered[i];
-    h += '<tr>';
-    h += '<td><strong>' + p.code + '</strong></td>';
-    h += '<td>' + p.size + '</td>';
-    h += '<td><span class="badge-spec badge-' + p.standard.replace(/-/g, '').replace(/\+/g, '') + '">' + p.standard + '</span></td>';
-    h += '<td>' + p.machine + '</td>';
-    h += '<td class="text-right ml-toggle">' + formatMaxLoading(getMaxLoading(p.code, "max25")) + '</td>';
-    h += '<td class="text-right ml-toggle">' + formatMaxLoading(getMaxLoading(p.code, "maxJumbo")) + '</td>';
-
-    if (isFob) {
-      h += '<td class="text-right">' + (isUsd ? formatCurrency(getFOB25PriceUSD(p, lccType), true) : formatCurrency(getFOB25PriceVND(p, lccType), false)) + '</td>';
-      h += '<td class="text-right">' + (isUsd ? formatCurrency(getFOBJumboPriceUSD(p, lccType), true) : formatCurrency(getFOBJumboPriceVND(p, lccType), false)) + '</td>';
-    } else if (isCif) {
-      h += '<td class="text-right">' + (isUsd ? formatCurrency(getCIF25PriceUSD(p, lccType, freightUSD), true) : formatCurrency(getCIF25PriceVND(p, lccType, freightUSD), false)) + '</td>';
-      h += '<td class="text-right">' + (isUsd ? formatCurrency(getCIFJumboPriceUSD(p, lccType, freightUSD), true) : formatCurrency(getCIFJumboPriceVND(p, lccType, freightUSD), false)) + '</td>';
-    } else {
-      h += '<td class="text-right">' + (p.pkg25_vnd ? (isUsd ? formatCurrency(p.pkg25_usd, true) : formatCurrency(p.pkg25_vnd, false)) : '—') + '</td>';
-      h += '<td class="text-right">' + (p.jumbo_vnd ? (isUsd ? formatCurrency(p.jumbo_usd, true) : formatCurrency(p.jumbo_vnd, false)) : '—') + '</td>';
-    }
-    if (showFobCif) h += '<td class="text-right"><span class="tag-profit">' + formatCurrency(isUsd ? p.comm_usd : p.comm_vnd, isUsd) + '</span></td>';
-    if (!showFobCif) {
-      h += '<td class="text-right"><strong>' + formatCurrency(isUsd ? p.exw_usd : p.exw_vnd, isUsd) + '</strong></td>';
-      h += '<td class="text-right"><span class="tag-profit">' + formatCurrency(isUsd ? p.comm_usd : p.comm_vnd, isUsd) + '</span></td>';
-    }
-    h += '</tr>';
-  }
-  h += '</tbody></table></div>';
-
-  return h;
-}
 
 // ====== FILTER POPULATOR ======
 function populateFilters() {
@@ -4342,13 +4163,7 @@ function populateFilters() {
   var curSize = document.getElementById("sizeFilter") ? document.getElementById("sizeFilter").value : "";
 
   // Helper: check if a product matches search
-  function matchesSearch(p) {
-    if (!search) return true;
-    return (p.code && String(p.code).toLowerCase().indexOf(search) >= 0) ||
-           (p.size && String(p.size).toLowerCase().indexOf(search) >= 0) ||
-           (p.machine && String(p.machine).toLowerCase().indexOf(search) >= 0) ||
-           (p.standard && String(p.standard).toLowerCase().indexOf(search) >= 0);
-  }
+
 
   // === specFilter: show standards available given search + machine + size ===
   var sf = document.getElementById("specFilter");
@@ -4402,64 +4217,13 @@ function populateFilters() {
 // 03-bags.js
 // ====== RENDER BAGS TAB ======
 
-function toggleMaxLoad() {
-  var cols = document.querySelectorAll('.ml-toggle');
-  var btn = document.getElementById('mlToggleBtn');
-  var hidden = btn.textContent.indexOf('Hi\u1ec7n') >= 0;
-  cols.forEach(function(el) { el.classList.toggle('ml-visible', hidden); });
-  btn.textContent = hidden ? '\ud83d\udccb \u1ea8n max t\u1ea3i' : '\ud83d\udccb Hi\u1ec7n max t\u1ea3i';
-}
 
-function renderBagsTab() {
-  var h = '<div class="table-wrap" style="margin-top:0"><table><thead>';
-  h += '<tr><th colspan="4">Thông tin bao bì</th><th colspan="2">Giá</th></tr>';
-  h += '<tr><th>Mã bao</th><th>Quy cách</th><th>Số lượng</th><th>Giá vốn</th><th>Giá bán</th><th>Lợi nhuận</th></tr>';
-  h += '</thead><tbody>';
-  for (var i = 0; i < DATA_BAGS.length; i++) {
-    var b = DATA_BAGS[i];
-    h += '<tr>';
-    h += '<td><strong>' + b.code + '</strong></td>';
-    h += '<td>' + b.spec + '</td>';
-    h += '<td class="text-right">' + (b.qty || 0).toLocaleString() + '</td>';
-    h += '<td class="text-right">' + (b.cost || 0).toLocaleString() + ' VND</td>';
-    h += '<td class="text-right"><strong>' + (b.price || 0).toLocaleString() + ' VND</strong></td>';
-    h += '<td class="text-right"><span class="tag-profit">' + ((b.profit || 0) * 100).toFixed(0) + '%</span></td>';
-    h += '</tr>';
-  }
-  h += '</tbody></table></div>';
-  h += '<div class="summary-bar" style="margin-top:12px">';
-  h += '<div class="summary-card"><div class="lbl">Tổng loại bao</div><div class="val">' + DATA_BAGS.length + '</div></div>';
-  var bag25 = DATA_BAGS.filter(function(b) { return b.spec === '25KG'; }).length;
-  var bagJumbo = DATA_BAGS.filter(function(b) { return b.spec === 'Jumbo'; }).length;
-  h += '<div class="summary-card"><div class="lbl">Bao 25KG</div><div class="val">' + bag25 + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">Bao Jumbo</div><div class="val">' + bagJumbo + '</div></div>';
-  h += '</div>';
-  return h;
-}
 
 
 
 // 04-others.js
 // ====== RENDER OTHERS TAB ======
-function renderOthersTab() {
-  var h = '<div class="table-wrap" style="margin-top:0"><table><thead>';
-  h += '<tr><th>Quy cách khác</th><th>Giá vốn</th><th>Giá bán</th><th>Lợi nhuận</th></tr>';
-  h += '</thead><tbody>';
-  for (var i = 0; i < DATA_OTHERS.length; i++) {
-    var o = DATA_OTHERS[i];
-    h += '<tr>';
-    h += '<td><strong>' + o.code + '</strong></td>';
-    h += '<td class="text-right">' + (o.cost || 0).toLocaleString() + ' VND</td>';
-    h += '<td class="text-right"><strong>' + (o.price || 0).toLocaleString() + ' VND</strong></td>';
-    h += '<td class="text-right"><span class="tag-profit">' + ((o.profit || 0) * 100).toFixed(0) + '%</span></td>';
-    h += '</tr>';
-  }
-  h += '</tbody></table></div>';
-  h += '<div class="summary-bar" style="margin-top:12px">';
-  h += '<div class="summary-card"><div class="lbl">Tổng quy cách</div><div class="val">' + DATA_OTHERS.length + '</div></div>';
-  h += '</div>';
-  return h;
-}
+
 
 
 
@@ -4676,254 +4440,17 @@ function populateCalcMaxLoad() {
   }
 }
 // ====== FILTER HELPERS ======
-function filterBagSpec() {
-  var bagSpec = document.getElementById("calcBagSpec").value;
-  var bsel = document.getElementById("calcBag");
-  if (bsel) {
-    var curVal = bsel.value;
-    bsel.innerHTML = '<option value="">— Không chọn bao bì —</option>';
-    for (var i = 0; i < DATA_BAGS.length; i++) {
-      if (DATA_BAGS[i].spec === bagSpec) {
-        bsel.innerHTML += '<option value="' + DATA_BAGS[i].code + '">' + DATA_BAGS[i].code + '</option>';
-      }
-    }
-    bsel.value = curVal;
-  }
-  var tnRow = document.getElementById("calcTonnageRow");
-  var otnRow = document.getElementById("calcOtherTonnageRow");
-  if (tnRow) tnRow.style.display = (bagSpec === "Jumbo") ? "flex" : "none";
-  if (otnRow) otnRow.style.display = (bagSpec === "Jumbo") ? "none" : "flex";
-  calcPrice();
-}
+
 // ====== CALC FUNCTIONS ======
 // ====== CALC PRICE MODE HELPERS ======
-function setCalcCurrency(ccy) {
-  currency = ccy;
-  var vndBtn = document.getElementById("calcCcyVnd");
-  var usdBtn = document.getElementById("calcCcyUsd");
-  if (vndBtn) vndBtn.classList.toggle("active", ccy === "VND");
-  if (usdBtn) usdBtn.classList.toggle("active", ccy === "USD");
-  calcPrice();
-}
-function setCalcPriceMode(mode) {
-  calcPriceMode = mode;
-  var bar = document.getElementById("calcPriceModeBar");
-  if (!bar) return;
-  bar.querySelectorAll(".mode-btn").forEach(function(b) { b.classList.toggle("active", b.dataset.mode === mode); });
-  var lccGrp = document.getElementById("calcLccGroup");
-  if (lccGrp) lccGrp.style.display = (mode === "fob" || mode === "cif") ? "flex" : "none";
-  var fg = document.getElementById("calcFreightGroup");
-  if (fg) fg.style.display = mode === "cif" ? "inline-flex" : "none";
-  // Show/hide max loading dropdown
-  var mlRow = document.getElementById("calcMaxLoadRow");
-  if (mlRow) mlRow.style.display = (mode === "fob" || mode === "cif") ? "flex" : "none";
-  if (mode === "fob" || mode === "cif") populateCalcMaxLoad();
-  calcPrice();
-}
-function setCalcLccType(type) {
-  calcLccType = type;
-  var bar = document.getElementById("calcPriceModeBar");
-  if (bar) bar.querySelectorAll(".lcc-btn").forEach(function(b) { b.classList.toggle("active", b.dataset.lcc === type); });
-  calcPrice();
-}
-function setCalcFreight(val) {
-  calcFreightUSD = parseFloat(val) || 0;
-  calcPrice();
-}
-function getCalcBagSpec() {
-  var sel = document.getElementById("calcBagSpec");
-  return sel ? sel.value : "25KG";
-}
-function getCalcMaxLoading(prod) {
-  var bs = getCalcBagSpec();
-  if (bs === "Jumbo") return getMaxLoading(prod.code, "maxJumbo");
-  return getMaxLoading(prod.code, "max25");
-}
-function calcCommission() {
-  var sp = document.getElementById("calcSellPrice"), cr = document.getElementById("calcCommissionResult");
-  if (!sp || !cr || !sp.value) { if (cr) cr.innerHTML = ""; return; }
-  var sellPrice = parseFloat(sp.value);
-  if (isNaN(sellPrice) || sellPrice <= 0) { cr.innerHTML = ""; return; }
-  var psel = document.getElementById("calcProduct");
-  if (!psel || !psel.value) { cr.innerHTML = '<div style="color:var(--muted);font-size:12px">Chọn sản phẩm trước</div>'; return; }
-  var prod = null;
-  for (var i = 0; i < DATA_PRODUCTS.length; i++) { var _cp=psel.value.split('||'),_cpC=_cp[0],_cpS=_cp[1]||'';if (DATA_PRODUCTS[i].code===_cpC&&DATA_PRODUCTS[i].standard===_cpS) { prod = DATA_PRODUCTS[i]; break; } }
-  if (!prod) { cr.innerHTML = ""; return; }
-  var isUsd = currency === "USD";
-  var commBase = isUsd ? prod.comm_usd : prod.comm_vnd;
-  var bsel = document.getElementById("calcBag"), tnsel = document.getElementById("calcTonnage"), otnsel = document.getElementById("calcOtherTonnage"), osel = document.getElementById("calcOther"), bagSpecSel = document.getElementById("calcBagSpec");
-  var bs = bagSpecSel ? bagSpecSel.value : "25KG";
-  var isJumbo = bs === "Jumbo";
-  // 
-  var bagPrice = 0, bcode = bsel ? bsel.value : "", bagTons = 1;
-  if (isJumbo && tnsel && tnsel.value && parseFloat(tnsel.value) > 0) bagTons = parseFloat(tnsel.value);
-  var otherTons = 1;
-  if (otnsel && otnsel.value && parseFloat(otnsel.value) > 0) otherTons = parseFloat(otnsel.value);
-  // When Jumbo selected, other spec also divides by bag tonnage
-  if (isJumbo && bagTons > 0) otherTons = bagTons;
-  var exwBase = 0;
-  if (bcode) {
-    // User selected a specific bag -> EXW + bagPrice
-    exwBase = isUsd ? prod.exw_usd : prod.exw_vnd;
-    var bsSpec = document.getElementById("calcBagSpec"); var curBagSpec = bsSpec ? bsSpec.value : ""; for (var i = 0; i < DATA_BAGS.length; i++) { if (DATA_BAGS[i].code === bcode && DATA_BAGS[i].spec === curBagSpec) { bagPrice = DATA_BAGS[i].price; break; } } if (isJumbo && bagTons > 0) bagPrice = bagPrice / bagTons;
-  } else {
-    // No bag selected -> use pkg price (includes bag)
-    exwBase = isUsd ? (isJumbo ? prod.jumbo_usd : prod.pkg25_usd) : (isJumbo ? prod.jumbo_vnd : prod.pkg25_vnd);
-    bagPrice = 0;
-  }
-  var otherPrice = 0, ocode = osel ? osel.value : "";
-  if (ocode) { for (var i = 0; i < DATA_OTHERS.length; i++) { if (DATA_OTHERS[i].code === ocode) { otherPrice = DATA_OTHERS[i].price; break; } } if (otherTons > 0) otherPrice = otherPrice / otherTons; }
-  var totalCost = 0;
-  if (calcPriceMode === "fob" || calcPriceMode === "cif") {
-    // Compute FOB/CIF the same way as calcPrice
-    var mlsel = document.getElementById("calcMaxLoad");
-    var cml = mlsel && mlsel.value ? parseFloat(mlsel.value) : 0;
-    if (!cml) cml = isJumbo ? getMaxLoading(prod.code, "maxJumbo") : getMaxLoading(prod.code, "max25");
-    var cfobCost = getCostFobVND(cml, calcLccType);
-    // Convert to USD if needed
-    if (isUsd) {
-      bagPrice = bagPrice / EXCHANGE_RATE;
-      otherPrice = otherPrice / EXCHANGE_RATE;
-      cfobCost = cfobCost / EXCHANGE_RATE;
-    }
-    totalCost = (exwBase + bagPrice + otherPrice + cfobCost) * 1.05;
-    if (calcPriceMode === "cif" && cml > 0) {
-      totalCost += isUsd ? (calcFreightUSD + 10) / cml : (calcFreightUSD + 10) * EXCHANGE_RATE / cml;
-    }
-    // Hoa hong FOB/CIF: commBase + (gia ban - gia fob) / 1.05 * 20%
-    var diff = Math.max(0, (sellPrice - totalCost) / 1.05);
-    var commissionVar = diff * 0.2;
-    var effCommBase = sellPrice < totalCost ? 0 : commBase;
-    var totalComm = effCommBase + commissionVar;
-  } else {
-    if (isUsd) {
-      bagPrice = bagPrice / EXCHANGE_RATE;
-      otherPrice = otherPrice / EXCHANGE_RATE;
-    }
-    totalCost = exwBase + bagPrice + otherPrice;
-    var diff = Math.max(0, sellPrice - totalCost);
-    var commissionVar = diff * 0.2;
-    var effCommBase = sellPrice < totalCost ? 0 : commBase;
-    var totalComm = effCommBase + commissionVar;
-  }
-  var h = '<div class="calc-comm-row"><span>Hoa hồng cơ bản</span><strong>' + fmtNum(effCommBase, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>Chênh lệch (20%)</span><strong>' + fmtNum(commissionVar, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
-  h += '<div class="calc-comm-row"><span>Tổng giá vốn</span><strong>' + fmtNum(totalCost, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
-  h += '<div class="calc-comm-row calc-total" style="padding:10px 0;border-top:2px solid var(--primary);margin-top:6px"><span>Tổng hoa hồng</span><strong style="color:var(--primary);font-size:16px">' + fmtNum(totalComm, isUsd) + ' ' + (isUsd ? "USD" : "VND") + '</strong></div>';
-  cr.innerHTML = h;
-}
-function calcPrice() {
-  var res = document.getElementById("calcResult");
-  if (!res) return;
-  var psel = document.getElementById("calcProduct"), bsel = document.getElementById("calcBag"), tnsel = document.getElementById("calcTonnage"), otnsel = document.getElementById("calcOtherTonnage"), osel = document.getElementById("calcOther"), bagSpecSel = document.getElementById("calcBagSpec");
-  var isUsd = currency === "USD", pcode = psel ? psel.value : "";
-  if (!pcode) { res.innerHTML = '<div class="calc-empty">👈 Vui lòng chọn sản phẩm</div>'; return; }
-  var prod = null;
-  for (var i = 0; i < DATA_PRODUCTS.length; i++) { var _cp = pcode.split('||'), _cpC = _cp[0], _cpS = _cp[1] || ''; if (DATA_PRODUCTS[i].code === _cpC && DATA_PRODUCTS[i].standard === _cpS) { prod = DATA_PRODUCTS[i]; break; } }
-  if (!prod) { res.innerHTML = '<div class="calc-empty">❌ Không tìm thấy sản phẩm</div>'; return; }
-  var bs = bagSpecSel ? bagSpecSel.value : "25KG";
-  var isJumbo = bs === "Jumbo";
-  // Jumbo validation: must select tonnage
-  if (isJumbo && (!tnsel || !tnsel.value || tnsel.value === "")) {
-    res.innerHTML = '<div class="calc-empty">⚠️ Vui lòng chọn <strong>Số tấn / bao Jumbo</strong> để xem kết quả</div>';
-    return;
-  }
-  // Determine base price: EXW or FOB or CIF
-  var exwMin = 0;
-  var commBase = isUsd ? prod.comm_usd : prod.comm_vnd;
-  var fobCostPerTon = 0;
-  var maxLoad = isJumbo ? getMaxLoading(prod.code, "maxJumbo") : getMaxLoading(prod.code, "max25");
-  var isFobMode = calcPriceMode === "fob";
-  var isCifMode = calcPriceMode === "cif";
 
-  // Get selected max loading (or auto from bag spec)
-  var mlsel = document.getElementById("calcMaxLoad");
-  var selectedMaxLoad = mlsel && mlsel.value ? parseFloat(mlsel.value) : 0;
-  if (!selectedMaxLoad) {
-    selectedMaxLoad = isJumbo ? getMaxLoading(prod.code, "maxJumbo") : getMaxLoading(prod.code, "max25");
-  }
-  maxLoad = selectedMaxLoad;
 
-  // Determine base price: EXW or pkg (when no bag selected)
-  var bcode = bsel ? bsel.value : "";
-  var isDefaultBag = !bcode;
-  var bagPrice = 0, bagTons = 1;
-  if (isJumbo && tnsel && tnsel.value && parseFloat(tnsel.value) > 0) bagTons = parseFloat(tnsel.value);
-  var ocode = osel ? osel.value : "", otherTons = 1;
-  if (otnsel && otnsel.value && parseFloat(otnsel.value) > 0) otherTons = parseFloat(otnsel.value);
-  // When Jumbo selected, other spec also divides by bag tonnage
-  if (isJumbo && bagTons > 0) otherTons = bagTons;
-  var bagCode = "";
-  var hasBag = false;
 
-  if (bcode) {
-    // User selected a specific bag -> use EXW + bagPrice + otherPrice
-    hasBag = true;
-    exwMin = isUsd ? prod.exw_usd : prod.exw_vnd;
-    var curBagSpec = bs; for (var i = 0; i < DATA_BAGS.length; i++) { if (DATA_BAGS[i].code === bcode && DATA_BAGS[i].spec === curBagSpec) { bagPrice = DATA_BAGS[i].price; bagCode = DATA_BAGS[i].code; break; } } if (isJumbo && bagTons > 0) bagPrice = bagPrice / bagTons;
-  } else {
-    // No bag selected -> use pkg price (already includes bag)
-    exwMin = isUsd ? (isJumbo ? prod.jumbo_usd : prod.pkg25_usd) : (isJumbo ? prod.jumbo_vnd : prod.pkg25_vnd);
-    bagPrice = 0;
-    bagCode = "Tiêu chuẩn " + bs;
-  }
-  var otherPrice = 0, otherCode = "";
-  if (ocode) { for (var i = 0; i < DATA_OTHERS.length; i++) { if (DATA_OTHERS[i].code === ocode) { otherPrice = DATA_OTHERS[i].price; otherCode = DATA_OTHERS[i].code; break; } } if (otherTons > 0) otherPrice = otherPrice / otherTons; }
 
-  // FOB/CIF mode needs fobCost
-  if (isFobMode || isCifMode) {
-    fobCostPerTon = getCostFobVND(maxLoad, calcLccType);
-  }
-  // Convert to USD if needed
-  if (isUsd) {
-    otherPrice = otherPrice / EXCHANGE_RATE;
-    bagPrice = bagPrice / EXCHANGE_RATE;
-    fobCostPerTon = fobCostPerTon / EXCHANGE_RATE;
-  }
-var total = 0;
-  if (isFobMode || isCifMode) {
-    total = (exwMin + bagPrice + otherPrice + fobCostPerTon) * 1.05;
-    if (isCifMode && maxLoad > 0) {
-      total += isUsd ? (calcFreightUSD + 10) / maxLoad : (calcFreightUSD + 10) * EXCHANGE_RATE / maxLoad;
-    }
-  } else {
-    total = exwMin + bagPrice + otherPrice;
-  }
-  var cc = isUsd ? "USD" : "VND";
-    var h = '<div class="calc-result-summary">';
-  h += '<div class="calc-result-item"><span class="calc-rl">📦 Sản phẩm</span><span class="calc-rv">' + prod.code + '</span></div>';
-  h += '<div class="calc-result-item"><span class="calc-rl">⚙️ Máy / Tiêu chuẩn</span><span class="calc-rv">' + prod.machine + ' · ' + prod.standard + '</span></div>';
-  h += '<div class="calc-result-item"><span class="calc-rl">📐 Kích thước</span><span class="calc-rv">' + prod.size + '</span></div>';
-  var modeLabel = calcPriceMode.toUpperCase();
-  if (isFobMode) modeLabel += " (" + (calcLccType === "sub" ? "Sub LCC" : "No LCC") + ")";
-  if (isCifMode) modeLabel += " (LCC:" + (calcLccType === "sub" ? "Sub" : "No") + " F:" + calcFreightUSD + "USD)";
-  h += '<div class="calc-result-item"><span class="calc-rl">💰 ' + 'EXW' + (hasBag ? ' chưa bao bì' : ' có bao bì') + '</span><span class="calc-rv exw">' + fmtNum(exwMin, isUsd) + ' ' + cc + '</span></div>';
-  if (isFobMode && maxLoad) {
-    h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tấn</span></div>';
-    h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
-  }
-  if (isCifMode) {
-    if (maxLoad > 0) {
-      h += '<div class="calc-result-item"><span class="calc-rl">⚖️ Max loading</span><span class="calc-rv other">' + maxLoad + ' tấn</span></div>';
-      h += '<div class="calc-result-item"><span class="calc-rl">🚛 Phí FOB / tấn</span><span class="calc-rv other">' + fmtNum(fobCostPerTon, isUsd) + ' ' + cc + '</span></div>';
-      var cifFreightPerTon = isUsd ? (calcFreightUSD + 10) / maxLoad : (calcFreightUSD + 10) * EXCHANGE_RATE / maxLoad;
-      h += '<div class="calc-result-item"><span class="calc-rl">🚢 Freight / tấn</span><span class="calc-rv other">' + fmtNum(cifFreightPerTon, isUsd) + ' ' + cc + '</span></div>';
-    }
-  }
-  var bd = ""; if (bcode || isDefaultBag) { if (hasBag) { bd = bagCode; } else { bd = bagCode; } if (isJumbo && bagTons > 0) bd += " / " + bagTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">🛍️ Bao bì (' + bd + ')</span><span class="calc-rv bag">' + fmtNum(bagPrice, isUsd) + ' ' + cc + '</span></div>'; if (!hasBag) h += '<div class="calc-result-item"><span style="font-size:11px;color:#f59e0b;font-style:italic">⚠️ Đang dùng giá bao gồm bao bì tiêu chuẩn. Nếu bao bì khác vui lòng chọn chính xác!</span></div>'; }
-  if (ocode) { var od = otherCode; if (!isJumbo && otherTons > 0) od += " / " + otherTons + " tấn"; h += '<div class="calc-result-item"><span class="calc-rl">📦 Quy cách khác (' + od + ')</span><span class="calc-rv other">' + fmtNum(otherPrice, isUsd) + ' ' + cc + '</span></div>'; }
-  h += '<div class="calc-result-total-row">';
-  h += '<span class="calc-rl">🏷️ Tổng giá thành (' + modeLabel + ')</span>';
-  h += '<span class="calc-rv total">' + fmtNum(total, isUsd) + ' ' + cc + '</span>';
-  h += '</div>';
-  h += '</div>';
-  h += '<div class="calc-commission-wrap">';
-  h += '<div class="calc-sell-input"><span>💰 Giá bán</span><input type="number" id="calcSellPrice" placeholder="Nhập giá bán..." oninput="calcCommission()"></div>';
-  h += '<div class="calc-comm-result" id="calcCommissionResult"></div>';
-  h += `<div style="margin-top:12px;text-align:center"><button onclick="switchTab('quotation')" style="background:var(--primary);color:white;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.3)">📄 Lên báo giá</button></div>`;
-  h += '</div>';
-  res.innerHTML = h;
-}
+
+
+
+
 
 
 
@@ -5192,39 +4719,10 @@ function calcDomesticPrice()
   h+='</div>';
   res.innerHTML=h;
 }
-function resetCalcFilters() {
-  var me = document.getElementById("calcMachine");
-  if (me) me.value = "";
-  var se = document.getElementById("calcStandard");
-  if (se) se.value = "";
-  var sze = document.getElementById("calcSize");
-  if (sze) sze.value = "";
-  var pe = document.getElementById("calcProduct");
-  if (pe) pe.value = "";
-  var mlsel = document.getElementById("calcMaxLoad");
-  if (mlsel) mlsel.value = "";
-  filterCalcProducts();
-  var bs = document.getElementById("calcBagSpec");
-  if (bs) bs.value = "25KG";
-  var bg = document.getElementById("calcBag");
-  if (bg) bg.innerHTML = '<option value="">— Không chọn bao bì —</option>';
-  var ot = document.getElementById("calcOther");
-  if (ot) ot.value = "";
-  calcPrice();
-}
+
 
 // ====== CALC MARKET SELECTOR ======
-function setCalcMarket(mkt) {
-  currentMarket = mkt;
-  var cnBtn = document.getElementById("calcMarketCn");
-  var otherBtn = document.getElementById("calcMarketOther");
-  if (cnBtn && otherBtn) {
-    cnBtn.classList.toggle("active", mkt === "cn");
-    otherBtn.classList.toggle("active", mkt === "other");
-  }
-  applyMarket();
-  calcPrice();
-}
+
 
 // 06-manage.js
 // ====== EXPORT FUNCTIONS ======
@@ -5281,54 +4779,7 @@ function manageLogin() {
   }
 }
 
-function downloadTemplate(type) {
-  var headers, fn, row;
-  if (type === 0) {
-    fn = "Mau_gia_ban.xlsx";
-    headers = ["code","size","standard","machine","max25","maxJumbo","exw_vnd_cn","exw_usd_cn","comm_vnd_cn","comm_usd_cn","pkg25_vnd_cn","pkg25_usd_cn","jumbo_vnd_cn","jumbo_usd_cn","exw_vnd_other","exw_usd_other","comm_vnd_other","comm_usd_other","pkg25_vnd_other","pkg25_usd_other","jumbo_vnd_other","jumbo_usd_other"];
-  } else if (type === 1) {
-    fn = "Mau_bao_bi.xlsx";
-    headers = ["code","cost","spec","qty","price","profit"];
-  } else if (type === 2) {
-    fn = "Mau_quy_cach_khac.xlsx";
-    headers = ["code","name","cost","qty","price","profit"];
-  } else if (type === 3) {
-    fn = "Mau_max_tai.xlsx";
-    headers = ["SẢN PHẨM","Max Loading 25KG","Max Loading Jumbo"];
-  } else if (type === 4) {
-    fn = "Mau_cuoc_noi_dia.xlsx";
-    headers = ["province","ward","address","freight","freight_mooc"];
-  }
-  var ws = XLSX.utils.aoa_to_sheet([headers]);
-  var wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "Template");
-  XLSX.writeFile(wb, fn);
-}
 
-function downloadFullTemplate() {
-  var ws_data = [];
-  var dt = new Date();
-  var fn = "DT-Mau_Day_Du-" + dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate() + ".xlsx";
-  var wb = XLSX.utils.book_new();
-  
-  // Sheet 1: Products
-  var prodHeaders = ["code","size","standard","machine","max25","maxJumbo","exw_vnd_cn","exw_usd_cn","comm_vnd_cn","comm_usd_cn","pkg25_vnd_cn","pkg25_usd_cn","jumbo_vnd_cn","jumbo_usd_cn","exw_vnd_other","exw_usd_other","comm_vnd_other","comm_usd_other","pkg25_vnd_other","pkg25_usd_other","jumbo_vnd_other","jumbo_usd_other"];
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([prodHeaders]), "Products");
-  
-  // Sheet 2: Bags
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([["code","cost","spec","qty","price","profit"]]), "Bags");
-  
-  // Sheet 3: Others
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([["code","name","cost","qty","price","profit"]]), "Others");
-  
-  // Sheet 4: MaxLoading
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([["code","max25","maxJumbo"]]), "MaxLoading");
-  
-  // Sheet 5: CostFOB
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([["maxLoading","no","sub"]]), "CostFOB");
-  
-  XLSX.writeFile(wb, fn);
-}
 
 function downloadFile(type) {
   var fn = "", data = [], sheetName = "";
@@ -5395,38 +4846,12 @@ function downloadAsExcel() {
   XLSX.writeFile(wb, fn);
 }
 
-function downloadAsJSON() {
-  var dt = new Date();
-  var fn = "DT-data-" + dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate() + ".js";
-  var content = "// Data exported " + dt.toISOString() + "\n";
-  content += "var DATA_PRODUCTS = " + JSON.stringify(DATA_PRODUCTS, null, 2) + ";\n\n";
-  content += "var DATA_BAGS = " + JSON.stringify(DATA_BAGS, null, 2) + ";\n\n";
-  content += "var DATA_OTHERS = " + JSON.stringify(DATA_OTHERS, null, 2) + ";";
-  var blob = new Blob([content], {type: "text/javascript"});
-  var a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = fn;
-  a.click();
-}
 
 // ====== PASSWORD MODAL ======
-function showPwModal() {
-  document.getElementById("pwModal").classList.add("open");
-  document.getElementById("pwInput").value = "";
-  document.getElementById("pwError").style.display = "none";
-}
-function closePwModal() {
-  document.getElementById("pwModal").classList.remove("open");
-}
-function checkPassword() {
-  if (document.getElementById("pwInput").value === managePassword) {
-    closePwModal();
-    switchTab("manage");
-  } else {
-    document.getElementById("pwError").style.display = "block";
-  }
-}
-function manageFromPwModal() { checkPassword(); }
+
+
+
+
 
 // 07-main.js
 
@@ -5701,6 +5126,10 @@ var DATA_MAX_LOADING = {
     "maxJumbo": 27
   },
   "FS15A1C": {
+    "max25": 27,
+    "maxJumbo": 26
+  },
+  "FS12A2C": {
     "max25": 27,
     "maxJumbo": 26
   }
@@ -6249,7 +5678,7 @@ function renderPriceTab() {
   h += '<div class="summary-card"><div class="lbl">Sản phẩm</div><div class="val">' + filtered.length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Tiêu chuẩn</div><div class="val">' + Object.keys(uniqueSpecs).length + '</div></div>';
   h += '<div class="summary-card"><div class="lbl">Máy</div><div class="val">' + Object.keys(uniqueMachines).length + '</div></div>';
-  h += '<div class="summary-card"><div class="lbl">Ngày báo giá</div><div class="val" style="font-size:16px">25/06/2026</div></div>';
+  h += '<div class="summary-card"><div class="lbl">Ngày báo giá</div><div class="val" style="font-size:16px">' + (ktgDateStr() || '25/06/2026') + '</div></div>';
   h += '</div>';
   h += '<button class="btn-sm" id="mlToggleBtn" onclick="toggleMaxLoad()" style="margin:0 0 0 auto;font-size:12px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer">📋 Hiện max tải</button>\n<div class="market-group">\n<span class="ext-label">🌏 Thị trường:</span>\n<button class="btn-sm' + (currentMarket === 'cn' ? ' active' : '') + '" id="marketCn" onclick="setMarket(\'cn\')">🇨🇳 TQ</button>\n<button class="btn-sm' + (currentMarket === 'other' ? ' active' : '') + '" id="marketOther" onclick="setMarket(\'other\')">🌏 Khác</button>\n</div>'
 

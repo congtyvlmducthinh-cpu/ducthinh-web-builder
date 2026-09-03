@@ -36,6 +36,8 @@ module.exports = function(env) {
       var existing = {};
       try { existing = JSON.parse(fs.readFileSync(f, 'utf-8')); } catch(e) {}
       Object.keys(blocks).forEach(function(k) { existing[k] = blocks[k]; });
+      // Auto-stamp last-updated metadata (server-authoritative, shown in page badge)
+      existing.DATA_META = 'var DATA_META = ' + JSON.stringify({ updatedAt: new Date().toISOString() }) + ';';
       fs.writeFileSync(f, JSON.stringify(existing, null, 2), 'utf-8');
       console.log('[KTGInjector] Saved ' + f);
       return true;
